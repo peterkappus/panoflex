@@ -1,0 +1,36 @@
+.page-header
+  = link_to new_function_path, class: 'btn btn-primary' do
+    span.glyphicon.glyphicon-plus
+    |  New Function
+  h1
+    | Functions
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        /th Name
+        th Short Name
+        th Average Monthly Cost per Person
+        /
+          th
+            | Mission
+        /
+          th
+          th
+          th
+    tbody
+      - @functions.each do | function |
+        tr
+          / td = link_to function.name, function
+          td = link_to function.short_name, function
+          td = humanized_money_with_symbol function.avg_cost_per_head
+          /
+            td = function.mission
+          /
+            td
+              = link_to 'Show', function
+            td
+              = link_to 'Edit', edit_function_path(function)
+            td
+              = link_to 'Destroy', function, method: :delete, data: { confirm: 'Are you sure?' }

@@ -1,0 +1,75 @@
+= form_for(@actual, html: { class: "form-horizontal", role: "form" }) do |f|
+  - if @actual.errors.any?
+    .alert.alert-danger.alert-dismissable role="alert"
+      button.close type="button" data-dismiss="alert"
+        span aria-hidden="true"
+          | &times;
+        span.sr-only
+          | Close
+      h4= "#{pluralize(@actual.errors.count,"error")} prohibited this actual from being saved:"
+      ul
+        - @actual.errors.full_messages.each do |msg|
+          li= msg
+  .form-group
+    = f.label :period, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.date_select :period, class: "form-control"
+  .form-group
+    = f.label :cost_centre_description, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :cost_centre_description, class: "form-control"
+  .form-group
+    = f.label :account, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :account, class: "form-control"
+  .form-group
+    = f.label :account_description, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :account_description, class: "form-control"
+  .form-group
+    = f.label :account_type, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :account_type, class: "form-control"
+  .form-group
+    = f.label :reference, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :reference, class: "form-control"
+  .form-group
+    = f.label :customer_or_supplier, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :customer_or_supplier, class: "form-control"
+  .form-group
+    = f.label :gl_date, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.date_select :gl_date, class: "form-control"
+  .form-group
+    = f.label :po_number, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :po_number, class: "form-control"
+  .form-group
+    = f.label :description, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :description, class: "form-control"
+  .form-group
+    = f.label :debit, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :debit, class: "form-control"
+  .form-group
+    = f.label :credit, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :credit, class: "form-control"
+  .form-group
+    = f.label :total, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :total, class: "form-control"
+  .form-group
+    = f.label :cost_centre, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.number_field :cost_centre, class: "form-control"
+  .form-group
+    = f.label :team, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :team, class: "form-control"
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"

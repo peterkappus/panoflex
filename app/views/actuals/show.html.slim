@@ -1,0 +1,70 @@
+.page-header
+  = link_to actuals_path, class: 'btn btn-default' do 
+    span.glyphicon.glyphicon-list-alt
+    |  Back 
+  = link_to edit_actual_path(@actual), class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-pencil
+    |  Edit 
+  h1
+    | Show actual
+dl.dl-horizontal
+  dt
+    | Period:
+  dd
+    = @actual.period
+  dt
+    | Cost centre description:
+  dd
+    = @actual.cost_centre_description
+  dt
+    | Account:
+  dd
+    = @actual.account
+  dt
+    | Account description:
+  dd
+    = @actual.account_description
+  dt
+    | Account type:
+  dd
+    = @actual.account_type
+  dt
+    | Reference:
+  dd
+    = @actual.reference
+  dt
+    | Customer or supplier:
+  dd
+    = @actual.customer_or_supplier
+  dt
+    | Gl date:
+  dd
+    = @actual.gl_date
+  dt
+    | Po number:
+  dd
+    = @actual.po_number
+  dt
+    | Description:
+  dd
+    = @actual.description
+  dt
+    | Debit:
+  dd
+    = @actual.debit
+  dt
+    | Credit:
+  dd
+    = @actual.credit
+  dt
+    | Total:
+  dd
+    = @actual.total
+  dt
+    | Cost centre:
+  dd
+    = @actual.cost_centre
+  dt
+    | Team:
+  dd
+    = @actual.team

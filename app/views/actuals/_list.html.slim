@@ -1,0 +1,80 @@
+.row
+  .col-md-12
+    = paginate @actuals
+    .table-responsive
+      table.table.table-striped.table-bordered.table-hover
+        thead
+          tr
+            th
+              | Period
+            th
+              | Cost centre description
+            th
+              | Account
+            th
+              | Account description
+            th
+              | Account type
+            th
+              | Reference
+            th
+              | Customer or supplier
+            th
+              | Gl date
+            th
+              | Po number
+            th
+              | Description
+            th
+              | Debit
+            th
+              | Credit
+            th
+              | Total
+            th
+              | Cost centre
+            th
+              | Team
+            th
+            th
+            th
+        tbody
+          - @actuals.each do | actual |
+            tr
+              td
+                = actual.period
+              td
+                = actual.cost_centre_description
+              td
+                = actual.account
+              td
+                = actual.account_description
+              td
+                = actual.account_type
+              td
+                = actual.reference
+              td
+                = actual.customer_or_supplier
+              td
+                = actual.gl_date
+              td
+                = actual.po_number
+              td
+                = actual.description
+              td
+                = humanized_money_with_symbol actual.debit
+              td
+                = humanized_money_with_symbol actual.credit
+              td
+                = humanized_money_with_symbol actual.total
+              td
+                = actual.cost_centre
+              td
+                = actual.team
+              td
+                = link_to 'Show', actual
+              td
+                = link_to 'Edit', edit_actual_path(actual)
+              td
+                = link_to 'Destroy', actual, method: :delete, data: { confirm: 'Are you sure?' }
+    = paginate @actuals

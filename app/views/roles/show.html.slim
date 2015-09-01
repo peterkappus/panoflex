@@ -1,0 +1,86 @@
+.page-header
+  = link_to roles_path, class: 'btn btn-default' do
+    span.glyphicon.glyphicon-list-alt
+    |  Back
+  = link_to edit_role_path(@role), class: 'btn btn-primary' do
+    span.glyphicon.glyphicon-pencil
+    |  Edit
+  h1
+    | Show role
+dl.dl-horizontal
+  dt
+    | Name:
+  dd
+    = @role.name
+  dt
+    | Title:
+  dd
+    = @role.title
+  dt
+    | Type:
+  dd
+    = @role.role_type
+  dt
+    | Monthly cost:
+  dd
+    = humanized_money_with_symbol @role.monthly_cost
+  dt
+    | Apr:
+  dd
+    = @role.apr
+  dt
+    | May:
+  dd
+    = @role.may
+  dt
+    | Jun:
+  dd
+    = @role.jun
+  dt
+    | Jul:
+  dd
+    = @role.jul
+  dt
+    | Aug:
+  dd
+    = @role.aug
+  dt
+    | Sep:
+  dd
+    = @role.sep
+  dt
+    | Oct:
+  dd
+    = @role.oct
+  dt
+    | Nov:
+  dd
+    = @role.nov
+  dt
+    | Dec:
+  dd
+    = @role.dec
+  dt
+    | Jan:
+  dd
+    = @role.jan
+  dt
+    | Feb:
+  dd
+    = @role.feb
+  dt
+    | Mar:
+  dd
+    = @role.mar
+  dt
+    | Comments:
+  dd
+    = @role.comments
+  dt
+    | Function Name:
+  dd
+    = @role.function_name
+  dt
+    | Team:
+  dd
+    = @role.team

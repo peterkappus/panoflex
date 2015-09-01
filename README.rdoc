@@ -1,0 +1,56 @@
+== README
+
+== RUNNING LOCALLY
+
+NOTE: This app is setup to run on Heroku. To run it locally, you MUST create a .env file like so:
+
+BASIC_AUTH_USERNAME=whatever
+BASIC_AUTH_PASSWORD=somepassword
+
+To start the server use
+$ heroku local
+
+It also has a Procfile which you probably won't need to touch.
+
+== TODO
+- Search for role by name
+- Make names click-able to search for all roles using that person
+- Search for role by type
+- Add non-people costs (EPIC)
+- Make short_names for each GDS function unique (in DB and model)
+- Write some tests!
+- WRITE SOME TESTS!
+- slugify functions by short name (e.g. /functions/dcp vs /funcitons/4)
+- Filter to show vacant roles per Function (by month)
+- Split allocation into separate table away from roles Stop using "hard-coded" months :(
+
+== DONE
+- Paginate full role listing
+- Associate roles to functions (initially by function_name) w/ error reporting
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.

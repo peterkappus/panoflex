@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  period: 2015-07-29
+  cost_centre_description: MyString
+  account: 1
+  account_description: MyString
+  account_type: MyString
+  reference: MyString
+  customer_or_supplier: MyString
+  gl_date: 2015-07-29
+  po_number: MyString
+  description: MyText
+  debit: 1
+  credit: 1
+  total: 1
+  cost_centre: 1
+  team: MyString
+
+two:
+  period: 2015-07-29
+  cost_centre_description: MyString
+  account: 1
+  account_description: MyString
+  account_type: MyString
+  reference: MyString
+  customer_or_supplier: MyString
+  gl_date: 2015-07-29
+  po_number: MyString
+  description: MyText
+  debit: 1
+  credit: 1
+  total: 1
+  cost_centre: 1
+  team: MyString

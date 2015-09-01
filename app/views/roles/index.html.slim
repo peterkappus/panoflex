@@ -1,0 +1,10 @@
+.page-header
+  h1 Roles
+  = form_tag import_roles_path, multipart: true, class: "form-inline" do
+    = link_to new_role_path, class: 'btn btn-primary' do
+      span.glyphicon.glyphicon-plus
+      |  New Role
+    .form-group
+      =file_field_tag :file, :class=>"form-control"
+    =submit_tag "Import", :class=>"btn btn-primary"
+=render partial: "list", locals: {roles: @roles}

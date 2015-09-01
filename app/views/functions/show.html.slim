@@ -1,0 +1,58 @@
+.page-header
+  = link_to functions_path, class: 'btn btn-default' do
+    span.glyphicon.glyphicon-list-alt
+    |  Back
+  = link_to @function, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } do
+    span.glyphicon.glyphicon-remove
+    | Destroy
+  = link_to edit_function_path(@function), class: 'btn btn-primary' do
+    span.glyphicon.glyphicon-pencil
+    |  Edit
+
+  h3
+    = link_to :Functions,  functions_path
+  h1 #{@function.short_name}
+  / : #{@function.name}
+/
+  dl.dl-horizontal
+    dt
+      | Mission:
+    dd
+      = @function.mission
+
+dl.dl-horizontal
+  dt Average cost per head:
+  dd  =humanized_money_with_symbol @function.avg_cost_per_head
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th Headcount
+        - %w(apr may jun jul aug sep oct nov dec jan feb mar).each do |month_name|
+          th
+            = month_name.capitalize
+
+    tbody
+      tr
+        td
+          b Filled
+        - %w(apr may jun jul aug sep oct nov dec jan feb mar).each do |month_name|
+          td
+            = @function.roles_by_month(month_name).count
+      tr
+        td
+          b Vacant
+        - %w(apr may jun jul aug sep oct nov dec jan feb mar).each do |month_name|
+          td
+            a role="button" data-toggle="popover" title="What roles?" data-trigger="hover" data-content="#{@function.vacancies_by_month(month_name).map{|r| r.title}.join(', ')}"
+              = @function.vacancies_by_month(month_name).count
+
+
+
+=render partial: "roles/list", locals: {roles: @function.roles.page(params[:page])}
+
+javascript:
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })

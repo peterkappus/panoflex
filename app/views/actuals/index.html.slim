@@ -1,0 +1,18 @@
+h1
+  | Listing actuals
+.page-header
+= form_tag import_actuals_path, multipart: true, class: "form-inline" do
+  = link_to new_actual_path, class: 'btn btn-primary' do
+    span.glyphicon.glyphicon-plus
+    |  New Actual
+  .form-group
+    =file_field_tag :file, :class=>"form-control"
+  =submit_tag "Import", :class=>"btn btn-primary"
+
+h2 Total count: #{Actual.count}
+-if(Actual.count > 0)
+  h2 Period: #{Actual.all.order(:gl_date).first.gl_date.strftime("%b %y")} - #{Actual.all.order(:gl_date).last.gl_date.strftime("%b %y")}
+h2
+  | Reversals: 
+  = link_to Actual.reversals.count, actuals_path(:scope=>:reversals)
+=render partial: "list"

@@ -1,0 +1,455 @@
+.page-header
+  = link_to roles_path, class: 'btn btn-default' do
+    span.glyphicon.glyphicon-list-alt
+    |  Back
+  h1 Import Roles
+
+  /
+    .form-group
+      =file_field_tag :file, :class=>"form-control"
+    =submit_tag "Import", :class=>"btn btn-primary"
+
+  p Copy and paste <a href="https://docs.google.com/spreadsheets/d/1t-8OKxOyV33PubTeC_vPQE46dGomgM3315KlPjeMQt8/edit#gid=292614404">this sheet</a> into the form below. Please ensure your data includes the following columns: "function_name","team","name","role","type","grade","monthly_cost","apr","may"...up to "mar".
+  =form_tag
+    textarea.form-control style="width:100%;" rows="10" name="data"
+      |
+        function_name	team	name	title	grade	role_type	Interim charge rate	Interim VAT	monthly_cost	apr	may	jun	jul	aug	sep	oct	nov	dec	jan	feb	mar
+        OPS	Delivery Operations	Poss Apostolou	Head of Delivery Operations	A2	CSs		 £ -   	 £ 6,594 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Delivery Operations	VACANT (currently interim)	Business Planning Manager	A1	CSs		 £ -   	 £ 5,038 	0.00	0.0	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Delivery Operations	Karen Stokes	Business Analyst 	B2	CSs		 £ -   	 £ 3,806 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Delivery Operations	Noelia Redondo	Business Analyst 	B2	CSs		 £ -   	 £ 3,806 	0.50	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Delivery Operations	VACANT  	Business Analyst 	B2	CSs		 £ -   	 £ 3,806 	0.00	0.0	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Delivery Operations	VACANT  	Business Analyst 	B2	CSs		 £ -   	 £ 3,806 	0.00	0.0	0.0	0.0	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Delivery Operations	Paul Robbins	Head of Estates 	A1	CSs		 £ -   	 £ 5,038 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Delivery Operations	Dave Framp	Office Manager	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Delivery Operations	VACANT	Portfolio Manager	A1	CSs		 £ -   	 £ 5,038 	0.00	0.0	0.0	0.0	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Delivery Operations	Izabela Podralska	Portfolio Support Officer	B2	CSs		 £ -   	 £ 3,806 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Executive Office	Mike Bracken	Executive Director	SCS2	CSs		 £ -   	 £ 14,262 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Executive Office	Ade Adewunmi	Digital Advisor	A1	CSs		 £ -   	 £ 5,038 	1.00	1.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	Executive Office	Rory Smith	Assistant Digital Advisor	B2	CSs		 £ -   	 £ 3,806 	1.00	1.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	Executive Office	Elizabeth Pace	Diary Manager	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	Executive Office	Anastasiya Kretova	Diary Manager	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	COO Office	Stephen Foreshew-Cain	COO	SCS2	CSs		 £ -   	 £ 14,262 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	COO Office	John Peart	Digital Advisor	B3	CSs		 £ -   	 £ 4,422 	1.00	1.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	COO Office	Holly Haines	Executive Assistant	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	People	Les Buckett	Head of People Support	A2	CSs		 £ -   	 £ 6,594 	1.00	1.0	1.0	0.8	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	People	Shaun Cove	People Delivery Officer	B2	CSs		 £ -   	 £ 3,806 	1.00	1.0	1.0	0.8	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	People	Shaun Cove	Head of People Support	A1	CSs		 £ -   	 £ 5,038 	0.00	0.0	0.0	0.2	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Syed Bohkari	People Delivery Officer	B2	CSs		 £ -   	 £ 3,806 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Gareth Llewellyn	People Delivery Officer	B2	CSs		 £ -   	 £ 3,806 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Ben Jones	People Delivery Officer	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Jo Williams	People Delivery Officer	B2	CSs		 £ -   	 £ 3,806 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Fran Lucey	People Delivery Officer (Maternity Leave)	B2	CSs		 £ -   	 £ 3,806 	1.00	1.0	1.0	1.0	1.0	1.0	0.5	0.5	0.5	1.0	1.0	1.0
+        OPS	People	Beth Jones	People Delivery Support Officer	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Joel Platja	People Delivery Support Officer	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	1.0	0.8	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	People	Joel Platja's replacement	People Delivery Support Officer	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Annes LLwyd	People Delivery Support Officer	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	ZeShaan Shamsi	Non SCS recruitment manager	A2	CSs		 £ -   	 £ 6,594 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Lauren McCabe	Campaign manager	A1	CSs		 £ -   	 £ 5,038 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Dean Lancaster	Campaign support officer	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Tim Sims	HR Business Partner	A2	CSs		 £ -   	 £ 6,594 	0.00	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	Internal IT	Richard Thomas	Head of GDS IT team	A1	CSs		 £ -   	 £ 5,038 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Internal IT	Darren Howell	Service Delivery Manager	A1	CSs		 £ -   	 £ 5,038 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Internal IT	Paul Collman - 0.5 with Internal Network Tech Arch	Lead Accreditor	A3	CSs		 £ -   	 £ 8,735 	0.50	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5
+        OPS	Internal IT	Paul Collman - 0.5 with Internal Network Tech Arch	Lead Accreditor	A3	CSs		 £ -   	 £ 8,735 	0.50	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5	0.5
+        OPS	Internal IT	Darren Ahern	Service Desk Analyst	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Internal IT	Jacob Bonwitt	Service Desk Analyst	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Internal IT	Nicholas Sinclair	Service Desk Analyst	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Internal IT	Luke Duffin	Service Desk Analyst	B1	CSs		 £ -   	 £ 2,506 	1.00	1.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	Internal IT	Robert Kirkland	Service Desk Analyst	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Internal IT	Owain Hopkins	Service Desk Analyst	B2	CSs		 £ -   	 £ 3,806 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Internal IT	Mohamed Hamid	Network Analyst	B2	CSs		 £ -   	 £ 3,806 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Internal IT	Charles Davis	Service Desk Manager	B2	CSs		 £ -   	 £ 3,806 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Finance	Paul Brunton	Head of Finance	A2	CSs		 £ -   	 £ 6,594 	0.00	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	Finance	Cathy Turray	Finance Analyst	B2	CSs		 £ -   	 £ 3,806 	0.00	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	Finance	Laura Towns	Finance Analyst	B2	CSs		 £ -   	 £ 3,806 	0.00	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	Finance	VACANT	Finance Analyst	B2	CSs		 £ -   	 £ 3,806 	0.00	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	Finance	Andy McBrayne	Finance Analyst	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	Finance	VACANT	Finance Analyst	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+        OPS	DVLA	Iain Osbourne-Patterson	CTO (DVLA)	SCS2	CSs		 £ -   	 £ 14,262 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Cheryl Tackie	People team role?	A1	CSs		 £ -   	 £ 5,038 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	E-petitions	Peter Herlihy	E-Petitions work	A3	CSs		 £ -   	 £ 8,735 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	CS on Loan	Kevin Humphries	CS on Loan	SCS1	CSs		 £ -   	 £ 9,810 	1.00	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	SCS 1 Executive Assistants	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	SCS 1 Executive Assistants	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	SCS 1 Executive Assistants	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	SCS 1 Executive Assistants	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	SCS 1 Executive Assistants	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	SCS 1 Executive Assistants	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	SCS 2 Executive assistants	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	SCS 2 Executive assistants	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	SCS 2 Executive assistants	B1	CSs		 £ -   	 £ 2,506 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	Private Secretaries/Advisors	A1	CSs		 £ -   	 £ 5,038 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	Private Secretaries/Advisors	A1	CSs		 £ -   	 £ 5,038 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	Support	VACANT (although in reality will reallocate)	Private Secretaries/Advisors	A1	CSs		 £ -   	 £ 5,038 	0.00	0.0	0.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0	1.0
+        OPS	People	Elouise McCabe (Elouise Inzani)	Campaign manager	A1	CSs		 £ -   	 £ 5,038 							1.0	1.0	1.0	1.0	1.0	1.0
+        DPDE	DPDE	Kathy Settle	Director of DPDE	SCS2	CSs			 £ 14,262 	1.00
+        DPDE	DPDE (Digital Inclusion)	Eleri Pengelly	Interim Director of DPDE (and head of DI)	SCS1	CSs			 £ 9,810 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Director's Office	Charlotte Lane	Team Business Manager [title TBC]	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Digital Inclusion	Julia Churchill-Angus	Business Support/DI work	B1	CSs			 £ 2,506 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	GDSPU	Sue Shaw	Parliamentary and Reporting	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	GDSPU	Glynn Morgan	Parliamentary and Reporting	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Secretariat	Pauline Ferris	Head of Secretariat, Phishing and Scamming & Domain Management	A1	CSs			 £ 5,038 	1.00	1	0	0	0	0	0	0	0	0	0	0
+        DPDE	Secretariat	VACANT	Head of Secretariat, Phishing and Scamming & Domain Management	A1	CSs			 £ 5,038 	0.00	0	0	0	0	1	1	1	1	1	1	1
+        DPDE	Secretariat	Phillippa Garner	Secretariat Manager - Digital Leaders	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Secretariat	Max Brodie	Secretariat Manager - Technology Leaders	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Secretariat	Rani Singh	Secretariat Manager - GOV.UK/Digital Inclusion	B2	CSs			 £ 3,806 	1.00	1	1	0	0	0	0	0	0	0	0	0
+        DPDE	Secretariat	VACANT	Secretariat Manager - Digital Inclusion	B2	CSs			 £ 3,806 	0.00	0	0	0	0	0	0	1	1	1	1	1
+        DPDE	Secretariat	Jane Robinson	Secretariat Manager - Assisted Digital / Cross govt tools for civil servants	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Secretariat	Michael Stokes	Secretariat support	B2	CSs			 £ 3,806 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        DPDE	Assisted Digital / Digital Take Up	Clive Richardson	Head of Assisted Digital and Digital Take Up	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Assisted Digital / Digital Take Up	Catherine Obradovich	Policy Lead, Deputy AD/DTU	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Assisted Digital / Digital Take Up	Katie Regan (nee Lee)	Engagement Lead	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Assisted Digital / Digital Take Up	Roxanne Asadi	Engagement Lead	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Assisted Digital / Digital Take Up	Alan Rider	Engagement Lead	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	0	0	0	0
+        DPDE	Assisted Digital / Digital Take Up	Ben Carpenter	Policy Lead (AD/DTU)	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	0	0	0
+        DPDE	Assisted Digital / Digital Take Up	Bob Kamall	Policy Analyst (DTU)	B2	CSs			 £ 3,806 	1.00	1	1	0	0	0	0	0	0	0	0	0
+        DPDE	Assisted Digital / Digital Take Up	VACANT	Digital Take Up expert	A1	CSs			 £ 5,038 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        DPDE	Assisted Digital / Digital Take Up	Richard Palfry	Analyst	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Assisted Digital / Digital Take Up	Kay Patel	Analyst	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Assisted Digital / Digital Take Up	Lorna Tang	Analyst	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	0	0	0
+        DPDE	AD/DI	James Ashton	Delivery Manager	A1	CSs			 £ 5,038 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        DPDE	cross DPDE	Angela Collins-Rees	User Researcher	A1	CSs			 £ 5,038 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        DPDE	cross DPDE	Nick Breeze	User Researcher	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Digital Inclusion	Emily Oyama	Head of Partnerships	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Digital Inclusion	Simon Leeming	Digital Inclusion Policy Manager	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Digital Inclusion	Beccy Russell	Head of Policy (Departmental Engagement)	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Digital Inclusion	Zach Johnstone	Policy Advisor	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Digital Inclusion	Lauren Kahn	Head of Strategy (research)	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DPDE	Digital Inclusion	Khadejah Al Harbi	DI Support Officer	B1	CSs			 £ 2,506 	1.00	0	0	0	0	0	0	0	0	0	0	0
+        DPDE	DTU	David Lees Worsley	DTU fast streamer	Fast	CSs			 £ 2,876 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        DPDE	Secretariat	Evans Bisseaur	Web Domain Manager	B2	CSs			 £ 3,806 	1.00	1
+        OCTO	Reform	Chad Bond	Service Manager	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Reform	Sid Kalita	Senior Technology Advisor	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Reform	Roger Bearpark	Senior Technology Advisor	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Reform	Vacancy	Senior Technology Advisor	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Reform	Sarbjit Bakhshi 	Senior Technology Advisor	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Reform	Tim Marcus	Senior Technology Advisor	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Reform	Anushka Nagpal	Senior Technology Advisor	Fast	CSs			 £ 2,876 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Reform	Sam Hellier	Digital Analyst	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Reform	N/A	Head of Reform	SCS1	CSs			 £ 9,810 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        OCTO	Reform	Vacancy	Senior Technology Advisor	A1	CSs			 £ 5,038 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        OCTO	Reform	Gill Stewart	Senior Technology Advisor	A2	CSs			 £ 6,594 	0.00	0	0	1	1	1	1	1	1	1	1	1
+        OCTO	Reform	N/A	Senior Technology Advisor	A2	CSs			 £ 6,594 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        OCTO	CTS	Andy Beale	Deputy Director OCTO	SCS1	CSs			 £ 9,810 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	CTS	Rosie Jessop	Senior Technology Advisor	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	CTS	N/A	Business Support	B1	CSs			 £ 2,506 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        OCTO	CTS	David Mead	Technical Advisor	B3	CSs			 £ 4,422 	0.00	0.5	1	1	1	1	1	1	1	1	1	1
+        OCTO	CTS	Shan Rahulan	Tech Advisor	A1	CSs			 £ 5,038 	0.00	0	0	0	0	0	1	1	1	1	1	1
+        OCTO	Tech Leadership	Magnus Falk	Deputy CTO	SCS1	CSs			 £ 9,810 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Tech Leadership	Anisha Ahuja	Senior implementation & process lead	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Tech Leadership	Lawrence Greenwood	Technical Advisor	B3	CSs			 £ 4,422 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Tech Leadership	Vacancy	Open Standard support	B2	CSs			 £ 3,806 	0.00	0	0	1	1	1	1	1	1	1	1	1
+        OCTO	Tech Leadership	N/A	Tech Leadership support	Fast	CSs			 £ 2,876 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        OCTO	Architecture	N/A	Portfolio Manager	A1	CSs			 £ 5,038 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        OCTO	Architecture	James Stewart	Director of Architecture	SCS1	CSs			 £ 9,810 	0.00	0	0	0	0	0	1	1	1	1	1	1
+        OCTO	Architecture	Kitty Veldkamp	Quality assurance manager/ analyst	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Architecture	Andy Chong	Quality assurance manager/ analyst	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Architecture	Jeba Starkie	Quality assurance manager/ analyst	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Architecture	Nick Devetak	Quality assurance manager/ analyst	A1	CSs			 £ 5,038 	1.00	1	0.5	0	0	0	0	0	0	0	0	0
+        OCTO	Architecture	Nick Devetak replacement - VACANCY	Quality assurance manager/ analyst	A1	CSs		  -   	 £ 5,038 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        OCTO	Architecture	Dafydd Vaughan       	Lead consulting architect (dept)	A1	CSs			 £ 5,038 	0.00	0	0	0	0	0	1	1	1	1	1	1
+        OCTO	Architecture	Michael Brunton-Spall	Technical Architect	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Architecture	Graham Cross	Technical Architect	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Architecture	Richard Howells	Technical Architect	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Architecture	John Strudwick 	Technical Architect	A1	CSs			 £ 5,038 	0.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Architecture	Andy Delaney 	Technical Architect	A1	CSs			 £ 5,038 	0.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Architecture	Aleksandr Drozdov	Technical Architect	A1	CSs			 £ 5,038 	0.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	OCTO	Liam Maxwell	UK Government CTO	SCS2	CSs			 £ 14,262 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	OCTO	N/A	Executive Assistant	B1	CSs			 £ 2,506 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        OCTO	OCTO	Alex Yedigaroff	Private Secretary	Fast	CSs			 £ 2,876 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	OCTO	Alex Holmes	Deputy Director OCTO	SCS1	CSs			 £ 9,810 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	OCTO	N/A	Policy advisor	A2	CSs			 £ 6,594 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        OCTO	OCTO	Emma Gawen	Programme Delivery Manager	A1	CSs			 £ 5,038 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        OCTO	CTS	Haidar Ali	Project Support 	B1	CSs			 £ 2,506 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Tech Leadership	Linda Humphries	Open Standards Lead	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	Tech Leadership	Fliss Bennee	Senior Technology Specialist	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        OCTO	OCTO	Harun Asif	Business Support	B1	CSs		  -   	 £ 2,506 	0.00	0	0	0	1	1	0	0	0	0	0	0
+        OCTO	CTS	Mike Cotton	Programme Delivery Manager	A1	CSs			 £ 5,038
+        DE&D	Leadership team	Ben Terrett	Director of Design	SCS2	CSs			 £ 14,262 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	GOV.UK	Mark Hurrell	GOV.UK Design Lead	A3	CSs			 £ 8,735 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	GOV.UK	Vacant	Service Designer	A1	CSs			 £ 5,038 							1	1	1	1	1	1
+        DE&D	E-Petitions	Henry Hadlow	Designer	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	GOV.UK	Alex Torrance	Designer	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Accessibility	Vacant	Head of Accesibility	A3	CSs			 £ 8,735 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Leadership team	Russell Davies	Director of Strategy	SCS2	CSs			 £ 14,262 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Operations and production	Alexandra Kelly	Head of Creative Production	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Creative writing	Giles Turnbull	Creative Writer	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Creative writing	Matthew Sheret	Creative Writer	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Operations and production	Zara Farrar	Production Assisstant	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Video	Graham Higgins	Filmmaker	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Leadership team	Wendy Coello	Director of Digital Engagement	SCS1	CSs			 £ 9,810 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Digital Engagement	Jane O'loughlin	Head of Strategy and Planning	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Digital Engagement	Christopher Watson	Channel Manager	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Digital Engagement	Lucy Windmill	Digital Engagement Lead	A3	CSs			 £ 8,735 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Social media/ blogs	Georgina Goode	Head of Social Media	A3	CSs			 £ 8,735 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Social media/ blogs	Suhail Adam	Community Manager	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Digital Engagement	Gemma Potter	Internal Communications Manager	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	OCTO	Raphaelle Heaf	Digital Engagement Lead	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	OCTO	Catriona McGrath	Digital Engagement Lead	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Verify	Claire Amanda Ashworth	Digital Engagement Lead	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Digital Marketplace	Vacant	Digital Engagement Advisor	A1	CSs			 £ 5,038 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        DE&D	Internal Comms	Vacant	Internal comms lead	A3	CSs			 £ 8,735 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DE&D	Social media/ blogs	Vacant	Blog editor	B2	CSs			 £ 3,806 									1	1	1	1
+        DE&D	Assisted Digital	Vacant	Service Designer	A2	CSs			 £ 6,594 					1	1	1	1	1	1	1	1
+        DE&D	GOV.UK	Vacant	Designer	A4	CSs			 £ 10,443 	0.00	0	0		1	1	1	1	1	1	1	1
+        DaT PROFF	RAS	Emma Kerr	Assistant stakeholder manager	B2	CSs		 £ -   	 £ 3,806 	1.00	1	1	1	1
+        DaT PROFF	Governance and Service Management	Emma Kerr	Secretariat Officer	B2	CSs		 £ -   	 £ 3,806 						1	1	1	1	1	1	1
+        DaT PROFF	RAS	Abby Peel	Stakeholder and pilots manager	A2	CSs		 £ -   	 £ 6,594 	1.00	1
+        DaT PROFF	Resourcing	Abby Peel	Talent and Diversity Manager	A2	CSs		 £ -   	 £ 6,594 			1	1	1	1	1	1	1	1	1	1
+        DaT PROFF	RAS	N/a	Procurement manager	A2	CSs		 £ -   	 £ 6,594
+        DaT PROFF	RAS	ZeShaan Shamsi	Non SCS recruitment manager	A2	CSs		 £ -   	 £ 6,594
+        DaT PROFF	RAS	Lauren McCabe	Campaign manager	A1	CSs		 £ -   	 £ 5,038
+        DaT PROFF	RAS	Dean Lancaster, Ben Jones	Campaign support officer	B1	CSs		 £ -   	 £ 2,506
+        DaT PROFF	RAS	Kamara Ferdinand	Recruitment support officer	B1	CSs		 £ -   	 £ 2,506 	1.00	1	1	1
+        DaT PROFF	Governance and Service Management	Kamara Ferdinand	Programme Support Officer	B1	CSs		 £ -   	 £ 2,506 					1	1	1	1	1	1	1	1
+        DaT PROFF	RAS	Pamrita Padda	Recruitment support officer	B1	CSs		 £ -   	 £ 2,506 	1.00	1	1	1
+        DaT PROFF	Governance and Service Management	Pamrita Padda	Programme Support Officer	B1	CSs		 £ -   	 £ 2,506 					1	1	1	1	1	1	1	1
+        DaT PROFF	RAS	Claire Moles	DAT manager	A1	CSs		 £ -   	 £ 5,038 	0.50	0.5	0.5	0.5
+        DaT PROFF	RAS	Claire Moles	Service manager training manager	A1	CSs		 £ -   	 £ 5,038 	0.50	0.5	0.5	0.5
+        DaT PROFF	Skills and capability	Claire Moles	Service Manager Programme Development Manager	A1	CSs		 £ -   	 £ 5,038 					0.5	0.5	0.5	0.5	0.5	0.5
+        DaT PROFF	Resourcing	Claire Moles	Talent and Workforce Planning Manager	A1	CSs		 £ -   	 £ 5,038 					0.5	0.5	0.5	0.5	0.5	0.5	1	1
+        DaT PROFF	RAS	Iain Boyd	DAT support officer	B2	CSs		 £ -   	 £ 3,806 	1.00	1	1	1
+        DaT PROFF	Resourcing	Iain Boyd	Graduate Fast Stream and Fast Track Apprentice Manager	B3	CSs		 £ -   	 £ 4,422 					1	1	1	1	1	1	1	1
+        DaT PROFF	RAS	Zubair Sulemain	DAT administrator	B1	CSs		 £ -   	 £ 2,506 	0.50	0.5	0.5	0
+        DaT PROFF	RAS	Zubair Sulemain	Service manager training administrator	B1	CSs		 £ -   	 £ 2,506 	0.50	0.5	0.5	0
+        DaT PROFF	Governance and Service Management	Zubair Sulemain	Programme Support Officer	B1	CSs		 £ -   	 £ 2,506 					0	0	0	0	0	0	0	0
+        DaT PROFF	RAS	Steve Wreyford	Communities manager	A2	CSs		 £ -   	 £ 6,594 	0.00	0
+        DaT PROFF	Digital Engagement	Steve Wreyford	Digital Engagement Lead	A2	CSs		 £ -   	 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DaT PROFF	Resourcing	VACANT	Executive Search and CSR Relationship Manager	A3	CSs		 £ -   	 £ 8,735 						2	2	2	2	2	2	2
+        DaT PROFF	Resourcing	VACANT	Talent and Diversity Manager	B3	CSs		 £ -   	 £ 4,422
+        DaT PROFF	Resourcing	VACANT	HR Business Partner / Resourcing Lead	A2	CSs		 £ -   	 £ 6,594
+        DaT PROFF	Governance and Service Management	VACANT	Governance and Service Management Lead	A1	CSs		 £ -   	 £ 5,038 					1	1	1	1	1	1	1	1
+        DaT PROFF	Communities of Practice	Adam Maddison?	Head of Community - Agile Delivery	A2	CSs		 £ -   	 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DaT PROFF	Service Design Manual	Holly Garrett	Product Manager	A2	CSs		 £ -   	 £ 6,594 	1.00	1	1	1	1	1	0.5	0.5	0.5	0.5	0.5	0.5
+        DaT PROFF	Service Design Manual	Nick Smith	Delivery Manager	A2	CSs		 £ -   	 £ 6,594 	1.00	1	1	1	1	1	0.5	0.5	0.5	0.5	0.5	0.5
+        DaT PROFF	Service Design Manual	Michael Thomas	Designer	A2	CSs		 £ -   	 £ 6,594 	1.00	1	1	1	1	1	0.5	0.5	0.5	0.5	0.5	0.5
+        PSN	PSN	James Duncan	PSN CTO	SCS1	CSs			 £ 9,810 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PSN	PSN	Sabah Mahmood	PSN Business Manager	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PSN	PSN	Mary Abu	PMO Analyst	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PSN	PSN	Benita Experi	Compliance Support	B1	CSs			 £ 2,506 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PSN	PSN	Razwaan Mohammed	Compliance Support	B1	CSs			 £ 2,506 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PSN	PSN	Marian Foley	Information Manager	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PSN	PSN	Kevin Doherty	Security Policy Advisor	A3	CSs			 £ 8,735 	1.00
+        PSN	PSN	John Golding	Compliance	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PSN	PSN	Alan Ratcheter	Ops Specialist	TIS2	CSs			 £ 3,717 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PSN	PSN	Vacant	Digital Engagement Lead	A2	CSs			 £ 6,594 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        PSN	PSN	Vacant	VPN Lead	A2	CSs			 £ 6,594 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        PSN	PSN	Vacant	Security Policy Advisor	A2	CSs			 £ 6,594 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        PDU	PDU Core	Richard Sargeant	Director	SCS1	CSs			 £ 9,810 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	PDU Core	Helen Ashby	Private Office & Team Manager	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Service Standard	Olivia Neal	Head of Service Standard	A2	CSs			 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Service Standard	Mark McLeod	Service Standard Assessment Manager	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Service Standard	Thomas Moore	Service Standard Assessment Manager	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Service Standard	Vanessa Christophers	Service Standard Assessment Manager	B2	CSs			 £ 3,806 	1.00	1	1	0	0	0	0	0	0	0	0	0
+        PDU	Service Standard	Aisha Kiani	Assistant	B1	CSs			 £ 2,506 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Service Standard	Vacant (VC replacement)	Service Standard Assessment Manager	B2	CSs			 £ 3,806 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        PDU	Service Standard	Vacant	service Standard Assessment Manager	B2	CSs			 £ 3,806 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        PDU	Service Standard	Vacant	Delivery Manager	B2	CSs			 £ 3,806 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        PDU	Service Standard	Vacant	User Researcher	A1	CSs			 £ 5,038 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        PDU	Service Standard	Vacant	Assistant	B1	CSs			 £ 2,506 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        PDU	Service Standard	Ruth Zlochevsky	Data Standard Manager	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Data Science	Shahzia Holtom	Data Scientist	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Data Science	Daniel Heron	Data Scientist	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Data Science	David Wilks	Data Scientist	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	User Research	Jonathan Rodrigues	User Research Lab Manager	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Performance Analysis	Peter Jordan	Head of Analysis Clan	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Performance Analysis	Paul Cronk	Performance Analyst	B2	CSs			 £ 3,806 	1.00	1	1	0	0	0	0	0	0	0	0	0
+        PDU	Performance Analysis	Nikki Miller	Junior Performance Analyst	B1	CSs			 £ 2,506 	1.00	1	1	0	0	0	0	0	0	0	0	0
+        PDU	Performance Platform	Vacant	Performance Analyst	A1	CSs			 £ 5,038 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Nick Tait	Programme Delivery Manager	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Sara Bowley	Delivery Manager	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Jennifer Oliver	Delivery Manager	A1	CSs			 £ 5,038 	0.50	0.5	0.5	0	0	0	0	0	0	0	0	0
+        PDU	Performance Platform	Matt Harrington	Associate Product Manager	A1	CSs			 £ 5,038 	1.00	1	0.5	0	0	0	0	0	0	0	0	0
+        PDU	Performance Platform	Ben Welby	Product Manager	A1	CSs			 £ 5,038 	0.00	0	0	0.75	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Vacant	Senior Content Designer	A1	CSs			 £ 5,038 	0.00	0	0	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Vacant	Developer	A1	CSs			 £ 5,038 	0.00	0	0	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Leena Gupte	Developer	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Timothy Mower	Developer	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Jacob Ashdown	Developer	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	0	0	0	0	0
+        PDU	Performance Platform	Vacant	Developer	A1	CSs			 £ 5,038 	0.00	0	0	0	0	0	0	1	1	1	1	1
+        PDU	Performance Platform	Matt Cottingham	Senior Developer	A1	CSs			 £ 5,038 	1.00	1	1	0	0	0	0	0	0	0	0	0
+        PDU	Performance Platform	Alice Bartlett	Senior Developer	A1	CSs			 £ 5,038 	0.00	0	0	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Caroline Green	Junior Developer	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Clifford Shepherd	Business Analyst	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Aaron Keogh	Business Analyst	B2	CSs			 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	John Byrne	Performance Analyst	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Tom Booth	Technical Lead	A1	CSs			 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	James Abley	Technical Architect	A2	CSs			 £ 6,594 	1.00	1	1	0	0	0	0	0	0	0	0	0
+        PDU	Performance Platform	Vacant	Technical Architect	A2	CSs			 £ 6,594 	0.00	0	0	0.75	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Tingting Zhao	User Resarcher	A1	CSs			 £ 5,038 	1.00	1	0.75	1	1	1	1	1	1	1	1	1
+        PDU	Performance Platform	Tom Halloran	Business Analyst	B2	CSs			 £ 3,806 	1.00	0.75	0	0	0	0	0	0	0	0	0	0
+        PDU	PDU Core	Philippa Benfield	Deputy Director	A2	CSs			 £ 6,594 	1.00	0.25	0	0	0	0	0	0	0	0	0	0
+        DCP	Director	Tony Singleton	Director	SCS1	CSs		 £ -   	 £ 9,810 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Director	Rheanna Price-Danilewicz	EA	B1	CSs		 £ -   	 £ 2,506 	1.00	1	1	0	0	0	0	0	0	0	0	0
+        DCP	PMO	Lena Casey	Associate Programme Manager	B2	CSs		 £ -   	 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	PMO	Vacant	Agile Delivery Manager	A1	CSs		 £ -   	 £ 5,038 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        DCP	Service	Vacant	Product Manager	A1	CSs		 £ -   	 £ 5,038 	0.00	0	0	0	0	0	0	1	1	1	1	1
+        DCP	Service	Vacant	Content Designer	B2	CSs		 £ -   	 £ 3,806 	0.00	0	0	0	0	0	1	1	1	1	1	1
+        DCP	Service	Andrew Chong	QA Analyst	A1	CSs		 £ -   	 £ 5,038 	0.00	0	0	0	0	0	0	0	0	0	0	0
+        DCP	Service	Katie Taylor	User Reseacher	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Service	Mark Branigan	User Reseacher	B3	CSs		 £ -   	 £ 4,422 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Service	Nicole Tinti	Helpdesk	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Service	Ashraf Chohan	Performance Data Analyst	B3	CSs		 £ -   	 £ 4,422 	0.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Service	Vacant	Security Audit	A1	CSs		 £ -   	 £ 5,038 	0.00	0	0	0	0	0	0	0	1	1	1	1
+        DCP	Platform	Martyn Inglis	Technical Architect	A3	CSs		 £ -   	 £ 8,735 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Platform	Rob Young	Senior Developer	A2	CSs		 £ -   	 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Platform	Kevin Keenoy	Developer	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Platform	Alexey Bezhan	Developer	B3	CSs		 £ -   	 £ 4,422 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Platform	Paul Craig	Junior Developer	B1	CSs		 £ -   	 £ 2,506 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Platform	Tom Byers	Front-end Developer	A2	CSs		 £ -   	 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Platform	Chris Hill Scott	Front-end Developer	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Commisioning	Chris Short	Hd of Commissioning 	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Commisioning	Peter Arnould	Commissioning manager	B3	CSs		 £ -   	 £ 4,422 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        DCP	Commisioning	Vacant	CHFA Commisioning Lead	B3	CSs		 £ -   	 £ 4,422 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        DCP	Commissioning	Ameeta Critchlow	Commissioning manager	B2	CSs		 £ -   	 £ 3,806 	0.80	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8	0.8
+        DCP	Commissioning	Vacant	Commissioning manager	B2	CSs		 £ -   	 £ 3,806 	0.00	0	0	0	0	1	1	1	1	1	1	1
+        GOV.UK	Central	Trisha Doyle	Head of Content	AA	CSs			 £ 8,735 	0.00	0.00	0.00	0.84	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Central	Vacant	Delivery Manager	A1	CSs			 £ 5,038 	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Central	Vacant	Delivery Manager	A1	CSs			 £ 5,038 	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Central	Liz Lutgendorff	Product Content Analyst	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Central	Persis Howe	Content Community Lead	AA	CSs			 £ 6,594 	0.00	0.90	0.90	0.90	0.90	0.90	0.90	0.90	0.90	0.90	0.90	0.90
+        GOV.UK	Central	Vacant	Performance Analyst	B3	CSs			 £ 4,732 	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	0.00
+        GOV.UK	Central	Vinith Pilay	Junior Performance Analyst	B1	CSs			 £ 2,506 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 1	John Turnbull	Content Designer	B2	CSs			 £ 3,806 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 1	Andrew Harsant	Content Designer	B2	CSs			 £ 3,806 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 1	Andy Keen	Product Content Lead	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 1	Jane Eastwood	Senior Content Designer	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 1	Stephen Gill	Senior Content Designer	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 1	Donna Forsyth	Senior Content Designer	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 2	Helen Nickols	Content Designer	B2	CSs			 £ 3,806 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 2	Vacant	Senior Content Designer	A	CSs			 £ 6,594 	0.00	0.00	0.00	0.00	0.60	0.60	0.60	0.60	0.60	0.60	0.60	0.60
+        GOV.UK	Team 2	Elena Findley-De Regt	Product Content Lead	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 2	Simon Kaplan	Product Content Lead	A	CSs			 £ 6,594 	0.60	0.60	0.50	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK	Team 2	Lucy Hartley	Senior Content Designer	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 2	Alan Maddrell	Senior Content Designer	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 2	Vacant	Content Designer	B2	CSs			 £ 3,806 	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 3	Nick Cammell	Content Designer	B2	CSs			 £ 3,806 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 3	Vacant	Senior Content Designer	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 3	Jon Sanger	Product Content Lead	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 3	Keith Emmerson	Senior Content Designer	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 4	Nettie Williams	Content Designer	B2	CSs			 £ 3,806 	1.00	1.00	1.00	0.50	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK	Team 4	Vacant	Content Designer	B2	CSs			 £ 3,806 	0.00	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 4	Gavan Curley	Content Designer	B2	CSs			 £ 3,806 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 4	Holly Challenger	Content Designer	B2	CSs			 £ 3,806 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 4	Gwen Cheeseman	Product Content Lead	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 4	Rosie Cowling	Senior Content Designer	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Team 4	Abigail Waraker	Senior Content Designer	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Infrastructure	Carl Massa	Head of Infrastructure	A3	CSs			 £ 8,735 	1.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK	Infrastructure	Charlotte Daly	Business Analyst	B2	CSs			 £ 4,422 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Infrastructure	Chris Pugh	Delivery Manager	A1	CSs			 £ 5,038 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Infrastructure	Vacant	Junior Web Operations	B2	CSs			 £ 3,806 	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Infrastructure	Vacant	Senior Web Operations	A3	CSs			 £ 8,735 	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Infrastructure	Bob Walker	Senior Web Operations	A3	CSs			 £ 8,735 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Infrastructure	Matt Bostock	Web Operations	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Infrastructure	Alex Muller	Web Operations	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Infrastructure	Andrew Langhorn	Web Operations	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Infrastructure	Josh Myers	Web Operations	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Infrastructure	Paul Martin	Web Operations	A2	CSs			 £ 6,594 	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Albert Massa	Head of User Support	A3	CSs			 £ 8,735 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Vacant	Operations Manager	A	CSs			 £ 6,594 	0.00	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Stephanie Dreyer	Delivery Manager	A1	CSs			 £ 5,038 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Rhiannon Britton	User Support Lead	TIS2	CSs			 £ 3,717 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Stephen Wilkins	User Support Lead	TIS2	CSs			 £ 3,717 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Vacant	User Support	B1	CSs			 £ 2,506 	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Nikki Miller	User Support	B1	CSs			 £ 2,506 	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Ola Awolesi	User Support	B1	CSs			 £ 2,506 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Ross Whamond	User Support	B1	CSs			 £ 2,506 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Maria Dickens	User Support	B1	CSs			 £ 2,506 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Jeff Petts	User Support	B1	CSs			 £ 2,506 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Vacant	Performance Analyst	B3	CSs			 £ 4,732 	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	User Support	Katherine O'doherty	Fast Stream	B2	CSs			 £ 2,876 	0.97	1.00	1.00	1.00	1.00	1.00	1.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK	Core	Lisa Scott	Product Manager	A3	CSs			 £ 8,735 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Core	Ros Vaughn	Delivery Manager	A1	CSs			 £ 5,038 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Core	Reema Mehta	Business Analyst (Product)	B2	CSs			 £ 4,422 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Core	Jamie Cobbett	Developer	A2	CSs			 £ 6,594 	1.00	1.00	0.25	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK	Core	Paul Hayes	Developer	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Core	Russell Thorn	Developer	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Core	Vacant	Developer	A2	CSs			 £ 6,594 	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK	Core	Jake Benilov	Developer	A2	CSs			 £ 6,594 	0.40	0.40	0.40	0.40	0.40	0.40	0.40	0.40	0.40	0.40	0.40	0.40
+        GOV.UK	Core	Guilia Bazoli	Junior User Researcher	B2*	CSs			 £ 4,422 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Core	Ting Ting Zhao	User Researcher	A	CSs			 £ 5,038 	1.00	1.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK	Core	Tatiana Soukiassian	Junior Developer	B2	CSs			 £ 3,806 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Core	Paul Cronk	Performance Analyst	B3	CSs			 £ 4,732 	0.00	0.00	0.07	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Core	Nayeema Chowdhury	Product Manager	A3	CSs			 £ 8,735 	1.00	1.00	1.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK	Core	Mark Hurrell	Designer		CSs			 £ -   	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Core	Jamie Cobbett	Senior Developer	 	CSs			 £ 8,735 	0.00	0.00	0.77	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Core	Edd Sowden	Senior Developer	 	CSs			 £ 8,735 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Custom	Jenny Duckett	Developer	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Custom	Alice Bartlett	Developer	A2	CSs			 £ 6,594 	1.00	1.00	1.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK	Custom	Michael Patrick	Developer	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Custom	David Singleton	Developer	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Custom	Mark Sheldon	Product Manager	A3	CSs			 £ 8,735 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Custom	Ben Welby	Associate Product Manager	A	CSs			 £ 5,038 	1.00	1.00	1.00	0.25	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK	Custom	Mark McLeod	Business Analyst (Product)	B2	CSs			 £ 4,422 	0.00	0.00	0.00	0.00	0.35	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Custom	Alex Jackson	Delivery Manager	A1	CSs			 £ 5,038 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Custom	Tommy Palmer	Developer	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Custom	Issy Long	Junior Developer	B2	CSs			 £ 3,806 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Custom	Vacant	Performance Analyst	B3	CSs			 £ 4,732 	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Custom	Dipa Shah	User Researcher	A	CSs			 £ 5,038 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Custom	Vacant	Senior Developer	 	CSs			 £ 8,735 	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Richard Boulton	Developer	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Kushal Pisavadia	Developer	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Ben Andrews	Product Manager	A3	CSs			 £ 8,735 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Vacant	Product Manager (New)		CSs			 	0.00	0.00	0.00	0.00	0.48	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Stuart Cullum	Delivery Manager	A1	CSs			 £ 5,038 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Jack Scotti	Junior Developer	B2	CSs			 £ 3,806 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Tara Stockford	Performance Analyst	B3	CSs			 £ 4,732 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Alex Torrance	Designer		CSs			 £ -   	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Vacant	User Researcher	A	CSs			 £ 5,038 	0.00	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Polly Gannaway	Junior User Researcher	B2*	CSs			 £ 4,422 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Vacant	Information Architect	A3	CSs			 £ 8,735 	0.00	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Vacant	Information Architect	A3	CSs			 £ 8,735 	0.00	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Richard Boulton	Senior Developer	 	CSs			 £ 8,735 	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Alex Tomlins	Senior Developer	 	CSs			 £ 8,735 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Domain	Vacant	Business Analyst	B2	CSs			 £ 4,422 	0.00	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Publishing Platform	Vacant	Developer	A2	CSs			 £ 6,594 	0.00	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Publishing Platform	Daniel Roseman	Developer	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Publishing Platform	David Heath	Developer	A2	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Publishing Platform	Stephanie Dreyer	Delivery Manager	A1	CSs			 £ 5,038 	0.50	0.50	0.50	0.50	0.50	0.50	0.50	0.50	0.50	0.50	0.50	0.50
+        GOV.UK		Vacant	Developer	A2	CSs			 £ 6,594 	0.00	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK		Vacant	Developer	A2	CSs			 £ 6,594 	0.00	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK		Vacant	Designer		CSs			 £ -   	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK		David Williams	Associate Product Manager	A	CSs			 £ 5,038 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Programme	Vacant	Lead Developer	AA	CSs			 £ 8,735 	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Programme	James Thornett	Director	SCS1	CSs			 £ 9,810 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Programme	Neil Williams	Head of Product	AA	CSs			 £ 8,735 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Programme	Lindsey Keighley	Head of Delivery	AA	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Programme	Natasha Bhambra	Business Support	B1	CSs			 £ 2,506 	1.00	1.00	1.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00	0.00
+        GOV.UK	Programme	Brad Wright	Technical Architect	AAA	CSs			 £ 10,443 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Programme	Davie Taylor	Head of Performance	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Programme	Tara Land	User Researcher	A	CSs			 £ 5,038 	0.60	0.60	0.60	0.60	0.60	0.60	0.60	0.60	0.60	0.60	0.60	0.60
+        GOV.UK	Proposition	Vacant	Proposition Manager	A	CSs			 £ 6,594 	0.00	0.00	0.00	0.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Proposition	Amy Khan	Proposition Manager	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Proposition	Tom Scott	Proposition Manager	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        GOV.UK	Proposition	Graham Francis	Proposition Manager	A	CSs			 £ 6,594 	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00
+        IDAP		Christopher Ferguson	Director	SCS2	CSs		 £ -   	 £ 14,262 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP		Vacant	Deputy Director	SCS1	CSs		 £ -   	 £ 9,810 	0.00	0	0	0	0	0	1	1	1	1	1	1
+        IDAP		Vacant	Deputy Director	SCS1	CSs		 £ -   	 £ 9,810 	0.00	0	0	0	0	0	1	1	1	1	1	1
+        IDAP	Service Delivery & Product Development	Stephen Dunn	Digital Service Manager	A4	CSs		 £ -   	 £ 10,443 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Jessica McEvoy	Senior Business Analyst	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Cordia Lewis	Senior Business Analyst	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Robin Walker	Senior Business Analyst	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Michael Clark	Senior Business Analyst	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Vacant	Senior Business Analyst	A1	CSs		 £ -   	 £ 5,038 	0.00	0	0	0	0	1	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Vacant	Senior Business Analyst	A1	CSs		 £ -   	 £ 5,038 	0.00	0	0	0	0	1	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Vacant	Privacy Officer	A1	CSs		 £ -   	 £ 5,038 	0.00	0	0	0	0	0	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Claire Bowman	Business Analyst	B2	CSs		 £ -   	 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Charlotte Daly	Business Analyst	B2	CSs		 p
+        IDAP	Policy & Engagement	Danielle Masterton	Business Analyst	Fast	CSs		 £ -   	 £ 2,876 	1.00	1	1	1	1	0	0	0	0	0	0	0
+        IDAP	Policy & Engagement	Vacant	Business Analyst	B2	CSs		 £ -   	 £ 3,806 	0.00	0	0	0	1	1	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Vacant	Business Analyst	B2	CSs		 £ -   	 £ 3,806 	0.00	0	0	0	0	1	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Vacant	Business Analyst	B2	CSs		 £ -   	 £ 3,806 	0.00	0	0	0	0	1	1	1	1	1	1	1
+        IDAP	Policy & Engagement	Rebecca Elizabeth Hales	Communications Manager	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	PMO	Nicolas Kalisperas	Portfolio Manager	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	PMO	Sandra Beazley	Programme Secretariat Co-ordinator	B2	CSs		 £ -   	 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	PMO	Francesca Purser	Programme Secretariat Co-ordinator	B2	CSs		 £ -   	 £ 3,806 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	PMO	Vacant	Programme Secretariat Co-ordinator	B2	CSs		 £ -   	 £ 3,806 	0.00	0	0	0	0	0	1	1	1	1	1	1
+        IDAP	PMO	Vacant	Contracts Manager	A1	CSs		 £ -   	 £ 5,038 	0.00	0	0	0	0	0	1	1	1	1	1	1
+        IDAP	Service Delivery & Product Development	Adam Cooper	Technical Architect	A2	CSs		 £ -   	 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	Service Delivery & Product Development	Amit Muthu	Technical Architect	A2	CSs		 £ -   	 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	Service Delivery & Product Development	Graham Bleach	Systems Architect	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	Service Delivery & Product Development	Tristan Colgate-McFarlane	Lead Web Operations Engineer	A2	CSs		 £ -   	 £ 6,594 	1.00	1	1	1	1	1	1	1	1	1	1	1
+        IDAP	Service Delivery & Product Development	Mark Hynes	Web Operations Engineer	A1	CSs		 £ -   	 £ 5,038 	1.00	1	1	1	1	1	1	1	1	1	1	1
+    br
+    button.btn.btn-primary type="submit" Submit

@@ -1,0 +1,91 @@
+= form_for(@role, html: { class: "form-horizontal", role: "form" }) do |f|
+  - if @role.errors.any?
+    .alert.alert-danger.alert-dismissable role="alert"
+      button.close type="button" data-dismiss="alert"
+        span aria-hidden="true"
+          | &times;
+        span.sr-only
+          | Close
+      h4= "#{pluralize(@role.errors.count,"error")} prohibited this role from being saved:"
+      ul
+        - @role.errors.full_messages.each do |msg|
+          li= msg
+  .form-group
+    = f.label :name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :title, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :title, class: "form-control"
+  .form-group
+    = f.label :role_type, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :role_type, class: "form-control"
+  .form-group
+    = f.label :monthly_cost, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :monthly_cost, class: "form-control"
+  .form-group
+    = f.label :apr, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :apr, class: "form-control"
+  .form-group
+    = f.label :may, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :may, class: "form-control"
+  .form-group
+    = f.label :jun, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :jun, class: "form-control"
+  .form-group
+    = f.label :jul, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :jul, class: "form-control"
+  .form-group
+    = f.label :aug, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :aug, class: "form-control"
+  .form-group
+    = f.label :sep, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :sep, class: "form-control"
+  .form-group
+    = f.label :oct, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :oct, class: "form-control"
+  .form-group
+    = f.label :nov, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :nov, class: "form-control"
+  .form-group
+    = f.label :dec, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :dec, class: "form-control"
+  .form-group
+    = f.label :jan, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :jan, class: "form-control"
+  .form-group
+    = f.label :feb, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :feb, class: "form-control"
+  .form-group
+    = f.label :mar, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :mar, class: "form-control"
+  .form-group
+    = f.label :comments, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :comments, class: "form-control"
+  .form-group
+    = f.label :function_name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :function_name, class: "form-control"
+  .form-group
+    = f.label :team, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :team, class: "form-control"
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"
