@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817164525) do
+ActiveRecord::Schema.define(version: 20150904133717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,12 @@ ActiveRecord::Schema.define(version: 20150817164525) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "groups", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.string   "title"
@@ -80,15 +86,10 @@ ActiveRecord::Schema.define(version: 20150817164525) do
     t.date     "start_date"
     t.date     "end_date"
     t.string   "staff_number"
+    t.integer  "group_id"
   end
 
   add_index "roles", ["function_id"], name: "index_roles_on_function_id", using: :btree
-
-  create_table "units", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   add_foreign_key "roles", "functions"
 end
