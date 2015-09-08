@@ -1,0 +1,7 @@
+.page-header
+  h1 Vacant Roles
+h2 Overdue (#{@overdue.count})
+h2 0-3 months(#{@months_3.count})
+h2 3-6 months(#{@months_6.count})
+h2 6+ months(#{@months_6_plus.count})
+/=render partial: "list", locals: {roles: @roles}

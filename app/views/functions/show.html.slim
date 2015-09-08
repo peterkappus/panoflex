@@ -1,12 +1,12 @@
 .page-header
   = link_to functions_path, class: 'btn btn-default' do
-    span.glyphicon.glyphicon-list-alt
+    span.glyphicon.glyphicon-list-alt>
     |  Back
   = link_to @function, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } do
-    span.glyphicon.glyphicon-remove
-    | Destroy
+    span.glyphicon.glyphicon-trash>
+    | Delete
   = link_to edit_function_path(@function), class: 'btn btn-primary' do
-    span.glyphicon.glyphicon-pencil
+    span.glyphicon.glyphicon-pencil>
     |  Edit
 
   h3

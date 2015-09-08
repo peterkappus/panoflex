@@ -1,4 +1,6 @@
 .page-header
+  h2
+    =link_to "Vacant Roles", vacant_roles_path
   h1 Roles
   = form_tag import_roles_path, multipart: true, class: "form-inline" do
     = link_to new_role_path, class: 'btn btn-primary' do

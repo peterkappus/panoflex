@@ -5,6 +5,7 @@
       tr
         th Name
         th Title
+        th Number
         th Type
         th Start Date
         th End Date
@@ -30,13 +31,11 @@
           th
     tbody
       - roles.each do | role |
-        tr class="#{(role.name.match(/vac/i)) ? 'vacancy' : ''}"
-          td
-            = role.name
-          td
-            = role.title
-          td
-            = role.role_type
+        tr class="#{(role.name.match(/vac/i) && params[:scope] != 'vacant') ? 'vacancy' : ''}"
+          td = role.name
+          td = role.title
+          td = role.staff_number
+          td = role.role_type
           td =role.start_date.strftime("%h %Y") unless role.start_date.nil?
           td =role.end_date.strftime("%h %Y") unless role.end_date.nil?
           /

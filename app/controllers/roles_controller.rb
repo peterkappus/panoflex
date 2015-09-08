@@ -4,7 +4,25 @@ class RolesController < ApplicationController
   # GET /roles
   # GET /roles.json
   def index
-    @roles = Role.order(:name).page params[:page]
+    #only vacant roles
+    #smarter way to do this?
+    if(%w(vacant).include? params[:scope])
+      @roles = Role.vacant.order(:name).page params[:page]
+    else
+      #all roles
+      @roles = Role.order(:name).page params[:page]
+    end
+  end
+
+  def vacant
+    #render plain: "okay"
+
+    @all = Role.vacant.order(:name).page params[:page]
+    @overdue = Role.vacant_by_date(24.months.ago,Date.today)
+    @months_3 = Role.vacant_by_date(Date.today,Date.today+3.months)
+    @months_6 = Role.vacant_by_date(Date.today+3.months,Date.today+6.months)
+    @months_6_plus = Role.vacant_by_date(Date.today+6.months,Date.today+24.months)
+
   end
 
   # GET /roles/1

@@ -1,7 +1,10 @@
 class Role < ActiveRecord::Base
   #scope :by_function, ->(id) { where(:function_name => id)}
   scope :vacant, -> {where("lower(name) like '%vac%'")}
+  scope :vacant_by_date, ->(start_date,end_date) { vacant.where(start_date: start_date..end_date)}
+
   belongs_to :function
+  belongs_to :group
   has_many :allocations
 
   monetize :monthly_cost
@@ -65,7 +68,7 @@ class Role < ActiveRecord::Base
   def self.import(file)
     require 'csv' #probably should put this at the top, but I don't *always* want to include it... Smarter
     months = %w(apr may jun jul aug sep oct nov dec jan feb mar)
-    required_cols = %w(name title role_type monthly_cost function_name team) + months
+    required_cols = %w(group_name name title role_type staff_number monthly_cost function_name team) + months
 
     #subtract supplied columns from required columns to see if any are missing
     missing_cols = required_cols - CSV.read(file.path,headers: true).headers
@@ -83,18 +86,26 @@ class Role < ActiveRecord::Base
         #load up our object with data from each required column
         required_cols.each do |col_name|
           value = row[col_name]
-          #cast as floats (and convert nils to 0.0)
+
+          #cast monthly utilisation as floats (and convert nils to 0.0)
           if(months.include? col_name)
             value = value.to_f
           end
-          r.send("#{col_name}=",value)
+
+          # skip group_name since we'll actually use the name to reference (or create) a group object.
+          # should do the same with funciton_name and get rid of function_name in Role model
+          if(col_name != "group_name")
+            r.send("#{col_name}=",value)
+          end
+
         end
 
         #strip pound signs and commas from monthly costs
         r.monthly_cost = Monetize.parse(row['monthly_cost'])
 
         #find or create by short name...
-        r.function = Function.where(short_name: r.function_name).first_or_create
+        r.function = Function.where(short_name: row['function_name']).first_or_create
+        r.group = Group.where(name: row['group_name']).first_or_create
 
         #don't save if the name is empty.
         if(!r.name.to_s.empty?)
