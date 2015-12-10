@@ -13,3 +13,7 @@ default: &default
 development:
   <<: *default
   database: pano_development
+
+test:
+  <<: *default
+  database: pano_test

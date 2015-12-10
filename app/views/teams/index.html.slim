@@ -1,0 +1,31 @@
+.page-header
+  = link_to new_team_path, class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-plus
+    |  New Team
+  h1
+    | Listing teams
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th
+          | Name
+        th
+          | Group
+        th
+        th
+        th
+    tbody
+      - @teams.each do | team |
+        tr
+          td
+            = team.name
+          td
+            = team.group
+          td
+            = link_to 'Show', team
+          td
+            = link_to 'Edit', edit_team_path(team) 
+          td
+            = link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } 

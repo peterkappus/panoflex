@@ -1,12 +1,12 @@
 .page-header
-  = link_to functions_path, class: 'btn btn-default' do
+  = link_to teams_path, class: 'btn btn-default' do
     span.glyphicon.glyphicon-list-alt
     |  Back 
-  = link_to @function, class: 'btn btn-primary' do
+  = link_to @team, class: 'btn btn-primary' do
     span.glyphicon.glyphicon-info-sign
     |  Show 
   h1
     | Editing 
-    | function
+    | team
 
 = render 'form'

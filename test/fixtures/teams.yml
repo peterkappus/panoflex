@@ -2,10 +2,8 @@
 
 one:
   name: MyString
-  short_name: MyString
-  mission: MyText
+  group_id: 
 
 two:
   name: MyString
-  short_name: MyString
-  mission: MyText
+  group_id: 

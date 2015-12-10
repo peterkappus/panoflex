@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :teams
   resources :groups
   resources :actuals do
     post 'import', on: :collection
@@ -9,7 +10,6 @@ Rails.application.routes.draw do
     post 'import', on: :collection
     get 'vacant', on: :collection
   end
-  resources :functions
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
