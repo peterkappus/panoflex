@@ -1,7 +1,12 @@
 .page-header
   h1 Vacant Roles
-h2 Overdue (#{@overdue.count})
-h2 0-3 months(#{@months_3.count})
-h2 3-6 months(#{@months_6.count})
-h2 6+ months(#{@months_6_plus.count})
-/=render partial: "list", locals: {roles: @roles}
+ul.nav.nav-tabs
+  li.active role="presentation"
+    a href="" Overdue (#{@overdue.count})
+  li role="presentation"
+    a href="#" 0-3mo (#{@months_3.count})
+  li role="presentation"
+    a href="#" 3-6mo (#{@months_6.count})
+  li role="presentation"
+    a href="#" 6mo + (#{@months_6_plus.count})
+=render partial: "list", locals: {roles: @roles}

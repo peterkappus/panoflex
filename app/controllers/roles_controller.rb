@@ -18,10 +18,12 @@ class RolesController < ApplicationController
     #render plain: "okay"
 
     @all = Role.vacant.order(:name).page params[:page]
-    @overdue = Role.vacant_by_date(24.months.ago,Date.today)
-    @months_3 = Role.vacant_by_date(Date.today,Date.today+3.months)
-    @months_6 = Role.vacant_by_date(Date.today+3.months,Date.today+6.months)
-    @months_6_plus = Role.vacant_by_date(Date.today+6.months,Date.today+24.months)
+    @overdue = Role.vacant_by_date(24.months.ago,Date.today).order(:name).page params[:page]
+    @months_3 = Role.vacant_by_date(Date.today,Date.today+3.months).order(:name).page params[:page]
+    @months_6 = Role.vacant_by_date(Date.today+3.months,Date.today+6.months).order(:name).page params[:page]
+    @months_6_plus = Role.vacant_by_date(Date.today+6.months,Date.today+24.months).order(:name).page params[:page]
+
+    @roles = @overdue
 
   end
 
