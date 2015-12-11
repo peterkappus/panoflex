@@ -3,7 +3,8 @@ class Role < ActiveRecord::Base
   scope :vacant, -> {where("lower(name) like '%vac%'")}
   scope :vacant_by_date, ->(start_date,end_date) { vacant.where(start_date: start_date..end_date)}
 
-  belongs_to :function
+  #belongs_to :function
+  belongs_to :team
   belongs_to :group
   has_many :allocations
 
@@ -68,7 +69,7 @@ class Role < ActiveRecord::Base
   def self.import(file)
     require 'csv' #probably should put this at the top, but I don't *always* want to include it... Smarter
     months = %w(apr may jun jul aug sep oct nov dec jan feb mar)
-    required_cols = %w(group_name name title role_type staff_number monthly_cost function_name team) + months
+    required_cols = %w(group team name title role_type staff_number monthly_cost sub_team) + months
 
     #subtract supplied columns from required columns to see if any are missing
     missing_cols = required_cols - CSV.read(file.path,headers: true).headers
@@ -76,7 +77,8 @@ class Role < ActiveRecord::Base
     if(!missing_cols.empty?)
       return "Missing columns: #{missing_cols.join(", ")}"
     else
-      #import should replace everything!
+
+      #WATCH OUT! :) Import replaces everything!
       Role.destroy_all
 
       CSV.foreach(file.path, headers: true) do |row|
@@ -92,9 +94,9 @@ class Role < ActiveRecord::Base
             value = value.to_f
           end
 
-          # skip group_name since we'll actually use the name to reference (or create) a group object.
+          # skip group_name & team since we'll actually use the name to reference (or create) a group object.
           # should do the same with funciton_name and get rid of function_name in Role model
-          if(col_name != "group_name")
+          if(col_name != "group" && col_name != "team")
             r.send("#{col_name}=",value)
           end
 
@@ -104,9 +106,14 @@ class Role < ActiveRecord::Base
         r.monthly_cost = Monetize.parse(row['monthly_cost'])
 
         #find or create by short name...
-        r.function = Function.where(short_name: row['function_name']).first_or_create
-        r.group = Group.where(name: row['group_name']).first_or_create
+        r.team = Team.where(name: row['team']).first_or_create
 
+        #eventually, we shouldn't associate roles directly to groups, just to teams
+        r.group = Group.where(name: row['group']).first_or_create
+
+        #assign the team to the group (team's group will always be the last one... this is why we need to remove the direct role -> group association)
+        r.group.teams << r.team
+        
         #don't save if the name is empty.
         if(!r.name.to_s.empty?)
           #Anonymize while in development!

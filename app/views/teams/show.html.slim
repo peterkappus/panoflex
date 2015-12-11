@@ -1,18 +1,9 @@
 .page-header
-  = link_to teams_path, class: 'btn btn-default' do 
+  = link_to teams_path, class: 'btn btn-default' do
     span.glyphicon.glyphicon-list-alt
-    |  Back 
-  = link_to edit_team_path(@team), class: 'btn btn-primary' do 
+    |  Back
+  = link_to edit_team_path(@team), class: 'btn btn-primary' do
     span.glyphicon.glyphicon-pencil
-    |  Edit 
-  h1
-    | Show team
-dl.dl-horizontal
-  dt
-    | Name:
-  dd
-    = @team.name
-  dt
-    | Group:
-  dd
-    = @team.group
+    |  Edit
+  h1 Team: #{@team.name}
+  h2 =link_to @team.group.name, @team.group

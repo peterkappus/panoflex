@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150904133717) do
+ActiveRecord::Schema.define(version: 20151210232108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,14 +44,6 @@ ActiveRecord::Schema.define(version: 20150904133717) do
     t.datetime "updated_at",                          null: false
   end
 
-  create_table "functions", force: :cascade do |t|
-    t.string   "name"
-    t.string   "short_name"
-    t.text     "mission"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -80,16 +72,24 @@ ActiveRecord::Schema.define(version: 20150904133717) do
     t.string   "team"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
-    t.integer  "function_id"
     t.integer  "monthly_cost_pennies",  default: 0,     null: false
     t.string   "monthly_cost_currency", default: "GBP", null: false
     t.date     "start_date"
     t.date     "end_date"
     t.string   "staff_number"
     t.integer  "group_id"
+    t.integer  "team_id"
+    t.string   "sub_team"
   end
 
-  add_index "roles", ["function_id"], name: "index_roles_on_function_id", using: :btree
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-  add_foreign_key "roles", "functions"
+  add_index "teams", ["group_id"], name: "index_teams_on_group_id", using: :btree
+
+  add_foreign_key "teams", "groups"
 end

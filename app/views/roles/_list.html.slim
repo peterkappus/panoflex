@@ -3,6 +3,9 @@
   table.table.table-striped.table-bordered.table-hover
     thead
       tr
+        th Group
+        th Team
+        th Sub Team
         th Name
         th Title
         th Number
@@ -23,8 +26,7 @@
         th Feb
         th Mar
         th Comments
-        th Function Name
-        th Team
+        /th Function Name
         /
           th
           th
@@ -32,6 +34,9 @@
     tbody
       - roles.each do | role |
         tr class="#{(role.name.match(/vac/i) && params[:scope] != 'vacant') ? 'vacancy' : ''}"
+          td = link_to role.group.name, role.group
+          td = link_to role.team.name, role.team
+          td = role.sub_team
           td = role.name
           td = role.title
           td = role.staff_number
@@ -47,15 +52,7 @@
             td.amount
               =role.send(m)
 
-          td
-            = role.comments
-          td
-            - if (!Function.find_by_short_name(role.function_name).nil?)
-              = link_to role.function_name, function_path(Function.find_by_short_name(role.function_name))
-            - else
-              = role.function_name
-          td
-            = role.team
+          td = role.comments
           /
             td
               = link_to 'Show', role

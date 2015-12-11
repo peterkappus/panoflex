@@ -27,9 +27,9 @@ html
           = link_to "GDS Resourcing Tool", "/", class: "navbar-brand"
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
-            li class="#{(params[:controller] == "functions") ? "active" : ""}"
-              a href="#{functions_path}"
-                | Functions
+            li class="#{(params[:controller] == "groups") ? "active" : ""}"
+              a href="#{groups_path}"
+                | Groups
             li class="#{(params[:controller] == "roles") ? "active" : ""}"
               a href="#{roles_path}"
                 | Roles
