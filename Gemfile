@@ -61,6 +61,10 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
+  #for live reload (and maybe other stuff, too)
+  #gem 'guard'
+  #gem 'guard-livereload', '~> 2.4', require: false
+
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 

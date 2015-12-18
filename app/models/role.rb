@@ -1,6 +1,11 @@
 class Role < ActiveRecord::Base
   #scope :by_function, ->(id) { where(:function_name => id)}
   scope :vacant, -> {where("lower(name) like '%vac%'")}
+  scope :filled, -> {where("lower(name) NOT like '%vacan%'")}
+  #Vacant roles with start & end dates in the past
+  #scope :vacant_past, -> {where("lower(name) NOT like '%vacan%'")}
+
+  scope :vacant_empty, -> {where("lower(name) like '%vacan%' and (apr + may + jun + jul + aug + sep + oct + nov + dec + jan + feb + mar) = 0")}
   scope :vacant_by_date, ->(start_date,end_date) { vacant.where(start_date: start_date..end_date)}
 
   #belongs_to :function
@@ -113,7 +118,7 @@ class Role < ActiveRecord::Base
 
         #assign the team to the group (team's group will always be the last one... this is why we need to remove the direct role -> group association)
         r.group.teams << r.team
-        
+
         #don't save if the name is empty.
         if(!r.name.to_s.empty?)
           #Anonymize while in development!

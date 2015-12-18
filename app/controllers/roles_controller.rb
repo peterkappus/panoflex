@@ -17,13 +17,17 @@ class RolesController < ApplicationController
   def vacant
     #render plain: "okay"
 
-    @all = Role.vacant.order(:name).page params[:page]
-    @overdue = Role.vacant_by_date(24.months.ago,Date.today).order(:name).page params[:page]
-    @months_3 = Role.vacant_by_date(Date.today,Date.today+3.months).order(:name).page params[:page]
-    @months_6 = Role.vacant_by_date(Date.today+3.months,Date.today+6.months).order(:name).page params[:page]
-    @months_6_plus = Role.vacant_by_date(Date.today+6.months,Date.today+24.months).order(:name).page params[:page]
+    case params[:type]
+    when "empty"
+      @roles = Role.vacant_empty.order(:name).page params[:page]
+    else
+      @roles = Role.vacant.order(:name).page params[:page]
+    end
 
-    @roles = @overdue
+    #@overdue = Role.vacant_by_date(24.months.ago,Date.today).order(:name).page params[:page]
+    #@months_3 = Role.vacant_by_date(Date.today,Date.today+3.months).order(:name).page params[:page]
+    #@months_6 = Role.vacant_by_date(Date.today+3.months,Date.today+6.months).order(:name).page params[:page]
+    #@months_6_plus = Role.vacant_by_date(Date.today+6.months,Date.today+24.months).order(:name).page params[:page]
 
   end
 

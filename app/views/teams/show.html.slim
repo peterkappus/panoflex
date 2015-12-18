@@ -6,4 +6,6 @@
     span.glyphicon.glyphicon-pencil
     |  Edit
   h1 Team: #{@team.name}
-  h2 =link_to @team.group.name, @team.group
+  h3 Part of #{link_to @team.group.name, @team.group}
+
+= render partial: "roles/list", locals: {roles: @team.roles.page(params[:page])}

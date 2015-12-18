@@ -1,12 +1,18 @@
 .page-header
   h1 Vacant Roles
 ul.nav.nav-tabs
-  li.active role="presentation"
-    a href="" Overdue (#{@overdue.count})
-  li role="presentation"
-    a href="#" 0-3mo (#{@months_3.count})
-  li role="presentation"
-    a href="#" 3-6mo (#{@months_6.count})
-  li role="presentation"
-    a href="#" 6mo + (#{@months_6_plus.count})
+  li class="#{params[:type].nil? ? 'active' :''}" role="presentation"
+    = link_to "All (#{Role.vacant.count})", vacant_roles_path
+  li class="#{params[:type] == 'empty' ? 'active' :''}" role="presentation"
+    =link_to "Roles without utilisation (#{Role.vacant_empty.count})",vacant_roles_path(:type=>"empty")
+/
+  ul.nav.nav-tabs
+    li.active role="presentation"
+      a href="" Overdue (#{@overdue.count})
+    li role="presentation"
+      a href="#" 0-3mo (#{@months_3.count})
+    li role="presentation"
+      a href="#" 3-6mo (#{@months_6.count})
+    li role="presentation"
+      a href="#" 6mo + (#{@months_6_plus.count})
 =render partial: "list", locals: {roles: @roles}

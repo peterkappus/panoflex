@@ -9,8 +9,8 @@
   end
   h3 =link_to :Groups, groups_path
   h1 #{@group.name}
-  h2 teams
-  ul
-    - @group.teams.each do |team|
-      li =link_to team.name, team
+  h2 #{@group.roles.count} people
+h3 Teams
+- @group.teams.each do |team|
+  =link_to(team.name, team, {:class=>'btn btn-default'})
 = render partial: "roles/list", locals: {roles: @group.roles.page(params[:page])}
