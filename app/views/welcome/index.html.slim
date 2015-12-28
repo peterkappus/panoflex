@@ -10,3 +10,7 @@
     /=#link_to "#{Role.all.map{|r| r.send(Time.now.strftime("%h").downcase).to_i}.sum} People", roles_path, {:class=>"btn btn-primary"}
     /#=link_to "#{Role.vacant.map{|r| r.send((Time.now + 3.months).strftime("%h").downcase).to_i}.sum} Vacancies", roles_path, {:class=>"btn btn-primary"}
     =link_to "#{Role.vacant.map{|r| r.mar.to_i}.sum} Vacancies", vacant_roles_path, {:class=>"btn btn-primary"}
+
+.row
+  .col-md-12
+    h2 Data Purity (Checks)
