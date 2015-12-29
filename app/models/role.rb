@@ -5,6 +5,7 @@ class Role < ActiveRecord::Base
   #Vacant roles with start & end dates in the past
   #scope :vacant_past, -> {where("lower(name) NOT like '%vacan%'")}
 
+  scope :empty, -> {where("(apr + may + jun + jul + aug + sep + oct + nov + dec + jan + feb + mar) = 0")}
   scope :vacant_empty, -> {where("lower(name) like '%vacan%' and (apr + may + jun + jul + aug + sep + oct + nov + dec + jan + feb + mar) = 0")}
   scope :vacant_by_date, ->(start_date,end_date) { vacant.where(start_date: start_date..end_date)}
 

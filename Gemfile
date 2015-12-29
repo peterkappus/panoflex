@@ -57,12 +57,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 
 #authentication stuff
-#https://www.digitalocean.com/community/tutorials/how-to-configure-devise-and-omniauth-for-your-rails-application
-gem 'therubyracer'
-gem 'devise'
-gem 'omniauth'
-gem 'omniauth-digitalocean'
-gem 'omniauth-google'
+gem "omniauth-google-oauth2"
 
 gem 'puma'
 

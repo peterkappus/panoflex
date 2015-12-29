@@ -38,7 +38,7 @@
           td = link_to role.team.name, role.team
           td = role.sub_team
           /td = role.name
-          td = role.title
+          td = link_to role.title, roles_path(:title=>role.title)
           td = role.staff_number
           td = role.role_type
           /td =role.start_date.strftime("%h %Y") unless role.start_date.nil?

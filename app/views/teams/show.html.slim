@@ -6,6 +6,7 @@
     span.glyphicon.glyphicon-pencil
     |  Edit
   h1 Team: #{@team.name}
+  h3 #{@team.roles.count} roles (#{@team.roles.map{|r| r.staff_number}.uniq.count} unique staff numbers)
   h3 Part of #{link_to @team.group.name, @team.group}
 
 = render partial: "roles/list", locals: {roles: @team.roles.page(params[:page])}

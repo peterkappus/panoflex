@@ -6,11 +6,17 @@ class RolesController < ApplicationController
   def index
     #only vacant roles
     #smarter way to do this?
+    #look for "vacant" in scope param
     if(%w(vacant).include? params[:scope])
       @roles = Role.vacant.order(:name).page params[:page]
     else
-      #all roles
-      @roles = Role.order(:name).page params[:page]
+      if params[:title].to_s.empty?
+        #all roles
+        @roles = Role.order(:name).page params[:page]
+      else
+        #filter by title if requested
+        @roles = Role.where(title: params[:title]).order(:name).page params[:page]
+      end
     end
   end
 

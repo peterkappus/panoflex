@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
+  #get 'sessions/create'
+
   resources :teams
   resources :groups
   resources :actuals do
     post 'import', on: :collection
   end
+
+  #google_oauth2...or others someday
+  get '/auth/:provider/callback' => 'sessions#create'
 
   resources :roles do
     #get 'import', on: :collection
