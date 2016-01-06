@@ -15,4 +15,5 @@
 h3 Teams
 - @group.teams.each do |team|
   =link_to(team.name, team, {:class=>'btn btn-default'})
+  | &nbsp; 
 = render partial: "roles/list", locals: {roles: @roles}
