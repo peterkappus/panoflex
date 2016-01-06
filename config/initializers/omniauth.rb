@@ -5,7 +5,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     #https://github.com/zquestz/omniauth-google-oauth2/issues/181#issuecomment-114635065
     setup: (lambda do |env|
       request = Rack::Request.new(env)
-      env['omniauth.strategy'].options['token_params'] = {:redirect_uri => 'http://localhost:5000/auth/google_oauth2/callback'}
+      env['omniauth.strategy'].options['token_params'] = {}
     end)
     }
 end
