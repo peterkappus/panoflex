@@ -10,17 +10,14 @@ class RolesController < ApplicationController
     if(%w(vacant).include? params[:scope])
       @roles = Role.vacant.order(:name).page params[:page]
     else
-      if params[:title].to_s.empty?
-        #all roles
-        @roles = Role.order(:name).page params[:page]
-      else
-        #filter by title if requested
-        #@roles = Role.where(title: params[:title]).order(:name).page params[:page]
-        @roles = Role.where(team: params[:team])
-        @roles = Role.ci_like(:title,params[:title])
-        @roles = @roles.order(:name).page params[:page]
-      end
-    end
+      #filter by title if requested
+      #@roles = Role.where(title: params[:title]).order(:name).page params[:page]
+      @roles = Role.all
+      @roles = @roles.where(team: params[:team]) if(params[:team])
+      @roles = @roles.vacant if(params[:filter_vacant])
+      @roles = @roles.ci_like(:title,params[:title]) if(params[:title])
+      @roles = @roles.order(:name).page params[:page]
+  end
   end
 
   def vacant

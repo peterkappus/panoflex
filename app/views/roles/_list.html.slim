@@ -37,7 +37,8 @@
           - roles.each do | role |
             tr class="#{(role.name.match(/vac/i) && params[:scope] != 'vacant') ? 'vacancy' : ''}"
               td = link_to role.group.name, role.group
-              td = link_to role.team.name, role.team
+              /td = link_to role.team.name, role.team
+              td = link_to role.team.name, roles_path(team: role.team)
               td = role.sub_team
               /td = role.name
               td = link_to role.title, roles_path(:title=>role.title)
