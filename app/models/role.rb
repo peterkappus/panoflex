@@ -9,6 +9,11 @@ class Role < ActiveRecord::Base
   scope :vacant_empty, -> {where("lower(name) like '%vacan%' and (apr + may + jun + jul + aug + sep + oct + nov + dec + jan + feb + mar) = 0")}
   scope :vacant_by_date, ->(start_date,end_date) { vacant.where(start_date: start_date..end_date)}
 
+  #case insensitive "where" method
+  #http://billpatrianakos.me/blog/2013/10/19/case-insensitive-finder-methods-in-rails/
+  scope :ci_where, lambda { |attribute, value| where("lower(#{attribute}) = ?", value.downcase) }
+  scope :ci_like, lambda { |attribute, value| where("lower(#{attribute}) like ?", "%#{value.downcase}%") }
+
   #belongs_to :function
   belongs_to :team
   belongs_to :group

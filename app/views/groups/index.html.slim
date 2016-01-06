@@ -11,9 +11,11 @@
         th Name
         th Teams
         th Roles
+        th Vacancies
     tbody
       - @groups.each do | group |
         tr
           td = link_to group.name, group
           td =group.teams.count
           td =group.roles.count
+          td =link_to group.vacancies.count, group_path(group, filter_vacant: true)

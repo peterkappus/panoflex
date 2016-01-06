@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :teams
   resources :groups
+
   resources :actuals do
     post 'import', on: :collection
   end

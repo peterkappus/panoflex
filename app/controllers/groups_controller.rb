@@ -10,6 +10,9 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @roles = @group.roles
+    @roles = @roles.vacant unless(params[:filter_vacant].nil?)
+    @roles = @roles.page(params[:page])
   end
 
   # GET /groups/new

@@ -15,7 +15,10 @@ class RolesController < ApplicationController
         @roles = Role.order(:name).page params[:page]
       else
         #filter by title if requested
-        @roles = Role.where(title: params[:title]).order(:name).page params[:page]
+        #@roles = Role.where(title: params[:title]).order(:name).page params[:page]
+        @roles = Role.where(team: params[:team])
+        @roles = Role.ci_like(:title,params[:title])
+        @roles = @roles.order(:name).page params[:page]
       end
     end
   end

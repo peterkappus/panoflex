@@ -1,89 +1,91 @@
-= paginate roles
-.table-responsive
-  table.table.table-striped.table-bordered.table-hover
-    thead
-      tr
-        th Group
-        th Team
-        th Sub Team
-        /th Name
-        th Title
-        th Number
-        th Type
-        /th Start Date
-          th End Date
-          /th Monthly cost
-        th Apr
-        th May
-        th Jun
-        th Jul
-        th Aug
-        th Sep
-        th Oct
-        th Nov
-        th Dec
-        th Jan
-        th Feb
-        th Mar
-        th Comments
-        /th Function Name
-        /
-          th
-          th
-          th
-    tbody
-      - roles.each do | role |
-        tr class="#{(role.name.match(/vac/i) && params[:scope] != 'vacant') ? 'vacancy' : ''}"
-          td = link_to role.group.name, role.group
-          td = link_to role.team.name, role.team
-          td = role.sub_team
-          /td = role.name
-          td = link_to role.title, roles_path(:title=>role.title)
-          td = role.staff_number
-          td = role.role_type
-          /td =role.start_date.strftime("%h %Y") unless role.start_date.nil?
-          /td =role.end_date.strftime("%h %Y") unless role.end_date.nil?
-          /
-            td
-              = humanized_money_with_symbol role.monthly_cost
-              //hide rate for now
-              /| £XXXX
-          - %w(apr may jun jul aug sep oct nov dec jan feb mar).each do |m|
-            td.amount
-              =role.send(m)
+.row
+  .col-md-12
+    = paginate roles
+    .table-responsive
+      table.table.table-striped.table-bordered.table-hover
+        thead
+          tr
+            th Group
+            th Team
+            th Sub Team
+            /th Name
+            th Title
+            th Number
+            th Type
+            /th Start Date
+              th End Date
+              /th Monthly cost
+            th Apr
+            th May
+            th Jun
+            th Jul
+            th Aug
+            th Sep
+            th Oct
+            th Nov
+            th Dec
+            th Jan
+            th Feb
+            th Mar
+            th Comments
+            /th Function Name
+            /
+              th
+              th
+              th
+        tbody
+          - roles.each do | role |
+            tr class="#{(role.name.match(/vac/i) && params[:scope] != 'vacant') ? 'vacancy' : ''}"
+              td = link_to role.group.name, role.group
+              td = link_to role.team.name, role.team
+              td = role.sub_team
+              /td = role.name
+              td = link_to role.title, roles_path(:title=>role.title)
+              td = role.staff_number.gsub(/(.+?),\s+/,'')
+              td = role.role_type
+              /td =role.start_date.strftime("%h %Y") unless role.start_date.nil?
+              /td =role.end_date.strftime("%h %Y") unless role.end_date.nil?
+              /
+                td
+                  = humanized_money_with_symbol role.monthly_cost
+                  //hide rate for now
+                  /| £XXXX
+              - %w(apr may jun jul aug sep oct nov dec jan feb mar).each do |m|
+                td.amount
+                  =role.send(m)
 
-          td = role.comments
-          /
-            td
-              = link_to 'Show', role
-            td
-              = link_to 'Edit', edit_role_path(role)
-            td
-              = link_to 'Destroy', role, method: :delete, data: { confirm: 'Are you sure?' }
-= paginate roles
+              td = role.comments
+              /
+                td
+                  = link_to 'Show', role
+                td
+                  = link_to 'Edit', edit_role_path(role)
+                td
+                  = link_to 'Destroy', role, method: :delete, data: { confirm: 'Are you sure?' }
+    = paginate roles
 
-javascript:
+    javascript:
 
-  $( 'td.amount' ).each( function()
-  {
-    var $this = $( this ),
-        classToAdd = null;
-        //console.log($this.text().replace(/ ))
-    //strip all spaces
-    switch( $this.text().replace(/\s+/g,''))
-    {
-        case '1.0':
-            classToAdd = 'bg-primary';
-            break;
-        case '0.0':
-            classToAdd = '';
-            break;
-        default:
-            classToAdd = 'bg-info'
-    }
+      $( 'td.amount' ).each( function()
+      {
+        var $this = $( this ),
+            classToAdd = null;
+            //console.log($this.text().replace(/ ))
+        //strip all spaces
+        switch( $this.text().replace(/\s+/g,''))
+        {
+            case '1.0':
+                classToAdd = 'bg-primary';
+                break;
+            case '0.0':
+                classToAdd = '';
+                break;
+            default:
+                classToAdd = 'bg-info'
+        }
 
-    if( classToAdd !== null )
-    {
-        $this.addClass( classToAdd );
-    }
-  } );
+        if( classToAdd !== null )
+        {
+            $this.addClass( classToAdd );
+        }
+      } );

@@ -9,8 +9,10 @@
   end
   h3 =link_to :Groups, groups_path
   h1 #{@group.name}
-  h2 #{@group.roles.count} people
+  h2 #{@group.roles.count} Roles
+  h2 #{@group.roles.collect{|r| r.staff_number}.uniq.count} uniquely identified people
+  h2 =link_to "#{@group.vacancies.count} vacancies", group_path(filter_vacant: true)
 h3 Teams
 - @group.teams.each do |team|
   =link_to(team.name, team, {:class=>'btn btn-default'})
-= render partial: "roles/list", locals: {roles: @group.roles.page(params[:page])}
+= render partial: "roles/list", locals: {roles: @roles}
