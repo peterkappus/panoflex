@@ -1,7 +1,7 @@
 class Role < ActiveRecord::Base
   #scope :by_function, ->(id) { where(:function_name => id)}
-  scope :vacant, -> {where("lower(name) like '%vac%'")}
-  scope :filled, -> {where("lower(name) NOT like '%vacan%'")}
+  scope :vacant, -> {where("lower(name) like '%vac%' or lower(staff_number) like '%vac%'")}
+  scope :filled, -> {where("lower(name) NOT like '%vacan%' and lower(staff_number) NOT like '%vacan%'")}
   #Vacant roles with start & end dates in the past
   #scope :vacant_past, -> {where("lower(name) NOT like '%vacan%'")}
 
@@ -19,68 +19,37 @@ class Role < ActiveRecord::Base
   belongs_to :group
   has_many :allocations
 
-  monetize :monthly_cost
+  monetize :monthly_cost_pennies, :as => "monthly_cost"
+  monetize :total_cost_pennies, :as => "total_cost"
+
+
+  def self.MONTH_NAMES
+     %w(apr may jun jul aug sep oct nov dec jan feb mar)
+  end
 
   #make this smarter!
   #return a hash of months with allocations
   def months
     months = {}
-    %w(apr may jun jul aug sep oct nov dec jan feb mar).map{|m| months[m]=send(m).to_f}
+    Role.MONTH_NAMES.map{|m| months[m]=send(m).to_f}
     months
   end
 
-  def set_date
-    self.start_date = Date.parse("12 May 2014") #Time.today
-    self.save!
-  end
-
-  def calculate_dates
-      start_date = start_of_year = Date.parse("1 apr 2015")
-      end_date = start_date+11.months
-
-      #find (and return) the first non-zero date
-      while(send(start_date.strftime('%h').downcase) <= 0 && start_date <= start_of_year+1.year) do
-        start_date += 1.month
-        #puts start_date.strftime('%h').downcase
-      end
-
-      #find (and return) the first non-zero date
-      while(send(end_date.strftime('%h').downcase) == 0 && end_date >= start_of_year) do
-        end_date -= 1.month
-        #puts end_date.strftime('%h').downcase
-      end
-
-      self.start_date = start_date
-      self.end_date  = end_date.end_of_month # we don't know the actual end date, so assume end of month
-
-      #save this record
-      save!
-  end
-
-  def self.calculate_dates
+  def self.update_all_total_costs
     Role.all.each do |r|
-      r.calculate_dates
+      r.update_total_cost
     end
   end
 
-  #TODO
-  # migrate allocations from Roles table into new Allocations table
-  def self.create_allocations
-    Role.all.each do |r|
-      start_date = Date.parse("1 apr 2015")
-      r.months.keys.each do |month_name|
-        a = Allocation.new
-        #a.date = Date.parse("1 Apr 2015")
-        #step through months Apr-Mar by adding months to the start month
-        #get the value from the Roles table and assign to the correct allocation month
-      end
-    end
+  def update_total_cost
+    self.total_cost = months.values.reduce(:+) * monthly_cost
+    self.save
   end
 
   def self.import(file)
     require 'csv' #probably should put this at the top, but I don't *always* want to include it... Smarter
-    months = %w(apr may jun jul aug sep oct nov dec jan feb mar)
-    required_cols = %w(group team name title role_type staff_number monthly_cost sub_team) + months
+
+    required_cols = %w(group team title role_type staff_number monthly_cost sub_team) + Role.MONTH_NAMES
 
     #subtract supplied columns from required columns to see if any are missing
     missing_cols = required_cols - CSV.read(file.path,headers: true).headers
@@ -93,6 +62,8 @@ class Role < ActiveRecord::Base
       Role.destroy_all
 
       CSV.foreach(file.path, headers: true) do |row|
+        next if row['group'] == 'n/a'
+
         #new role to hold our values
         r = Role.new()
 
@@ -101,7 +72,7 @@ class Role < ActiveRecord::Base
           value = row[col_name]
 
           #cast monthly utilisation as floats (and convert nils to 0.0)
-          if(months.include? col_name)
+          if(Role.MONTH_NAMES.include? col_name)
             value = value.to_f
           end
 
@@ -124,22 +95,75 @@ class Role < ActiveRecord::Base
 
         #assign the team to the group (team's group will always be the last one... this is why we need to remove the direct role -> group association)
         r.group.teams << r.team
+        r.staff_number.sub!(/.+?-\w+/,'') #anonymise by removing name portion
 
-        #don't save if the name is empty.
-        if(!r.name.to_s.empty?)
-          #Anonymize while in development!
-          #r.name = r.name.to_s.match(/^.{2}/)[0] + "********"
+        #start/end dates
+        #r.calculate_dates
 
-          #r.name = "REDACTED" unless r.name.to_s.match(/vacan/i)
+        #ineficient as this saves the record again...
+        #r.total_cost = 3000 #r.update_total_cost
+        #r.total_cost_pennies = Role.MONTH_NAMES.map{|month| send(month).to_f}.reduce(:+) * monthly_cost
+        r.save!
+        #end
+      end
+    end
 
-          #start/end dates
-          r.calculate_dates
+    #destroy any groups (and their teams) without roles
+    Group.all.map{|g| g.destroy if(g.roles.count <= 0)}
+  end
 
-          r.save!
+
+
+=begin obsolete functions for finding start & end dates
+
+  def set_date
+    self.start_date = Date.parse("12 May 2014") #Time.today
+    self.save!
+  end
+
+def calculate_dates
+    start_date = start_of_year = Date.parse("1 apr 2015")
+    end_date = start_date+11.months
+
+    #find (and return) the first non-zero date
+    while(send(start_date.strftime('%h').downcase) <= 0 && start_date <= start_of_year+1.year) do
+      start_date += 1.month
+      #puts start_date.strftime('%h').downcase
+    end
+
+    #find (and return) the first non-zero date
+    while(send(end_date.strftime('%h').downcase) == 0 && end_date >= start_of_year) do
+      end_date -= 1.month
+      #puts end_date.strftime('%h').downcase
+    end
+
+    self.start_date = start_date
+    self.end_date  = end_date.end_of_month # we don't know the actual end date, so assume end of month
+
+    #save this record
+    save!
+end
+
+def self.calculate_dates
+  Role.all.each do |r|
+    r.calculate_dates
+  end
+end
+=end
+
+    #TODO
+    # migrate allocations from Roles table into new Allocations table
+    def self.create_allocations
+      Role.all.each do |r|
+        start_date = Date.parse("1 apr 2015")
+        r.months.keys.each do |month_name|
+          a = Allocation.new
+          #a.date = Date.parse("1 Apr 2015")
+          #step through months Apr-Mar by adding months to the start month
+          #get the value from the Roles table and assign to the correct allocation month
         end
       end
     end
-  end
 
 
 =begin

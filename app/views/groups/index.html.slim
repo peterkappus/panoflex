@@ -1,21 +1,37 @@
 .page-header
-  = link_to new_group_path, class: 'btn btn-primary' do
-    span.glyphicon.glyphicon-plus
-    |  New Group
+  /
+    = link_to new_group_path, class: 'btn btn-primary' do
+      span.glyphicon.glyphicon-plus
+      |  New Group
   h1 Business Groups
 
-.table-responsive
-  table.table.table-striped.table-bordered.table-hover
-    thead
-      tr
-        th Name
-        th Teams
-        th Roles
-        th Vacancies
-    tbody
-      - @groups.each do | group |
-        tr
-          td = link_to group.name, group
-          td =group.teams.count
-          td =group.roles.count
-          td =link_to group.vacancies.count, group_path(group, filter_vacant: true)
+.row
+  - Group.all.order(:name).each do |group|
+    .col-md-3
+      .slug onclick="document.location='#{group_path(group)}'"
+        h2 =link_to group.name, group
+        ul
+          li #{group.roles.count} Roles
+          li #{group.unique_numbers.count} Unique People
+          li #{group.vacancies.count} vacant roles
+          -if group.roles.count > 0
+            li #{group.vacancies.count*100/group.roles.count}% of roles vacant
+
+/
+  .row
+    .col-md-12
+      .table-responsive
+        table.table.table-striped.table-bordered.table-hover
+          thead
+            tr
+              th Name
+              th Teams
+              th Roles
+              th Vacancies
+          tbody
+            - @groups.each do | group |
+              tr
+                td = link_to group.name, group
+                td =group.teams.count
+                td =group.roles.count
+                td =link_to group.vacancies.count, group_path(group, filter_vacant: true)

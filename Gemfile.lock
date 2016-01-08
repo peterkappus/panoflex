@@ -206,7 +206,6 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   kaminari-bootstrap (~> 3.0.1)
-  monetize
   money-rails
   omniauth-google-oauth2
   pg

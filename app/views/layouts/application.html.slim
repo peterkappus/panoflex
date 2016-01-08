@@ -26,25 +26,31 @@ html
             span.icon-bar
           = link_to "GDS Resourcing Tool", "/", class: "navbar-brand"
         #navbar.collapse.navbar-collapse
-          ul.nav.navbar-nav
-            li class="#{(params[:controller] == "groups") ? "active" : ""}"
-              a href="#{groups_path}"
-                | Groups
-            li class="#{(params[:controller] == "roles") ? "active" : ""}"
-              a href="#{roles_path}"
-                | Roles
-            /
-              li class="#{(params[:controller] == "actuals") ? "active" : ""}"
-                a href="#{actuals_path}"
-                  | Actuals
-            /
-              li
-                a href="#about"
-                  | About
-            /
-              li
-                a href="#contact"
-                  | Contact
+          /
+            ul.nav.navbar-nav
+              li class="#{(params[:controller] == "groups") ? "active" : ""}"
+                a href="#{groups_path}"
+                  | Groups
+              /
+                li class="#{(params[:controller] == "roles") ? "active" : ""}"
+                  a href="#{vacant_roles_path}"
+                    | All Vacancies
+              /
+                li class="#{(params[:controller] == "roles") ? "active" : ""}"
+                  a href="#{roles_path}"
+                    | Roles
+              /
+                li class="#{(params[:controller] == "actuals") ? "active" : ""}"
+                  a href="#{actuals_path}"
+                    | Actuals
+              /
+                li
+                  a href="#about"
+                    | About
+              /
+                li
+                  a href="#contact"
+                    | Contact
     .container
       - flash.each do |name, msg|
         = content_tag :div, class: "alert alert-#{ name == "error" ? "danger" : "success" } alert-dismissable", role: "alert" do

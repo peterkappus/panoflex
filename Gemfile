@@ -10,7 +10,7 @@ gem 'rails_12factor', group: :production
 
 #for handling money
 gem "money-rails"
-gem "monetize"
+#gem "monetize"
 
 #pagination
 #gem "kaminari"

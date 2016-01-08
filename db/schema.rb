@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151229155512) do
+ActiveRecord::Schema.define(version: 20160107220503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20151229155512) do
     t.string   "name"
     t.string   "title"
     t.string   "role_type"
-    t.integer  "monthly_cost"
+    #t.integer  "monthly_cost"
     t.decimal  "apr"
     t.decimal  "may"
     t.decimal  "jun"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20151229155512) do
     t.decimal  "feb"
     t.decimal  "mar"
     t.text     "comments"
-    t.string   "function_name"
+    t.string   "function"
     t.string   "team"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
@@ -80,6 +80,9 @@ ActiveRecord::Schema.define(version: 20151229155512) do
     t.integer  "group_id"
     t.integer  "team_id"
     t.string   "sub_team"
+    #t.integer  "total_cost"
+    t.integer  "total_cost_pennies",    default: 0,     null: false
+    t.string   "total_cost_currency",   default: "GBP", null: false
   end
 
   create_table "teams", force: :cascade do |t|
