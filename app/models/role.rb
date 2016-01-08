@@ -43,7 +43,7 @@ class Role < ActiveRecord::Base
 
   def update_total_cost
     self.total_cost = months.values.reduce(:+) * monthly_cost
-    self.save
+    self.save!
   end
 
   def self.import(file)
