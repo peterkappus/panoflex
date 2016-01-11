@@ -1,6 +1,7 @@
 class Role < ActiveRecord::Base
   #scope :by_function, ->(id) { where(:function_name => id)}
-  scope :vacant, -> {where("lower(name) like '%vac%' or lower(staff_number) like '%vac%'")}
+  scope :vacant, -> {where("lower(name) like '%vac%' or lower(staff_number) = 'vacant'")}
+  scope :na_people, -> {where("lower(staff_number) like '%#n/a%'")}
   scope :filled, -> {where("lower(name) NOT like '%vacan%' and lower(staff_number) NOT like '%vacan%'")}
   #Vacant roles with start & end dates in the past
   #scope :vacant_past, -> {where("lower(name) NOT like '%vacan%'")}
@@ -19,9 +20,12 @@ class Role < ActiveRecord::Base
   belongs_to :group
   has_many :allocations
 
-  monetize :monthly_cost_pennies, :as => "monthly_cost"
-  monetize :total_cost_pennies, :as => "total_cost"
+  monetize :monthly_cost_cents, :as=>:monthly_cost
+  monetize :total_cost_cents, :as=>:total_cost
 
+  def vacant?
+    self.staff_number.match(/vac/i)
+  end
 
   def self.MONTH_NAMES
      %w(apr may jun jul aug sep oct nov dec jan feb mar)
@@ -38,6 +42,13 @@ class Role < ActiveRecord::Base
   def self.update_all_total_costs
     Role.all.each do |r|
       r.update_total_cost
+    end
+  end
+
+  def self.anonymise_staff_numbers
+    Role.all.each do |r|
+      r.staff_number = r.staff_number.sub(/.+?-\s+/,'')
+      r.save!
     end
   end
 
@@ -95,7 +106,8 @@ class Role < ActiveRecord::Base
 
         #assign the team to the group (team's group will always be the last one... this is why we need to remove the direct role -> group association)
         r.group.teams << r.team
-        r.staff_number.sub!(/.+?-\w+/,'') #anonymise by removing name portion
+        r.staff_number = r.staff_number.sub(/.+?-\s+/,'')
+         #anonymise by removing name portion
 
         #start/end dates
         #r.calculate_dates
@@ -103,6 +115,7 @@ class Role < ActiveRecord::Base
         #ineficient as this saves the record again...
         #r.total_cost = 3000 #r.update_total_cost
         #r.total_cost_pennies = Role.MONTH_NAMES.map{|month| send(month).to_f}.reduce(:+) * monthly_cost
+        r.update_total_cost
         r.save!
         #end
       end

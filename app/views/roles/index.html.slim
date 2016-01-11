@@ -1,13 +1,29 @@
 .row
-    .col-md-12
+    .col-md-4
       /h2 =link_to "Vacant Roles", vacant_roles_path
-      h1 Roles
-      - if params[:team] || params[:title]
-        h2 Filtered by
-      - if params[:team]
-        h3 Team: #{Team.find_by_id(params[:team].to_i).name}
-      - if params[:title]
-        h3 Titles containing: #{params[:title]}
+      h1 Showing #{@total} Roles
+      - if params[:team] || params[:title] || params[:group] || params[:filter_vacant]
+        h2 Filtered by:
+        ul.list-group
+          - if params[:team]
+            - team = Team.find_by_id(params[:team].to_i)
+            li.list-group-item
+              h3
+                | Team: #{link_to team.name,team}
+                button.btn.pull-right.close aria-label="Close"
+                  span aria-hidden="true" &times;
+          - if params[:filter_vacant]
+            li.list-group-item
+              h3
+                | Vacancies
+                button.btn.pull-right.close aria-label="Close"
+                  span aria-hidden="true" &times;
+          - if params[:title]
+            li.list-group-item
+              h3
+                | Titles containing: #{params[:title]}
+                button.btn.pull-right.close aria-label="Close"
+                  span aria-hidden="true" &times;
 =render partial: "list", locals: {roles: @roles}
 
 = form_tag import_roles_path, multipart: true, class: "form-inline" do

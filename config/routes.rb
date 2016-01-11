@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :roles do
     #get 'import', on: :collection
     post 'import', on: :collection
-    get 'vacant', on: :collection
+    #get 'vacant', on: :collection
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

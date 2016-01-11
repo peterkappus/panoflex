@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20160107220503) do
     t.string   "team"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
-    t.integer  "monthly_cost_pennies",  default: 0,     null: false
+    t.integer  "monthly_cost_cents",  default: 0,     null: false
     t.string   "monthly_cost_currency", default: "GBP", null: false
     t.date     "start_date"
     t.date     "end_date"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20160107220503) do
     t.integer  "team_id"
     t.string   "sub_team"
     #t.integer  "total_cost"
-    t.integer  "total_cost_pennies",    default: 0,     null: false
+    t.integer  "total_cost_cents",    default: 0,     null: false
     t.string   "total_cost_currency",   default: "GBP", null: false
   end
 

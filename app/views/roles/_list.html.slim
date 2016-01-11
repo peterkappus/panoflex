@@ -37,20 +37,24 @@
               th
         tbody
           - roles.each do | role |
-            tr class="#{(role.staff_number.match(/vac/i) && params[:scope] != 'vacant') ? 'vacancy' : ''}"
+            tr class="#{role.vacant? ? 'vacancy' : ''}"
               td = link_to role.group.name, role.group
               /td = link_to role.team.name, role.team
               td = link_to role.team.name, roles_path(team: role.team)
               td = role.sub_team
               /td = role.name
               td = link_to role.title.to_s, roles_path(:title=>role.title)
-              td = role.staff_number.gsub(/.+?-\s+/,'')
+              td
+                - if(role.vacant?)
+                  =link_to "vacant", roles_path(filter_vacant: true, team: role.team)
+                - else
+                  = role.staff_number
               /only firstname & number
               /td = role.staff_number.gsub(/(.+?),\s+/,'')
               td = role.role_type
               /td =role.start_date.strftime("%h %Y") unless role.start_date.nil?
               /td =role.end_date.strftime("%h %Y") unless role.end_date.nil?
-              td = humanized_money_with_symbol role.monthly_cost
+              td  = humanized_money_with_symbol role.monthly_cost
               td = humanized_money_with_symbol role.total_cost
               - Role.MONTH_NAMES.each do |m|
                 td.amount
