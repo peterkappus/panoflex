@@ -1,4 +1,6 @@
 class Role < ActiveRecord::Base
+
+  order(:staff_number)
   #scope :by_function, ->(id) { where(:function_name => id)}
   scope :vacant, -> {where("lower(name) like '%vac%' or lower(staff_number) = 'vacant'")}
   scope :na_people, -> {where("lower(staff_number) like '%#n/a%'")}

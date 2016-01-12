@@ -5,6 +5,7 @@
       |  New Group
   h1 GDS Dashboard
   h3 #{Role.count} Roles
+  h3 #{Role.pluck(:title).uniq.count} Unique Job Titles
   h3 #{Role.pluck(:staff_number).uniq.count} Unique staff numbers
   h3 =link_to Role.vacant.count.to_s + " Vacancies", roles_path(filter_vacant: true)
 .row
@@ -16,6 +17,8 @@
           li #{group.roles.count} Roles
           li #{group.unique_numbers.count} Unique People
           li #{group.vacancies.count} vacant roles
+          - (group.vacancies.count/10).times do
+            .glyphicon.glyphicon-user
           -if group.roles.count > 0
             li #{group.vacancies.count*100/group.roles.count}% of roles vacant
 

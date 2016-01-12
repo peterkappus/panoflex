@@ -17,7 +17,7 @@ class RolesController < ApplicationController
       @roles = @roles.vacant if(params[:filter_vacant])
       @roles = @roles.ci_like(:title,params[:title]) if(params[:title])
       @total = @roles.count
-      @roles = @roles.order(:name).page params[:page]
+      @roles = @roles.order(:staff_number).page params[:page]
     end
   end
 
