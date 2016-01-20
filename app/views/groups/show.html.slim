@@ -1,18 +1,34 @@
-.headings
-  h1
-    =link_to "Group:", groups_path
-    |&nbsp;
-    = @group.name
-  h2 Goals:
-  - @group.goals.each do |g|
-    h3
-      == g.name
-      small == " " + link_to('Edit', edit_goal_path(g))
-  h2 Staff
-  h3 #{@group.roles.count} Roles
-  h3 #{@group.roles.collect{|r| r.staff_number}.uniq.count} uniquely identified people
-  h3 =link_to "#{@group.vacancies.count} vacancies", group_path(filter_vacant: true)
-  h2 Teams
-  - @group.teams.each do |team|
-    h3 =link_to team.name, team
-  = render partial: "roles/list", locals: {roles: @roles}
+.row.headings
+  .col-md-12
+    h1
+      =link_to "Group:", groups_path
+      |&nbsp;
+      = @group.name
+  .col-md-6
+    .slug
+      h2 Goals:
+      - @group.goals.each do |g|
+        h3
+          == g.name
+          small == " " + link_to('Edit', edit_goal_path(g))
+      =link_to "Add Goal", new_goal_path
+  .col-md-6
+    .slug
+      h2 Staff
+      h3 #{@group.roles.count} Roles
+      h3 #{@group.roles.collect{|r| r.staff_number}.uniq.count} uniquely identified people
+      h3 =link_to "#{@group.vacancies.count} vacancies", group_path(filter_vacant: true)
+  .col-md-6
+    .slug
+      h2 Teams
+      - @group.teams.each do |team|
+        h3
+          =link_to team.name, team
+          small
+            | &nbsp; (
+            = team.roles.count
+            /.glyphicon.glyphicon-user
+            | )
+.row
+  .col-md-12
+    = render partial: "roles/list", locals: {roles: @roles}

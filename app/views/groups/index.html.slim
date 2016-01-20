@@ -15,7 +15,7 @@
       .slug onclick="document.location='#{group_path(group)}'"
         h2 =link_to group.name, group
         ul
-          li #{group.goals.count} Goals
+          li = pluralize group.goals.count, "Goal"
           li &nbsp;
           li #{group.roles.count} Roles
           li #{group.unique_numbers.count} Unique People
