@@ -4,6 +4,7 @@
       span.glyphicon.glyphicon-plus
       |  New Group
   h1 GDS Dashboard
+  h3 =link_to Goal.count.to_s + ' Goals', goals_path
   h3 #{Role.count} Roles
   h3 #{Role.pluck(:title).uniq.count} Unique Job Titles
   h3 #{Role.pluck(:staff_number).uniq.count} Unique staff numbers
@@ -14,6 +15,8 @@
       .slug onclick="document.location='#{group_path(group)}'"
         h2 =link_to group.name, group
         ul
+          li #{group.goals.count} Goals
+          li &nbsp;
           li #{group.roles.count} Roles
           li #{group.unique_numbers.count} Unique People
           li #{group.vacancies.count} vacant roles

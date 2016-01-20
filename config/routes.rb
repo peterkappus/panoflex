@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   #google_oauth2...or others someday
   get '/auth/:provider/callback' => 'sessions#create'
 
+  #convenience redirect
+  get '/login', to: redirect('/auth/google_oauth2')
+
   resources :roles do
-    #get 'import', on: :collection
     post 'import', on: :collection
     #get 'vacant', on: :collection
   end

@@ -1,24 +1,18 @@
-
-.page-header
-  /
-    = link_to groups_path, class: 'btn btn-default' do
-      span.glyphicon.glyphicon-list-alt
-      |  Back
-    = link_to edit_group_path(@group), title: "Edit",class: 'btn btn-primary' do
-      span.glyphicon.glyphicon-pencil
-    = link_to @group, class: 'btn btn-danger', title: "Destroy!", method: :delete, data: { confirm: 'Really destroy this group?' } do
-      span.glyphicon.glyphicon-trash
-    end
+.headings
   h1
     =link_to "Group:", groups_path
     |&nbsp;
     = @group.name
-  ul.list-unstyled
-    li #{@group.roles.count} Roles
-    li #{@group.roles.collect{|r| r.staff_number}.uniq.count} uniquely identified people
-    li =link_to "#{@group.vacancies.count} vacancies", group_path(filter_vacant: true)
-h3 Teams
-- @group.teams.each do |team|
-  =link_to(team.name, team, {:class=>'btn btn-default'})
-  | &nbsp;
-= render partial: "roles/list", locals: {roles: @roles}
+  h2 Goals:
+  - @group.goals.each do |g|
+    h3
+      == g.name
+      small == " " + link_to('Edit', edit_goal_path(g))
+  h2 Staff
+  h3 #{@group.roles.count} Roles
+  h3 #{@group.roles.collect{|r| r.staff_number}.uniq.count} uniquely identified people
+  h3 =link_to "#{@group.vacancies.count} vacancies", group_path(filter_vacant: true)
+  h2 Teams
+  - @group.teams.each do |team|
+    h3 =link_to team.name, team
+  = render partial: "roles/list", locals: {roles: @roles}

@@ -61,5 +61,6 @@ html
             span.sr-only
               | Close
           = msg
-      /h3 Signed in as #{session['name']}
+      i Signed in as #{session['name']}
       = yield
+    footer
