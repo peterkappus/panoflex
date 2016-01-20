@@ -8,6 +8,7 @@ gem 'rails_12factor', group: :production
 #not yet....
 #gem 'omniauth'
 
+
 #for handling money
 gem "money-rails"
 #gem "monetize"
@@ -19,6 +20,10 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 
 #bootstrap-generators
 gem 'bootstrap-generators', '~> 3.3.4'
+
+#for pretty select boxes
+# use class="selectpicker"
+gem 'bootstrap-select-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'

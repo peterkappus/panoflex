@@ -1,0 +1,26 @@
+.page-header
+  = link_to goals_path, class: 'btn btn-default' do
+    span.glyphicon.glyphicon-list-alt
+    |  Back
+  = link_to edit_goal_path(@goal), class: 'btn btn-primary' do
+    span.glyphicon.glyphicon-pencil
+    |  Edit
+  h1
+    | Show goal
+dl.dl-horizontal
+  dt
+    | Name:
+  dd
+    = @goal.name
+  dt
+    | Team:
+  dd
+    = begin @goal.team.name rescue "" end
+  dt
+    | Group:
+  dd
+    = begin @goal.group.name rescue "" end
+  dt
+    | Parent goal:
+  dd
+    = @goal.parent_goal_id

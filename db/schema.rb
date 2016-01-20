@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160107220503) do
+ActiveRecord::Schema.define(version: 20160120153158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,18 @@ ActiveRecord::Schema.define(version: 20160107220503) do
     t.datetime "updated_at",                          null: false
   end
 
+  create_table "goals", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "team_id"
+    t.integer  "group_id"
+    t.integer  "parent_goal_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "goals", ["group_id"], name: "index_goals_on_group_id", using: :btree
+  add_index "goals", ["team_id"], name: "index_goals_on_team_id", using: :btree
+
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -54,7 +66,6 @@ ActiveRecord::Schema.define(version: 20160107220503) do
     t.string   "name"
     t.string   "title"
     t.string   "role_type"
-    #t.integer  "monthly_cost"
     t.decimal  "apr"
     t.decimal  "may"
     t.decimal  "jun"
@@ -72,7 +83,7 @@ ActiveRecord::Schema.define(version: 20160107220503) do
     t.string   "team"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
-    t.integer  "monthly_cost_cents",  default: 0,     null: false
+    t.integer  "monthly_cost_cents",    default: 0,     null: false
     t.string   "monthly_cost_currency", default: "GBP", null: false
     t.date     "start_date"
     t.date     "end_date"
@@ -80,8 +91,7 @@ ActiveRecord::Schema.define(version: 20160107220503) do
     t.integer  "group_id"
     t.integer  "team_id"
     t.string   "sub_team"
-    #t.integer  "total_cost"
-    t.integer  "total_cost_cents",    default: 0,     null: false
+    t.integer  "total_cost_cents",      default: 0,     null: false
     t.string   "total_cost_currency",   default: "GBP", null: false
   end
 
@@ -102,5 +112,7 @@ ActiveRecord::Schema.define(version: 20160107220503) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "goals", "groups"
+  add_foreign_key "goals", "teams"
   add_foreign_key "teams", "groups"
 end

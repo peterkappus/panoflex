@@ -1,0 +1,33 @@
+
+= form_for(@goal, html: { class: "form-horizontal", role: "form" }) do |f|
+  - if @goal.errors.any?
+    .alert.alert-danger.alert-dismissable role="alert"
+      button.close type="button" data-dismiss="alert"
+        span aria-hidden="true"
+          | &times;
+        span.sr-only
+          | Close
+      h4= "#{pluralize(@goal.errors.count,"error")} prohibited this goal from being saved:"
+      ul
+        - @goal.errors.full_messages.each do |msg|
+          li= msg
+  .form-group
+    = f.label :name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :name, class: "form-control"
+  .form-group
+    = f.label :team, class: "col-sm-2 control-label"
+    .col-sm-10
+      /= select :team, :team_id, Team.all.collect {|t| [ t.name, t.id]}, {include_blank: 'None'}, {class: "selectpicker"}
+      =collection_select :goal, :team_id, Team.all, :id, :name, {prompt:true,include_blank:true}, {class: :selectpicker}
+  .form-group
+    = f.label :group, class: "col-sm-2 control-label"
+    .col-sm-10
+      =collection_select :goal, :group_id, Group.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
+  .form-group
+    = f.label :parent_goal_id, class: "col-sm-2 control-label"
+    .col-sm-10
+      =collection_select :goal, :parent_goal_id, Goal.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"
