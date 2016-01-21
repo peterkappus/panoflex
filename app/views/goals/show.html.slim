@@ -2,9 +2,10 @@
 
 h1
   = @goal.name
-  .pull-right =link_to :Edit, edit_goal_path, class: "btn-primary btn-sm"
-  .pull-right &nbsp;
-  .pull-right = link_to 'Destroy', @goal, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-sm btn-danger"
+  -if is_admin?
+    .pull-right =link_to :Edit, edit_goal_path, class: "btn-primary btn-sm"
+    .pull-right &nbsp;
+    .pull-right = link_to 'Destroy', @goal, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-sm btn-danger"
 
 /TODO....
 /p.lead =@goal.description
@@ -12,6 +13,6 @@ h1
 - unless (@goal.owner_name.empty?)
   h4 =@goal.owner_name
 
-=link_to "Create a new  objective at this level.",new_goal_path(parent_id:@goal)
+=link_to "Create a new  objective at this level.",new_goal_path(parent_id:@goal) if is_admin?
 
 == render partial: 'sub_goals', locals: {sub_goals: @goal.children}

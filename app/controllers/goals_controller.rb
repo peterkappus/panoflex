@@ -1,6 +1,8 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
 
+  before_action :check_admin, only: [:new, :create, :update, :destroy]
+
   # GET /goals
   # GET /goals.json
   def index

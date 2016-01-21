@@ -7,4 +7,5 @@
         | &nbsp;
         small
           =sub_goal.owner_name
-          |  (#{pluralize(sub_goal.children.count,"Child Goal")})
+        .smaller
+          =pluralize(sub_goal.children.count,"Child Goal") if sub_goal.children.count > 0

@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback' => 'sessions#create'
 
   #convenience redirect
-  get '/login', to: redirect('/auth/google_oauth2')
+  get '/login', to: redirect('/auth/google_oauth2'), as: :login
+  get '/logout' => 'sessions#destroy', as: :logout
 
   resources :roles do
     post 'import', on: :collection

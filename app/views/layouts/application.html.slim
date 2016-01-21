@@ -61,7 +61,8 @@ html
             span.sr-only
               | Close
           = msg
-      /i Signed in as #{session['name']}
+      -if is_admin?
+        i Signed in as #{session['name']} (#{link_to :logout, logout_path})
       = yield
       footer
       hr

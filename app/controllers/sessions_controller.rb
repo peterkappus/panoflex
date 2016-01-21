@@ -5,4 +5,11 @@ class SessionsController < ApplicationController
     flash['notice'] = "Logged in"
     redirect_to root_path
   end
+
+  def destroy
+    session['name'] = 'booger'
+    flash['notice'] = "Logged out"
+    redirect_to "/"
+  end
+
 end

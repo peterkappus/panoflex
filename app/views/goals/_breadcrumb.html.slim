@@ -6,4 +6,4 @@ ol.breadcrumb
     - ancestors.unshift g.parent
     - g = g.parent
   - ancestors.each do |a|
-    li =link_to a.name, a
+    li =link_to truncate(a.name, length: 12), a

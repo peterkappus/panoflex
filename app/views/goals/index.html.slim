@@ -6,6 +6,6 @@ ol.breadcrumb
     h1 GDS Objectives
     p.lead These are the top-level goals adopted across GDS for the 16/17 financial year.
 
-    =link_to "Add New", new_goal_path
+    =link_to "Add New", new_goal_path if is_admin?
 
     == render partial: 'goals/sub_goals', locals: {sub_goals: Goal.gds_goals}
