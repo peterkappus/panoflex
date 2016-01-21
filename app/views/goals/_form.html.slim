@@ -1,4 +1,7 @@
-
+javascript:
+  $(document).ready(function() {
+      $('form:first *:input[type!=hidden]:first').focus();
+  });
 = form_for(@goal, html: { class: "form-horizontal", role: "form" }) do |f|
   - if @goal.errors.any?
     .alert.alert-danger.alert-dismissable role="alert"
@@ -24,10 +27,15 @@
     = f.label :group, class: "col-sm-2 control-label"
     .col-sm-10
       =collection_select :goal, :group_id, Group.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
+  //parent set in controller if ID passed in params (assuming parent is found)
   .form-group
-    = f.label :parent_goal_id, class: "col-sm-2 control-label"
+    = f.label :parent_id, class: "col-sm-2 control-label"
     .col-sm-10
-      =collection_select :goal, :parent_goal_id, Goal.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
+      /= @goal.parent ? @goal.parent.name : ""
+      =collection_select :goal, :parent_id, Goal.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
+      /=f.hidden_field :parent_id, :value=> @goal.parent.id
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"
+      | &nbsp;
+      =link_to "Back", "javascript:history.go(-1);void(0)"

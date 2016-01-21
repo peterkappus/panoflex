@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160120153158) do
     t.string   "name"
     t.integer  "team_id"
     t.integer  "group_id"
-    t.integer  "parent_goal_id"
+    t.integer  "parent_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end

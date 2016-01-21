@@ -1,9 +1,5 @@
-.page-header
-  = link_to goals_path, class: 'btn btn-default' do 
-    span.glyphicon.glyphicon-list-alt
-    |  Back 
-  h1
-    | New 
-    | goal
+= render 'goals/breadcrumb'
+
+h1 Create a new goal
 
 = render 'form'

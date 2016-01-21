@@ -1,0 +1,10 @@
+- if(sub_goals)
+  /h4 #{pluralize(sub_goals.count,"Child goal")}
+  ol.sub_goal
+    - sub_goals.each do |sub_goal|
+      li
+        =link_to sub_goal.name, sub_goal
+        | &nbsp;
+        small
+          =sub_goal.owner_name
+          |  (#{pluralize(sub_goal.children.count,"Child Goal")})

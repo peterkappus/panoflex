@@ -17,7 +17,7 @@
         ul
           li = pluralize group.goals.count, "Goal"
           li &nbsp;
-          li #{group.roles.count} Roles
+          li = pluralize group.roles.count, "Roles"
           li #{group.unique_numbers.count} Unique People
           li #{group.vacancies.count} vacant roles
           - (group.vacancies.count/10).times do

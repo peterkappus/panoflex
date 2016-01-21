@@ -5,6 +5,7 @@ class GoalsController < ApplicationController
   # GET /goals.json
   def index
     @goals = Goal.all
+    Goal.gds_goals
   end
 
   # GET /goals/1
@@ -15,6 +16,9 @@ class GoalsController < ApplicationController
   # GET /goals/new
   def new
     @goal = Goal.new
+
+    #set the parent ID for the new goal if we passed one in via the params and if it's been found
+    @goal.parent_id = params[:parent_id] if Goal.find_by_id(params[:parent_id])
   end
 
   # GET /goals/1/edit
@@ -28,7 +32,7 @@ class GoalsController < ApplicationController
 
     respond_to do |format|
       if @goal.save
-        format.html { redirect_to @goal.group || @goal.team, notice: 'Goal was successfully created.' }
+        format.html { redirect_to @goal, notice: 'Goal was successfully created.' }
         format.json { render :show, status: :created, location: @goal }
       else
         format.html { render :new }
@@ -42,7 +46,7 @@ class GoalsController < ApplicationController
   def update
     respond_to do |format|
       if @goal.update(goal_params)
-        format.html { redirect_to @goal.group || @goal.team, notice: 'Goal was successfully updated.' }
+        format.html { redirect_to @goal, notice: 'Goal was successfully updated.' }
         format.json { render :show, status: :ok, location: @goal }
       else
         format.html { render :edit }
@@ -55,6 +59,12 @@ class GoalsController < ApplicationController
   # DELETE /goals/1.json
   def destroy
     @goal.destroy
+    #orphan children on destroying
+    #NOTE: use :dependent :nullify, instead
+    #@goal.children.each do |c|
+    #  c.update!(parent_id: nil)
+    #end
+
     respond_to do |format|
       format.html { redirect_to goals_url, notice: 'Goal was successfully destroyed.' }
       format.json { head :no_content }
@@ -69,6 +79,6 @@ class GoalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def goal_params
-      params.require(:goal).permit(:name, :team_id, :group_id, :parent_goal_id)
+      params.require(:goal).permit(:name, :team_id, :group_id, :parent_id)
     end
 end

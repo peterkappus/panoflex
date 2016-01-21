@@ -1,26 +1,17 @@
-.page-header
-  = link_to goals_path, class: 'btn btn-default' do
-    span.glyphicon.glyphicon-list-alt
-    |  Back
-  = link_to edit_goal_path(@goal), class: 'btn btn-primary' do
-    span.glyphicon.glyphicon-pencil
-    |  Edit
-  h1
-    | Show goal
-dl.dl-horizontal
-  dt
-    | Name:
-  dd
-    = @goal.name
-  dt
-    | Team:
-  dd
-    = @goal.team_name
-  dt
-    | Group:
-  dd
-    = @goal.group_name
-  dt
-    | Parent goal:
-  dd
-    = @goal.parent_goal_name
+= render 'goals/breadcrumb'
+
+h1
+  = @goal.name
+  .pull-right =link_to :Edit, edit_goal_path, class: "btn-primary btn-sm"
+  .pull-right &nbsp;
+  .pull-right = link_to 'Destroy', @goal, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-sm btn-danger"
+
+/TODO....
+/p.lead =@goal.description
+
+- unless (@goal.owner_name.empty?)
+  h4 =@goal.owner_name
+
+=link_to "Create a new  objective at this level.",new_goal_path(parent_id:@goal)
+
+== render partial: 'sub_goals', locals: {sub_goals: @goal.children}

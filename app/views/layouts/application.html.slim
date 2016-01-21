@@ -25,7 +25,7 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          = link_to "GDS Resourcing Tool", "/", class: "navbar-brand"
+          = link_to "GDS Operational Dashboard", "/", class: "navbar-brand"
         #navbar.collapse.navbar-collapse
           /
             ul.nav.navbar-nav
@@ -61,6 +61,8 @@ html
             span.sr-only
               | Close
           = msg
-      i Signed in as #{session['name']}
+      /i Signed in as #{session['name']}
       = yield
-    footer
+      footer
+      hr
+      small #{Time.now.strftime("%b %Y")} GDS Operations

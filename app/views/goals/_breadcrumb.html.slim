@@ -1,0 +1,9 @@
+ol.breadcrumb
+  li =link_to :Objectives, goals_path
+  - g = @goal
+  - ancestors = []
+  - while(g.parent) do
+    - ancestors.unshift g.parent
+    - g = g.parent
+  - ancestors.each do |a|
+    li =link_to a.name, a

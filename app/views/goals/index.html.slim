@@ -1,39 +1,11 @@
-.page-header
-  = link_to new_goal_path, class: 'btn btn-primary' do
-    span.glyphicon.glyphicon-plus
-    |  New Goal
-  h1
-    | Listing goals
+ol.breadcrumb
+  li =link_to :Objectives, goals_path
 
-.table-responsive
-  table.table.table-striped.table-bordered.table-hover
-    thead
-      tr
-        th
-          | Name
-        th
-          | Team
-        th
-          | Group
-        th
-          | Parent goal
-        th
-        th
-        th
-    tbody
-      - @goals.each do | goal |
-        tr
-          td
-            = goal.name
-          td
-            = goal.team_name
-          td
-            = goal.group_name
-          td
-            = goal.parent_goal_name
-          td
-            = link_to 'Show', goal
-          td
-            = link_to 'Edit', edit_goal_path(goal)
-          td
-            = link_to 'Destroy', goal, method: :delete, data: { confirm: 'Are you sure?' }
+.row
+  .col-md-12
+    h1 GDS Objectives
+    p.lead These are the top-level goals adopted across GDS for the 16/17 financial year.
+
+    =link_to "Add New", new_goal_path
+
+    == render partial: 'goals/sub_goals', locals: {sub_goals: Goal.gds_goals}

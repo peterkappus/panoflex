@@ -4,7 +4,7 @@ class CreateGoals < ActiveRecord::Migration
       t.string :name
       t.references :team, index: true, foreign_key: true
       t.references :group, index: true, foreign_key: true
-      t.integer :parent_goal_id
+      t.integer :parent_id
 
       t.timestamps null: false
     end
