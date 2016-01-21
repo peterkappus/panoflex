@@ -1,9 +1,10 @@
 ol.breadcrumb
-  li =link_to :Objectives, goals_path
-  - g = @goal
-  - ancestors = []
-  - while(g.parent) do
-    - ancestors.unshift g.parent
-    - g = g.parent
-  - ancestors.each do |a|
-    li =link_to truncate(a.name, length: 12), a
+  li =link_to "GDS Objectives", goals_path
+  - if @goal
+    - g = @goal
+    - ancestors = []
+    - while(g.parent) do
+      - ancestors.unshift g.parent
+      - g = g.parent
+    - ancestors.each do |ancestor|
+      li =link_to truncate(ancestor.name, length: 50), ancestor

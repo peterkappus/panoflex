@@ -1,5 +1,4 @@
-ol.breadcrumb
-  li =link_to :Objectives, goals_path
+= render 'breadcrumb'
 
 .row
   .col-md-12
@@ -8,4 +7,4 @@ ol.breadcrumb
 
     =link_to "Add New", new_goal_path if is_admin?
 
-    == render partial: 'goals/sub_goals', locals: {sub_goals: Goal.gds_goals}
+    == render partial: 'sub_goals', locals: {sub_goals: Goal.gds_goals}

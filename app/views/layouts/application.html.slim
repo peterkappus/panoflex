@@ -61,9 +61,14 @@ html
             span.sr-only
               | Close
           = msg
-      -if is_admin?
-        i Signed in as #{session['name']} (#{link_to :logout, logout_path})
       = yield
       footer
       hr
       small #{Time.now.strftime("%b %Y")} GDS Operations
+      .pull-right
+        - if is_admin?
+          i Signed in as #{session['name']}
+          br
+          =link_to :Logout, logout_path
+        - else
+          =link_to :Login, login_path
