@@ -76,4 +76,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  #omniauth bug means we have to set this explicitly
+  config.x.omniauth_callback_uri = 'http://gdsdash.herokuapp.com/auth/google_oauth2/callback'
+
 end

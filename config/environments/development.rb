@@ -38,4 +38,6 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.x.omniauth_callback_uri = 'http://localhost:5000/auth/google_oauth2/callback'
 end
