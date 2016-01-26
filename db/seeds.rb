@@ -6,4 +6,4 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Group.create([{name: 'Digital'}, {name: 'Government Technology'}, {name: 'Operations'}, {name: 'Data'}])
+Group.create([{name: 'Digital'}, {name: 'Technology'}, {name: 'Operations'}, {name: 'Data'}])
