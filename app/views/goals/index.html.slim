@@ -12,5 +12,6 @@
       =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
 
     == render partial: 'sub_goals', locals: {sub_goals: Goal.gds_goals}
-  .col-md-3
-    h2 Hello.
+  /
+    .col-md-3
+      h2 Hello.
