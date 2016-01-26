@@ -4,9 +4,10 @@ class ApplicationController < ActionController::Base
   helper_method :is_admin?
 
   def is_admin?
-    session['name'] == 'Peter Kappus'
+    # TODO:  make this less dumb. Config file? Someday a database thing?
+    session['name'] == 'Peter Kappus' || session['name'] == 'John Peart'
   end
-  
+
   #basic auth stuff... remove once Google Auth is working
   if(ENV['BASIC_AUTH_USERNAME'].to_s.empty? || ENV['BASIC_AUTH_PASSWORD'].to_s.empty?)
     raise "BASIC_AUTH_USERNAME and/or BASIC_AUTH_PASSWORD not set (or exported) in ENV. Please set & export these and try again."

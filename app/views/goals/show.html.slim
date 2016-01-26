@@ -1,18 +1,20 @@
-= render 'breadcrumb'
+= render 'goals/breadcrumb'
 
-h1
-  = @goal.name
-  -if is_admin?
-    .pull-right =link_to :Edit, edit_goal_path, class: "btn-primary btn-sm"
-    .pull-right &nbsp;
-    .pull-right = link_to 'Destroy', @goal, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-sm btn-danger"
+.row
+  .col-md-9
+    h1 = @goal.name
+    -if is_admin?
+      =link_to :Edit, edit_goal_path, class: "btn-primary btn-sm"
+      ' &nbsp;
+      = link_to 'Destroy', @goal, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn-sm btn-danger"
 
-/TODO....
-/p.lead =@goal.description
+    /TODO....
+    /p.lead =@goal.description
 
-- unless (@goal.owner_name.empty?)
-  h4 =@goal.owner_name
+    - unless (@goal.owner_name.empty?)
+      h4 =@goal.owner_name
 
-=link_to "Create a new  objective at this level.",new_goal_path(parent_id:@goal) if is_admin?
+    =link_to "Create a new  objective at this level.",new_goal_path(parent_id:@goal)
 
-== render partial: 'sub_goals', locals: {sub_goals: @goal.children}
+    == render partial: 'sub_goals', locals: {sub_goals: @goal.children}
+  .col-md-3

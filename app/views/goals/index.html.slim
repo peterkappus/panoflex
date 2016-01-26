@@ -1,10 +1,12 @@
 = render 'breadcrumb'
 
 .row
-  .col-md-12
+  .col-md-9
     h1 GDS Objectives
     p.lead These are the top-level goals adopted across GDS for the 16/17 financial year.
 
     =link_to "Add New", new_goal_path if is_admin?
 
     == render partial: 'sub_goals', locals: {sub_goals: Goal.gds_goals}
+  .col-md-3
+    h2 Hello.
