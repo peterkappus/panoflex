@@ -12,3 +12,5 @@
           =sub_goal.owner_name
         .smaller
           =pluralize(sub_goal.children.count,"Child") if sub_goal.children.count > 0
+- else
+  h3 This objective has no children and will receive a direct grade.
