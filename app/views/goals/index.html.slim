@@ -2,10 +2,15 @@
 
 .row
   .col-md-9
-    h1 GDS Objectives
-    p.lead These are the top-level goals adopted across GDS for the 16/17 financial year.
+    h1 GDS Vision & Objectives
+    p.lead This his the vision and top-level goals for GDS in the 16/17 financial year.
+    h2 Vision
+    h3.well style="font-weight: 800; color: #300" Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around <u>user needs.</u>
+
+    h2 Objectives
 
     =link_to "Add New", new_goal_path if is_admin?
+
 
     == render partial: 'sub_goals', locals: {sub_goals: Goal.gds_goals}
   .col-md-3
