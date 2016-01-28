@@ -2,9 +2,13 @@ class Goal < ActiveRecord::Base
   belongs_to :team
   belongs_to :group
   has_many :children, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
+  has_many :scores
   # don't use, dependent: :destroy because it's better to orphan goals when the parent is deleted so that they can be re-assigned at some point and we don't lose history. TODO: create a way to archive goals instead of destroying them if thye're no longer "active".
 
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
+
+  #TODO: Make a scope of goals which don't have any children and which, therefore, should be scored directly
+  #scope :scorable, -> { includes(:goals).where(:goals => { :id => nil })}
 
   # TODO: validation...
   # group goals must have a parent GDS goal

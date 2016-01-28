@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  resources :goals
-  #get 'sessions/create'
+  resources :scores
+
+  #goals have scores...
+  resources :goals do
+    resources :scores
+  end
 
   resources :teams
   resources :groups

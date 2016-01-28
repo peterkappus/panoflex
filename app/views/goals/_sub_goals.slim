@@ -1,4 +1,4 @@
-- if(sub_goals)
+- if(sub_goals.count > 0)
   /h4 #{pluralize(sub_goals.count,"Child goal")}
   p.lead We will accomplish the above by doing the following:
   ol.sub_goal
@@ -14,4 +14,6 @@
         .smaller
           =pluralize(sub_goal.children.count,"Child") if sub_goal.children.count > 0
 - else
-  h3 This objective has no children and will receive a direct grade.
+  h4
+  - if is_admin?
+    / =link_to "Add a score", new_goal_score_path(goal), :class=>"btn-sm btn-success"

@@ -1,4 +1,4 @@
-= render 'goals/breadcrumb'
+= render 'breadcrumb'
 
 .row
   .col-md-9
@@ -15,5 +15,5 @@
 
     /TODO....
     /p.lead =@goal.description
-    == render partial: 'sub_goals', locals: {sub_goals: @goal.children}
+    == render partial: 'sub_goals', locals: {sub_goals: @goal.children, goal:@goal}
   .col-md-3
