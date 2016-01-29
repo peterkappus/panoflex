@@ -5,6 +5,7 @@ class Role < ActiveRecord::Base
   scope :vacant, -> {where("lower(name) like '%vac%' or lower(staff_number) = 'vacant'")}
   scope :na_people, -> {where("lower(staff_number) like '%#n/a%'")}
   scope :filled, -> {where("lower(name) NOT like '%vacan%' and lower(staff_number) NOT like '%vacan%'")}
+
   #Vacant roles with start & end dates in the past
   #scope :vacant_past, -> {where("lower(name) NOT like '%vacan%'")}
 

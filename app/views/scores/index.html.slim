@@ -1,0 +1,35 @@
+.page-header
+  = link_to new_score_path, class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-plus
+    |  New Score
+  h1
+    | Listing scores
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th
+          | Amount
+        th
+          | Reason
+        th
+          | Goals
+        th
+        th
+        th
+    tbody
+      - @scores.each do | score |
+        tr
+          td
+            = score.amount
+          td
+            = score.reason
+          td
+            = score.goals
+          td
+            = link_to 'Show', score
+          td
+            = link_to 'Edit', edit_score_path(score) 
+          td
+            = link_to 'Destroy', score, method: :delete, data: { confirm: 'Are you sure?' } 

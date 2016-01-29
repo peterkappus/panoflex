@@ -1,0 +1,30 @@
+= form_for(@score, html: { class: "form-horizontal", role: "form" }) do |f|
+  - if @score.errors.any?
+    .alert.alert-danger.alert-dismissable role="alert"
+      button.close type="button" data-dismiss="alert"
+        span aria-hidden="true"
+          | &times;
+        span.sr-only
+          | Close
+      h4= "#{pluralize(@score.errors.count,"error")} prohibited this score from being saved:"
+      ul
+        - @score.errors.full_messages.each do |msg|
+          li= msg
+  - if @goal
+    .form-group
+      = f.label "Key Result", class: "col-sm-2 control-label"
+      .col-sm-10
+        h4 style="margin-top: 0" = @score.goal.name
+  .form-group
+    = f.label :amount, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_field :amount, class: "form-control bignum"
+      small An integer to represent how well this goal is being met. e.g. 100 for 100% success.
+  .form-group
+    = f.label :reason, class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.text_area :reason, class: "form-control bigtext"
+      =f.hidden_field :goal_id, :value=>@score.goal.id
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: "btn btn-primary"

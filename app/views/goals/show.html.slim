@@ -11,9 +11,27 @@
         = link_to "Create child",new_goal_path(parent_id:@goal), class: "btn-success btn-sm"
         .pull-right
           = link_to 'Destroy', @goal, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class: "btn-sm btn-danger"
-
-
-    /TODO....
-    /p.lead =@goal.description
-    == render partial: 'sub_goals', locals: {sub_goals: @goal.children, goal:@goal}
   .col-md-3
+    .big_score
+      .amount = @goal.display_amount
+      .date = @goal.current_display_date
+
+/ Sub Goals...
+== render partial: 'sub_goals', locals: {sub_goals: @goal.children, goal:@goal}
+
+/Scores...
+- if(@goal.children.count == 0)
+  .row
+    .col-md-9
+      h2 Scores
+      - if is_admin?
+        =link_to "Add a score", new_goal_score_path(@goal), :class=>"btn-sm btn-success"
+  - unless(@goal.scores.empty?)
+    - @goal.scores.each do |score|
+      .row
+        .col-md-2
+          h2.score = score.display_amount
+        .col-md-7
+          h4 =score.display_date
+          p.lead =score.reason
+          =link_to :Edit, edit_score_path(score)

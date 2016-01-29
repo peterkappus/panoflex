@@ -1,19 +1,22 @@
-- if(sub_goals.count > 0)
-  /h4 #{pluralize(sub_goals.count,"Child goal")}
-  p.lead We will accomplish the above by doing the following:
-  ol.sub_goal
-    - sub_goals.each do |sub_goal|
-      li
-        - if(is_admin? || sub_goal.children.count > 0)
-          =link_to sub_goal.name, sub_goal
-        - else
-          = sub_goal.name
-        | &nbsp;
-        small
-          =sub_goal.owner_name
-        .smaller
-          =pluralize(sub_goal.children.count,"Child") if sub_goal.children.count > 0
-- else
-  h4
-  - if is_admin?
-    / =link_to "Add a score", new_goal_score_path(goal), :class=>"btn-sm btn-success"
+.row
+  .col-md-7
+    /h4 #{pluralize(sub_goals.count,"Child goal")}
+    p.lead We will accomplish the above by doing the following:
+ol.sub_goal
+  - sub_goals.each do |sub_goal|
+    .row
+      .col-md-7
+        li
+          h3
+            - if(is_admin? || sub_goal.children.count > 0)
+              =link_to sub_goal.name, sub_goal
+            - else
+              = sub_goal.name
+            | &nbsp;
+            small
+              =sub_goal.owner_name
+            .smaller
+            =pluralize(sub_goal.children.count,"Child") unless sub_goal.children.empty?
+      .col-md-2.sub_score
+        h3.amount = sub_goal.display_amount
+        .date = sub_goal.current_display_date
