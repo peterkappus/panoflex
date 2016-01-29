@@ -41,7 +41,7 @@ class Goal < ActiveRecord::Base
 
   def current_display_date
     #TODO make this smarter, needs to take the most recent score date from the children in a similar way to how we get the current amount above..
-    score ? score.display_date : "Never scored"
+    score ? score.display_date : ""
   end
 
   def score

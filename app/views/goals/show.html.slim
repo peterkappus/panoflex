@@ -17,7 +17,7 @@
       .date = @goal.current_display_date
 
 / Sub Goals...
-== render partial: 'sub_goals', locals: {sub_goals: @goal.children, goal:@goal}
+== render partial: 'sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
 
 /Scores...
 - if(@goal.children.count == 0)
@@ -29,9 +29,9 @@
   - unless(@goal.scores.empty?)
     - @goal.scores.each do |score|
       .row
-        .col-md-2
-          h2.score = score.display_amount
+        .col-md-2.sub_score
+          h2.amount = score.display_amount
+          .date =score.display_date
         .col-md-7
-          h4 =score.display_date
           p.lead =score.reason
           =link_to :Edit, edit_score_path(score)
