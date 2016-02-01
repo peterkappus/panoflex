@@ -16,7 +16,7 @@ ol.sub_goal
             small
               =sub_goal.owner_name
             .smaller
-              =pluralize(sub_goal.children.count,"Child") unless sub_goal.children.empty?
+              =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty?
       .col-md-2.sub_score
         h3.amount = sub_goal.display_amount
         .date = sub_goal.current_display_date
