@@ -1,7 +1,6 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
-
-  before_action :check_admin, only: [:new, :create, :update, :destroy]
+  before_action :check_admin, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /goals
   # GET /goals.json
@@ -71,6 +70,19 @@ class GoalsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to goals_url, notice: 'Goal was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def import_group_okrs
+    if(params[:file])
+      msg = Goal.import_group_okrs(params[:file])
+      if(msg.to_s.empty?)
+        redirect_to goals_path, notice: "Import successful."
+      else
+        redirect_to goals_path, flash: {:error=> msg}
+      end
+    else
+      redirect_to goals_path, flash: {:error=> "Oops, no CVS file specified."}
     end
   end
 

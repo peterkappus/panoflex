@@ -1,6 +1,7 @@
 class ScoresController < ApplicationController
   before_action :set_score, only: [:show, :edit, :update, :destroy]
   #before_action :set_goal, only: [:new, :create, :index, :show, :edit, :update, :destroy]
+  before_action :check_admin, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /scores
   # GET /scores.json

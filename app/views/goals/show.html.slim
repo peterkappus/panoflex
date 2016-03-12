@@ -23,10 +23,12 @@
 - if(@goal.children.count == 0)
   .row
     .col-md-9
-      h2 Scores
+      h2 Updates
       - if is_admin?
         =link_to "Add a score", new_goal_score_path(@goal), :class=>"btn-sm btn-success"
-  - unless(@goal.scores.empty?)
+  - if(@goal.scores.empty?)
+    p.small None yet...
+  - else
     - @goal.scores.each do |score|
       .row
         .col-md-2.sub_score
@@ -34,4 +36,4 @@
           .date =score.display_date
         .col-md-7
           p.lead =score.reason
-          =link_to :Edit, edit_score_path(score)
+          =link_to :Edit, edit_score_path(score) if is_admin?

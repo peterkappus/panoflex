@@ -1,5 +1,13 @@
 == README
 
+The idea for this project is to bring together a number of tools that facilitate running a large organisation like GDS. Managing people, roles, communities, non-people costs, teams, groups, and goals.
+
+== Status
+
+Due to privacy complexity and the need to accredit heroku/etc, the financial planning piece has been paused.
+
+Work is continuing on the Objectives & Key Results functionality.
+
 == RUNNING LOCALLY
 
 NOTE: This app is setup to run on Heroku. To run it locally, you MUST create a .env file like so:

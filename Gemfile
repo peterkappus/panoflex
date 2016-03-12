@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-#ruby '2.1.1'
+ruby '2.1.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -69,6 +69,10 @@ gem 'puma'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+
+  gem 'cucumber-rails', :require => false
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
 
   #for live reload (and maybe other stuff, too)
   #gem 'guard'

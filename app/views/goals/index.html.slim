@@ -12,3 +12,8 @@
       =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
 
 == render partial: 'sub_goals', locals: {sub_goals: Goal.gds_goals}
+
+= form_tag import_group_okrs_goals_path, multipart: true, class: "form-inline" do
+  .form-group
+    =file_field_tag :file, :class=>"form-control"
+  =submit_tag "Import", :class=>"btn btn-primary"

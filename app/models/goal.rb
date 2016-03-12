@@ -63,4 +63,30 @@ class Goal < ActiveRecord::Base
   def parent_goal_name
     parent_goal.nil? ? "" : parent_goal.name
   end
+
+  #lots of code shared w/ Role importer... TODO: DRY this up
+  def self.import_group_okrs(file)
+    require 'csv' 
+
+    required_cols = %w(group group_objective_id group_objective group_key_result)
+
+    #subtract supplied columns from required columns to see if any are missing
+    missing_cols = required_cols - CSV.read(file.path,headers: true).headers
+
+    if(!missing_cols.empty?)
+      return "Missing columns: #{missing_cols.join(", ")}"
+    else
+
+      CSV.foreach(file.path, headers: true) do |row|
+        next if row['group'] == 'n/a' || row['group'].to_s.empty?
+        group_objective = Goal.find_or_create_by(:name=>row['group_objective'])
+        group_objective.group = Group.find_by_name(row['group'].titlecase) || raise("Group: #{row['group']} not found!")
+        group_key_result  = Goal.find_or_create_by(:name=>row['group_key_result'])        
+        group_key_result.parent = group_objective
+        group_key_result.save!
+        group_objective.save!
+      end
+    end
+
+  end
 end

@@ -61,7 +61,7 @@ class Role < ActiveRecord::Base
   end
 
   def self.import(file)
-    require 'csv' #probably should put this at the top, but I don't *always* want to include it... Smarter
+    require 'csv' #probably should put this at the top, but I don't *always* want to include it... Some smarter way to bundle this up?
 
     required_cols = %w(group team title role_type staff_number monthly_cost sub_team) + Role.MONTH_NAMES
 

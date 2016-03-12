@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   #goals have scores...
   resources :goals do
     resources :scores
+    post 'import_group_okrs', on: :collection
   end
 
   resources :teams
