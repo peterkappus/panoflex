@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
     # TODO:  make this less dumb. Config file? Someday a database thing?
     # Peter, Poss, Pat, John, Alex, Alex...
     session['name'] && session['name'].match(/kappus|apostolou|boguzas|peart|holmes|yedigaroff/i)
-
     #this would let anyone at GDS be an admin...
     #session['email'].match(/digital.cabinet-office.gov.uk/)
 

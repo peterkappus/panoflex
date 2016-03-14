@@ -5,9 +5,10 @@ ol.sub_goal
         li
           h3
             =link_to sub_goal.name, sub_goal
-            =link_to edit_goal_path(sub_goal) do
-              .mini-edit
-                .glyphicon.glyphicon-edit
+            -if is_admin?
+              =link_to edit_goal_path(sub_goal) do
+                .mini-edit
+                  .glyphicon.glyphicon-edit
           small
               =sub_goal.owner_name
           /
