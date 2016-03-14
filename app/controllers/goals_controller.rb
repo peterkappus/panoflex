@@ -73,9 +73,9 @@ class GoalsController < ApplicationController
     end
   end
 
-  def import_group_okrs
+  def import_okrs
     if(params[:file])
-      msg = Goal.import_group_okrs(params[:file])
+      msg = Goal.import_okrs(params[:file])
       if(msg.to_s.empty?)
         redirect_to goals_path, notice: "Import successful."
       else

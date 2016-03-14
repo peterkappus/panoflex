@@ -1,20 +1,19 @@
-.row
-  .col-md-7
-    /h4 #{pluralize(sub_goals.count,"Child goal")}
-    p.lead We will accomplish the above by doing the following:
 ol.sub_goal
   - sub_goals.each do |sub_goal|
     .row
-      .col-md-7
+      .col-md-10
         li
           h3
             =link_to sub_goal.name, sub_goal
+            =link_to edit_goal_path(sub_goal) do
+              .mini-edit
+                .glyphicon.glyphicon-edit
           small
-            = link_to 'Edit',edit_goal_path(sub_goal), {:class=>"btn-sm btn-primary"}
-          small
-            =sub_goal.owner_name
-          .smaller
-            =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty?
+              =sub_goal.owner_name
+          /
+            .smaller
+              =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty?
       .col-md-2.sub_score
         h3.amount = sub_goal.display_amount
         .date = sub_goal.current_display_date
+        /small = link_to 'Edit',edit_goal_path(sub_goal), {:class=>"btn-sm btn-primary"}

@@ -15,9 +15,13 @@
     .big_score
       .amount = @goal.display_amount
       .date = @goal.current_display_date
+.row
+  .col-md-12
+    /h4 #{pluralize(sub_goals.count,"Child goal")}
+    p.lead We will accomplish the above by doing the following:
 
-/ Sub Goals...
-== render partial: 'sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
+  / Sub Goals...
+  == render partial: 'sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
 
 /Scores...
 - if(@goal.children.count == 0)
@@ -27,7 +31,8 @@
       - if is_admin?
         =link_to "Add a score", new_goal_score_path(@goal), :class=>"btn-sm btn-success"
   - if(@goal.scores.empty?)
-    p.small None yet...
+      br
+      p.small No updates yet.
   - else
     - @goal.scores.each do |score|
       .row
