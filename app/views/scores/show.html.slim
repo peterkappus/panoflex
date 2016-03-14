@@ -1,10 +1,10 @@
 .page-header
-  = link_to scores_path, class: 'btn btn-default' do 
+  = link_to scores_path, class: 'btn btn-default' do
     span.glyphicon.glyphicon-list-alt
-    |  Back 
-  = link_to edit_score_path(@score), class: 'btn btn-primary' do 
+    |  Back
+  = link_to edit_score_path(@score), class: 'btn btn-primary' do
     span.glyphicon.glyphicon-pencil
-    |  Edit 
+    |  Edit
   h1
     | Show score
 dl.dl-horizontal
@@ -17,6 +17,6 @@ dl.dl-horizontal
   dd
     = @score.reason
   dt
-    | Goals:
+    | Goal:
   dd
-    = @score.goals
+    = @score.goal
