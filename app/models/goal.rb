@@ -82,6 +82,11 @@ class Goal < ActiveRecord::Base
 
         #find the group
         group = Group.find_by_name(row['group'].titlecase) || raise("Group: #{row['group']} not found!")
+        unless row['team'].to_s.empty?
+          team = Team.find_or_create_by(:name=>row['team'].to_s)
+          team.group = group
+          team.save!
+        end
 
         #find group objective
         group_objective = Goal.find_or_create_by(:name=>row['group_objective'])
@@ -103,7 +108,7 @@ class Goal < ActiveRecord::Base
           team_objective = Goal.find_or_create_by(:name=>row['team_objective'])
           team_objective.group = group
           #set team
-          team_objective.team = Team.find_or_create_by(:name=>row['team'].to_s) unless row['team'].to_s.empty?
+          team_objective.team = team unless team.nil?
           team_objective.parent = group_objective
           team_objective.save!
         end

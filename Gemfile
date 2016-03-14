@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+
+#NOTE! You'll need to comment this out when you deploy to Heroku... Leave it in when setting up a new app. WHY???? I couldn't install a Heroku-supported ruby version locally :(
 #ruby '2.1.1'
 
 # Use postgresql as the database for Active Record

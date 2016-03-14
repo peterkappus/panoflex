@@ -3,12 +3,13 @@
     = link_to new_group_path, class: 'btn btn-primary' do
       span.glyphicon.glyphicon-plus
       |  New Group
-  h1 GDS Dashboard
+  h1 GDS Groups
   h3 =link_to Goal.count.to_s + ' Goals', goals_path
-  h3 #{Role.count} Roles
-  h3 #{Role.pluck(:title).uniq.count} Unique Job Titles
-  h3 #{Role.pluck(:staff_number).uniq.count} Unique staff numbers
-  h3 =link_to Role.vacant.count.to_s + " Vacancies", roles_path(filter_vacant: true)
+  /
+    h3 #{Role.count} Roles
+    h3 #{Role.pluck(:title).uniq.count} Unique Job Titles
+    h3 #{Role.pluck(:staff_number).uniq.count} Unique staff numbers
+    h3 =link_to Role.vacant.count.to_s + " Vacancies", roles_path(filter_vacant: true)
 .row
   - Group.all.order(:name).each do |group|
     .col-xs-6

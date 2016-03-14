@@ -18,10 +18,10 @@
 .row
   .col-md-12
     /h4 #{pluralize(sub_goals.count,"Child goal")}
-    p.lead We will accomplish the above by doing the following:
-
-  / Sub Goals...
-  == render partial: 'sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
+    - unless @goal.children.empty?
+      p.lead We will accomplish the above by doing the following:
+      / Sub Goals...
+      == render partial: 'sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
 
 /Scores...
 - if(@goal.children.count == 0)

@@ -76,7 +76,7 @@ class ScoresController < ApplicationController
   def destroy
     @score.destroy
     respond_to do |format|
-      format.html { redirect_to scores_url, notice: 'Score was successfully destroyed.' }
+      format.html { redirect_to @score.goal, notice: 'Score was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

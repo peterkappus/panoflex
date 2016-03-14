@@ -1,12 +1,18 @@
 .page-header
   = link_to scores_path, class: 'btn btn-default' do
     span.glyphicon.glyphicon-list-alt
-    |  Back 
+    |  Back
   = link_to @score, class: 'btn btn-primary' do
     span.glyphicon.glyphicon-info-sign
-    |  Show 
-  h1
-    | Editing 
-    | score
+    |  Show
+  = link_to 'Destroy', @score, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class: "btn btn-danger"
+  h1 Editing Score
 
-= render 'form'
+.row
+  .col-sm-2
+    h3 Goal:
+  .col-sm-10
+    h2 =@score.goal.name
+.row
+  .col-sm-12
+    = render 'form'
