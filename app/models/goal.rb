@@ -68,7 +68,7 @@ class Goal < ActiveRecord::Base
   def self.import_okrs(file)
     require 'csv'
 
-    required_cols = %w(group group_objective)
+    required_cols = %w(group level_2 level_3 level_4)
 
     #subtract supplied columns from required columns to see if any are missing
     missing_cols = required_cols - CSV.read(file.path,headers: true).headers
@@ -89,39 +89,29 @@ class Goal < ActiveRecord::Base
         end
 
         #find group objective
-        group_objective = Goal.find_or_create_by(:name=>row['group_objective'])
-        group_objective.group = group
-        group_objective.save!
+        level_2 = Goal.find_or_create_by(:name=>row['level_2'])
+        level_2.group = group
+        level_2.team = team unless team.nil?
+        level_2.save!
 
         #did we get a group key result?
-        if(!row['group_key_result'].to_s.empty?)
-          group_key_result = Goal.find_or_create_by(:name=>row['group_key_result'])
-          group_key_result.parent = group_objective
-          group_key_result.group = group
-          group_key_result.team = nil
-          group_key_result.save!
+        if(!row['level_3'].to_s.empty?)
+          level_3 = Goal.find_or_create_by(:name=>row['level_3'])
+          level_3.parent = level_2
+          level_3.group = group
+          level_3.team = nil
+          level_3.save!
         end
 
         #did we get a team_objective?
-        if(!row['team_objective'].to_s.empty?)
+        if(!row['level_4'].to_s.empty?)
           #find or create team level objective
-          team_objective = Goal.find_or_create_by(:name=>row['team_objective'])
-          team_objective.group = group
+          level_4 = Goal.find_or_create_by(:name=>row['level_4'])
+          level_4.group = group
           #set team
-          team_objective.team = team unless team.nil?
-          team_objective.parent = group_objective
-          team_objective.save!
-        end
-
-        if(!row['team_key_result'].to_s.empty?)
-          team_key_result = Goal.find_or_create_by(:name=>row['team_key_result'])
-          team_key_result.group = group
-
-          #set team
-          team_key_result.team = Team.find_or_create_by(:name=>row['team'].to_s) unless row['team'].to_s.empty?
-          #set parent
-          team_key_result.parent = team_objective
-          team_key_result.save!
+          level_4.team = team unless team.nil?
+          level_4.parent = level_3
+          level_4.save!
         end
       end
     end
