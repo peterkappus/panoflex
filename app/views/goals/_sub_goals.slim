@@ -3,7 +3,7 @@ ol.sub_goal
     .row
       .col-md-10
         li
-          h3
+          h3.goal
             =link_to sub_goal.name, sub_goal
             -if is_admin?
               =link_to edit_goal_path(sub_goal) do

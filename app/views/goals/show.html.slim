@@ -4,7 +4,7 @@
   .col-md-9
     - unless (@goal.owner_name.empty?)
       h4 =@goal.owner_name
-    h1 = @goal.name
+    h1.vision = @goal.name
     -if is_admin?
       .goal_controls
         = link_to :Edit, edit_goal_path, class: "btn-primary btn-sm"
@@ -19,7 +19,7 @@
   .col-md-12
     /h4 #{pluralize(sub_goals.count,"Child goal")}
     - unless @goal.children.empty?
-      p.lead We will accomplish the above by doing the following:
+      p.lead We are accomplishing the above by doing the following:
       / Sub Goals...
       == render partial: 'sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
 

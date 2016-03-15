@@ -1,12 +1,12 @@
 = render 'breadcrumb'
 
 .row
-  .col-md-9
-    h1 GDS Vision & Objectives
-    p.lead These are the latest vision and top-level goals for GDS in the 16/17 financial year.
+  .col-md-12
+    p.lead What is GDS doing in 2016/17?
     h2 Vision
-    h3.well style="font-weight: 800; color: #003" Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around <u>user needs</u>.
-
+    h3.vision Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
+.row
+  .col-md-10
     h2 Objectives
     .span style="margin: 2rem 0"
       =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
