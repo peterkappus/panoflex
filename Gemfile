@@ -10,6 +10,8 @@ gem 'rails_12factor', group: :production
 #not yet....
 #gem 'omniauth'
 
+gem 'govuk_template'
+
 
 #for handling money
 gem "money-rails"

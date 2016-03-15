@@ -1,74 +1,36 @@
-doctype html
-html
-  head
-    meta charset="utf-8"
-    meta http-equiv="X-UA-Compatible" content="IE=edge"
-    meta name="viewport" content="width=device-width, initial-scale=1"
-    meta name="description" content=""
-    meta name="author" content=""
-    title
-      | GDS Dashboard
-    /! HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
-    /[if lt IE 9]
-      = javascript_include_tag "https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js", "https://oss.maxcdn.com/respond/1.4.2/respond.min.js"
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.4/css/bootstrap-select.min.css"
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = csrf_meta_tags
-  body
-    nav.navbar.navbar-inverse.navbar-fixed-top role="navigation"
-      .container
-        .navbar-header
-          button.navbar-toggle.collapsed type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"
-            span.sr-only
-              | Toggle navigation
-            span.icon-bar
-            span.icon-bar
-            span.icon-bar
-          = link_to "GDS Vision & Goals", "/", class: "navbar-brand"
-        #navbar.collapse.navbar-collapse
-          /
-            ul.nav.navbar-nav
-              li class="#{(params[:controller] == "groups") ? "active" : ""}"
-                a href="#{groups_path}"
-                  | Groups
-              /
-                li class="#{(params[:controller] == "roles") ? "active" : ""}"
-                  a href="#{vacant_roles_path}"
-                    | All Vacancies
-              /
-                li class="#{(params[:controller] == "roles") ? "active" : ""}"
-                  a href="#{roles_path}"
-                    | Roles
-              /
-                li class="#{(params[:controller] == "actuals") ? "active" : ""}"
-                  a href="#{actuals_path}"
-                    | Actuals
-              /
-                li
-                  a href="#about"
-                    | About
-              /
-                li
-                  a href="#contact"
-                    | Contact
-    .container
-      - flash.each do |name, msg|
-        = content_tag :div, class: "alert alert-#{ name == "error" ? "danger" : "success" } alert-dismissable", role: "alert" do
-          button.close type="button" data-dismiss="alert"
-            span aria-hidden="true"
-              | &times;
-            span.sr-only
-              | Close
-          = msg
-      = yield
-      footer
-      hr
-      small #{Time.now.strftime("%b %Y")} GDS Operations
-      .pull-right
-        - if is_admin?
-          i Signed in as #{session['name']}
-          br
-          =link_to :Logout, logout_path
-        - else
-          =link_to :Login, login_path
+- content_for :head do
+  style
+    | main { max-width: 960px; margin: 0 15px; }
+    | @media (min-width: 641px) { main { margin: 0 30px; } }
+    | @media (min-width: 1020px) { main { margin: 0 auto; } }
+  = stylesheet_link_tag "application"
+- content_for :page_title do
+  | GDS Goals
+- content_for :header_class do
+  | with-proposition
+- content_for :proposition_header do
+  .header-proposition
+    .content
+      nav#proposition-menu
+        #proposition-name GDS Goals 2016/17
+- content_for :content do
+  #wrapper.grid-row
+    main#content.column-two-thrids[role="main"]
+      .inner-block
+        - flash.each do |name, msg|
+          = content_tag :div, class: "alert alert-#{ name == "error" ? "danger" : "success" } alert-dismissable", role: "alert" do
+            button.close type="button" data-dismiss="alert"
+              span aria-hidden="true"
+                | &times;
+              span.sr-only
+                | Close
+            = msg
+        = yield
+        .pull-right
+          - if is_admin?
+            i Signed in as #{session['name']}
+            br
+            =link_to :Logout, logout_path
+          - else
+            =link_to :Login, login_path
+= render template: "layouts/govuk_template"
