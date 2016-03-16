@@ -4,6 +4,7 @@
   .col-md-9
     - unless (@goal.owner_name.empty?)
       h4 =@goal.owner_name
+      h5 =@goal.display_deadline
     h1.vision = @goal.name
     -if is_admin?
       .goal_controls

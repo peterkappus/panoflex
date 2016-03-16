@@ -15,6 +15,12 @@ class Goal < ActiveRecord::Base
   # team goals must have a parent goal which belongs to a group
   scope :gds_goals, -> {where("parent_id is null")}
 
+  def display_deadline
+    if(deadline)
+      deadline.strftime("%d %h %Y")
+    end
+  end
+
   def group_name
     group.nil? ? "" : group.name
   end
@@ -67,8 +73,12 @@ class Goal < ActiveRecord::Base
 
   def self.import_okrs(file)
     require 'csv'
+    require 'Date' #for parsing
 
-    required_cols = %w(group level_2 level_3 level_4)
+    #DANGER! Nuke all goals before importing...
+    Goal.destroy_all
+
+    required_cols = %w(group level_2 level_3 level_4 deadline)
 
     #subtract supplied columns from required columns to see if any are missing
     missing_cols = required_cols - CSV.read(file.path,headers: true).headers
@@ -82,11 +92,14 @@ class Goal < ActiveRecord::Base
 
         #find the group
         group = Group.find_by_name(row['group'].titlecase) || raise("Group: #{row['group']} not found!")
+
         unless row['team'].to_s.empty?
           team = Team.find_or_create_by(:name=>row['team'].to_s)
           team.group = group
           team.save!
         end
+
+        deadline = Date.parse(row['deadline'])
 
         #find group objective
         level_2 = Goal.find_or_create_by(:name=>row['level_2'])
@@ -112,6 +125,20 @@ class Goal < ActiveRecord::Base
           level_4.team = team unless team.nil?
           level_4.parent = level_3
           level_4.save!
+        end
+
+        #must be a more efficient way to do this...
+        #if we have a level 4 then apply the date to that.
+        #if not, apply it to level 3, etc
+        if(level_4)
+          level_4.deadline = deadline
+          level_4.save!
+        elsif(level_3)
+          level_3.deadline = deadline
+          level_3.save!
+        else
+          level_2.deadline = deadline
+          level_2.save!
         end
       end
     end
