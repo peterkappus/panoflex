@@ -7,11 +7,11 @@
     h3.vision Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
 .row
   .col-md-10
-    h2 Objectives
+    h2.heading-large Objectives
     .span style="margin: 2rem 0"
       =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
     - Group.all.each do |group|
-			h3 =group.name
+			h3.heading-medium =group.name
 			== render partial: 'sub_goals', locals: {sub_goals: group.top_level_goals}
 
 - if is_admin?

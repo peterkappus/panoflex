@@ -12,7 +12,7 @@
   .header-proposition
     .content
       nav#proposition-menu
-        #proposition-name GDS Goals 2016/17
+        =link_to "GDS Goals 2016/17", root_path, :id=>"proposition-name"
 - content_for :content do
   #wrapper.grid-row
     main#content.column-two-thrids[role="main"]
