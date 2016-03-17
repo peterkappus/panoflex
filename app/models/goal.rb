@@ -73,8 +73,7 @@ class Goal < ActiveRecord::Base
 
   def self.import_okrs(file)
     require 'csv'
-    require 'Date' #for parsing
-
+    
     #DANGER! Nuke all goals before importing...
     Goal.destroy_all
 
