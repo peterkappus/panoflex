@@ -93,7 +93,7 @@ class Goal < ActiveRecord::Base
     else
 
       CSV.foreach(file.path, headers: true) do |row|
-        group_name = row['group'].titlecase
+        group_name = row['group'].to_s.titlecase
         team_name = row['team']
 
         next if group_name == 'n/a' || group_name.to_s.empty?
