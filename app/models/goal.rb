@@ -73,9 +73,15 @@ class Goal < ActiveRecord::Base
 
   def self.import_okrs(file)
     require 'csv'
-    
-    #DANGER! Nuke all goals before importing...
+
+    #in-memory hash for our groups saves us having to do a sql lookup for every row
+    groups = {}
+    teams = {}
+
+    #!!!!!!!!DANGER! Destroy all teams, and goals before importing and re-creating
+    #Groups, we keep and throw out any rows that don't match one of them.
     Goal.destroy_all
+    Team.destroy_all
 
     required_cols = %w(group level_2 level_3 level_4 deadline)
 
@@ -87,15 +93,21 @@ class Goal < ActiveRecord::Base
     else
 
       CSV.foreach(file.path, headers: true) do |row|
-        next if row['group'] == 'n/a' || row['group'].to_s.empty?
+        group_name = row['group'].titlecase
+        team_name = row['team']
+
+        next if group_name == 'n/a' || group_name.to_s.empty?
 
         #find the group
-        group = Group.find_by_name(row['group'].titlecase) || raise("Group: #{row['group']} not found!")
+        group = groups[group_name] || Group.find_by_name(group_name) || raise("Group: #{group_name} not found!")
 
-        unless row['team'].to_s.empty?
-          team = Team.find_or_create_by(:name=>row['team'].to_s)
+        groups[group_name] = group
+
+        unless team_name.to_s.empty?
+          team = teams[team_name] || Team.find_or_create_by(:name=>team_name.to_s)
           team.group = group
           team.save!
+          teams[team.name] = team
         end
 
         deadline = Date.parse(row['deadline'])
