@@ -25,6 +25,10 @@
               span.sr-only
                 | Close
             = msg
+        / Redirecting automatically from application controller so no one will ever see this...
+        - if request.host.match(/gdsdash.heroku/) then
+          .alert.alert-warning
+            h2 NOTE: This site has moved to <a href="http://gdsdelivery.herokuapp.com">http://gdsdelivery.herokuapp.com</a>. Please update your bookmarks.
         = yield
         .pull-right
           - if is_admin?

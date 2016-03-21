@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
 
-  #import our helper method
+  #export our helper method
   helper_method :is_admin?
+
+  before_filter :redirect_from_original_domain
+
 
   def is_admin?
     # TODO:  make this less dumb. Config file? Someday a database thing?
@@ -18,6 +21,7 @@ class ApplicationController < ActionController::Base
   end
   http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD']
 
+
   def check_admin
     redirect_to login_path unless is_admin?
   end
@@ -25,4 +29,12 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
+  private
+  #redirect from the old heroku URL to the new one
+  def redirect_from_original_domain
+    if request.host.match(/gdsdash.herokuapp.com/)
+      redirect_to "http://gdsdelivery.herokuapp.com"
+    end
+  end
 end
