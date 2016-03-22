@@ -55,7 +55,7 @@ class Goal < ActiveRecord::Base
   end
 
   def owner_name
-      (owner) ? owner.name + " " + owner.class.name : ""
+      (owner) ? owner.name : "" # + " " + owner.class.name : ""
       #owner.name
   end
 

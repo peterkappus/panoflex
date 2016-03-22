@@ -13,20 +13,20 @@
 .row
   - Group.all.order(:name).each do |group|
     .col-xs-6
-        h2 =link_to group.name, group
+        h2.heading-large =link_to group.name, group
         p #{pluralize group.goals.count, "Goal"} - #{group.goals_without_a_team.count} without a team
         -if group.teams.count > 0
-          ol
-          - group.teams.each do |team|
-            li =link_to "#{team.name} (#{team.goals.count})", team
-          /li &nbsp;
-            li = pluralize group.roles.count, "Roles"
-            li #{group.unique_numbers.count} Unique People
-            li #{group.vacancies.count} vacant roles
-            - (group.vacancies.count/10).times do
-              .glyphicon.glyphicon-user
-            -if group.roles.count > 0
-              li #{group.vacancies.count*100/group.roles.count}% of roles vacant
+          ul.biglist
+            - group.teams.each do |team|
+              li =link_to "#{team.name} (#{team.goals.count})", team
+            /li &nbsp;
+              li = pluralize group.roles.count, "Roles"
+              li #{group.unique_numbers.count} Unique People
+              li #{group.vacancies.count} vacant roles
+              - (group.vacancies.count/10).times do
+                .glyphicon.glyphicon-user
+              -if group.roles.count > 0
+                li #{group.vacancies.count*100/group.roles.count}% of roles vacant
 
 /
   .row

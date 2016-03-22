@@ -8,7 +8,7 @@
 .row.padded-row
   .col-md-12
     p.lead In 2016/17 we will contribute to this vision by doing the following:
-    ul
+    ul.biglist
       li
         h3 Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
       li
@@ -25,7 +25,7 @@
       .span style="margin: 2rem 0"
         =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
     - Group.all.each do |group|
-      .well
+      .well style="margin-top: 4rem"
         h2.heading-large =link_to group.name + " Group", group
       == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
 

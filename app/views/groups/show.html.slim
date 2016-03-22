@@ -2,13 +2,17 @@
   .col-md-12
     h3 =link_to :Groups, groups_path
     h1.heading-xlarge = @group.name + " Group"
-    h3 Teams
-    ol
-    - @group.teams.each do |team|
-      li =link_to team.name, team
-    h3.heading-medium Goals (#{@group.goals.count})
+
 .row
   .col-md-12
+    h2 Teams
+    ul.biglist
+      - @group.teams.each do |team|
+        li =link_to team.name, team
+.row
+  .col-md-12
+    h2 Goals
+    smaller #{@group.goals.count} total
     == render :partial=>"shared/sub_goals", :locals=>{sub_goals: @group.top_level_goals}
   /
     .col-md-6
