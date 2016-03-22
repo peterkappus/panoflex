@@ -4,7 +4,7 @@
       span.glyphicon.glyphicon-plus
       |  New Group
   h1 GDS Groups
-  h3 =link_to Goal.count.to_s + ' Goals', goals_path
+  /h3 =link_to Goal.count.to_s + ' Goals', goals_path
   /
     h3 #{Role.count} Roles
     h3 #{Role.pluck(:title).uniq.count} Unique Job Titles
@@ -14,7 +14,7 @@
   - Group.all.order(:name).each do |group|
     .col-xs-6
         h2.heading-large =link_to group.name, group
-        p #{pluralize group.goals.count, "Goal"} - #{group.goals_without_a_team.count} without a team
+        /p #{pluralize group.goals.count, "Goal"} - #{group.goals_without_a_team.count} without a team
         -if group.teams.count > 0
           ul.biglist
             - group.teams.each do |team|

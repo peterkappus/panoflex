@@ -20,7 +20,8 @@
   .col-sm-12
     /h4 #{pluralize(sub_goals.count,"Child goal")}
     - unless @goal.children.empty?
-      p.lead We are accomplishing the above by doing the following:
+      h2 Sub Goals
+      p We will accomplish the above by doing the following:
       / Sub Goals...
       == render partial: 'shared/sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
 

@@ -2,7 +2,10 @@
   .col-md-12
     h3 =link_to :Teams, teams_path
     h1.heading-xlarge = @team.name
-    h3 Goals
+    smaller
+      'Part of the
+      =link_to @team.group.name + " Group", @team.group
+    h3 Goals (#{@team.goals.count})
     == render :partial=>"shared/sub_goals", :locals=>{sub_goals: @team.goals}
 
 

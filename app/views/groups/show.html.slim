@@ -8,11 +8,15 @@
     h2 Teams
     ul.biglist
       - @group.teams.each do |team|
-        li =link_to team.name, team
+        li
+          => link_to team.name, team
+          small ="(" + team.goals.count.to_s + ")"
+
 .row
   .col-md-12
-    h2 Goals
-    smaller #{@group.goals.count} total
+    h3 Goals (#{@group.goals.count})
+
+    /smaller #{@group.goals.count} total
     == render :partial=>"shared/sub_goals", :locals=>{sub_goals: @group.top_level_goals}
   /
     .col-md-6
