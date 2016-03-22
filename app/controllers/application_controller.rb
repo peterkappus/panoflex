@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::Base
 
   #can't reach host: http://static.dev.gov.uk/templates/core_layout.html.erb
-  #don't know how to get to dev.gov.uk.... 
+  #don't know how to get to dev.gov.uk....
   #include Slimmer::SharedTemplates
 
   #export our helper method
   helper_method :is_admin?
 
   before_filter :redirect_from_original_domain
-  before_filter :check_login
+  #before_filter :check_login
 
   def is_admin?
     # TODO:  make this less dumb. Config file? Someday a database thing?
