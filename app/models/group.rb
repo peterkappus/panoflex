@@ -5,6 +5,9 @@ class Group < ActiveRecord::Base
   #has_many :top_level_goals, -> {goals.where("parent_id is null")}
   #has_many :top_level, -> { where("parent_id is null").order('created_at DESC') },  dependent: :destroy
 
+  def goals_without_a_team
+    goals.where("team_id is null")
+  end
 
   def top_level_goals
     goals.where("parent_id is null")

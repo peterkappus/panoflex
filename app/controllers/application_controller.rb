@@ -1,10 +1,14 @@
 class ApplicationController < ActionController::Base
 
+  #can't reach host: http://static.dev.gov.uk/templates/core_layout.html.erb
+  #don't know how to get to dev.gov.uk.... 
+  #include Slimmer::SharedTemplates
+
   #export our helper method
   helper_method :is_admin?
 
   before_filter :redirect_from_original_domain
-
+  before_filter :check_login
 
   def is_admin?
     # TODO:  make this less dumb. Config file? Someday a database thing?
@@ -21,9 +25,12 @@ class ApplicationController < ActionController::Base
   end
   http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD']
 
-
   def check_admin
     redirect_to login_path unless is_admin?
+  end
+
+  def check_login
+    redirect_to login_path unless session['email']
   end
 
   # Prevent CSRF attacks by raising an exception.

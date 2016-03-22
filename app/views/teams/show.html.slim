@@ -1,15 +1,15 @@
-.page-header
-  /= link_to teams_path, class: 'btn btn-default' do
-    span.glyphicon.glyphicon-list-alt
-    |  Back
-  /
-    = link_to edit_team_path(@team), class: 'btn btn-primary' do
-      span.glyphicon.glyphicon-pencil
-      |  Edit
-  h1 Team: #{@team.name}
+.row
+  .col-md-12
+    h3 =link_to :Teams, teams_path
+    h1.heading-xlarge = @team.name
+    h3 Goals
+    == render :partial=>"shared/sub_goals", :locals=>{sub_goals: @team.goals}
+
+
+/Someday, we'll show people info
   h2 #{@team.roles.count} Roles
   h2 #{@team.roles.collect{|r| r.staff_number}.uniq.count} uniquely identified people
   h2 =link_to "#{@team.roles.vacant.count} vacancies", roles_path(team: @team, filter_vacant: true)
   h3 Part of #{link_to @team.group.name, @team.group}
 
-= render partial: "roles/list", locals: {roles: @team.roles.page(params[:page])}
+  = render partial: "roles/list", locals: {roles: @team.roles.page(params[:page])}

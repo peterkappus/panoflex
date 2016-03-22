@@ -1,7 +1,7 @@
 = render 'breadcrumb'
 
 .row
-  .col-md-9
+  .col-sm-9
     - unless (@goal.owner_name.empty?)
       h4 =@goal.owner_name
       h5 =@goal.display_deadline
@@ -12,22 +12,22 @@
         = link_to "Create child",new_goal_path(parent_id:@goal), class: "btn-success btn-sm"
         .pull-right
           = link_to 'Destroy', @goal, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class: "btn-sm btn-danger"
-  .col-md-3
+  .col-sm-3
     .big_score
       .amount = @goal.display_amount
       .date = @goal.current_display_date
 .row
-  .col-md-12
+  .col-sm-12
     /h4 #{pluralize(sub_goals.count,"Child goal")}
     - unless @goal.children.empty?
       p.lead We are accomplishing the above by doing the following:
       / Sub Goals...
-      == render partial: 'sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
+      == render partial: 'shared/sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
 
 /Scores...
 - if(@goal.children.count == 0)
   .row
-    .col-md-9
+    .col-sm-9
       h2 Updates
       - if is_admin?
         =link_to "Add a score", new_goal_score_path(@goal), :class=>"btn-sm btn-success"

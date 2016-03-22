@@ -6,13 +6,26 @@
     h2 Vision
     h3.vision Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
 .row
+  .col-md-12
+    h2 Top Level GDS Goals
+    ul
+      li
+        h3 Create the platforms and tools that make it simple for government to build, iterate and retire services.
+      li
+        h3 Lead the digital, data and technology function so that government has the skills and capability it needs to transform itself.
+      li
+        h3 Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great exampels within the sector.
+
+
+.row
   .col-md-10
-    h2.heading-large Objectives
-    .span style="margin: 2rem 0"
-      =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
+    /hide new button for now, the site is essentially read-only (data from google sheets)
+      .span style="margin: 2rem 0"
+        =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
     - Group.all.each do |group|
-			h3.heading-medium =group.name
-			== render partial: 'sub_goals', locals: {sub_goals: group.top_level_goals}
+      .well
+        h2.heading-large =link_to group.name + " Group", group
+      == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
 
 - if is_admin?
   = form_tag import_okrs_goals_path, multipart: true, class: "form-inline" do

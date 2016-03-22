@@ -10,7 +10,12 @@ gem 'rails_12factor', group: :production
 #not yet....
 #gem 'omniauth'
 
+#for template
 gem 'govuk_template'
+#gem 'slimmer'
+
+#for sass mixins
+gem 'govuk_frontend_toolkit'
 
 
 #for handling money

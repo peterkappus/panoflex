@@ -1,3 +1,20 @@
+@import "_colours"
+@import "_font_stack"
+@import "_measurements"
+
+// Mixins
+@import "_conditionals"
+@import "_device-pixels"
+@import "_grid_layout"
+
+// Inline block mixin, clearfix placeholder
+@import "_shims"
+
+// Mixins to generate components (chunks of UI)
+//@import "design-patterns/alpha-beta"
+//@import "design-patterns/buttons"
+//@import "design-patterns/breadcrumbs"
+
 body
   padding-top: 0 !important
 
@@ -9,7 +26,7 @@ h1, h2, h3
 
 .deadline
   font-size: 1.25rem
-  
+
 // for now, override GOV.UK colors
 a.btn-sm
   color: #fff !important
@@ -23,7 +40,7 @@ ol.sub_goal li
 .vacancy
   background-color:  #ffa !important
 
-.vision
+h1, .vision
   font-weight: 800
   font-size: 5rem
   color: #003

@@ -74,9 +74,10 @@ class Goal < ActiveRecord::Base
   def self.import_okrs(file)
     require 'csv'
 
-    #in-memory hash for our groups saves us having to do a sql lookup for every row
+    #in-memory has saves us having to do a sql lookup for every row
     groups = {}
     teams = {}
+    goals = {}
 
     #!!!!!!!!DANGER! Destroy all teams, and goals before importing and re-creating
     #Groups, we keep and throw out any rows that don't match one of them.
@@ -103,6 +104,8 @@ class Goal < ActiveRecord::Base
 
         groups[group_name] = group
 
+        #lookup or create the team
+        #save to our hash for faster lookups
         unless team_name.to_s.empty?
           team = teams[team_name] || Team.find_or_create_by(:name=>team_name.to_s)
           team.group = group
@@ -112,46 +115,35 @@ class Goal < ActiveRecord::Base
 
         deadline = Date.parse(row['deadline'])
 
-        #find group objective
-        level_2 = Goal.find_or_create_by(:name=>row['level_2'])
-        level_2.group = group
-        level_2.team = team unless team.nil?
-        level_2.save!
+        #work backwords up the chain...
+        #need to make this smarter so it doesn't rely on columns
+        [4,3,2].each do |level_number|
+          goal_name = row["level_" + level_number.to_s]
+          next if goal_name.to_s.empty?
 
-        #did we get a group key result?
-        if(!row['level_3'].to_s.empty?)
-          level_3 = Goal.find_or_create_by(:name=>row['level_3'])
-          level_3.parent = level_2
-          level_3.group = group
-          level_3.team = nil
-          level_3.save!
-        end
+          goal = goals[goal_name] || Goal.find_or_create_by(:name=>goal_name)
+          goal.group = group
 
-        #did we get a team_objective?
-        if(!row['level_4'].to_s.empty?)
-          #find or create team level objective
-          level_4 = Goal.find_or_create_by(:name=>row['level_4'])
-          level_4.group = group
-          #set team
-          level_4.team = team unless team.nil?
-          level_4.parent = level_3
-          level_4.save!
-        end
+          #only apply a team and a deadline if we're a "leaf" (e.g. no child goal)
+          if(row["level_" + (level_number+1).to_s].to_s.empty?)
+            goal.team = team
+            goal.deadline = deadline
+          end
 
-        #must be a more efficient way to do this...
-        #if we have a level 4 then apply the date to that.
-        #if not, apply it to level 3, etc
-        if(level_4)
-          level_4.deadline = deadline
-          level_4.save!
-        elsif(level_3)
-          level_3.deadline = deadline
-          level_3.save!
-        else
-          level_2.deadline = deadline
-          level_2.save!
-        end
-      end
-    end
+          #lookup the parent
+          if(level_number > 2)
+            parent_goal_name = row["level_" + (level_number-1).to_s]
+            parent = goals[parent_goal_name] || Goal.find_or_create_by(:name=>parent_goal_name)
+            goal.parent = parent
+            goals[parent.name] = parent
+          end
+
+          goal.save!
+          #add to hash
+          goals[goal.name] = goal
+
+        end #column loops
+      end #end rows
+    end #end cols not missing not blank
   end
 end
