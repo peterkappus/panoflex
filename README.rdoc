@@ -1,33 +1,56 @@
-== README
+# Panoflex
 
-The idea for this project is to bring together a number of tools that facilitate running a large organisation like GDS. Managing people, roles, communities, non-people costs, teams, groups, and goals.
+This is a loosely connected set of tracking and reporting tools that facilitate running a large organisation like GDS. E.g. roles, vacancies, communities, non-people costs, teams, groups, and goals.
 
-== Status
+## Status
 
-Due to privacy complexity and the need to accredit heroku/etc, the financial planning piece has been paused.
+The tool is currently used to show progress against linked goals and how those goals are represented within teams, and groups.
 
-Work is continuing on the Objectives & Key Results functionality.
+Due to privacy concerns and the need to accredit the host, the financial planning and people piece has been paused.
 
-== RUNNING LOCALLY
+OKR data is currently held in a Google Sheet  and periodically imported. This is currently a safter/easier place to keep the data and allow GDS teams to collaborate. As this tool gets more mature, we should maintain the data only in the tool and move away from Google Sheets.
 
-NOTE: This app is setup to run on Heroku. To run it locally, you MUST create a .env file like so:
+## Please get involved! :)
 
+This project is being developed within the Delivery Operations team at GDS which has no dedicated tech resource. We need help from people who understand:
+- Rails Development
+- The GOV.UK stack & suite of libraries, tools, and best practices.
+- Web Ops
+- User Research
+- Visual Design
+- Content Design
+
+
+## Setup
+
+This app is setup to run on Heroku. To run it locally, you MUST create a .env file like so:
+
+```
 BASIC_AUTH_USERNAME=whatever
 BASIC_AUTH_PASSWORD=somepassword
+```
 
 To start the server use
-$ heroku local
+`$ heroku local`
 
-It also has a Procfile which you probably won't need to touch.
+It also has a `Procfile` which you probably won't need to touch.
 
-== TODO
+## TODO
+
+### Goal-tracking stuff
+- Setup Cucumber and Capybara and write some tests
+- Browse goals by due-date quarter
+- Make an "about" page explaining the thing and that its a pre-alpha proof of concept
+- Fix the header so the proposition links don't disappear on mobile
+- Start using the GOV.UK components instead of reinventing the wheel
+- Ween ourselves off of bootstrap and just use the standard GOV.UK CSS.
+
+### Someday
 - Search for role by name
 - Make names click-able to search for all roles using that person
 - Search for role by type
 - Add non-people costs (EPIC)
 - Make short_names for each GDS function unique (in DB and model)
-- Write some tests!
-- WRITE SOME TESTS!
 - slugify functions by short name (e.g. /functions/dcp vs /funcitons/4)
 - Filter to show vacant roles per Function (by month)
 - Split allocation into separate table away from roles Stop using "hard-coded" months :(
@@ -35,30 +58,3 @@ It also has a Procfile which you probably won't need to touch.
 == DONE
 - Paginate full role listing
 - Associate roles to functions (initially by function_name) w/ error reporting
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
