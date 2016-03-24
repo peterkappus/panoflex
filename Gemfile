@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 #NOTE! You'll need to comment this out when you deploy to Heroku... Leave it in when setting up a new app. WHY???? I couldn't install a Heroku-supported ruby version locally :(
 #ruby '2.1.1'
 
+#use to create slugs for groups, teams, etc.
+gem 'friendly_id', '~> 5.1.0' # Note: You MUST use 5.0.0 or greater for Rails 4.0+
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 gem 'rails_12factor', group: :production

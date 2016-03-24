@@ -1,7 +1,12 @@
 class Group < ActiveRecord::Base
+  validates :name, uniqueness: true, presence: true
   has_many :roles, dependent: :destroy
   has_many :teams, -> {order 'name'}, dependent: :destroy
   has_many :goals, dependent: :destroy
+
+  extend FriendlyId
+  friendly_id :name, :use => [:slugged, :finders]
+
   #has_many :top_level_goals, -> {goals.where("parent_id is null")}
   #has_many :top_level, -> { where("parent_id is null").order('created_at DESC') },  dependent: :destroy
 
