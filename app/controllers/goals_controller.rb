@@ -1,6 +1,7 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
   before_action :check_admin, only: [:new, :edit, :create, :update, :destroy]
+  #around_filter :catch_not_found
 
   # GET /goals
   # GET /goals.json
@@ -90,6 +91,8 @@ class GoalsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_goal
       @goal = Goal.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to root_url, :flash => { :error => "Sorry, that goal could not be found. It may have been moved following a recent import." }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
