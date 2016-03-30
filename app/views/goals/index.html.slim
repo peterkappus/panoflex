@@ -2,7 +2,7 @@
 
 .row.padded-row
   .col-md-12
-    p.lead What is GDS doing in 2016/17?
+    /p.lead What is GDS doing in 2016/17?
     h2 Vision
     h3.vision Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
 .row.padded-row
@@ -21,7 +21,8 @@
 
 .row.padded-row
   .col-sm-12
-    /hide new button for now, the site is essentially read-only (data from google sheets)
+    = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
+    / hide "new" button for now, the site is essentially read-only (data from google sheets)
       .span style="margin: 2rem 0"
         =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
     - Group.all.each do |group|
@@ -30,7 +31,7 @@
       == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
 
 - if is_admin?
-  = form_tag import_okrs_goals_path, multipart: true, class: "form-inline" do
+  = form_tag import_okrs_goals_path, multipart: true, class: "form-inline noprint" do
     .form-group
       =file_field_tag :file, :class=>"form-control"
     =submit_tag "Import", :class=>"btn btn-primary"

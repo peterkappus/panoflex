@@ -15,6 +15,7 @@
 .row
   .col-md-12
     h3 Goals (#{@group.goals.count})
+    = (params["expand_all"]) ? link_to("Collapse all", group_path(@group)) : link_to("Expand all", "?expand_all=1")
 
     /smaller #{@group.goals.count} total
     == render :partial=>"shared/sub_goals", :locals=>{sub_goals: @group.top_level_goals}

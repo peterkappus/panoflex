@@ -15,6 +15,25 @@
 //@import "design-patterns/buttons"
 //@import "design-patterns/breadcrumbs"
 
+@media print
+  .noprint
+    display: none !important
+
+.expand_all
+  ol
+    counter-reset: item
+  li
+    display: block
+
+  li:before
+    content: counters(item, ".") " "
+    counter-increment: item
+
+@media print
+  a
+    text-decoration: none
+  a::after
+    content: none !important
 
 ul.biglist
   list-style-type: none

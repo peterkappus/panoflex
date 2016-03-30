@@ -3,13 +3,13 @@
     | main { max-width: 960px; margin: 0 15px; }
     | @media (min-width: 641px) { main { margin: 0 30px; } }
     | @media (min-width: 1020px) { main { margin: 0 auto; } }
-  = stylesheet_link_tag "application"
+  = stylesheet_link_tag "application", media: :all
 - content_for :page_title do
   | GDS Goals
 - content_for :header_class do
   | with-proposition
 - content_for :proposition_header do
-  .header-proposition
+  .header-proposition.noprint
     .content
       nav#proposition-menu
         =link_to "GDS Goals 2016/17", root_path, :id=>"proposition-name"
@@ -34,7 +34,7 @@
           .alert.alert-warning
             h2 NOTE: This site has moved to <a href="http://gdsdelivery.herokuapp.com">http://gdsdelivery.herokuapp.com</a>. Please update your bookmarks.
         = yield
-        .pull-right
+        .pull-right.noprint
           - if is_admin?
             i Signed in as #{session['name']}
             br
