@@ -10,6 +10,8 @@
 // Inline block mixin, clearfix placeholder
 @import "_shims"
 
+@import "_typography"
+
 // Mixins to generate components (chunks of UI)
 //@import "design-patterns/alpha-beta"
 //@import "design-patterns/buttons"
@@ -23,15 +25,26 @@
   a::after
     content: none !important
 
+  ol.nice_list.goals
+    h3
+      font-size: 15px
+      line-height: 2rem
+
+@media screen
+  ol.nice_list.goals
+    h3
+      font-size: 25px
+      line-height: 3rem
+
+.expand_collapse
+
 ol.nice_list
   counter-reset: item
   padding-left: 0
-  display: block
+  display: inline-block
+  padding-bottom: 1rem
   h3
-    line-height: 2rem
     margin-top: 0
-    line-height: 2rem
-    font-size: 15px
     margin-bottom: 0
     a
       color: #000
@@ -66,9 +79,10 @@ ol.nice_list
     font-size: 20px
     font-weight: 700
     line-height: 1
-    page-break-after: avoid
 
-
+.group_well
+  page-break-before: always
+  clear:both
 
 ul.biglist
   list-style-type: none
