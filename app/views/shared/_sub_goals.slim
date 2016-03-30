@@ -1,27 +1,25 @@
-div class="#{(params["expand_all"].nil?) ? "" : "expand_all"}"
-  ol.sub_goal
-    - sub_goals.each do |sub_goal|
-      .row
-        .col-sm-12
-          li
-            h3.goal
-              =link_to sub_goal.name, sub_goal
-              / Hide inline edit button...
-                -if is_admin?
-                  =link_to edit_goal_path(sub_goal) do
-                    .mini-edit
-                      .glyphicon.glyphicon-edit
-            .smaller
-                -if(sub_goal.team)
-                  =link_to sub_goal.team.name, sub_goal.team
-            .deadline =sub_goal.display_deadline
-            .smaller
-              =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty?
-            - if(sub_goal.children && !params['expand_all'].nil?)
-              == render partial: 'shared/sub_goals', locals: {sub_goals: sub_goal.children}
+ol.nice_list
+  - sub_goals.each do |sub_goal|
+    li
+      .point
+        h3
+          =link_to sub_goal.name, sub_goal
+          / Hide inline edit button...
+            -if is_admin?
+              =link_to edit_goal_path(sub_goal) do
+                .mini-edit
+                  .glyphicon.glyphicon-edit
+        .smaller
+            -if(sub_goal.team)
+              =link_to sub_goal.team.name, sub_goal.team
+        .deadline =sub_goal.display_deadline
+        .smaller
+          =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty? || params["expand_all"]
+        - if(sub_goal.children.count > 0 && !params['expand_all'].nil?)
+          == render partial: 'shared/sub_goals', locals: {sub_goals: sub_goal.children}
 
-        /
-          .col-sm-2.sub_score
-            h3.amount = sub_goal.display_amount
-            .date = sub_goal.current_display_date
-            /small = link_to 'Edit',edit_goal_path(sub_goal), {:class=>"btn-sm btn-primary"}
+    /
+      .col-sm-2.sub_score
+        h3.amount = sub_goal.display_amount
+        .date = sub_goal.current_display_date
+        /small = link_to 'Edit',edit_goal_path(sub_goal), {:class=>"btn-sm btn-primary"}

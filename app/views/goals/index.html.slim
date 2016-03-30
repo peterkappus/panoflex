@@ -7,17 +7,22 @@
     h3.vision Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
 .row.padded-row
   .col-md-12
-    p.lead In 2016/17 we will contribute to this vision by doing the following:
-    ol.sub_goal
+    p.lead In 2016/17 we will realise this vision by delivering the following:
+    ol.nice_list
       li
-        h3 Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
+        .point
+          h3 Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
       li
-        h3 Create the platforms and tools that make it simple for government to build, iterate and retire services.
+        .point
+          h3 Create the platforms and tools that make it simple for government to build, iterate and retire services.
       li
-        h3 Lead the digital, data and technology function so that government has the skills and capability it needs to transform itself.
+        .point
+          h3 Lead the digital, data and technology function so that government has the skills and capability it needs to transform itself.
       li
-        h3 Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great examples within the sector.
+        .point
+          h3 Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great examples within the sector.
 
+span style="page-break-after: always"
 
 .row.padded-row
   .col-sm-12
@@ -26,7 +31,7 @@
       .span style="margin: 2rem 0"
         =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
     - Group.all.each do |group|
-      .well style="margin-top: 4rem"
+      .well style="margin-top: 4rem; clear:both"
         h2.heading-large =link_to group.name + " Group", group
       == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
 

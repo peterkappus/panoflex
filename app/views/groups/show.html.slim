@@ -21,11 +21,10 @@
     == render :partial=>"shared/sub_goals", :locals=>{sub_goals: @group.top_level_goals}
   /
     .col-md-6
-      .slug
-        h2 Staff
-        h3 #{@group.roles.count} Roles
-        h3 #{@group.roles.collect{|r| r.staff_number}.uniq.count} uniquely identified people
-        h3 =link_to "#{@group.vacancies.count} vacancies", group_path(filter_vacant: true)
+      h2 Staff
+      h3 #{@group.roles.count} Roles
+      h3 #{@group.roles.collect{|r| r.staff_number}.uniq.count} uniquely identified people
+      h3 =link_to "#{@group.vacancies.count} vacancies", group_path(filter_vacant: true)
 /
   .row
     .col-md-12

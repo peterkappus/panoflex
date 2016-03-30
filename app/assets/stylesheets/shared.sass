@@ -16,30 +16,65 @@
 //@import "design-patterns/breadcrumbs"
 
 @media print
-  .noprint
+  .noprint, .header-global
     display: none !important
-
-.expand_all
-  ol
-    counter-reset: item
-  li
-    display: block
-
-  li:before
-    content: counters(item, ".") " "
-    counter-increment: item
-
-@media print
   a
     text-decoration: none
   a::after
     content: none !important
 
+ol.nice_list
+  counter-reset: item
+  padding-left: 0
+  display: block
+  h3
+    line-height: 2rem
+    margin-top: 0
+    line-height: 2rem
+    font-size: 15px
+    margin-bottom: 0
+    a
+      color: #000
+  small
+    color: #555
+    font-size: 1.6rem
+    font-weight: 400
+    display: block
+  .smaller
+    color: #888
+    font-weight: 200
+    font-size: 1.4rem
+  li
+    clear: both
+    display: block
+    padding-top: 10px
+    .point
+      display: inline-block
+      float: left
+      width: 87%
+      padding-bottom: 10px
+
+  li:before
+    content: counters(item, ".") " "
+    counter-increment: item
+    float: left
+    display: inline-block
+    margin-right: 15px
+    margin-bottom: 15px
+    min-width: 35px !important
+    text-align: left
+    font-size: 20px
+    font-weight: 700
+    line-height: 1
+    page-break-after: avoid
+
+
+
 ul.biglist
   list-style-type: none
-  margin-left: 1rem
+  padding-left: 2rem
   li
-    font-size: 2rem
+    font-size: 1.5rem
 
 .padded-row
   margin-top: 5rem
@@ -60,19 +95,13 @@ h1, h2, h3
 a.btn-sm
   color: #fff !important
 
-ol.sub_goal li
-  list-style: decimal !important
-  h3.goal
-    line-height: 3rem !important
-    margin-top: 1rem
-    margin-bottom: 0
 
 .vacancy
   background-color:  #ffa !important
 
 h1, .vision
   font-weight: 800
-  font-size: 5rem
+  font-size: 3.5rem
   color: #003
 
 .mini-edit
@@ -88,7 +117,6 @@ input.bignum
   font-size: 4rem
   width: 10rem !important
   height: 7rem
-
 
 textarea.bigtext
   font-size: 2rem
@@ -127,44 +155,3 @@ h2.score
   margin: 3rem 0 4rem 0
   .btn-sm
     margin: 0 1rem 0 0
-
-.slug
-  padding: 1px 2rem
-  min-height: 30rem
-  margin-bottom: 3rem
-  display: block
-  border-radius: .5rem
-  background: #eee
-  box-shadow: 1px 1px 5px #555
-  cursor: pointer
-
-  h2
-    height: 7.5rem
-    border-bottom: 1px solid #ccc
-
-
-  ul
-    padding-left: 0
-    li
-      list-style-type: none
-      font-size: 2rem
-      padding-left: 0
-
-ol.sub_goal
-  margin-top: 2rem
-  li
-    font-size: 2.5rem
-    font-weight: 600
-    margin-bottom: 2rem
-    small
-      color: #555
-      font-size: 1.6rem
-      font-weight: 400
-      display: block
-    .smaller
-      color: #888
-      font-weight: 200
-      font-size: 1.4rem
-
-.slug:hover
-  background-color: #ddd
