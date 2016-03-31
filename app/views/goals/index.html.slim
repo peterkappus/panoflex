@@ -7,7 +7,7 @@
     h3.vision Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
 .row.padded-row
   .col-md-12
-    p.lead In 2016/17 we will do the following:
+    p.lead To achieve this vision we will do the following:
     ol.nice_list
       li
         .point
@@ -31,9 +31,14 @@
     / hide "new" button for now, the site is essentially read-only (data from google sheets)
       .span style="margin: 2rem 0"
         =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
-    - Group.all.each do |group|
+    - @group_info = {:Digital=>{:budget=>100,:headcount=>458},:Technology=>{:budget=>35.8, :headcount=>266},:Operations=>{:budget=>19.8, :headcount=>165}, :Data=>{:budget=>3.7, :headcount=>77}}
+    /- Group.all.each do |group|
+    - @group_info.keys.each do |group_name|
+      - group =  Group.find_by_name(group_name.to_s)
       .well.group_well
         h2.heading-large =link_to group.name + " Group", group
+        h4 Budget: £#{@group_info[group_name][:budget]}m
+        h4 Headcount: #{@group_info[group_name][:headcount]}
       == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
 
 - if is_admin?
