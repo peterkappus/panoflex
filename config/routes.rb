@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new', as: :login
   get '/logout' => 'sessions#destroy', as: :logout
 
+  get '/about' => 'welcome#about', as: :about
+  
   resources :roles do
     post 'import', on: :collection
     #get 'vacant', on: :collection

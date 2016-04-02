@@ -46,6 +46,7 @@ gem 'sass-rails', '~> 5.0'
 
 #use slim for templates
 gem 'slim-rails'
+gem 'redcarpet'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
