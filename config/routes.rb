@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
 
   #convenience redirect
-  get '/login', to: redirect('/auth/google_oauth2'), as: :login
+  get '/login' => 'sessions#new', as: :login
   get '/logout' => 'sessions#destroy', as: :logout
 
   resources :roles do

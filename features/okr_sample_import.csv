@@ -1,0 +1,7 @@
+group,team,level_1,level_2,level_3,level_4,deadline
+Digital,Team A,,Some big goal which has a longish description which maybe spans a couple of lines and allows me to see how the layout will behave with longer text.,Some slightly smaller goal,Bitty Thing A,31 Mar 2017
+Digital,Team A,,Some big goal,Some slightly smaller goal,Bitty Thing B,30 Jun 2016
+Digital,Team B,,Another big Goal,Another smallish goal,,31 Mar 2017
+Digital,Team C,,Another big Goal,Smallish connected thing,,31 Mar 2017
+Operations,Team C,,Some Second Big Goal,Smallish thing,,31 Mar 2017
+Operations,Team D,,Another Really Big goal,Bigish goals,Small thing C,30 Jun 2016

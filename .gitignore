@@ -7,9 +7,6 @@
 # Ignore bundler config.
 /.bundle
 
-#don't store CSVs
-*.csv
-*.tsv
 #don't check in our custom .env vars
 *.env
 

@@ -4,6 +4,8 @@ class Group < ActiveRecord::Base
   has_many :teams, -> {order 'name'}, dependent: :destroy
   has_many :goals, dependent: :destroy
 
+  monetize :budget_pennies, :as=>:budget
+
   extend FriendlyId
   friendly_id :name, :use => [:slugged, :finders]
 

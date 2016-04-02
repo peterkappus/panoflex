@@ -12,8 +12,8 @@ class ApplicationController < ActionController::Base
 
   def is_admin?
     # TODO:  make this less dumb. Config file? Someday a database thing?
-    # Peter, Poss, Pat, John, Alex, Alex...
-    session['name'] && session['name'].match(/kappus|apostolou|boguzas|maddison|peart|holmes|yedigaroff/i)
+    # Peter, Poss, Pat, John, Alex, Alex... and our test user (Testy McTesterton)
+    session['name'] && session['name'].match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes|yedigaroff/i)
     #this would let anyone at GDS be an admin...
     #session['email'].match(/digital.cabinet-office.gov.uk/)
 
@@ -30,7 +30,11 @@ class ApplicationController < ActionController::Base
   end
 
   def check_login
-    redirect_to login_path unless session['email']
+    #raise session['email'].to_s.empty?.to_s
+    if session['email'].to_s.empty?
+      redirect_to '/auth/google_oauth2'
+      return
+    end
   end
 
   # Prevent CSRF attacks by raising an exception.

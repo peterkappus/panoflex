@@ -35,13 +35,35 @@ To start the server use
 
 It also has a `Procfile` which you probably won't need to touch.
 
+## Testing
+
+TODO: write unit tests. Meanwhile, use Cucumber to do end-to-end testing. To make cucumber run for this app, here's what I have to do (after installing all the gems, etc).
+
+### First Time:
+You'll need to seed the test database by running
+`bundle exec rake db:seed RAILS_ENV=test`
+Otherwise, you'll get errors since there won't be any groups.
+
+### Running cucumber
+`$ bundle exec cucumber BASIC_AUTH_USERNAME=x BASIC_AUTH_PASSWORD=x`
+
+You MUST pass in a username & password in the environment so rails can set up the basic auth. Use x/x for the username/pass since that's what the step definition uses when attempting to login. Don't say I didn't warn ya.
+
+Remember, you can tag tests and decide which ones to run:
+E.g. exclude tests tagged with @wip:
+
+`$ cucumber --tags ~@wip`
+
+Or only run @new tests:
+
+`$ cucumber --tags @new`
+
+
 ## TODO
 
 ### Next
-- Setup Cucumber and Capybara and write some tests
 - Make an "about" page explaining the thing and that its a pre-alpha proof of concept
 - Browse goals by due-date quarter
-- Fix the header so the proposition links don't disappear on mobile
 - Start using the GOV.UK components instead of reinventing the wheel
 - Ween ourselves off of bootstrap and just use the standard GOV.UK CSS.
 
@@ -55,7 +77,9 @@ It also has a `Procfile` which you probably won't need to touch.
 - Filter to show vacant roles per Function (by month)
 - Split allocation into separate table away from roles Stop using "hard-coded" months :(
 
-## DONE
+### DONE (What's new?)
+- Fix the header so the proposition links don't disappear on mobile
+- Setup Cucumber and Capybara and write some basic tests
 - Add Group & Team goals pages & links
 - Add GOV.UK page layout template
 - Paginate full role listing

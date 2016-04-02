@@ -82,6 +82,16 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
+  #cucumber stuff
+  gem 'cucumber' #our testing framework
+  gem 'capybara' #nice DSL for talking to the browser in code.
+  gem 'selenium-webdriver' #usual, firefox driver
+  gem 'phantomjs'
+  gem 'poltergeist' #headless driver
+  gem 'rspec' #gives us a few nice methods like "page.should"
+  gem 'pry' # for command line debugging
+  gem 'capybara-screenshot'
+  gem 'firefox'
   gem 'cucumber-rails', :require => false
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
