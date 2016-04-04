@@ -10,8 +10,8 @@ ol.nice_list.goals
                 .mini-edit
                   .glyphicon.glyphicon-edit
         .smaller
-            -if(sub_goal.team)
-              =link_to sub_goal.team.name, sub_goal.team
+            -if(sub_goal.get_team)
+              =link_to sub_goal.get_team.name, sub_goal.get_team
         .deadline =sub_goal.display_deadline
         .smaller
           =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty? || params["expand_all"]

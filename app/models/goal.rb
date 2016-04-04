@@ -71,6 +71,20 @@ class Goal < ActiveRecord::Base
     parent_goal.nil? ? "" : parent_goal.name
   end
 
+  #determine if all the sub-goals belong to the same team...
+  def get_team
+    if(children.empty?)
+      team
+    else
+      #if(children.pluck(:team_id).uniq.count == 1 && !children.pluck(:team_id).uniq.first.nil?
+      #otherwise, traverse the kids, if they all have the same team (and it isn't nil) then return that. Otherwise, return nil.
+      unique_child_teams = children.map{|c| c.get_team}.uniq
+      if(unique_child_teams.count == 1 && !unique_child_teams.first.nil?)
+        unique_child_teams.first
+      end
+    end
+  end
+
   def self.import_okrs(file)
     require 'csv'
 
