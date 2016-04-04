@@ -85,6 +85,7 @@ class Goal < ActiveRecord::Base
     end
   end
 
+  #right now this imports ALL the data into our database. Group and team names, headcount, budget, etc. should all be present in this spreadsheet. It's inefficient but an easy to completely wipe and re-import the whole DB from a single Google Spreadsheet. This process may change over time...
   def self.import_okrs(file)
     require 'csv'
 
@@ -92,11 +93,6 @@ class Goal < ActiveRecord::Base
     groups = {}
     teams = {}
     goals = {}
-
-    #!!!!!!!!DANGER! Destroy all teams, and goals before importing and re-creating
-    #Groups, we keep and throw out any rows that don't match one of them.
-    Goal.destroy_all
-    Team.destroy_all
 
     required_cols = %w(group level_2 level_3 level_4 deadline)
 
@@ -107,6 +103,12 @@ class Goal < ActiveRecord::Base
       return "Missing columns: #{missing_cols.join(", ")}"
     else
 
+      #!!!!!!!!DANGER! Destroy all teams, and goals before importing and re-creating
+      #Groups, we keep and throw out any rows that don't match one of them.
+      Goal.destroy_all
+      Team.destroy_all
+
+
       CSV.foreach(file.path, headers: true) do |row|
         group_name = row['group'].to_s.titlecase
         team_name = row['team']
@@ -114,7 +116,12 @@ class Goal < ActiveRecord::Base
         next if group_name == 'n/a' || group_name.to_s.empty?
 
         #find the group
-        group = groups[group_name] || Group.find_by_name(group_name) || raise("Group: #{group_name} not found!")
+        group = groups[group_name] || Group.find_or_create_by(:name=>group_name)
+        #hacky way to convert £30,000.23 to 30000,
+        #should probably use monitize gem later but nervous about clashes with money-rails
+        group.budget = row['group_budget'].scan(/[\d+\.]/).join.to_i
+        group.headcount = row['group_headcount'].to_i
+        group.save!
 
         groups[group_name] = group
 
@@ -127,10 +134,9 @@ class Goal < ActiveRecord::Base
           teams[team.name] = team
         end
 
-        deadline = Date.parse(row['deadline'])
 
         #work backwords up the chain...
-        #need to make this smarter so it doesn't rely on columns
+        #need to make this smarter so it doesn't rely on colum heading names
         [4,3,2].each do |level_number|
           goal_name = row["level_" + level_number.to_s]
           next if goal_name.to_s.empty?
@@ -141,6 +147,13 @@ class Goal < ActiveRecord::Base
           #only apply a team and a deadline if we're a "leaf" (e.g. no child goal)
           if(row["level_" + (level_number+1).to_s].to_s.empty?)
             goal.team = team
+
+            begin
+              deadline = Date.parse(row['deadline'])
+            rescue
+              return "Import Failed! Invalid date for goal: #{goal_name}"
+            end
+
             goal.deadline = deadline
           end
 

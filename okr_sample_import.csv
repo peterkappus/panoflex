@@ -1,0 +1,7 @@
+group,group_budget,group_headcount,team,level_1,level_2,level_3,level_4,deadline
+Digital,"£99,608,289",229,Team A,,Some big goal,Some slightly smaller goal,Bitty Thing A,31 Mar 2017
+Digital,"£99,608,289",229,Team A,,Some big goal,Some slightly smaller goal,Bitty Thing B,31 Mar 2017
+Digital,"£99,608,289",229,Team B,,Another big Goal,Another smallish goal,,31 Mar 2017
+Digital,"£99,608,289",229,Team C,,Another big Goal,Smallish connected thing,,31 Mar 2017
+Operations,"£19,780,785",83,Team C,,Some Second Big Goal,Smallish thing,,31 Mar 2017
+Operations,"£19,780,785",83,Team D,,Another Really Big goal,Bigish goals,Small thing C,30 Jun 2016

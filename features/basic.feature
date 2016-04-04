@@ -19,6 +19,11 @@ Feature: GOV.UK Template (Header & Footer)
     When I import new goals
     Then I should see "Import successful"
     And I should see "Another Really Big goal"
+		And I should see "Operations"
+		#headcount for operations
+		And I should see "83"
+		#budget for Digital
+		And I should see "99.6m"
 
   Scenario: Click around teams
     When I import new goals

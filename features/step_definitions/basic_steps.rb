@@ -1,7 +1,8 @@
 
 Before do |scenario|
   #basic auth
-  page.driver.browser.authorize 'x', 'x'
+  #obsolete since we now turn off basic auth in test env
+  #page.driver.browser.authorize 'x', 'x'
 end
 
 After do |scenario|
@@ -140,7 +141,7 @@ end
 
 When(/^I import new goals$/) do
   login
-  attach_file("file","features/okr_sample_import.csv")
+  attach_file("file","okr_sample_import.csv")
   find_button("Import").click
 end
 
