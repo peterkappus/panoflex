@@ -20,6 +20,10 @@ class Group < ActiveRecord::Base
     goals.where("parent_id is null")
   end
 
+  def budget_in_millions
+    (budget.to_f/1000000).round(1)
+  end
+  
   #better as a scope?
   def vacancies
     roles.vacant

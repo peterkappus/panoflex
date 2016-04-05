@@ -14,6 +14,7 @@
   - Group.all.order(:name).each do |group|
     .col-xs-6
         h2.heading-large =link_to group.name, group
+        p £#{group.budget_in_millions}m - #{group.headcount} people - #{group.goals.count} goals
         /p #{pluralize group.goals.count, "Goal"} - #{group.goals_without_a_team.count} without a team
         -if group.teams.count > 0
           ul.biglist
