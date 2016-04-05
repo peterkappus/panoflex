@@ -10,7 +10,7 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-#shouldn't have to do this for govuk_template...but I did. 
+#shouldn't have to do this for govuk_template...but I did.
 Rails.application.config.assets.precompile += %w(
         favicon.ico
         govuk-template*.css

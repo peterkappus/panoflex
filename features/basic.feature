@@ -6,7 +6,7 @@ Feature: GOV.UK Template (Header & Footer)
     And I should see "GDS Goals"
 
   Scenario: See basic nav
-    Given I am on the home page
+    Given I am signed in
     Then I should see "Vision"
     And I should see "Groups"
     And I should see "Teams"

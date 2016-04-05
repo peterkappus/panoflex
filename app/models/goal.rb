@@ -1,7 +1,9 @@
 class Goal < ActiveRecord::Base
   belongs_to :team
   belongs_to :group
+  belongs_to :sdp_parent, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :children, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
+  has_many :sdp_children, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
 
   # don't use, dependent: :destroy ... better to orphan goals when the parent is deleted so that they can be re-assigned at some point and we don't lose history. TODO: create a way to archive goals instead of destroying them if thye're no longer "active". Ditto for scores...
@@ -14,6 +16,11 @@ class Goal < ActiveRecord::Base
   # GDS goals must NOT belong to a group or a team
   # team goals must have a parent goal which belongs to a group
   scope :gds_goals, -> {where("parent_id is null")}
+
+  #is this goal an SDP goal?
+  def is_sdp?
+    sdp_id?
+  end
 
   def display_deadline
     if(deadline)

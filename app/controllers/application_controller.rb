@@ -5,10 +5,10 @@ class ApplicationController < ActionController::Base
   #include Slimmer::SharedTemplates
 
   #export our helper method
-  helper_method :is_admin?
+  helper_method :is_admin?, :signed_in?
 
   before_filter :redirect_from_original_domain
-  #before_filter :check_login
+  before_filter :check_login
 
   def is_admin?
     # TODO:  make this less dumb. Config file? Someday a database thing?
@@ -20,18 +20,22 @@ class ApplicationController < ActionController::Base
   end
 
   #apply basic auth if the following ENV vars are set
-  unless (ENV['BASIC_AUTH_USERNAME'].to_s.empty? || ENV['BASIC_AUTH_PASSWORD'].to_s.empty?)
-    #raise "BASIC_AUTH_USERNAME and/or BASIC_AUTH_PASSWORD not set (or exported) in ENV. Please set & export these and try again."
-    http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD']
-  end
+  #unless (ENV['BASIC_AUTH_USERNAME'].to_s.empty? || ENV['BASIC_AUTH_PASSWORD'].to_s.empty?)
+  #  #raise "BASIC_AUTH_USERNAME and/or BASIC_AUTH_PASSWORD not set (or exported) in ENV. Please set & export these and try again."
+  #  http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD']
+  #end
 
   def check_admin
     redirect_to login_path unless is_admin?
   end
 
+  def signed_in?
+    !session['email'].to_s.empty?
+  end
+
   def check_login
     #raise session['email'].to_s.empty?.to_s
-    if session['email'].to_s.empty?
+    if !signed_in?
       redirect_to '/auth/google_oauth2'
       return
     end

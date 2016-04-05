@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404115358) do
+ActiveRecord::Schema.define(version: 20160405083655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,10 +49,12 @@ ActiveRecord::Schema.define(version: 20160404115358) do
     t.integer  "team_id"
     t.integer  "group_id"
     t.integer  "parent_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.date     "deadline"
     t.date     "start_date"
+    t.string   "sdp_id"
+    t.integer  "sdp_parent_id"
   end
 
   add_index "goals", ["group_id"], name: "index_goals_on_group_id", using: :btree
@@ -64,7 +66,7 @@ ActiveRecord::Schema.define(version: 20160404115358) do
     t.datetime "updated_at",                                null: false
     t.string   "slug"
     t.integer  "budget"
-    t.bigint  "budget_pennies",  default: 0,     null: false
+    t.integer  "budget_pennies",  limit: 8, default: 0,     null: false
     t.string   "budget_currency",           default: "GBP", null: false
     t.integer  "headcount"
   end

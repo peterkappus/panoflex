@@ -134,7 +134,7 @@ Given(/^I am on the home page$/) do
 	visit "/"
 end
 
-Given(/^I am logged in$/) do
+Given(/^I am logged|signed in$/) do
   login
 end
 
