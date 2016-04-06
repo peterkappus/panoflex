@@ -3,7 +3,9 @@
 .row.padded-row
   .col-md-12
     h1 GDS Vision and Goals for 2016/17
-    p.lead This site aims to show what GDS is doing in the 2016/17 financial year. These are <b>DRAFT</b> goals which are likely to change dramatically in the first few months of this year. If you see something that isn't right, please speak to your group PMO to have it corrected. #{link_to "Learn more.",about_path}
+    .print_only
+      h4 Current at #{Time.now.strftime("%-m %b %Y")}
+    p.lead These are <b>DRAFT</b> goals for what GDS is doing in 16/17. They have been established via group PMOs and teams. They are likely to change dramatically in the first few months of this year. If you see something that isn't right, please speak to your group PMO to have it corrected. #{link_to "Learn more.",about_path, :class=>'noprint'}
 .row.padded-row
   .col-md-12
     h2 Vision
@@ -26,6 +28,8 @@
       li
         .point
           h3 Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great examples within the sector.
+
+.page-break
 
 .row.padded-row
   .col-sm-12

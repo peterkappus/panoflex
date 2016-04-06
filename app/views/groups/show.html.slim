@@ -1,7 +1,12 @@
 .row
   .col-md-12
-    h3 =link_to :Groups, groups_path
+    h3.noprint =link_to :Groups, groups_path
+    .pull-right
+      small As of #{Time.now.strftime("%-m %b %Y")}
+    h3 2016/17 Goals
+    div style="clear:both"
     h1.heading-xlarge = @group.name + " Group"
+    h4 £#{@group.budget_in_millions}m - #{@group.headcount} people - #{@group.goals.count} goals
 
 .row
   .col-md-12
@@ -14,9 +19,9 @@
 
 .row
   .col-md-12
-    h3 Goals (#{@group.goals.count})
-    = (params["expand_all"]) ? link_to("Collapse all", group_path(@group)) : link_to("Expand all", "?expand_all=1")
-
+    h2 Goals (#{@group.goals.count})
+    .noprint
+      = (params["expand_all"]) ? link_to("Collapse all", group_path(@group)) : link_to("Expand all", "?expand_all=1")
     /smaller #{@group.goals.count} total
     == render :partial=>"shared/sub_goals", :locals=>{sub_goals: @group.top_level_goals}
   /

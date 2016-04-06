@@ -46,6 +46,16 @@
     background-position: 100% 50%
     padding: 0.3684210526em 2.1578947368em 0.2105263158em 0.8421052632em
 
+.signage
+  h1
+    font-size: 12rem
+  h2
+    font-size: 5rem
+  p
+    font-size: 3rem
+  h3
+    margin-top: 4rem
+
 @media print
   .noprint, .header-global
     display: none !important
@@ -53,6 +63,9 @@
     text-decoration: none
   a::after
     content: none !important
+
+  .page-break
+    page-break-before: always
 
   ol.nice_list
     li::before
@@ -62,7 +75,6 @@
       line-height: 2rem
 
     li
-      page-break-inside: avoid
       .point h3
         page-break-inside: avoid !important
 
@@ -72,10 +84,16 @@
     font-size: 20px !important
 
 @media screen
+  .print_only
+    display: none
+
   ol.nice_list.goals
     h3
       font-size: 25px
       line-height: 3rem
+
+.clear
+  clear: both
 
 ol.nice_list
   counter-reset: item
@@ -100,7 +118,6 @@ ol.nice_list
     clear: both
     display: block
     padding-top: 10px
-    page-break-inside: avoid
     .point
       display: inline-block
       float: left
@@ -121,7 +138,6 @@ ol.nice_list
     line-height: 1
 
 .group_well
-  page-break-before: always
   clear:both
 
 ul.biglist

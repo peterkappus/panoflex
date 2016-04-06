@@ -1,4 +1,6 @@
 class Group < ActiveRecord::Base
+  #default to order by budget size descending
+  default_scope{ order('budget_pennies DESC') }
   validates :name, uniqueness: true, presence: true
   has_many :roles, dependent: :destroy
   has_many :teams, -> {order 'name'}, dependent: :destroy
@@ -23,7 +25,7 @@ class Group < ActiveRecord::Base
   def budget_in_millions
     (budget.to_f/1000000).round(1)
   end
-  
+
   #better as a scope?
   def vacancies
     roles.vacant

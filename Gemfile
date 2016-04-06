@@ -20,7 +20,6 @@ gem 'govuk_template'
 #for sass mixins
 gem 'govuk_frontend_toolkit'
 
-
 #for handling money
 gem "money-rails"
 #gem "monetize"
@@ -28,7 +27,6 @@ gem "money-rails"
 #pagination
 #gem "kaminari"
 gem 'kaminari-bootstrap', '~> 3.0.1'
-
 
 #bootstrap-generators
 gem 'bootstrap-generators', '~> 3.3.4'

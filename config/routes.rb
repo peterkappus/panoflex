@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy', as: :logout
 
   get '/about' => 'welcome#about', as: :about
+  get '/signage' => 'welcome#signage', as: :signage
 
   resources :roles do
     post 'import', on: :collection
