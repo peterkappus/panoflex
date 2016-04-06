@@ -13,9 +13,22 @@
 @import "_typography"
 
 // Mixins to generate components (chunks of UI)
-//@import "design-patterns/alpha-beta"
+@import "design-patterns/_alpha-beta"
 @import "design-patterns/_buttons"
 //@import "design-patterns/breadcrumbs"
+
+.phase-banner-alpha
+  @include phase-banner
+  background: $white
+  padding: 10px 0 8px
+
+  @include media(tablet)
+    padding-bottom: 10px
+
+  border-bottom: 1px solid $border-colour
+
+  .phase-tag
+    @include phase-tag
 
 .button
   @include button
