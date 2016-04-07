@@ -1,62 +1,58 @@
 = render 'breadcrumb'
-.row.padded-row
-  .col-md-12.signage
-    h1 What will GDS do this year?
-    .print_only
-      h4 Current at #{Time.now.strftime("%-m %b %Y")}
-    p.lead These milestones have been taken from the latest business plans and iterated with the PMOs (project management offices) for each group. Are they still right? We expect them to change during the year but need a good feedback loop to ensure they always reflect the work we're doing and have done. Please speak to your group PMO for #{link_to "Learn more.",about_path, :class=>'noprint'}
-
-    h2 What is this tool?
-    p.lead The Delivery Ops team is exploring new ways of reporting on what GDS is doing. Do you like seeing progress against the business plan goals? Is it helpful to have a central place to share and view this information across GDS? Did you learn something new about GDS? Would you update this?
-
-    h3 Thanks for making GDS more transparent!
+.row
+  .col-md-8
+    .row.padded-row
+      .col-md-12.signage
+        h1.heading-xlarge What will GDS do this year?
+        p.lead These milestones have come from the latest business plans and then been iterated with the group PMOs (project management offices). Are they still right? We expect them to change during the year and need a good feedback loop to ensure they always reflect what we're doing (and have done). Please give feedback to your group PMO. #{link_to "Learn more.",about_path, :class=>'noprint'}
+        .page-break
+    .row.padded-row
+      .col-md-12
+        h2 Vision
+        p.lead
+          b We want to help departments work together to transform government to meet user needs.
+        /Previously
+        /Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
+    .row.padded-row
+      .col-md-12
+        h2 To achieve this vision we will
+        ol.nice_list
+          li
+            .point
+              h3 Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
+          li
+            .point
+              h3 Create, run and continuously improve the platforms and tools that make it simple for government to build, iterate and retire services.
+          li
+            .point
+              h3 Lead the digital, data and technology function so that government has the skills and capability it needs to transform itself.
+          li
+            .point
+              h3 Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great examples within the sector.
 
     .page-break
-.row.padded-row
-  .col-md-12
-    h2 Vision
-    h3.vision We want to help departments work together to transform government to meet user needs.
-    /Previously
-    /Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
-.row.padded-row
-  .col-md-12
-    h2 To achieve this vision we will
-    ol.nice_list
-      li
-        .point
-          h3 Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
-      li
-        .point
-          h3 Create, run and continuously improve the platforms and tools that make it simple for government to build, iterate and retire services.
-      li
-        .point
-          h3 Lead the digital, data and technology function so that government has the skills and capability it needs to transform itself.
-      li
-        .point
-          h3 Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great examples within the sector.
 
-.page-break
+    .row.padded-row
+      .col-sm-12
+        h2 Goals by Business Group
+        .noprint.expand_collapse
+          = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
+    .row.padded-row
+      .col-sm-12
+        / hide "new" button for now, the site is essentially read-only (data from google sheets)
+          .span style="margin: 2rem 0"
+            =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
+        - Group.all.each do |group|
+          .well.group_well
+            small =Time.now.strftime("%-m %b %Y")
+            h2 =link_to group.name + " Group", group
+            h4 Budget: £#{(group.budget.to_f/1000000).round(1)}m
+            h4 Headcount: #{group.headcount}
+          == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
+          .page-break
 
-.row.padded-row
-  .col-sm-12
-    h2 Goals by Business Group
-    .noprint.expand_collapse
-      = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
-.row.padded-row
-  .col-sm-12
-    / hide "new" button for now, the site is essentially read-only (data from google sheets)
-      .span style="margin: 2rem 0"
-        =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
-    - Group.all.each do |group|
-      .well.group_well
-        h2.heading-large =link_to group.name + " Group", group
-        h4 Budget: £#{(group.budget.to_f/1000000).round(1)}m
-        h4 Headcount: #{group.headcount}
-      == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
-      .page-break
-
-- if is_admin?
-  = form_tag import_okrs_goals_path, multipart: true, class: "form-inline noprint" do
-    .form-group
-      =file_field_tag :file, :class=>"form-control"
-    =submit_tag "Import", :class=>"btn btn-primary"
+    - if is_admin?
+      = form_tag import_okrs_goals_path, multipart: true, class: "form-inline noprint" do
+        .form-group
+          =file_field_tag :file, :class=>"form-control"
+        =submit_tag "Import", :class=>"btn btn-primary"

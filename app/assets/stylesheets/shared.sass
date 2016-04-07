@@ -57,8 +57,8 @@
   .signage
     h1
       font-size: 12rem
-    h2
-      font-size: 5rem
+    h2, p.lead
+      font-size: 3rem
     p
       font-size: 3rem
     h3
@@ -70,13 +70,6 @@
   ol.nice_list
     li::before
       min-width: 35px !important
-    h3
-      font-size: 15px
-      line-height: 2rem
-
-    li
-      .point h3
-        page-break-inside: avoid !important
 
 @media screen and (max-width: 415px)
   ol.nice_list li::before
@@ -153,7 +146,17 @@ body
   padding-top: 0 !important
 
 h1, h2, h3
-  font-family: "nta", Arial, sans-serif
+  color: #000
+
+h1
+  @include bold-48
+h2
+  @include bold-36
+
+/* yep, using the same style for now...*/
+h3, p.lead
+  @include core-24
+
 
 #footer
   margin-top: 5rem
@@ -168,11 +171,6 @@ a.btn-sm
 
 .vacancy
   background-color:  #ffa !important
-
-h1, .vision
-  font-weight: 800
-  font-size: 3.5rem
-  color: #003
 
 .mini-edit
   display: inline
