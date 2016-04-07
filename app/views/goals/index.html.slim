@@ -5,7 +5,7 @@
     h1 GDS Vision and Goals for 2016/17
     .print_only
       h4 Current at #{Time.now.strftime("%-m %b %Y")}
-    p.lead These are <b>DRAFT</b> goals for what GDS is doing in 16/17. They have been established via group PMOs and teams. They are likely to change dramatically in the first few months of this year. If you see something that isn't right, please speak to your group PMO to have it corrected. #{link_to "Learn more.",about_path, :class=>'noprint'}
+    p.lead These are <b>DRAFT</b> goals for what GDS is doing in 16/17. They have been established via group PMOs and teams. They are likely to change dramatically in the first few months of this year. Please review and give feedback to your group PMO so we can improve them. #{link_to "Learn more.",about_path, :class=>'noprint'}
 .row.padded-row
   .col-md-12
     h2 Vision
@@ -47,6 +47,7 @@
         h4 Budget: £#{(group.budget.to_f/1000000).round(1)}m
         h4 Headcount: #{group.headcount}
       == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
+      .page-break
 
 - if is_admin?
   = form_tag import_okrs_goals_path, multipart: true, class: "form-inline noprint" do

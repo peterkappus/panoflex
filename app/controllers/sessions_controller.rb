@@ -27,11 +27,8 @@ class SessionsController < ApplicationController
       session['name'] = env["omniauth.auth"].info['name']
       session['email'] = env["omniauth.auth"].info['email']
       flash['notice'] = "Successfully signed in as " + session['name']
-
-      #don't need this yet...
-      #session['email'] = env["omniauth.auth"].info['email']
     else
-      flash['error'] = "Sorry, only accounts with a digital.cabinet-office.gov.uk email address may login to this system."
+      flash['error'] = "Sorry, you must have a GDS or Cabinet Office email address to login."
     end
     redirect_to root_path
   end
