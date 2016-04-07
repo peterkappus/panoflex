@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
 
   def create
     #raise env["omniauth.auth"].info['name']
-    if(env["omniauth.auth"].info['email'].match(/@digital.cabinet-office.gov.uk$/))
+    if(env["omniauth.auth"].info['email'].match(/@digital.cabinet-office.gov.uk$/) || env["omniauth.auth"].info['email'].match(/@cabinetoffice.gov.uk$/))
       session['name'] = env["omniauth.auth"].info['name']
       session['email'] = env["omniauth.auth"].info['email']
       flash['notice'] = "Successfully signed in as " + session['name']
