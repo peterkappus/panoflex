@@ -15,9 +15,11 @@ class ApplicationController < ActionController::Base
   #http_basic_authenticate_with (name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'])
 
   def is_admin?
-  (signed_in? && (ENV['IS_SANDBOX'] ||  current_user.name.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i)))
-    # TODO:  make the above smarter. ENV vars? Config file? User management feature?
-    # Peter, Poss, Pat, John, Alex, Alex... and our test user (Testy McTesterton)
+    if(signed_in?)
+      (ENV['IS_SANDBOX'] ||  current_user.name.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i))
+      # TODO:  make the above smarter. ENV vars? Config file? User management feature?
+      # Peter, Poss, Pat, John, Alex, Alex... and our test user (Testy McTesterton)
+    end
   end
 
   def check_admin
