@@ -15,12 +15,9 @@ class ApplicationController < ActionController::Base
   #http_basic_authenticate_with (name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'])
 
   def is_admin?
-    if signed_in?
-      #Allow ANYONE in the sandbox to be an admin. Watch out!
-      (ENV['IS_SANDBOX'] ||  current_user.name.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i))
-      # TODO:  make the above smarter. ENV vars? Config file? User management feature?
-      # Peter, Poss, Pat, John, Alex, Alex... and our test user (Testy McTesterton)
-    end
+  (signed_in? && (ENV['IS_SANDBOX'] ||  current_user.name.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i)))
+    # TODO:  make the above smarter. ENV vars? Config file? User management feature?
+    # Peter, Poss, Pat, John, Alex, Alex... and our test user (Testy McTesterton)
   end
 
   def check_admin
@@ -28,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def signed_in?
-    !current_user.nil?
+    current_user
   end
 
   def check_login
@@ -39,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    User.find_by(:uid=>session['user_uid'])
+    User.find_by(:email=>session['user_email'])
   end
 
   # Prevent CSRF attacks by raising an exception.
