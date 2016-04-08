@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     # TODO:  make this less dumb. Config file? Someday a database thing?
     # Peter, Poss, Pat, John, Alex, Alex... and our test user (Testy McTesterton)
     #Allow ANYONE in the sandbox to be an admin. Watch out!
-    (signed_in? && (ENV['IS_SANDBOX'] ||  current_user.name.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i)))
+    (!current_user.nil? && (ENV['IS_SANDBOX'] ||  current_user.name.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i)))
   end
 
   def check_admin
