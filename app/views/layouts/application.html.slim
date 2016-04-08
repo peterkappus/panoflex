@@ -53,7 +53,7 @@
             h2 NOTE: This site has moved to <a href="http://gdsdelivery.herokuapp.com">http://gdsdelivery.herokuapp.com</a>. Please update your bookmarks.
         = yield
         .pull-right.noprint
-          - if is_admin?
+          - if signed_in?
             i Signed in as #{current_user.name}
             br
             =link_to :Logout, logout_path
