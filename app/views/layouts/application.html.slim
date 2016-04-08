@@ -54,7 +54,7 @@
         = yield
         .pull-right.noprint
           - if is_admin?
-            i Signed in as #{session['name']}
+            i Signed in as #{current_user.name}
             br
             =link_to :Logout, logout_path
 = render template: "layouts/govuk_template"

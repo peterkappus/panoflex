@@ -5,15 +5,16 @@ class ApplicationController < ActionController::Base
   #include Slimmer::SharedTemplates
 
   #export our helper method
-  helper_method :is_admin?, :signed_in?
+  helper_method :is_admin?, :signed_in?, :current_user
 
-  before_filter :redirect_from_original_domain
+  #don't do this anymore, use gdsdash as a sandbox :)
+  #before_filter :redirect_from_original_domain
   before_filter :check_login
 
   def is_admin?
     # TODO:  make this less dumb. Config file? Someday a database thing?
     # Peter, Poss, Pat, John, Alex, Alex... and our test user (Testy McTesterton)
-    session['name'] && session['name'].match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes|yedigaroff/i)
+    signed_in? && current_user.name.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i)
     #this would let anyone at GDS be an admin...
     #session['email'].match(/digital.cabinet-office.gov.uk/)
 
@@ -30,7 +31,7 @@ class ApplicationController < ActionController::Base
   end
 
   def signed_in?
-    !session['email'].to_s.empty?
+    !current_user.nil?
   end
 
   def check_login
@@ -39,6 +40,10 @@ class ApplicationController < ActionController::Base
       redirect_to '/auth/google_oauth2'
       return
     end
+  end
+
+  def current_user
+    User.find_by(:uid=>session['user_uid'])
   end
 
   # Prevent CSRF attacks by raising an exception.

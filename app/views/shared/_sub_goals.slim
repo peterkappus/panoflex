@@ -2,24 +2,24 @@ ol.nice_list.goals
   - sub_goals.each do |sub_goal|
     li
       .point
-        h3
-          =link_to sub_goal.name, sub_goal
-          / Hide inline edit button...
-            -if is_admin?
-              =link_to edit_goal_path(sub_goal) do
-                .mini-edit
-                  .glyphicon.glyphicon-edit
-        .smaller
-            -if(sub_goal.get_team)
-              =link_to sub_goal.get_team.name, sub_goal.get_team
-        .deadline =sub_goal.display_deadline
-        .smaller
-          =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty? || params["expand_all"]
-        - if(sub_goal.children.count > 0 && !params['expand_all'].nil?)
-          == render partial: 'shared/sub_goals', locals: {sub_goals: sub_goal.children}
-
-    /
-      .col-sm-2.sub_score
-        h3.amount = sub_goal.display_amount
-        .date = sub_goal.current_display_date
-        /small = link_to 'Edit',edit_goal_path(sub_goal), {:class=>"btn-sm btn-primary"}
+        .row
+          .col-sm-10
+            h3
+              =link_to sub_goal.name, sub_goal
+              / Hide inline edit button...
+                -if is_admin?
+                  =link_to edit_goal_path(sub_goal) do
+                    .mini-edit
+                      .glyphicon.glyphicon-edit
+            .smaller
+                -if(sub_goal.get_team)
+                  =link_to sub_goal.get_team.name, sub_goal.get_team
+            .deadline =sub_goal.display_deadline
+            .smaller
+              =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty? || params["expand_all"]
+            - if(sub_goal.children.count > 0 && !params['expand_all'].nil?)
+              == render partial: 'shared/sub_goals', locals: {sub_goals: sub_goal.children}
+          .col-sm-2.sub_score
+            h3.amount = sub_goal.display_amount
+            .date = sub_goal.current_display_date
+            /small = link_to 'Edit',edit_goal_path(sub_goal), {:class=>"btn-sm btn-primary"}

@@ -34,7 +34,7 @@
         =link_to "Add a score", new_goal_score_path(@goal), :class=>"btn-sm btn-success"
   - if(@goal.scores.empty?)
       br
-      p.small No updates yet.
+      p.lead Updates will show progress against a goal by providing a history of the scores and supporting narratives at diffrent points in time. They should be added monthly or whenever there is new delivery information to report.
   - else
     - @goal.scores.each do |score|
       .row
