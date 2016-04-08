@@ -26,7 +26,8 @@ class ApplicationController < ActionController::Base
   end
 
   def signed_in?
-    !current_user.nil?
+    !session['user_uid'].to_s.empty?
+    #!current_user.nil?
   end
 
   def check_login
