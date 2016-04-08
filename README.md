@@ -23,12 +23,7 @@ This project is being developed within the Delivery Operations team at GDS which
 
 ## Setup
 
-This app is setup to run on Heroku. To run it locally, you MUST create a .env file like so:
-
-```
-BASIC_AUTH_USERNAME=whatever
-BASIC_AUTH_PASSWORD=somepassword
-```
+This app is setup to run on Heroku. To run it locally, you *MUST* copy the `sample.env.txt` file to `.env` and customise it for environment(s).
 
 To start the server use
 `$ heroku local`

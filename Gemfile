@@ -13,6 +13,10 @@ gem 'rails_12factor', group: :production
 #not yet....
 #gem 'omniauth'
 
+#load up our env variables in dev & test which contain things like our Google redirect
+#gem 'dotenv-rails', :groups => [:development, :test]
+#heroku local does this for us, I think...
+
 #for template
 gem 'govuk_template'
 #gem 'slimmer'

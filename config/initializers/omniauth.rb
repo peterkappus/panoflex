@@ -1,4 +1,5 @@
-callback_uri = Rails.configuration.x.omniauth_callback_uri
+#make sure you set this in your <enviroment>.rb file
+callback_uri = ENV["GOOGLE_AUTH_REDIRECT_URL"]
 
 
 Rails.application.config.middleware.use OmniAuth::Builder do

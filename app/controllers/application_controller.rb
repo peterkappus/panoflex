@@ -11,20 +11,15 @@ class ApplicationController < ActionController::Base
   #before_filter :redirect_from_original_domain
   before_filter :check_login
 
+  #not doing this anymore...
+  #http_basic_authenticate_with (name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'])
+
   def is_admin?
     # TODO:  make this less dumb. Config file? Someday a database thing?
     # Peter, Poss, Pat, John, Alex, Alex... and our test user (Testy McTesterton)
-    signed_in? && current_user.name.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i)
-    #this would let anyone at GDS be an admin...
-    #session['email'].match(/digital.cabinet-office.gov.uk/)
-
+    #Allow ANYONE in the sandbox to be an admin. Watch out!
+    (signed_in? && (ENV['IS_SANDBOX'] ||  current_user.name.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i)))
   end
-
-  #apply basic auth if the following ENV vars are set
-  #unless (ENV['BASIC_AUTH_USERNAME'].to_s.empty? || ENV['BASIC_AUTH_PASSWORD'].to_s.empty?)
-  #  #raise "BASIC_AUTH_USERNAME and/or BASIC_AUTH_PASSWORD not set (or exported) in ENV. Please set & export these and try again."
-  #  http_basic_authenticate_with name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD']
-  #end
 
   def check_admin
     redirect_to login_path unless is_admin?
