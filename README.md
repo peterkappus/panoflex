@@ -54,30 +54,32 @@ Or only run @new tests:
 `$ cucumber --tags @new`
 
 
-## TODO
+## The Backlog
 
-### Next
+### DONE (What's new?)
+- Setup Cucumber and Capybara and write some basic tests
+- use "slugged" names for team/group URLs (e.g. groups/operations vs groups/4)
+- show teams for parent goals where all children have the same team
+- Make an "about" page explaining the thing and that its a pre-alpha proof of concept
+- Fix the header so the proposition links don't disappear on mobile
+- Add Group & Team goals pages & links
+- Add GOV.UK page layout template
+- Paginate full role listing
+- Associate roles to functions (initially by function_name) w/ error reporting
+
+### Next Up
 - Browse goals by due-date quarter
+- Search for goal by freetext
 - Add unit tests using [Factory Girl & Rspec](https://semaphoreci.com/community/tutorials/setting-up-the-bdd-stack-on-a-new-rails-4-application)
 - Start using the GOV.UK components instead of reinventing the wheel
 - Ween ourselves off of bootstrap and just use the standard GOV.UK CSS.
 
-### Someday
+### Someday/Maybe
 - Search for role by name
+- Searchable hashtags in goal text?
 - Make names click-able to search for all roles using that person
 - Search for role by type
 - Add non-people costs (EPIC)
 - Make short_names for each GDS function unique (in DB and model)
 - Filter to show vacant roles per Function (by month)
 - Split allocation into separate table away from roles Stop using "hard-coded" months :(
-
-### DONE (What's new?)
-- use "slugged" names for team/group URLs (e.g. groups/operations vs groups/4)
-- show teams for parent goals where all children have the same team
-- Make an "about" page explaining the thing and that its a pre-alpha proof of concept
-- Fix the header so the proposition links don't disappear on mobile
-- Setup Cucumber and Capybara and write some basic tests
-- Add Group & Team goals pages & links
-- Add GOV.UK page layout template
-- Paginate full role listing
-- Associate roles to functions (initially by function_name) w/ error reporting

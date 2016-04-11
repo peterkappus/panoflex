@@ -20,8 +20,8 @@
         - if (signed_in?)
           ul#proposition-links
             li =link_to "Vision", goals_path
-            li =link_to "Groups", groups_path
-            li =link_to "Teams", teams_path
+            li =link_to "Groups and Teams", groups_path
+            /li =link_to "Teams", teams_path
             li =link_to "About", about_path
 - content_for :body_end
   javascript:
@@ -36,6 +36,8 @@
 - content_for :content do
   #wrapper.grid-row
     main#content.column-two-thrids[role="main"]
+      -if (ENV['IS_SANDBOX'] || Rails.env.development?)
+        div style="background: #fc0; text-align: center; font-size: 3rem" This is a playground environment. Tweak with impunity.
       .phase-banner-alpha.noprint
         p
           strong.phase-tag PRE-ALPHA
@@ -59,4 +61,6 @@
             i Signed in as #{current_user.name}
             br
             =link_to :Logout, logout_path
+        -if (ENV['IS_SANDBOX'] || Rails.env.development?)
+          .clear style="background: #fc0; text-align: center; font-size: 3rem" Play environment. Tweak with impunity.
 = render template: "layouts/govuk_template"

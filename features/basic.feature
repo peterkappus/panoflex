@@ -8,8 +8,7 @@ Feature: GOV.UK Template (Header & Footer)
   Scenario: See basic nav
     Given I am signed in
     Then I should see "Vision"
-    And I should see "Groups"
-    And I should see "Teams"
+    And I should see "Groups and Teams"
 
   Scenario: Login
     Given I am logged in
