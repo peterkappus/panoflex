@@ -14,6 +14,7 @@
           = link_to 'Destroy', @goal, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class: "btn-sm btn-danger"
   .col-sm-3
     .big_score
+      .smaller Current delivery:
       .amount = @goal.display_amount
       .date = @goal.current_display_date
 .row

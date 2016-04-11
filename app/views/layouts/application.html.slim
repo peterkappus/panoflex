@@ -1,5 +1,7 @@
 /https://github.com/alphagov/govuk_template/blob/master/source/views/layouts/govuk_template.html.erb
 - content_for :head do
+  =javascript_include_tag "application.js"
+  = csrf_meta_tags
   style
     | main { max-width: 960px; margin: 0 15px; }
     | @media (min-width: 641px) { main { margin: 0 30px; } }

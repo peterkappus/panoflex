@@ -15,6 +15,11 @@ javascript:
         - @goal.errors.full_messages.each do |msg|
           li= msg
   .form-group
+    = f.label :Parent, class: "col-sm-2 control-label"
+    .col-sm-10
+      p = @goal.parent.name
+
+  .form-group
     = f.label :name, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :name, :cols=>50, :rows=>5, class: "bigtext form-control"
@@ -28,14 +33,17 @@ javascript:
     .col-sm-10
       =collection_select :goal, :group_id, Group.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
   //parent set in controller if ID passed in params (assuming parent is found)
-  .form-group
-    = f.label :parent_id, class: "col-sm-2 control-label"
-    .col-sm-10
-      /= @goal.parent ? @goal.parent.name : ""
-      =collection_select :goal, :parent_id, Goal.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
-      /=f.hidden_field :parent_id, :value=> @goal.parent.id
+  /nope. just print parent above and make parent_id a hidden var
+    .form-group
+      = f.label :parent_id, class: "col-sm-2 control-label"
+      .col-sm-10
+        /= @goal.parent ? @goal.parent.name : ""
+        =collection_select :goal, :parent_id, Goal.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
+  =f.hidden_field :parent_id, :value=> @goal.parent.id
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"
       | &nbsp;
+      br
+      br
       =link_to "Back", "javascript:history.go(-1);void(0)"
