@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def is_admin?
     if(signed_in?)
-      (ENV['IS_SANDBOX'] ||  current_user.email.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i))
+      (ENV['IS_SANDBOX'] ||  current_user.name.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i))
       # TODO:  make the above smarter. ENV vars? Config file? User management feature?
       # Peter, Poss, Pat, John, Alex, Alex... and our test user (Testy McTesterton)
     end
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def signed_in?
-    current_user
+    current_user && !current_user.name.to_s.empty? && !current_user.email.to_s.empty?
   end
 
   def check_login
