@@ -4,7 +4,7 @@
   .col-sm-9
     - unless (@goal.owner_name.empty?)
       h4 =link_to @goal.owner_name, @goal.owner
-      h5 =@goal.display_deadline
+    h5 =@goal.display_deadline
     h2 = @goal.name
     -if is_admin?
       .goal_controls

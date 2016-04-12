@@ -22,8 +22,10 @@ class GoalsController < ApplicationController
     #set the parent ID for the new goal if we passed one in via the params and if it's been found
     #what's a more "railsy" way to do this?
     @goal.parent = Goal.find_by_id(params[:parent_id])
-    @goal.team = @goal.parent.team
-    @goal.group = @goal.parent.group
+    if @goal.parent
+      @goal.team = @goal.parent.team
+      @goal.group = @goal.parent.group
+    end
   end
 
   # GET /goals/1/edit
@@ -99,6 +101,6 @@ class GoalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def goal_params
-      params.require(:goal).permit(:name, :team_id, :group_id, :parent_id)
+      params.require(:goal).permit(:name, :team_id, :group_id, :parent_id, :deadline, :start_date)
     end
 end

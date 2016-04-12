@@ -14,15 +14,26 @@ javascript:
       ul
         - @goal.errors.full_messages.each do |msg|
           li= msg
-  .form-group
-    = f.label :Parent, class: "col-sm-2 control-label"
-    .col-sm-10
-      p = @goal.parent.name
+  - if @goal.parent
+    .form-group
+      = f.label :Parent, class: "col-sm-2 control-label"
+      .col-sm-10
+        p = @goal.parent.name
+    =f.hidden_field :parent_id, :value=> @goal.parent.id
 
   .form-group
     = f.label :name, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_area :name, :cols=>50, :rows=>5, class: "bigtext form-control"
+      = f.text_area :name, class: "bigtext form-control"
+  .form-group
+    = f.label "Start date", class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.date_select :start_date, discard_day: true
+  .form-group
+    = f.label "End date (deadline)", class: "col-sm-2 control-label"
+    .col-sm-10
+      = f.date_select :deadline, discard_day: true
+
   .form-group
     = f.label :team, class: "col-sm-2 control-label"
     .col-sm-10
@@ -39,7 +50,6 @@ javascript:
       .col-sm-10
         /= @goal.parent ? @goal.parent.name : ""
         =collection_select :goal, :parent_id, Goal.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
-  =f.hidden_field :parent_id, :value=> @goal.parent.id
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit class: "btn btn-primary"

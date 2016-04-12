@@ -5,8 +5,8 @@
   = link_to @group, class: 'btn btn-primary' do
     span.glyphicon.glyphicon-info-sign
     |  Show
-  h1
-    | Editing
-    | group
+  h4 Editing Group
+  h1 = @group.name
+  small =link_to "Back to groups", groups_path
 
 = render 'form'

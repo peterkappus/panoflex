@@ -6,6 +6,10 @@ class Goal < ActiveRecord::Base
   has_many :sdp_children, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
 
+  #default end dates to the end of the month and start dates to the beginning fo the month
+  before_save {|record| record.deadline = record.deadline.end_of_month if(record.deadline)}
+  before_save {|record| record.start_date = record.start_date.beginning_of_month if(record.start_date)}
+
   # don't use, dependent: :destroy ... better to orphan goals when the parent is deleted so that they can be re-assigned at some point and we don't lose history. TODO: create a way to archive goals instead of destroying them if thye're no longer "active". Ditto for scores...
 
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'

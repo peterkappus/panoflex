@@ -59,8 +59,6 @@
         .pull-right.noprint
           - if signed_in?
             i Signed in as #{current_user.name}
-            br
-            =link_to :Logout, logout_path
-        -if (ENV['IS_SANDBOX'] || Rails.env.development?)
-          .clear style="background: #fc0; text-align: center; font-size: 3rem" Play environment. Tweak with impunity.
+            .pull-right
+              =link_to :Logout, logout_path
 = render template: "layouts/govuk_template"

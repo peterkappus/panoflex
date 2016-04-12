@@ -1,12 +1,12 @@
 .page-header
   = link_to teams_path, class: 'btn btn-default' do
     span.glyphicon.glyphicon-list-alt
-    |  Back 
+    |  Back
   = link_to @team, class: 'btn btn-primary' do
     span.glyphicon.glyphicon-info-sign
-    |  Show 
-  h1
-    | Editing 
-    | team
+    |  Show
+  h1 Editing team: #{@team.name}
+  .break
+    small =link_to "Back to teams", teams_path
 
 = render 'form'

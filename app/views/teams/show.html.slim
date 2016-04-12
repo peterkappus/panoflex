@@ -2,9 +2,12 @@
   .col-md-12
     h3 =link_to :Teams, teams_path
     h1.heading-xlarge = @team.name
-    smaller
-      'Part of the
-      =link_to @team.group.name + " Group", @team.group
+    -if @team.group
+      smaller
+        'Part of the
+        =link_to @team.group.name + " Group", @team.group
+    .pull-right =link_to "Edit Team", edit_team_path(@team) if is_admin?
+
     h3 Goals (#{@team.goals.count})
     /= (params["expand_all"]) ? link_to("Collapse all", team_path(@team)) : link_to("Expand all", "?expand_all=1")
     == render :partial=>"shared/sub_goals", :locals=>{sub_goals: @team.goals}
