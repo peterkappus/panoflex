@@ -1,6 +1,6 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
-  before_action :check_admin, only: [:new, :edit, :create, :update, :destroy]
+  before_action :check_admin, only: [:new, :edit, :create, :update, :destroy, :import_okrs]
   #around_filter :catch_not_found
 
   # GET /goals
