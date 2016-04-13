@@ -1,5 +1,6 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
+
   before_action :check_admin, only: [:new, :edit, :create, :update, :destroy, :import_okrs]
   #around_filter :catch_not_found
 
@@ -39,6 +40,7 @@ class GoalsController < ApplicationController
   # POST /goals.json
   def create
     @goal = Goal.new(goal_params)
+    set_user
 
     respond_to do |format|
       if @goal.save
@@ -54,6 +56,7 @@ class GoalsController < ApplicationController
   # PATCH/PUT /goals/1
   # PATCH/PUT /goals/1.json
   def update
+    set_user
     respond_to do |format|
       if @goal.update(goal_params)
         format.html { redirect_to @goal, notice: 'Goal was successfully updated.' }
@@ -100,6 +103,11 @@ class GoalsController < ApplicationController
       @goal = Goal.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       redirect_to root_url, :flash => { :error => "Sorry, that goal could not be found. It may have been moved following a recent import." }
+    end
+
+    #use to track who modified goals
+    def set_user
+      @goal.user = current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

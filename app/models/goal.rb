@@ -1,6 +1,7 @@
 class Goal < ActiveRecord::Base
   belongs_to :team
   belongs_to :group
+  belongs_to :user
   belongs_to :sdp_parent, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :children, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
   has_many :sdp_children, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
