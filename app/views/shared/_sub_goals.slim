@@ -1,4 +1,4 @@
--if is_admin? && sub_goals.count > 0
+-if is_admin?
   = link_to "New Goal",new_goal_path, class: "btn-success btn-sm"
 ol.nice_list.goals
   - sub_goals.each do |sub_goal|
