@@ -12,47 +12,10 @@ require 'capybara-screenshot'
 require 'capybara-screenshot/cucumber'
 require 'firefox'
 
-Capybara.register_driver :poltergeist do |app|
-	#set timeout to 45 seconds. default is 30
-	#this is the number of seconds poltergeist waits to hear back from phantomJS
-  Capybara::Poltergeist::Driver.new(app, {:timeout=>120, :phantomjs_options => ['--ignore-ssl-errors=yes', '--local-to-remote-url-access=yes', "--cookies-file=/test/requests/cookies.txt"]})
-  # Capybara::Poltergeist::Driver.new(app, )
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
 end
 
-Capybara.register_driver :selenium do |app|
-  	Capybara::Selenium::Driver.new(app, :browser=>:firefox)
-
-  	# Selenium::WebDriver::Firefox::Binary.path = ENV['CUSTOM_FF_PATH'] if ENV['CUSTOM_FF_PATH'].present?
-	profile = Selenium::WebDriver::Firefox::Profile.new
-	# profile.assume_untrusted_certificate_issuer = ENV['SKIP_CERT_ISSUER'].present?
-	#profile['browser.download.dir'] = "/test/download/directory/webdriver-downloads"
-	#profile['browser.download.folderList'] = 2 # implies custom location
-	#profile['browser.helperApps.neverAsk.saveToDisk'] = "text/csv,application/pdf,application/doc,application/docx,image/jpeg"
-	profile.native_events = true
-	Capybara::Selenium::Driver.new(app, :browser => :firefox ,:profile => profile)
-	   #Capybara::Selenium::Driver.new app, :profile => profile
-end
-
-Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app, :browser=>:chrome)
-end
-
-Capybara.register_driver :selenium_ie do |app|
-  Capybara::Selenium::Driver.new(app, :browser=>:internet_explorer)
-end
-
-Capybara.register_driver :selenium_safari do |app|
-  Capybara::Selenium::Driver.new(app, :browser=>:safari)
-end
-
-Capybara.register_driver :selenium_firefox do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :firefox)
-end
-
-@driver_name = ENV['DRIVER'] || "poltergeist"
-Capybara.javascript_driver = @driver_name.to_sym
-Capybara.default_wait_time = 30
-#Capybara.options[:resynchronize] = true
-
-#Capybara.default_wait_time = ENV['TIMEOUT'].to_i || 10
-#Capybara.save_and_open_page_path = "failure_screenshots"
+#Capybara.current_driver = :selenium
+#Capybara.javascript_driver = :selenium
+Capybara.default_max_wait_time = 10

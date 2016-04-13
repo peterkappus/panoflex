@@ -1,12 +1,25 @@
 
 Before do |scenario|
-  #basic auth
-  #obsolete since we now turn off basic auth in test env
-  #page.driver.browser.authorize 'x', 'x'
+	  #basic auth
+	  #obsolete since we now turn off basic auth in test env
+	  #page.driver.browser.authorize 'x', 'x'
+		#RSpec.configure do |config|
+	  #config.before do
+	  #  Capybara.current_driver = :selenium
+	  #  Capybara.javascript_driver = :selenium
+	  #  Capybara.run_server = true
+	  #  Capybara.server_port = 7000
+	  #  Capybara.app_host = "http://localhost:#{Capybara.server_port}"
+	  #end
+	#end
 end
 
 After do |scenario|
 	# pry.binding
+end
+
+When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field_name, content|
+  fill_in field_name, :with=>content
 end
 
 def get_all_link_text
@@ -55,7 +68,7 @@ end
 #STEPS DOWN HERE....
 
 #give us a step definition for "debug"
-Then(/^debug$/) do
+Then(/debug/) do
 	debug
 end
 
@@ -76,10 +89,13 @@ end
 
 #click on button or link
 When(/^I click (?:on )?"([^"]+?)"$/) do |text|
+	click_on text
 	#click_on link_to_click
 	#for some reason the regular click_on didn't find AngularJS generated links.
 	#the custom "find_first_link" method works...
-	find_first_link(text).click
+	#node = find_first_link(text) || find_button(text)
+	#node.click
+
 end
 
 #click on button or link within a selector
@@ -140,7 +156,7 @@ end
 
 When(/^I import new goals$/) do
   login
-  attach_file("file","okr_sample_import.csv")
+  attach_file("file","#{ENV['RAILS_ROOT']}/okr_sample_import.csv")
   find_button("Import").click
 end
 
@@ -221,11 +237,6 @@ Then(/^I should see results in "([^"]+?)", displayed in alphabetical order$/) do
       end
       previous = node
   end
-end
-
-#give us a step definition for "debug"
-Then(/^debug$/) do
-	debug
 end
 
 #throw a 'debug' command in your step defs to open an PRY session and poke around interactively

@@ -5,6 +5,7 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
+    redirect_to groups_path
     @teams = Team.all
   end
 

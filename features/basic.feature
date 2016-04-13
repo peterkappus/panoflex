@@ -1,4 +1,5 @@
 Feature: GOV.UK Template (Header & Footer)
+	#@javascript
 
 	Scenario: See the Header & Footer
 		Given I am on the home page
@@ -24,24 +25,18 @@ Feature: GOV.UK Template (Header & Footer)
 		#budget for Digital
 		And I should see "99.6m"
 
-  Scenario: Click around teams
-    When I import new goals
-    And I click "Teams"
+  Scenario: Import goals and look around
+		When I import new goals
+		And I click "Expand all"
+		Then I should see "Small thing C"
+    When I click "Groups and Teams"
     Then I should see "Team A"
     And I should see "Team B"
     When I click on "Team C"
     Then I should see "2"
     And I should see "Smallish connected thing"
-
-  Scenario: Expand all
-    When I import new goals
-    And I click "Expand all"
-    Then I should see "Small thing C"
-
-  Scenario:
-    When I import new goals
-    And I click "Groups"
-    And I click "Operations"
-    Then I should see "Team D"
-    And I should see "5"
-    And I should see "Another Really Big goal"
+		When I click "Vision"
+		And I click "Operations"
+		Then I should see "Team D"
+		And I should see "5"
+		And I should see "Another Really Big goal"

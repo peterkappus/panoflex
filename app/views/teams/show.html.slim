@@ -1,6 +1,7 @@
 .row
   .col-md-12
-    h3 =link_to :Teams, teams_path
+    /h3 =link_to :Teams, teams_path
+    h3 =link_to "Groups and Teams", groups_path
     h1.heading-xlarge = @team.name
     -if @team.group
       smaller
