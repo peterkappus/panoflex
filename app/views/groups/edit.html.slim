@@ -1,10 +1,4 @@
 .page-header
-  = link_to groups_path, class: 'btn btn-default' do
-    span.glyphicon.glyphicon-list-alt
-    |  Back
-  = link_to @group, class: 'btn btn-primary' do
-    span.glyphicon.glyphicon-info-sign
-    |  Show
   h4 Editing Group
   h1 = @group.name
   small =link_to "Back to groups", groups_path

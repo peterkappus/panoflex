@@ -39,9 +39,6 @@
           = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
     .row.padded-row
       .col-sm-12
-        / hide "new" button for now, the site is essentially read-only (data from google sheets)
-          .span style="margin: 2rem 0"
-            =link_to "Add New", new_goal_path,class: "btn-success btn-sm" if is_admin?
         - Group.all.each do |group|
           .well.group_well
             small =Time.now.strftime("%-m %b %Y")
