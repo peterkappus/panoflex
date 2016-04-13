@@ -77,9 +77,10 @@ class GoalsController < ApplicationController
     #@goal.children.each do |c|
     #  c.update!(parent_id: nil)
     #end
+    redirect_url = (@goal.parent) ? @goal.parent : goals_path
 
     respond_to do |format|
-      format.html { redirect_to @goal.parent, notice: 'Goal was successfully destroyed.' }
+      format.html { redirect_to redirect_url, notice: 'Goal was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
