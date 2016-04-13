@@ -22,6 +22,9 @@ class GoalsController < ApplicationController
     #set the parent ID for the new goal if we passed one in via the params and if it's been found
     #what's a more "railsy" way to do this?
     @goal.parent = Goal.find_by_id(params[:parent_id])
+    @goal.group = Group.find_by_id(params[:group_id])
+    @goal.team = Team.find_by_id(params[:team_id])
+
     if @goal.parent
       @goal.team = @goal.parent.team
       @goal.group = @goal.parent.group

@@ -1,5 +1,9 @@
 -if is_admin?
-  = link_to "New Goal",new_goal_path, class: "btn-success btn-sm"
+  .row
+    .col-md-12
+      .pull-right
+        = link_to "New Goal",new_goal_path, class: "btn-success btn-sm"
+        .clear
 ol.nice_list.goals
   - sub_goals.each do |sub_goal|
     li
