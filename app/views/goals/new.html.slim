@@ -2,4 +2,6 @@
 
 h1 Create a new goal
 
+-if (@goal.parent.scores.count > 0 && @goal.parent.children.count == 0)
+  .alert.alert-warning <B>NOTE:</b> Creating a sub-goal here will invalidate <a href="#{goal_path(@goal.parent)}">#{@goal.parent.scores.count} updates</a> that have been directly to the parent goal. Only updates applied to this (and subsequent) sub-goals will count towards the parent score.
 = render 'form'

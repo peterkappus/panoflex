@@ -8,7 +8,7 @@ The tool is currently used to show progress against linked goals and how those g
 
 Due to privacy concerns and the need to accredit the host, the financial planning and people piece has been paused.
 
-OKR data is currently held in a Google Sheet  and periodically imported. This is currently a safter/easier place to keep the data and allow GDS teams to collaborate. As this tool gets more mature, we should maintain the data only in the tool and move away from Google Sheets.
+OKR data is currently held in a Google Sheet  and periodically imported. This is currently a safer/easier place to keep the data and allow GDS teams to collaborate. As this tool gets more mature, we should maintain the data only in the tool and move away from Google Sheets.
 
 ## Please get involved! :)
 
@@ -57,6 +57,8 @@ Or only run @new tests:
 ## The Backlog
 
 ### DONE (What's new?)
+- Add start/end dates to goals (and include in form)
+- Add links for admins to edit team/group info
 - Setup Cucumber and Capybara and write some basic tests
 - use "slugged" names for team/group URLs (e.g. groups/operations vs groups/4)
 - show teams for parent goals where all children have the same team

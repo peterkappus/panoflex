@@ -138,7 +138,6 @@ Given(/^I am logged|signed in$/) do
   login
 end
 
-
 When(/^I import new goals$/) do
   login
   attach_file("file","okr_sample_import.csv")

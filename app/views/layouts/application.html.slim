@@ -58,7 +58,8 @@
         = yield
         .pull-right.noprint
           - if signed_in?
-            i Signed in as #{current_user.name}
-            .pull-right
+              i Signed in as #{current_user.name}
+              br
               =link_to :Logout, logout_path
+        .clear
 = render template: "layouts/govuk_template"
