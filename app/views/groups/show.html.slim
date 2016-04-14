@@ -2,7 +2,7 @@
   .col-md-12
     h3.noprint =link_to :Groups, groups_path
     .pull-right
-      small As of #{Time.now.strftime("%-m %b %Y")}
+      small As of #{display_date(Time.now)}
     h3 2016/17 Goals
     div style="clear:both"
     .pull-right =link_to "Edit Group", edit_group_path(@group) if is_admin?

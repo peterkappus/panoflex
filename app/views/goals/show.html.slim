@@ -4,7 +4,8 @@
   .col-sm-9
     - unless (@goal.owner_name.empty?)
       h4 =link_to @goal.owner_name, @goal.owner
-    h5 =@goal.display_deadline
+    /h5 =quarter_year(@goal.earliest_start_date) + " - " + quarter_year(@goal.latest_end_date)
+    h5 =@goal.display_date_range
     h2 = @goal.name
     -if is_admin?
       .goal_controls

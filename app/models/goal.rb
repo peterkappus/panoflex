@@ -8,8 +8,8 @@ class Goal < ActiveRecord::Base
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
 
   #default end dates to the end of the month and start dates to the beginning fo the month
-  before_save {|record| record.deadline = record.deadline.end_of_month if(record.deadline)}
-  before_save {|record| record.start_date = record.start_date.beginning_of_month if(record.start_date)}
+  #before_save {|record| record.deadline = record.deadline.end_of_month if(record.deadline)}
+  #before_save {|record| record.start_date = record.start_date.beginning_of_month if(record.start_date)}
 
   # don't use, dependent: :destroy ... better to orphan goals when the parent is deleted so that they can be re-assigned at some point and we don't lose history. TODO: create a way to archive goals instead of destroying them if thye're no longer "active". Ditto for scores...
 
@@ -27,12 +27,22 @@ class Goal < ActiveRecord::Base
     sdp_id?
   end
 
-  def display_deadline
-    if(deadline)
-      deadline.strftime("%d %h %Y")
-    end
+  #convenience wrapper for end_date
+  #TODO: rename deadline to end date in schema and everywhere else.
+  def end_date
+    deadline
   end
 
+  #def display_deadline
+  #  if(deadline)
+  #    deadline.strftime("%d %h %Y")
+  #  end
+  #end
+
+  def display_date_range
+    self.earliest_start_date.strftime("%d %h %Y") + " - " + self.latest_end_date.strftime("%d %h %Y")
+  end
+  
   def group_name
     group.nil? ? "" : group.name
   end
@@ -115,10 +125,10 @@ class Goal < ActiveRecord::Base
     end
   end
 
-  def determine_dates
-      #find earliest start date
-      deadline = latest_end_date
-      start_date = earliest_start_date
+  def calculate_dates
+      self.deadline = latest_end_date
+      self.start_date = earliest_start_date
+      self.save!
   end
 
   #right now this imports ALL the data into our database. Group and team names, headcount, budget, etc. should all be present in this spreadsheet. It's inefficient but an easy to completely wipe and re-import the whole DB from a single Google Spreadsheet. This process may change over time...
@@ -191,7 +201,7 @@ class Goal < ActiveRecord::Base
             end
 
             begin
-              goal.start_date = Date.parse(row['deadline'])
+              goal.start_date = Date.parse(row['start_date'])
             rescue
               return "Import Failed! Invalid Start Date for goal: #{goal_name}"
             end

@@ -20,7 +20,9 @@ ol.nice_list.goals
             .smaller
                 -if(sub_goal.get_team)
                   =link_to sub_goal.get_team.name, sub_goal.get_team
-            .deadline =sub_goal.display_deadline
+            /.deadline =quarter_year(sub_goal.earliest_start_date) + " - " + quarter_year(sub_goal.latest_end_date)
+            .deadline =sub_goal.display_date_range
+
             .smaller
               =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty? || params["expand_all"]
             - if(sub_goal.children.count > 0 && !params['expand_all'].nil?)

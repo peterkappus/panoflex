@@ -41,7 +41,8 @@
       .col-sm-12
         - Group.all.each do |group|
           .well.group_well
-            small =Time.now.strftime("%-d %b %Y")
+            .print_only
+              small =display_date(Time.now)
             h2 =link_to group.name + " Group", group
             h4 Budget: £#{(group.budget.to_f/1000000).round(1)}m
             h4 Headcount: #{group.headcount}

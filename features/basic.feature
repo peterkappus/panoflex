@@ -18,7 +18,7 @@ Feature: GOV.UK Template (Header & Footer)
   Scenario: Upload Goals
     When I import new goals
     Then I should see "Import successful"
-    And I should see "Another Really Big goal"
+    And I should see "Build a time machine"
 		And I should see "Operations"
 		#headcount for operations
 		And I should see "83"
@@ -28,7 +28,7 @@ Feature: GOV.UK Template (Header & Footer)
   Scenario: Import goals and look around
 		When I import new goals
 		And I click "Expand all"
-		Then I should see "Small thing C"
+		Then I should see "bendy straws"
     When I click "Groups and Teams"
     Then I should see "Team A"
     And I should see "Team B"
@@ -39,4 +39,4 @@ Feature: GOV.UK Template (Header & Footer)
 		And I click "Operations"
 		Then I should see "Team D"
 		And I should see "5"
-		And I should see "Another Really Big goal"
+		And I should see "Build a time machine"
