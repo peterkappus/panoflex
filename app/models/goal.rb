@@ -88,13 +88,37 @@ class Goal < ActiveRecord::Base
     if(children.empty?)
       team
     else
-      #if(children.pluck(:team_id).uniq.count == 1 && !children.pluck(:team_id).uniq.first.nil?
+      #if all the child goals are of the same team, return that.
       #otherwise, traverse the kids, if they all have the same team (and it isn't nil) then return that. Otherwise, return nil.
       unique_child_teams = children.map{|c| c.get_team}.uniq
       if(unique_child_teams.count == 1 && !unique_child_teams.first.nil?)
         unique_child_teams.first
       end
     end
+  end
+
+  def earliest_start_date
+    #....TODO
+    if(children.empty?)
+      start_date
+    else
+      children.map{|c| c.earliest_start_date}.min
+    end
+  end
+
+  def latest_end_date
+    #....TODO
+    if(children.empty?)
+      deadline
+    else
+      children.map{|c| c.latest_end_date}.max
+    end
+  end
+
+  def determine_dates
+      #find earliest start date
+      deadline = latest_end_date
+      start_date = earliest_start_date
   end
 
   #right now this imports ALL the data into our database. Group and team names, headcount, budget, etc. should all be present in this spreadsheet. It's inefficient but an easy to completely wipe and re-import the whole DB from a single Google Spreadsheet. This process may change over time...
@@ -106,7 +130,7 @@ class Goal < ActiveRecord::Base
     teams = {}
     goals = {}
 
-    required_cols = %w(group level_2 level_3 level_4 deadline)
+    required_cols = %w(group level_2 level_3 level_4 start_date deadline)
 
     #subtract supplied columns from required columns to see if any are missing
     missing_cols = required_cols - CSV.read(file.path,headers: true).headers
@@ -161,12 +185,17 @@ class Goal < ActiveRecord::Base
             goal.team = team
 
             begin
-              deadline = Date.parse(row['deadline'])
+              goal.deadline = Date.parse(row['deadline'])
             rescue
-              return "Import Failed! Invalid date for goal: #{goal_name}"
+              return "Import Failed! Invalid end date for goal: #{goal_name}"
             end
 
-            goal.deadline = deadline
+            begin
+              goal.start_date = Date.parse(row['deadline'])
+            rescue
+              return "Import Failed! Invalid Start Date for goal: #{goal_name}"
+            end
+
           end
 
           #lookup the parent

@@ -3,5 +3,7 @@
 h1 Create a new goal
 
 -if (@goal.parent && @goal.parent.scores.count > 0 && @goal.parent.children.count == 0)
-  .alert.alert-warning <B>NOTE:</b> Creating a sub-goal here will invalidate <a href="#{goal_path(@goal.parent)}">#{@goal.parent.scores.count} updates</a> that have been directly to the parent goal. Only updates applied to this (and subsequent) sub-goals will count towards the parent score.
+  .alert.alert-warning
+    p <B>NOTE:</b> Creating a sub-goal here will invalidate <a href="#{goal_path(@goal.parent)}">#{@goal.parent.scores.count} updates</a> that have been directly to the parent goal. Only updates applied to this (and subsequent) sub-goals will count towards the parent score.
+    p Additionally, dates provided within sub-goals will override start-end dates in the parent. The parent goal date range will use the earliest sub-goal start date and the latest sub-goal end date.
 = render 'form'
