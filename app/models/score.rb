@@ -1,8 +1,9 @@
 class Score < ActiveRecord::Base
   belongs_to :goal
+  belongs_to :user
   validates_presence_of :goal
   validates :amount, numericality: { only_integer: true}
-
+  
   #scope :latest, lambda { order("updated_at desc").first}
 
   #probably should add an actual date field that the user can adjust

@@ -45,6 +45,7 @@ class ScoresController < ApplicationController
   # POST /scores.json
   def create
     @score = Score.new(score_params)
+    @score.user = current_user
 
     respond_to do |format|
       if @score.save
@@ -60,6 +61,7 @@ class ScoresController < ApplicationController
   # PATCH/PUT /scores/1
   # PATCH/PUT /scores/1.json
   def update
+    @score.user = current_user
     respond_to do |format|
       if @score.update(score_params)
         format.html { redirect_to @score.goal, notice: 'Score was successfully updated.' }

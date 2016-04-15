@@ -45,4 +45,8 @@
           .date =score.display_date
         .col-md-7
           p.lead =score.reason
-          =link_to :Edit, edit_score_path(score) if is_admin?
+          -if score.user
+            small By #{score.user.name}
+            .break
+        .col-md-1
+          =link_to :Edit, edit_score_path(score), :class=>'btn btn-sm btn-primary' if is_admin?
