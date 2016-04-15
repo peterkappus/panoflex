@@ -10,7 +10,7 @@
     -if is_admin?
       .goal_controls
         = link_to :Edit, edit_goal_path, class: "btn-primary btn-sm"
-        = link_to "Create child",new_goal_path(parent_id:@goal), class: "btn-success btn-sm"
+        = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "btn-success btn-sm"
         .pull-right
           = link_to 'Destroy', @goal, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class: "btn-sm btn-danger"
   .col-sm-3

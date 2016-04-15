@@ -42,7 +42,7 @@ class Goal < ActiveRecord::Base
   def display_date_range
     self.earliest_start_date.strftime("%d %h %Y") + " - " + self.latest_end_date.strftime("%d %h %Y")
   end
-  
+
   def group_name
     group.nil? ? "" : group.name
   end
@@ -151,7 +151,11 @@ class Goal < ActiveRecord::Base
 
       #!!!!!!!!DANGER! Destroy all teams, and goals before importing and re-creating
       #Groups, we keep and throw out any rows that don't match one of them.
-      Goal.destroy_all
+      #Goal.destroy_all
+      #using the below method as it should restart the primary key index and break fewer links (e.g. Goal 5 should still be Goal 5 after a re-import)
+      ActiveRecord::Base.connection.execute("TRUNCATE TABLE goals RESTART IDENTITY")
+
+
       Team.destroy_all
 
 
