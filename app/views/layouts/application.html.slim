@@ -35,9 +35,9 @@
 
 - content_for :content do
   #wrapper.grid-row
-    main#content.column-two-thrids[role="main"]
+    main#content[role="main"]
       -if (ENV['IS_SANDBOX'] || Rails.env.development?)
-        div style="background: #fc0; text-align: center; font-size: 3rem" This is a playground environment. Tweak with impunity.
+        .noprint style="background: #fc0; text-align: center; font-size: 3rem" This is a playground environment. Tweak with impunity.
       .phase-banner-alpha.noprint
         p
           strong.phase-tag PRE-ALPHA

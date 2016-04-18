@@ -30,19 +30,16 @@ To start the server use
 
 It also has a `Procfile` which you probably won't need to touch.
 
+### Data loading
+
+You'll probably want to import some goals from a spreadsheet that looks like this (TODO: include link). This will create the teams and groups and some initial goals. There's currently no easy way to access the group/team creation UI.
+
 ## Testing
 
 TODO: write unit tests. Meanwhile, use Cucumber to do end-to-end testing. To make cucumber run for this app, here's what I have to do (after installing all the gems, etc).
 
-### First Time:
-You'll need to seed the test database by running
-`bundle exec rake db:seed RAILS_ENV=test`
-Otherwise, you'll get errors since there won't be any groups.
-
 ### Running cucumber
-`$ bundle exec cucumber BASIC_AUTH_USERNAME=x BASIC_AUTH_PASSWORD=x`
-
-You MUST pass in a username & password in the environment so rails can set up the basic auth. Use x/x for the username/pass since that's what the step definition uses when attempting to login. Don't say I didn't warn ya.
+`$ bundle exec cucumber`
 
 Remember, you can tag tests and decide which ones to run:
 E.g. exclude tests tagged with @wip:
@@ -56,7 +53,10 @@ Or only run @new tests:
 
 ## The Backlog
 
-### DONE (What's new?)
+### DONE (AKA "What's new?")
+- Determine start/end dates by looking at sub-goals
+- Created a simple /dashboard resource to show some useful stats...
+- Add user to goals and scores so you can see who created/last-modified a goal or score.
 - Add start/end dates to goals (and include in form)
 - Add links for admins to edit team/group info
 - Setup Cucumber and Capybara and write some basic tests
@@ -70,6 +70,7 @@ Or only run @new tests:
 - Associate roles to functions (initially by function_name) w/ error reporting
 
 ### Next Up
+- Add a RAG status based on % complete vs time remaining
 - Browse goals by due-date quarter
 - Search for goal by freetext
 - Add unit tests using [Factory Girl & Rspec](https://semaphoreci.com/community/tutorials/setting-up-the-bdd-stack-on-a-new-rails-4-application)
