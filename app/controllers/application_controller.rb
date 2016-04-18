@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
 
   #don't do this anymore, use gdsdash as a sandbox :)
   #before_filter :redirect_from_original_domain
+
   before_filter :check_login
 
   #not doing this anymore...
@@ -23,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_admin
-    #flash['error'] = "The action you've requested requires 
+    #flash['error'] = "The action you've requested requires
     redirect_to login_path unless is_admin?
   end
 
@@ -33,7 +34,8 @@ class ApplicationController < ActionController::Base
 
   def check_login
     if !signed_in?
-      redirect_to '/auth/google_oauth2'
+      render "welcome/index"
+      #redirect_to '/auth/google_oauth2'
       return
     end
   end
