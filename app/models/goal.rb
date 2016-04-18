@@ -131,6 +131,41 @@ class Goal < ActiveRecord::Base
       self.save!
   end
 
+  #...TODO...
+  def get_levels(goal)
+    levels = []
+    if(goal.children.count > 0)
+    else
+    end
+  end
+
+  #export to CSV
+  def self.to_csv
+    #traverse the tree
+    #build up "levels"
+    #if this node is a leaf
+    #then print it
+    #otherwise, add this to the "stack" and carry on down traversing
+
+    require 'csv'
+
+    headers = %w(group team name start_date deadline)
+
+    #headers = %w"name start_date deadline"
+    CSV.generate() do |csv|
+      csv << headers
+      #Group.all.each do |group|
+        #group.top_level_goals.each do |goal|
+        #get_levels(goal)
+
+        Goal.all.each do |goal|
+          csv << [goal.group_name, goal.team_name, goal.name, goal.start_date, goal.deadline]
+        end
+      #end
+    end
+
+  end
+
   #right now this imports ALL the data into our database. Group and team names, headcount, budget, etc. should all be present in this spreadsheet. It's inefficient but an easy to completely wipe and re-import the whole DB from a single Google Spreadsheet. This process may change over time...
   def self.import_okrs(file)
     require 'csv'
@@ -140,7 +175,7 @@ class Goal < ActiveRecord::Base
     teams = {}
     goals = {}
 
-    required_cols = %w(group level_2 level_3 level_4 start_date deadline)
+    required_cols = %w(group team level_2 level_3 level_4 start_date deadline)
 
     #subtract supplied columns from required columns to see if any are missing
     missing_cols = required_cols - CSV.read(file.path,headers: true).headers

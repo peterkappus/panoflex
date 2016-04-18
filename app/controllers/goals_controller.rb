@@ -8,7 +8,12 @@ class GoalsController < ApplicationController
   # GET /goals.json
   def index
     @goals = Goal.all
-    Goal.gds_goals
+    #Goal.gds_goals
+    respond_to do |format|
+      format.html
+      format.csv { send_data @goals.to_csv}
+    end
+
   end
 
   # GET /goals/1

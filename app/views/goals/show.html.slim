@@ -23,6 +23,11 @@
     /h4 #{pluralize(sub_goals.count,"Child goal")}
     - unless @goal.children.empty?
       h3 Sub Goals
+      - if @goal.children.count > 5
+        .alert.alert-warning.alert-dismissable
+          strong> NOTE:
+          | This goal has #{@goal.children.count} sub-goals. Consolidating to five or fewer will improve focus and simplify tracking.
+
       p We will accomplish the above by doing the following:
       / Sub Goals...
       == render partial: 'shared/sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
