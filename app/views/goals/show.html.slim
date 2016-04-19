@@ -2,8 +2,11 @@
 
 .row
   .col-sm-9
-    - unless (@goal.owner_name.empty?)
-      h4 =link_to @goal.owner_name, @goal.owner
+    - if (@goal.group)
+      h4 =link_to @goal.group.name, @goal.group
+
+    - if (@goal.get_team)
+      h5 =link_to @goal.get_team.name + " (#{100/@goal.get_team.goals.count}%)", @goal.get_team
     /h5 =quarter_year(@goal.earliest_start_date) + " - " + quarter_year(@goal.latest_end_date)
     h5 =@goal.display_date_range
     h2 = @goal.name
@@ -30,6 +33,8 @@
 
       p We will accomplish the above by doing the following:
       / Sub Goals...
+      .noprint.expand_collapse
+        = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
       == render partial: 'shared/sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
 
 /Scores...

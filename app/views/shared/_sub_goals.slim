@@ -1,34 +1,34 @@
--if is_admin?
-  .row.noprint
-    .col-md-12
-      .pull-right
-        = link_to "New Goal",new_goal_path, class: "btn-success btn-sm"
-        .clear
+-depth = 0 unless depth
+/only create a list on the first level..
+/when we're being called recursively, just add new rows
+/hacky... can we clean this up?
+/- if depth == 0
 ol.nice_list.goals
   - sub_goals.each do |sub_goal|
-    li
-      .point
-        .row
-          .col-sm-10
-            h3
-              =link_to sub_goal.name, sub_goal
-              / Hide inline edit button...
-                -if is_admin?
-                  =link_to edit_goal_path(sub_goal) do
-                    .mini-edit
-                      .glyphicon.glyphicon-edit
-            .smaller
-                -if(sub_goal.get_team)
-                  =link_to sub_goal.get_team.name, sub_goal.get_team
-            /.deadline =quarter_year(sub_goal.earliest_start_date) + " - " + quarter_year(sub_goal.latest_end_date)
-            .deadline =sub_goal.display_date_range
+    .row
+      - if depth > 0
+        div class="col-sm-#{depth}"
+      .col-sm-1
+        li
+      div class="col-sm-#{10-depth}"
+        h3
+          =link_to sub_goal.name, sub_goal
+          / Hide inline edit button...
+            -if is_admin?
+              =link_to edit_goal_path(sub_goal) do
+                .mini-edit
+                  .glyphicon.glyphicon-edit
+        .smaller
+            -if(sub_goal.get_team)
+              =link_to sub_goal.get_team.name, sub_goal.get_team
+        /.deadline =quarter_year(sub_goal.earliest_start_date) + " - " + quarter_year(sub_goal.latest_end_date)
+        .deadline =sub_goal.display_date_range
 
-            .smaller
-              =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty? || params["expand_all"]
-            - if(sub_goal.children.count > 0 && !params['expand_all'].nil?)
-              == render partial: 'shared/sub_goals', locals: {sub_goals: sub_goal.children}
-          .noprint
-            .col-sm-2.sub_score.noprint
-              h3.amount = sub_goal.display_amount
-              .date = sub_goal.current_display_date
-              /small = link_to 'Edit',edit_goal_path(sub_goal), {:class=>"btn-sm btn-primary"}
+        .smaller
+          =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty? || params["expand_all"]
+      .col-sm-1.sub_score.noprint
+        h3.amount = link_to sub_goal.display_amount, sub_goal
+        .date = sub_goal.current_display_date
+        /small = link_to 'Edit',edit_goal_path(sub_goal), {:class=>"btn-sm btn-primary"}
+    - if(sub_goal.children.count > 0 && !params['expand_all'].nil?)
+      == render partial: 'shared/sub_goals', locals: {sub_goals: sub_goal.children, depth: depth+1}

@@ -82,7 +82,7 @@ class Goal < ActiveRecord::Base
   end
 
   def owner
-    team || group
+    team || get_team || group
   end
 
   def team_name

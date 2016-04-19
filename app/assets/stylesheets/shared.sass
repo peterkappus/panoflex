@@ -17,6 +17,11 @@
 @import "design-patterns/_buttons"
 //@import "design-patterns/breadcrumbs"
 
+
+.big_goals
+  h2
+    font-size: 4.5rem
+
 .phase-banner-alpha
   @include phase-banner
   background: $white
@@ -89,15 +94,15 @@
   clear: both
 
 ol.nice_list
+  width: 100%
   counter-reset: item
   padding-left: 0
+  margin: 0
   display: inline-block
   padding-bottom: 1rem
   h3
     margin-top: 0
     margin-bottom: 0
-    a
-      color: #000
   small
     color: #555
     font-size: 1.6rem
@@ -111,11 +116,8 @@ ol.nice_list
     clear: both
     display: block
     padding-top: 10px
-    .point
-      display: inline-block
-      float: left
-      width: 87%
-      padding-bottom: 10px
+  .row
+    margin-top: 3rem
 
   li:before
     content: counters(item, ".") " "
@@ -125,10 +127,10 @@ ol.nice_list
     margin-right: 15px
     margin-bottom: 15px
     text-align: right
-    font-size: 24px
+    font-size: 2.5rem
     min-width: 35px
     font-weight: 700
-    line-height: 1
+    line-height: 1rem
 
 .group_well
   clear:both
