@@ -7,10 +7,10 @@ ol.nice_list.goals
   - sub_goals.each do |sub_goal|
     .row
       - if depth > 0
-        div class="col-sm-#{depth}"
-      .col-sm-1
+        div class="col-xs-#{depth}"
+      .col-xs-1
         li
-      div class="col-sm-#{10-depth}"
+      div class="col-xs-#{10-depth}"
         h3
           =link_to sub_goal.name, sub_goal
           / Hide inline edit button...
@@ -26,9 +26,10 @@ ol.nice_list.goals
 
         .smaller
           =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty? || params["expand_all"]
-      .col-sm-1.sub_score.noprint
-        h3.amount = link_to sub_goal.display_amount, sub_goal
-        .date = sub_goal.current_display_date
-        /small = link_to 'Edit',edit_goal_path(sub_goal), {:class=>"btn-sm btn-primary"}
-    - if(sub_goal.children.count > 0 && !params['expand_all'].nil?)
-      == render partial: 'shared/sub_goals', locals: {sub_goals: sub_goal.children, depth: depth+1}
+      .col-xs-1.sub_score
+          .noprint
+            h3.amount = link_to sub_goal.display_amount, sub_goal
+            .date = sub_goal.current_display_date
+            /small = link_to 'Edit',edit_goal_path(sub_goal), {:class=>"btn-xs btn-primary"}
+      - if(sub_goal.children.count > 0 && !params['expand_all'].nil?)
+        == render partial: 'shared/sub_goals', locals: {sub_goals: sub_goal.children, depth: depth+1}

@@ -17,9 +17,7 @@ class ApplicationController < ActionController::Base
 
   def is_admin?
     if(signed_in?)
-      (ENV['IS_SANDBOX'] ||  current_user.name.match(/mctesterton|kappus|apostolou|boguzas|maddison|peart|holmes/i))
-      # TODO:  make the above smarter. ENV vars? Config file? User management feature?
-      # Peter, Poss, Pat, John, Alex, Alex... and our test user (Testy McTesterton)
+      (ENV['IS_SANDBOX'] ||  current_user.is_admin? || current_user.name.match(/mctesterton|kappus|apostolou/i))
     end
   end
 

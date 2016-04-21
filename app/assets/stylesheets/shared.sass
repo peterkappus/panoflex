@@ -72,11 +72,7 @@
   .page-break
     page-break-before: always
 
-  ol.nice_list
-    li::before
-      min-width: 35px !important
-
-@media screen and (max-width: 415px)
+@media(max-width: 415px)
   ol.nice_list li::before
     text-align: left !important
     font-size: 20px !important
@@ -118,6 +114,7 @@ ol.nice_list
     padding-top: 10px
   .row
     margin-top: 3rem
+    page-break-inside: avoid
 
   li:before
     content: counters(item, ".") " "
