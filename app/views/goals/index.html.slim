@@ -35,7 +35,7 @@
     .col-sm-12
       h2 Goals by Business Group
       .pull-right
-        = link_to
+        = link_to "Download CSV", goals_path(:format=>:csv)
       .noprint.expand_collapse
         = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
   .row.padded-row
