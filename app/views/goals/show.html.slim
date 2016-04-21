@@ -6,7 +6,7 @@
       h4 =link_to @goal.group.name, @goal.group
 
     - if (@goal.get_team)
-      h5 =link_to @goal.get_team.name + " (#{100/@goal.get_team.goals.count}%)", @goal.get_team
+      h5 =link_to @goal.get_team.name, @goal.get_team
     /h5 =quarter_year(@goal.earliest_start_date) + " - " + quarter_year(@goal.latest_end_date)
     h5 =@goal.display_date_range
     h2 = @goal.name
@@ -15,7 +15,10 @@
         = link_to :Edit, edit_goal_path, class: "btn-primary btn-sm"
         = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "btn-success btn-sm"
         .pull-right
-          = link_to 'Destroy', @goal, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class: "btn-sm btn-danger"
+          - if(!@goal.children.empty?)
+            small This goal cannot be deleted because it has sub-goals.
+          -else
+            = link_to 'Remove', @goal, method: :delete, data: { confirm: 'Are you sure? This will also delete any updates (scores) applied to this goal. This cannot be undone.' }, class: "btn-sm btn-danger"
   .col-sm-3
     .big_score
       .smaller Current delivery:

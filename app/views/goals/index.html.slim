@@ -34,6 +34,8 @@
   .row.padded-row
     .col-sm-12
       h2 Goals by Business Group
+      .pull-right
+        = link_to
       .noprint.expand_collapse
         = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
   .row.padded-row
@@ -43,7 +45,7 @@
           .print_only
             small =display_date(Time.now)
           h2 =link_to group.name + " Group", group
-          h4 Budget: £#{(group.budget.to_f/1000000).round(1)}m
+          h4 Budget: £#{group.budget_in_millions}m
           h4 Headcount: #{group.headcount}
         == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
         .page-break

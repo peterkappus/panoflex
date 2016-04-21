@@ -76,12 +76,20 @@ class GoalsController < ApplicationController
   # DELETE /goals/1
   # DELETE /goals/1.json
   def destroy
+    #TODO: rewrite this method to actually "archive" the goals and include a note on why it was archived.
+    #do some separate, more secure method for actually deleting them.
+
+    if(!@goal.children.empty?)
+      redirect_to @goal, error: "Goals may only be deleted if they have no sub-goals. Please delete the #{pluralize(@Goals.children.count,"sub-goal")} of this goal and try again."
+    end
+
     @goal.destroy
     #orphan children on destroying
     #NOTE: use :dependent :nullify, instead
     #@goal.children.each do |c|
     #  c.update!(parent_id: nil)
     #end
+
     redirect_url = (@goal.parent) ? @goal.parent : goals_path
 
     respond_to do |format|

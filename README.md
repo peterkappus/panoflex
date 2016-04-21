@@ -54,6 +54,8 @@ Or only run @new tests:
 ## The Backlog
 
 ### DONE (AKA "What's new?")
+- Links are blue again so it's obvious you can click 'em
+- Refactor sub_goals so that the "expand all" option looks better
 - Determine start/end dates by looking at sub-goals
 - Created a simple /dashboard resource to show some useful stats...
 - Add user to goals and scores so you can see who created/last-modified a goal or score.
@@ -70,9 +72,12 @@ Or only run @new tests:
 - Associate roles to functions (initially by function_name) w/ error reporting
 
 ### Next Up
+- Improve performance by saving derived values in the model (Add columns for "original" values for team, group, start/end dates)
+- Rename "deadline" to "end_date" everywhere
+- Ability to add comments to a goal
 - Add a RAG status based on % complete vs time remaining
 - Browse goals by due-date quarter
-- Search for goal by freetext
+- Search for goals using free text
 - Add unit tests using [Factory Girl & Rspec](https://semaphoreci.com/community/tutorials/setting-up-the-bdd-stack-on-a-new-rails-4-application)
 - Start using the GOV.UK components instead of reinventing the wheel
 - Ween ourselves off of bootstrap and just use the standard GOV.UK CSS.

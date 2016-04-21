@@ -131,37 +131,75 @@ class Goal < ActiveRecord::Base
       self.save!
   end
 
-  #...TODO...
-  def get_levels(goal)
-    levels = []
-    if(goal.children.count > 0)
+  #recursively follow each branch to a leaf, then define the row using data for that leaf
+  #add the leaf to the "rows" array and move on.
+  def get_level(rows,row_data,depth)
+    headers = %w(group team level_1 level_2 level_3 level_4 start_date deadline)
+
+    #set the name of this level
+    row_data['level_' + depth.to_s] = self.name
+
+    #are we at a leaf?
+    if(self.children.count == 0)
+      row_data['start_date'] = self.start_date
+      row_data['deadline'] = self.deadline
+      row_data['team'] = self.team.name
+      row_data['group'] = self.team.group.name
+
+      #slightly hacky, need to clear out any levels below this one if we're on a leaf.
+      #otherwise, the lower-level data will still exist in this and subsequent rows
+      ((depth+1)..4).each do |level|
+        row_data['level_' + level.to_s] = ''
+      end
+
+      #add this finished row
+      rows<<row_data.values_at(*headers)
+
+
     else
+      #otherwise, keep traversing
+      self.children.each do |child_goal|
+        child_goal.get_level(rows,row_data,depth+1)
+      end
     end
+
+    #ultimately return the rows
+    rows
   end
 
-  #export to CSV
+  def self.get_csv_rows
+    rows = []
+    row_data = {}
+    gds_goals[3].get_level(rows,row_data,1)
+  end
+
+  #export to CSVreload
   def self.to_csv
-    #traverse the tree
-    #build up "levels"
-    #if this node is a leaf
-    #then print it
-    #otherwise, add this to the "stack" and carry on down traversing
-
     require 'csv'
+    require 'pry'
 
-    headers = %w(group team name start_date deadline)
+    headers = %w(group team level_1 level_2 level_3 level_4 start_date deadline)
 
-    #headers = %w"name start_date deadline"
     CSV.generate() do |csv|
       csv << headers
-      #Group.all.each do |group|
-        #group.top_level_goals.each do |goal|
-        #get_levels(goal)
 
-        Goal.all.each do |goal|
-          csv << [goal.group_name, goal.team_name, goal.name, goal.start_date, goal.deadline]
-        end
-      #end
+      row_data = {}
+
+      #one leaf per row
+      rows = []
+
+      gds_goals.each do |top_level_goal|
+        top_level_goal.get_level(rows,row_data,1)
+      end
+
+      #gds_goals[3].get_level(rows,row_data,1)
+
+      #binding.pry
+
+      rows.each do |row|
+        csv<<row
+      end
+
     end
 
   end
