@@ -44,7 +44,7 @@
 - if(@goal.children.count == 0)
   .row
     .col-sm-9
-      h2 Updates
+      h2 Progress Updates
       - if is_admin?
         =link_to "Add a score", new_goal_score_path(@goal), :class=>"btn-sm btn-success"
   - if(@goal.scores.empty?)

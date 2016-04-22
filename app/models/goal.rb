@@ -6,6 +6,7 @@ class Goal < ActiveRecord::Base
   has_many :children, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
   has_many :sdp_children, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
+  belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
 
   #default end dates to the end of the month and start dates to the beginning fo the month
   #before_save {|record| record.deadline = record.deadline.end_of_month if(record.deadline)}
@@ -13,7 +14,6 @@ class Goal < ActiveRecord::Base
 
   # don't use, dependent: :destroy ... better to orphan goals when the parent is deleted so that they can be re-assigned at some point and we don't lose history. TODO: create a way to archive goals instead of destroying them if thye're no longer "active". Ditto for scores...
 
-  belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
 
   # TODO: validation...
   # group goals must have a parent GDS goal
@@ -47,6 +47,9 @@ class Goal < ActiveRecord::Base
     group.nil? ? "" : group.name
   end
 
+  #depth-first recursion to find score
+  #SLOOOOWWWW
+  #TODO: replace with bottom up method to set all upstream scores when a goal receives a progress update (score).
   def current_amount
     #use the real score if we have one, otherwise assume zero
     #could make this more sophistocated later (e.g. use #N/A)
@@ -57,13 +60,17 @@ class Goal < ActiveRecord::Base
     #this should recursively follow all children to the bottom...
     #could be VERY slow with lots of kids... might want to make this an offline process and save the score inside the Goal model... TODO
     if(children.empty?)
-      score ? score.amount : 0
+      #return the score if there is one.
+      score_amount = score ? score.amount : 0
     else
-      children.map{|c| c.current_amount}.inject(:+).to_f / children.count
+      score_amount = children.map{|c| c.current_amount}.inject(:+).to_f / children.count
     end
+    #save!
+    score_amount #dumb, but I need to return this value. Not the "true" from the save above
   end
 
   def display_amount
+    #TODO: use pre-calculated "score_amount"...don't do it in realtime"
     current_amount.to_i.to_s + "%"
   end
 

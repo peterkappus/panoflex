@@ -2,7 +2,7 @@
 .row
   .col-md-9
     =link_to "&laquo; Back".html_safe, @goal
-    h1 Add a new Update
+    h1 Add a new progress update
     p Updates are like "check ins" on a goal. They include a numerical score and a narrative explaining the score. Scores should be from 0-100 showing the relative delivery progress towards the goal (goals should be <a href="https://en.wikipedia.org/wiki/Smart">SMART</a>). The narrative justifies why you would give the score you've selected. Scores may increase or decrease if a milestone has been achieved within a score or (hopefully less likely) a setback has occurred.
     hr
     = render 'form'

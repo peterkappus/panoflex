@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421094254) do
+ActiveRecord::Schema.define(version: 20160422153742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 20160421094254) do
     t.string   "sdp_id"
     t.integer  "sdp_parent_id"
     t.integer  "user_id"
+    t.integer  "score_amount"
+    t.datetime "scored_at"
   end
 
   add_index "goals", ["group_id"], name: "index_goals_on_group_id", using: :btree

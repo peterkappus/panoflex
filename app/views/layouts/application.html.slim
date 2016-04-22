@@ -41,7 +41,7 @@
       .phase-banner-alpha.noprint
         p
           strong.phase-tag PRE-ALPHA
-          span This is a proof of concept only. Goals are in DRAFT. Your <a href="https://docs.google.com/document/d/1oR76UEjYT0DWFPk0wZVDaJxtAy5UevM2mIvoNmcZDCw/edit">feedback</a> will help us to improve.
+          span This is a proof of concept only. Goals are in DRAFT. Your <a href="https://docs.google.com/document/d/1oR76UEjYT0DWFPk0wZVDaJxtAy5UevM2mIvoNmcZDCw/edit" target="_blank">feedback</a> will help us to improve.
       .inner-block
         - flash.each do |name, msg|
           = content_tag :div, class: "alert alert-#{ name == "error" ? "danger" : "success" } alert-dismissable", role: "alert" do
