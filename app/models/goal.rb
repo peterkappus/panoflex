@@ -71,12 +71,30 @@ class Goal < ActiveRecord::Base
 
   def display_amount
     #TODO: use pre-calculated "score_amount"...don't do it in realtime"
-    current_amount.to_i.to_s + "%"
+    (score_amount.to_f.round || 0).to_s + "%"
   end
 
   def current_display_date
     #TODO make this smarter, needs to take the most recent score date from the children in a similar way to how we get the current amount above..
     score ? score.display_date : ""
+  end
+
+  def update_score
+    if children.count > 0
+      self.score_amount = self.children.map{|c| c.score_amount.to_i}.inject(:+).to_f / children.count
+    else
+      self.score_amount = self.score.amount || 0
+      self.scored_at = self.score.updated_at if self.score.amount
+    end
+
+    self.save!
+
+    #update all the upstream goals until we reach the top level
+    if(!self.parent.nil?)
+      self.parent.update_score
+      self.parent.save!
+    end
+    self.score_amount
   end
 
   def score

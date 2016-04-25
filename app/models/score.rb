@@ -2,8 +2,9 @@ class Score < ActiveRecord::Base
   belongs_to :goal
   belongs_to :user
   validates_presence_of :goal
+  validates_presence_of :reason
   validates :amount, numericality: { only_integer: true}
-  after_save -> {goal.current_amount}
+  after_save -> {goal.update_score}
 
   #TODO: don't allow saving scores to a goal with children.
 

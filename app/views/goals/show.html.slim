@@ -46,7 +46,7 @@
     .col-sm-9
       h2 Progress Updates
       - if is_admin?
-        =link_to "Add a score", new_goal_score_path(@goal), :class=>"btn-sm btn-success"
+        =link_to "Report Progress", new_goal_score_path(@goal), :class=>"btn-sm btn-success"
   - if(@goal.scores.empty?)
       br
       p.lead Updates will show progress against a goal by providing a history of the scores and supporting narratives at diffrent points in time. They should be added monthly or whenever there is new delivery information to report.

@@ -24,6 +24,9 @@
     .noprint
       = (params["expand_all"]) ? link_to("Collapse all", group_path(@group)) : link_to("Expand all", "?expand_all=1")
     /smaller #{@group.goals.count} total
+    -if (is_admin?)
+      .noprint
+        =link_to "New Goal",new_goal_path(group:@group), {class: "btn btn-sm btn-success"}
     == render :partial=>"shared/sub_goals", :locals=>{sub_goals: @group.top_level_goals}
   /
     .col-md-6
