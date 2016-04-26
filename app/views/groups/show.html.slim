@@ -20,7 +20,7 @@
 
 .row
   .col-md-12
-    h2 Goals (#{@group.goals.count})
+    h2 Goals (#{@group.top_level_goals.count})
     .noprint
       = (params["expand_all"]) ? link_to("Collapse all", group_path(@group)) : link_to("Expand all", "?expand_all=1")
     /smaller #{@group.goals.count} total

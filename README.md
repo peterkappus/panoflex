@@ -54,6 +54,7 @@ Or only run @new tests:
 ## The Backlog
 
 ### DONE (AKA "What's new?")
+- Slight (%25) performance improvement by saving derived scores in Goal model (BEFORE: Expand_all w/ 406 goals took ~ 14seconds to load & render AFTER: 10.46seconds
 - Links are blue again so it's obvious you can click 'em
 - Refactor sub_goals so that the "expand all" option looks better
 - Determine start/end dates by looking at sub-goals
@@ -72,10 +73,15 @@ Or only run @new tests:
 - Associate roles to functions (initially by function_name) w/ error reporting
 
 ### Next Up
-- Improve performance by saving derived values in the model (Add columns for "original" values for team, group, start/end dates)
+- Disallow entering a deadline before the start_date
+- Sort sub-goals by start date
+- redirect to parent goal when successfully creating sub-goal
+- Assign "owners" of goals (and their sub-goals) who can update progress and make changes.
+- Version control to see when/why/how/and by whom a goal change was made.
+- Ability to view old versions of goals
+- Add a RAG status based on % complete vs time remaining
 - Rename "deadline" to "end_date" everywhere
 - Ability to add comments to a goal
-- Add a RAG status based on % complete vs time remaining
 - Browse goals by due-date quarter
 - Search for goals using free text
 - Add unit tests using [Factory Girl & Rspec](https://semaphoreci.com/community/tutorials/setting-up-the-bdd-stack-on-a-new-rails-4-application)
@@ -88,6 +94,4 @@ Or only run @new tests:
 - Make names click-able to search for all roles using that person
 - Search for role by type
 - Add non-people costs (EPIC)
-- Make short_names for each GDS function unique (in DB and model)
-- Filter to show vacant roles per Function (by month)
-- Split allocation into separate table away from roles Stop using "hard-coded" months :(
+- Filter to show vacant roles per team (by month)

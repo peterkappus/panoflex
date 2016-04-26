@@ -159,7 +159,7 @@ class Goal < ActiveRecord::Base
   #recursively follow each branch to a leaf, then define the row using data for that leaf
   #add the leaf to the "rows" array and move on.
   def get_level(rows,row_data,depth)
-    headers = %w(group team level_1 level_2 level_3 level_4 start_date deadline)
+    headers = %w(group group_budget group_headcount team level_1 level_2 level_3 level_4 start_date deadline)
 
     #set the name of this level
     row_data['level_' + depth.to_s] = self.name
@@ -170,6 +170,8 @@ class Goal < ActiveRecord::Base
       row_data['deadline'] = self.deadline
       row_data['team'] = self.team.name
       row_data['group'] = self.team.group.name
+      row_data['group_budget'] = self.team.group.budget
+      row_data['group_headcount'] = self.team.group.headcount
 
       #slightly hacky, need to clear out any levels below this one if we're on a leaf.
       #otherwise, the lower-level data will still exist in this and subsequent rows
@@ -203,7 +205,7 @@ class Goal < ActiveRecord::Base
     require 'csv'
     require 'pry'
 
-    headers = %w(group team level_1 level_2 level_3 level_4 start_date deadline)
+    headers = %w(group group_budget group_headcount team level_1 level_2 level_3 level_4 start_date deadline)
 
     CSV.generate() do |csv|
       csv << headers

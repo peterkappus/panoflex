@@ -49,7 +49,7 @@
           h4 Headcount: #{group.headcount}
         -if (is_admin?)
           .noprint
-            =link_to "New Goal",new_goal_path, {class: "btn btn-sm btn-success"}
+            =link_to "New Goal",new_goal_path(group_id: group.id), {class: "btn btn-sm btn-success"}
         == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
         .page-break
 

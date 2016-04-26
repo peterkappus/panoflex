@@ -21,6 +21,10 @@ class GoalsController < ApplicationController
   def show
   end
 
+  def show_export
+    render :text=>"<pre>" + Goal.to_csv.to_s
+  end
+
   # GET /goals/new
   def new
     @goal = Goal.new
@@ -28,8 +32,8 @@ class GoalsController < ApplicationController
     #set the parent ID for the new goal if we passed one in via the params and if it's been found
     #what's a more "railsy" way to do this?
     @goal.parent = Goal.find_by_id(params[:parent_id])
-    @goal.group = Group.find_by_id(params[:group_id]) || Group.find_by_name(params[:group])
-    @goal.team = Team.find_by_id(params[:team_id]) || Team.find_by_name(params[:team])
+    @goal.group = Group.find_by_id(params[:group_id]) || Group.friendly.find(params[:group])
+    @goal.team = Team.find_by_id(params[:team_id]) || Team.friendly.find(params[:team])
 
     if @goal.parent
       @goal.team = @goal.parent.team

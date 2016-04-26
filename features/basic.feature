@@ -38,5 +38,5 @@ Feature: GOV.UK Template (Header & Footer)
 		When I click "Vision"
 		And I click "Operations"
 		Then I should see "Team D"
-		And I should see "5"
+		And I should see "3"
 		And I should see "Build a time machine"
