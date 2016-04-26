@@ -154,11 +154,6 @@ Given(/^I am logged|signed in$/) do
   login
 end
 
-When(/^I import new goals$/) do
-  login
-  attach_file("file","#{ENV['RAILS_ROOT']}/okr_sample_import.csv")
-  find_button("Import").click
-end
 
 #Blank to provide headers to the tests
 Then(/^: (.*?)$/) do | no_need_to_process |

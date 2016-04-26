@@ -40,3 +40,19 @@ Feature: GOV.UK Template (Header & Footer)
 		Then I should see "Team D"
 		And I should see "3"
 		And I should see "Build a time machine"
+
+	@wip
+	Scenario: Import goals and create new ones
+		When I import new goals
+		And I click on "Operations Group"
+		And I create a new goal called "Newly created Test Goal"
+		Then I should see "Newly created Test Goal"
+		When I create a sub-goal called "Sub goal 1"
+		Then I should see "Sub goal 1" within "h2"
+		And I should see "Newly created Test Goal"
+		When I create a sub-goal called "Sub goal 2"
+		#check that I've gone back to the parent goal after creating a sub-goal
+		Then I should see "Sub goal 1"
+
+		Scenario: Import goals and create new ones
+			When I import new goals
