@@ -3,8 +3,8 @@ class Goal < ActiveRecord::Base
   belongs_to :group
   belongs_to :user
   belongs_to :sdp_parent, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
-  has_many :children, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
-  has_many :sdp_children, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
+  has_many :children, -> { order('start_date')},:class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
+  has_many :sdp_children, -> { order('start_date')}, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
 
@@ -81,7 +81,7 @@ class Goal < ActiveRecord::Base
 
   def update_score
     if children.count > 0
-      self.score_amount = self.children.map{|c| c.score_amount.to_i}.inject(:+).to_f / children.count
+      self.score_amount = (self.children.map{|c| c.score_amount.to_i}.inject(:+).to_f / children.count).round
     else
       self.score_amount = self.score.amount || 0
       self.scored_at = self.score.updated_at if self.score.amount
@@ -133,7 +133,7 @@ class Goal < ActiveRecord::Base
   end
 
   def earliest_start_date
-    #....TODO
+    #TODO: add a column to cache this in the model
     if(children.empty?)
       start_date
     else
@@ -142,7 +142,7 @@ class Goal < ActiveRecord::Base
   end
 
   def latest_end_date
-    #....TODO
+    #TODO: add a column to cache this in the model
     if(children.empty?)
       deadline
     else
@@ -208,7 +208,7 @@ class Goal < ActiveRecord::Base
   #export to CSVreload
   def self.to_csv
     require 'csv'
-    
+
     headers = %w(group group_budget group_headcount team level_1 level_2 level_3 level_4 start_date deadline)
 
     CSV.generate() do |csv|
@@ -244,7 +244,7 @@ class Goal < ActiveRecord::Base
     teams = {}
     goals = {}
 
-    required_cols = %w(group team level_2 level_3 level_4 start_date deadline)
+    required_cols = %w(group team level_1 level_2 level_3 level_4 start_date deadline)
 
     #subtract supplied columns from required columns to see if any are missing
     missing_cols = required_cols - CSV.read(file.path,headers: true).headers
@@ -290,8 +290,8 @@ class Goal < ActiveRecord::Base
 
 
         #work backwords up the chain...
-        #need to make this smarter so it doesn't rely on colum heading names
-        [4,3,2].each do |level_number|
+        #need to make this smarter so it doesn't rely on column heading names
+        [4,3,2,1].each do |level_number|
           goal_name = row["level_" + level_number.to_s]
           next if goal_name.to_s.empty?
 
@@ -317,7 +317,7 @@ class Goal < ActiveRecord::Base
           end
 
           #lookup the parent
-          if(level_number > 2)
+          if(level_number > 1)
             parent_goal_name = row["level_" + (level_number-1).to_s]
             parent = goals[parent_goal_name] || Goal.find_or_create_by(:name=>parent_goal_name)
             goal.parent = parent
