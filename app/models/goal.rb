@@ -168,10 +168,15 @@ class Goal < ActiveRecord::Base
     if(self.children.count == 0)
       row_data['start_date'] = self.start_date
       row_data['deadline'] = self.deadline
-      row_data['team'] = self.team.name
-      row_data['group'] = self.team.group.name
-      row_data['group_budget'] = self.team.group.budget
-      row_data['group_headcount'] = self.team.group.headcount
+      if(!self.group.nil?)
+        row_data['group_budget'] = self.group.budget
+        row_data['group_headcount'] = self.group.headcount
+        row_data['group'] = self.group.name
+      end
+
+      if(!self.team.nil?)
+        row_data['team'] = self.team.name
+      end
 
       #slightly hacky, need to clear out any levels below this one if we're on a leaf.
       #otherwise, the lower-level data will still exist in this and subsequent rows

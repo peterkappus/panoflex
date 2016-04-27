@@ -1,5 +1,4 @@
 Feature: GOV.UK Template (Header & Footer)
-	#@javascript
 
 	Scenario: See the Header & Footer
 		Given I am on the home page
@@ -41,18 +40,15 @@ Feature: GOV.UK Template (Header & Footer)
 		And I should see "3"
 		And I should see "Build a time machine"
 
-	@wip
+	@new
 	Scenario: Import goals and create new ones
 		When I import new goals
 		And I click on "Operations Group"
-		And I create a new goal called "Newly created Test Goal"
-		Then I should see "Newly created Test Goal"
+		And I create a new goal called "Newly created test goal"
+		Then I should see "Newly created test goal"
 		When I create a sub-goal called "Sub goal 1"
-		Then I should see "Sub goal 1" within "h2"
-		And I should see "Newly created Test Goal"
+		#we should've been redirected to the parent goal and see our sub-goal in the sub-goal list
+		Then I should see "Sub goal 1" within "ol.goals"
+		#one more time... (is this necessary?)
 		When I create a sub-goal called "Sub goal 2"
-		#check that I've gone back to the parent goal after creating a sub-goal
-		Then I should see "Sub goal 1"
-
-		Scenario: Import goals and create new ones
-			When I import new goals
+		Then I should see "Sub goal 2" within "ol.goals"
