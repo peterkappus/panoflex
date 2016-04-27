@@ -208,8 +208,7 @@ class Goal < ActiveRecord::Base
   #export to CSVreload
   def self.to_csv
     require 'csv'
-    require 'pry'
-
+    
     headers = %w(group group_budget group_headcount team level_1 level_2 level_3 level_4 start_date deadline)
 
     CSV.generate() do |csv|
