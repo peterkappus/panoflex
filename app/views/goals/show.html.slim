@@ -37,7 +37,7 @@
       p We will accomplish the above by doing the following:
       / Sub Goals...
       .noprint.expand_collapse
-        = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
+        = (params["expand_all"]) ? link_to("Collapse all", @goal) : link_to("Expand all", "?expand_all=1")
       == render partial: 'shared/sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
 
 /Scores...

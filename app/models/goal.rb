@@ -3,7 +3,7 @@ class Goal < ActiveRecord::Base
   belongs_to :group
   belongs_to :user
   belongs_to :sdp_parent, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
-  has_many :children, -> { order('earliest_start_date')},:class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
+  has_many :children, -> { order('earliest_start_date')}, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
   has_many :sdp_children, -> { order('earliest_start_date')}, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'

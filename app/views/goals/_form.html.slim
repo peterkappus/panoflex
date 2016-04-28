@@ -25,14 +25,20 @@ javascript:
     = f.label :name, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :name, class: "bigtext form-control"
-  .form-group
-    = f.label "Start date", class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.date_select :start_date, discard_day: true
-  .form-group
-    = f.label "End date (deadline)", class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.date_select :deadline, discard_day: true
+  -if (@goal.children.count > 0)
+    .form-group
+      = f.label "Dates", class: "col-sm-2 control-label"
+      .col-sm-10
+        p NOTE: Dates are determined by sub-goals
+  -else
+    .form-group
+      = f.label "Start date", class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.date_select :start_date, discard_day: true
+    .form-group
+      = f.label "End date (deadline)", class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.date_select :deadline, discard_day: true
 
   .form-group
     = f.label :team, class: "col-sm-2 control-label"
