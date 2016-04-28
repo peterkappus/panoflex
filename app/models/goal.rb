@@ -3,14 +3,16 @@ class Goal < ActiveRecord::Base
   belongs_to :group
   belongs_to :user
   belongs_to :sdp_parent, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
-  has_many :children, -> { order('start_date')},:class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
-  has_many :sdp_children, -> { order('start_date')}, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
+  has_many :children, -> { order('earliest_start_date')},:class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
+  has_many :sdp_children, -> { order('earliest_start_date')}, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
 
   #default end dates to the end of the month and start dates to the beginning fo the month
-  #before_save {|record| record.deadline = record.deadline.end_of_month if(record.deadline)}
-  #before_save {|record| record.start_date = record.start_date.beginning_of_month if(record.start_date)}
+  before_save {|record| record.deadline = record.deadline.end_of_month if(record.deadline)}
+  before_save {|record| record.start_date = record.start_date.beginning_of_month if(record.start_date)}
+
+  after_save{|goal| goal.update_calculations}
 
   # don't use, dependent: :destroy ... better to orphan goals when the parent is deleted so that they can be re-assigned at some point and we don't lose history. TODO: create a way to archive goals instead of destroying them if thye're no longer "active". Ditto for scores...
 
@@ -40,7 +42,7 @@ class Goal < ActiveRecord::Base
   #end
 
   def display_date_range
-    self.earliest_start_date.strftime("%d %h %Y") + " - " + self.latest_end_date.strftime("%d %h %Y")
+    earliest_start_date.strftime("%d %h %Y") + " - " + latest_end_date.strftime("%d %h %Y")
   end
 
   def group_name
@@ -79,22 +81,33 @@ class Goal < ActiveRecord::Base
     score ? score.display_date : ""
   end
 
-  def update_score
+  def update_calculations
+    #console.lognote
+    #update the dates of the ancestors
+    calculate_dates
+    calculate_scores
+  end
+
+  def calculate_scores
+    #update downstream
     if children.count > 0
-      self.score_amount = (self.children.map{|c| c.score_amount.to_i}.inject(:+).to_f / children.count).round
+      score_amount = (children.map{|c| c.score_amount.to_i}.inject(:+).to_f / children.count).round
     else
-      self.score_amount = self.score.amount || 0
-      self.scored_at = self.score.updated_at if self.score.amount
+      if(score.nil?)
+        score_amount = 0
+      else
+        score_amount = score.amount
+        scored_at = score.updated_at
+      end
     end
 
-    self.save!
+    logger.info "hello" 
+    #update columns without triggering callbacks. CAREFUL!
+    update_column(:score_amount, score_amount)
+    update_column(:scored_at, scored_at)
 
     #update all the upstream goals until we reach the top level
-    if(!self.parent.nil?)
-      self.parent.update_score
-      self.parent.save!
-    end
-    self.score_amount
+    parent.calculate_scores unless parent.nil?
   end
 
   def score
@@ -132,28 +145,32 @@ class Goal < ActiveRecord::Base
     end
   end
 
-  def earliest_start_date
+  def find_earliest_start_date
     #TODO: add a column to cache this in the model
     if(children.empty?)
       start_date
     else
-      children.map{|c| c.earliest_start_date}.min
+      children.map{|c| c.find_earliest_start_date}.min
     end
   end
 
-  def latest_end_date
+  def find_latest_end_date
     #TODO: add a column to cache this in the model
     if(children.empty?)
       deadline
     else
-      children.map{|c| c.latest_end_date}.max
+      children.map{|c| c.find_latest_end_date}.max
     end
   end
 
   def calculate_dates
-      self.deadline = latest_end_date
-      self.start_date = earliest_start_date
-      self.save!
+      earliest_start_date = find_earliest_start_date
+      latest_end_date = find_latest_end_date
+      #sneaky... update without callbacks. CAREFUL!
+      #otherwise, we get infinite recursion and stack overflow
+      update_column(:earliest_start_date, find_earliest_start_date)
+      update_column(:latest_end_date, find_latest_end_date)
+      parent.calculate_dates unless parent.nil?
   end
 
   #recursively follow each branch to a leaf, then define the row using data for that leaf
@@ -261,7 +278,7 @@ class Goal < ActiveRecord::Base
 
 
       Team.destroy_all
-
+      Score.destroy_all
 
       CSV.foreach(file.path, headers: true) do |row|
         group_name = row['group'].to_s.titlecase

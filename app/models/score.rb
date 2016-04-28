@@ -4,7 +4,7 @@ class Score < ActiveRecord::Base
   validates_presence_of :goal
   validates_presence_of :reason
   validates :amount, numericality: { only_integer: true}
-  after_save -> {goal.update_score}
+  after_save -> {goal.calculate_scores}
 
   #TODO: don't allow saving scores to a goal with children.
 
