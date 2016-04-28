@@ -42,6 +42,11 @@ class Goal < ActiveRecord::Base
   #end
 
   def display_date_range
+    #ensure we have dates
+    if(earliest_start_date.nil? || latest_end_date.nil?)
+      calculate_dates
+    end
+
     earliest_start_date.strftime("%d %h %Y") + " - " + latest_end_date.strftime("%d %h %Y")
   end
 
@@ -101,7 +106,7 @@ class Goal < ActiveRecord::Base
       end
     end
 
-    logger.info "hello" 
+    logger.info "hello"
     #update columns without triggering callbacks. CAREFUL!
     update_column(:score_amount, score_amount)
     update_column(:scored_at, scored_at)
