@@ -53,10 +53,27 @@ Or only run @new tests:
 
 ## The Backlog
 
+### Do next
+- Disallow entering a deadline before the start_date
+- Assign "owners" of goals (and their sub-goals) who can update progress and make changes.
+- Version control to see when/why/how/and by whom a goal change was made.
+- Ability to view old versions of goals
+- Add a RAG status based on % complete vs time remaining
+- Rename "deadline" to "end_date" everywhere
+- Ability to add comments to a goal
+- Browse goals by due-date quarter (ow will this affect scoring?)
+- Search for goals using free text
+- Add unit tests using [Factory Girl & Rspec](https://semaphoreci.com/community/tutorials/setting-up-the-bdd-stack-on-a-new-rails-4-application)
+- Start using the GOV.UK components instead of reinventing the wheel
+- Ween ourselves off of bootstrap and just use the standard GOV.UK CSS.
+
 ### DONE (AKA "What's new?")
-- Slight (%25) performance improvement by saving derived scores in Goal model (BEFORE: Expand_all w/ 406 goals took ~ 14seconds to load & render AFTER: 10.46seconds
+- Hide date fields when editing a goal with sub-goals (and explain why)
+- Sort sub-goals by start date
+- redirect to parent goal when successfully creating sub-goal (based on user research)
+- 25% performance improvement by saving derived scores in Goal model (BEFORE: Expand_all w/ 406 goals took ~ 14seconds to load & render AFTER: 10.46seconds
 - Links are blue again so it's obvious you can click 'em
-- Refactor sub_goals so that the "expand all" option looks better
+- Refactor sub_goals and clean up "expand all" rendering using rows & columns
 - Determine start/end dates by looking at sub-goals
 - Created a simple /dashboard resource to show some useful stats...
 - Add user to goals and scores so you can see who created/last-modified a goal or score.
@@ -71,22 +88,6 @@ Or only run @new tests:
 - Add GOV.UK page layout template
 - Paginate full role listing
 - Associate roles to functions (initially by function_name) w/ error reporting
-
-### Next Up
-- Disallow entering a deadline before the start_date
-- Sort sub-goals by start date
-- redirect to parent goal when successfully creating sub-goal
-- Assign "owners" of goals (and their sub-goals) who can update progress and make changes.
-- Version control to see when/why/how/and by whom a goal change was made.
-- Ability to view old versions of goals
-- Add a RAG status based on % complete vs time remaining
-- Rename "deadline" to "end_date" everywhere
-- Ability to add comments to a goal
-- Browse goals by due-date quarter
-- Search for goals using free text
-- Add unit tests using [Factory Girl & Rspec](https://semaphoreci.com/community/tutorials/setting-up-the-bdd-stack-on-a-new-rails-4-application)
-- Start using the GOV.UK components instead of reinventing the wheel
-- Ween ourselves off of bootstrap and just use the standard GOV.UK CSS.
 
 ### Someday/Maybe
 - Search for role by name

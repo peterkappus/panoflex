@@ -25,3 +25,6 @@ Scenario: Make some updates
   Then I should see "5%"
   When I click on "Bitty Thing B"
   Then I should see "3%"
+  When I click on "Vision"
+  #3 + 22 / 2
+  Then I should see "13%"
