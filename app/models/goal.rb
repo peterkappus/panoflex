@@ -188,8 +188,8 @@ class Goal < ActiveRecord::Base
 
     #are we at a leaf?
     if(self.children.count == 0)
-      row_data['start_date'] = self.start_date
-      row_data['deadline'] = self.deadline
+      row_data['start_date'] = self.start_date.strftime("%d %h %Y")
+      row_data['deadline'] = self.deadline.strftime("%d %h %Y")
       if(!self.group.nil?)
         row_data['group_budget'] = self.group.budget
         row_data['group_headcount'] = self.group.headcount

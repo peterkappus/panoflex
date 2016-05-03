@@ -54,7 +54,7 @@ Or only run @new tests:
 ## The Backlog
 
 ### Do next
-- Disallow entering a deadline before the start_date
+- Disallow entering a deadline before the start_date (use validates_date gem?)
 - Assign "owners" of goals (and their sub-goals) who can update progress and make changes.
 - Version control to see when/why/how/and by whom a goal change was made.
 - Ability to view old versions of goals

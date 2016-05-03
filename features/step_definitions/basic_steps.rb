@@ -41,7 +41,7 @@ def click_random_link_in(selector,text)
 end
 
 def login
-  visit "/login"
+  visit login_path
 end
 
 #NOTE: this is only taking the last link right now...
@@ -154,6 +154,9 @@ Given(/^I am logged|signed in$/) do
   login
 end
 
+When(/^I visit "([^"]*)"$/) do |path|
+  visit path
+end
 
 #Blank to provide headers to the tests
 Then(/^: (.*?)$/) do | no_need_to_process |
@@ -239,10 +242,6 @@ def debug
 	binding.pry #unless ENV['DEBUG'].to_s.empty?
 end
 
-#use a non-capturing group on the 's' so we can say "1 second" or "2 seconds"
-Then(/^I wait (\d+) second/) do |seconds|
-  sleep seconds.to_i # express the regexp above with the code you wish you had
-end
 
 Then(/^I should see a date in the correct format within "([^"]+?)"$/) do |css_selector|
 	#find all matches for css, look at the text of each found node, and test against our date format regex

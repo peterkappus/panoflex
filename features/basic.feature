@@ -40,7 +40,6 @@ Feature: GOV.UK Template (Header & Footer)
 		And I should see "3"
 		And I should see "Build a time machine"
 
-	@new
 	Scenario: Import goals and create new ones
 		When I import new goals
 		And I click on "Operations Group"

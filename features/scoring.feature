@@ -1,6 +1,5 @@
 Feature: Edit information about teams and groups
 
-@new
 Scenario: Make some updates
   Given I import new goals
   When I click "Some big goal"
@@ -8,10 +7,10 @@ Scenario: Make some updates
   And I click on "Bitty Thing A"
   And I click on "Report Progress"
   And I fill in "score_amount" with "22"
-  And I fill in "score_reason" with "Because I said so."
+  And I fill in "score_reason" with "My reason"
   And I click "Create Score"
   Then I should see "22%"
-  And I should see "Because I said"
+  And I should see "My reason"
   When I click on "Vision"
   Then I should see "11%"
   When I click "Some big goal"
