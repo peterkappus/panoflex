@@ -1,6 +1,6 @@
 Feature: Edit information about teams and groups
 
-Scenario: Make some updates
+Scenario: Make some updates, check the export contains the score(s)
   Given I import new goals
   When I click "Some big goal"
   And I click on "A sub-goal of the first goal"
@@ -27,3 +27,6 @@ Scenario: Make some updates
   When I click on "Vision"
   #3 + 22 / 2
   Then I should see "13%"
+  When I visit "/goals/show_export"
+  Then I should see "5"
+  And I should see "A very good reason."

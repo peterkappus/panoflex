@@ -44,14 +44,15 @@ Capybara.register_driver :firefox do |app|
 end
 
 Capybara.register_driver :chrome do |app|
-  profile = Selenium::WebDriver::Chrome::Profile.new
+  #profile = Selenium::WebDriver::Chrome::Profile.new
   #profile["download.default_directory"] = DownloadHelpers::PATH.to_s
-  profile["download.default_directory"] = Rails.root.join("tmp/downloads")
-  Capybara::Selenium::Driver.new(app, :browser => :chrome, :profile => profile)
+  #profile["download.default_directory"] = Rails.root.join("tmp/downloads")
+  #Capybara::Selenium::Driver.new(app, :browser => :chrome, :profile => profile)
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
 end
 
 Capybara.javascript_driver = :chrome
-#Capybara.default_driver =
+Capybara.default_driver = :chrome
 #Capybara.javascript_driver = :firefox
 
 =begin
@@ -68,6 +69,8 @@ Capybara.default_driver = Capybara.javascript_driver = :chrome
 Capybara.app_host = "http://localhost:" + Capybara.server_port.to_s
 =end
 
-Capybara.current_driver = ENV['WEB_DRIVER'] || :selenium
+#Capybara.default_driver = :chrome
+
+#Capybara.default_driver = ENV['WEB_DRIVER'] || :selenium
 #Capybara.javascript_driver = :selenium
 Capybara.default_max_wait_time = 10

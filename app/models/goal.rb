@@ -17,6 +17,8 @@ class Goal < ActiveRecord::Base
 
   # don't use, dependent: :destroy ... better to orphan goals when the parent is deleted so that they can be re-assigned at some point and we don't lose history. TODO: create a way to archive goals instead of destroying them if thye're no longer "active". Ditto for scores...
 
+  MAX_LEVELS = 5
+  CSV_HEADERS = %w(group group_budget group_headcount team level_1 level_2 level_3 level_4 level_5 start_date deadline score_datetime score_amount score_reason)
 
   # TODO: validation...
   # group goals must have a parent GDS goal
@@ -163,7 +165,6 @@ class Goal < ActiveRecord::Base
   end
 
   def find_latest_end_date
-    #TODO: add a column to cache this in the model
     if(children.empty?)
       deadline
     else
@@ -184,13 +185,13 @@ class Goal < ActiveRecord::Base
   #recursively follow each branch to a leaf, then define the row using data for that leaf
   #add the leaf to the "rows" array and move on.
   def get_level(rows,row_data,depth)
-    headers = %w(group group_budget group_headcount team level_1 level_2 level_3 level_4 start_date deadline)
 
     #set the name of this level
     row_data['level_' + depth.to_s] = self.name
 
     #are we at a leaf?
     if(self.children.count == 0)
+
       row_data['start_date'] = self.start_date.strftime("%d %h %Y")
       row_data['deadline'] = self.deadline.strftime("%d %h %Y")
       if(!self.group.nil?)
@@ -205,14 +206,29 @@ class Goal < ActiveRecord::Base
 
       #slightly hacky, need to clear out any levels below this one if we're on a leaf.
       #otherwise, the lower-level data will still exist in this and subsequent rows
-      ((depth+1)..4).each do |level|
+      ((depth+1)..5).each do |level|
         row_data['level_' + level.to_s] = ''
       end
 
-      #add this finished row
-      rows<<row_data.values_at(*headers)
+      if(scores.count > 0)
+        #loop through "updates" (aka "Scores" which is misleading)
+        #TODO: rename these as "updates"
+        scores.each do |score|
+          row_data['score_datetime'] = score.created_at
+          row_data['score_amount'] = score.amount
+          row_data['score_reason'] = score.reason
 
+          #add a row for each score/update
+          #add this finished row
+          rows<<row_data.values_at(*CSV_HEADERS)
 
+          #now blank them out so they don't persist in the next iteration
+          row_data['score_datetime'] = row_data['score_amount'] = row_data['score_reason'] = nil
+        end
+      else
+          #just add a row for this "leaf" goal
+          rows<<row_data.values_at(*CSV_HEADERS)
+      end
     else
       #otherwise, keep traversing
       self.children.each do |child_goal|
@@ -234,10 +250,8 @@ class Goal < ActiveRecord::Base
   def self.to_csv
     require 'csv'
 
-    headers = %w(group group_budget group_headcount team level_1 level_2 level_3 level_4 start_date deadline)
-
     CSV.generate() do |csv|
-      csv << headers
+      csv << CSV_HEADERS
 
       row_data = {}
 
@@ -316,7 +330,7 @@ class Goal < ActiveRecord::Base
 
         #work backwords up the chain...
         #need to make this smarter so it doesn't rely on column heading names
-        [4,3,2,1].each do |level_number|
+        (1..MAX_LEVELS).to_a.reverse.each do |level_number|
           goal_name = row["level_" + level_number.to_s]
           next if goal_name.to_s.empty?
 
