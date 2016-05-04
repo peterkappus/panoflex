@@ -55,7 +55,7 @@ class GoalsController < ApplicationController
   # POST /goals.json
   def create
     @goal = Goal.new(goal_params)
-    set_user
+    set_owner
 
     respond_to do |format|
       if @goal.save
@@ -71,7 +71,7 @@ class GoalsController < ApplicationController
   # PATCH/PUT /goals/1
   # PATCH/PUT /goals/1.json
   def update
-    set_user
+    set_owner unless @goal.owner
     respond_to do |format|
       if @goal.update(goal_params)
         format.html { redirect_to @goal, notice: 'Goal was successfully updated.' }
@@ -130,8 +130,8 @@ class GoalsController < ApplicationController
     end
 
     #use to track who modified goals
-    def set_user
-      @goal.user = current_user
+    def set_owner
+      @goal.owner = current_user
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

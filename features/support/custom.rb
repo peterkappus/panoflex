@@ -68,6 +68,6 @@ Capybara.default_driver = Capybara.javascript_driver = :chrome
 Capybara.app_host = "http://localhost:" + Capybara.server_port.to_s
 =end
 
-#Capybara.current_driver = :selenium
+Capybara.current_driver = ENV['WEB_DRIVER'] || :selenium
 #Capybara.javascript_driver = :selenium
 Capybara.default_max_wait_time = 10

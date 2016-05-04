@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
       session['user_email'] = user.email
       flash['notice'] = "Successfully signed in as " + user.name
     else
-      if(env["omniauth.auth"].info['email'].match(/@digital.cabinet-office.gov.uk$/) || env["omniauth.auth"].info['email'].match(/@cabinetoffice.gov.uk$/))
+      if(env["omniauth.auth"].info['email'].match(/cabinet-office\.gov\.uk|parliament\.uk|digital\.cabinet-office\.gov\.uk$/))
         user = User.find_or_create_by(:email=>env["omniauth.auth"].info['email'])
         user.name = env["omniauth.auth"].info['name']
         #user.email = env["omniauth.auth"].info['email']

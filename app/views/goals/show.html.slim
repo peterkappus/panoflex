@@ -4,7 +4,6 @@
   .col-sm-9
     - if (@goal.group)
       h4 =link_to @goal.group.name, @goal.group
-
     - if (@goal.get_team)
       h5 =link_to @goal.get_team.name, @goal.get_team
     /h5 =quarter_year(@goal.earliest_start_date) + " - " + quarter_year(@goal.latest_end_date)
