@@ -5,8 +5,13 @@ class SessionsController < ApplicationController
   def new
     if !signed_in?
       #if we're in the test environment and attempt to login using oAuth, just create a new session. Make this smarter when you actually want to test different kinds of users and when users actually exist in the database.
-      if Rails.env.test?
-        create
+
+      if ((Rails.env.test? || Rails.env.development?) && params['email'].present?)
+        #create this user in the step definition
+        user = User.find_by_email(params['email'])
+        session['user_email'] = user.email
+        flash['notice'] = "Successfully signed in as " + user.name
+        redirect_to root_path
       else
       #for some reason, I couldn't just call my check_login function...
       #if not logged in, redirect to google auth
@@ -21,24 +26,15 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if Rails.env.test?
-      user = User.find_or_create_by(:email=>'tester@digital.cabinet-office.gov.uk')
-      user.name = 'Testy McTesterton'
-      user.uid = 'this-is-a-really-funny-uid-for-my-test-user'
+    if(env["omniauth.auth"].info['email'].match(/cabinet-office\.gov\.uk|parliament\.uk|digital\.cabinet-office\.gov\.uk$/))
+      user = User.find_or_create_by(:email=>env["omniauth.auth"].info['email'])
+      user.name = env["omniauth.auth"].info['name']
+      #user.email = env["omniauth.auth"].info['email']
       user.save!
       session['user_email'] = user.email
       flash['notice'] = "Successfully signed in as " + user.name
     else
-      if(env["omniauth.auth"].info['email'].match(/cabinet-office\.gov\.uk|parliament\.uk|digital\.cabinet-office\.gov\.uk$/))
-        user = User.find_or_create_by(:email=>env["omniauth.auth"].info['email'])
-        user.name = env["omniauth.auth"].info['name']
-        #user.email = env["omniauth.auth"].info['email']
-        user.save!
-        session['user_email'] = user.email
-        flash['notice'] = "Successfully signed in as " + user.name
-      else
-        flash['error'] = "Sorry, you must have a GDS or Cabinet Office email address to login."
-      end
+      flash['error'] = "Sorry, you must have a GDS or Cabinet Office email address to login."
     end
     redirect_to root_path
   end

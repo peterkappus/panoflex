@@ -54,7 +54,7 @@
         == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
         .page-break
 
-  - if is_admin? && current_user.name.match(/kappus|testy/i)
+  - if is_admin?
     = form_tag import_okrs_goals_path, multipart: true, class: "form-inline noprint" do
       .form-group
         =file_field_tag :file, :class=>"form-control"

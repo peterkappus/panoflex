@@ -150,8 +150,9 @@ Given(/^I am on the home page$/) do
 	visit "/"
 end
 
-Given(/^I am logged|signed in$/) do
-  login
+Given(/^I am signed in as an administrator named "([^"]*)" with the email "([^"]*)"$/) do |name, email|
+  user = User.create(:name=>name,:email=>email, :admin=>true)
+  visit login_path(email:user.email)
 end
 
 When(/^I visit "([^"]*)"$/) do |path|

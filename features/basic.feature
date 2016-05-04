@@ -5,15 +5,6 @@ Feature: GOV.UK Template (Header & Footer)
 		Then I should see "Crown copyright"
     And I should see "GDS Goals"
 
-  Scenario: See basic nav
-    Given I am signed in
-    Then I should see "Vision"
-    And I should see "Groups and Teams"
-
-  Scenario: Login
-    Given I am logged in
-    Then I should see "Testy McTesterton"
-
   Scenario: Upload Goals
     When I import new goals
     Then I should see "Import successful"
