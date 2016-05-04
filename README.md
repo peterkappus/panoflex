@@ -54,8 +54,10 @@ Or only run @new tests:
 ## The Backlog
 
 ### Do next
+- Add name of person who created score in export
 - Disallow entering a deadline before the start_date (use validates_date gem?)
 - Assign "owners" of goals (and their sub-goals) who can update progress and make changes.
+- Allow an arbitrary number of levels for export
 - Version control to see when/why/how/and by whom a goal change was made.
 - Ability to view old versions of goals
 - Add a RAG status based on % complete vs time remaining
@@ -68,6 +70,7 @@ Or only run @new tests:
 - Ween ourselves off of bootstrap and just use the standard GOV.UK CSS.
 
 ### DONE (AKA "What's new?")
+- Exporting goals now includes all updates/scores.
 - Hide date fields when editing a goal with sub-goals (and explain why)
 - Sort sub-goals by start date
 - redirect to parent goal when successfully creating sub-goal (based on user research)
