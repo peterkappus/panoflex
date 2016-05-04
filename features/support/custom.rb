@@ -52,7 +52,7 @@ Capybara.register_driver :chrome do |app|
 end
 
 Capybara.javascript_driver = :chrome
-Capybara.default_driver = :chrome
+#Capybara.default_driver = :chrome
 #Capybara.javascript_driver = :firefox
 
 =begin
