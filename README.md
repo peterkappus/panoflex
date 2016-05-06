@@ -54,6 +54,8 @@ Or only run @new tests:
 ## The Backlog
 
 ### Do next
+- Don't allow people to assign goals to a team and group which don't match (e.g. don't select GOV.UK and Data)
+- When viewing a goal, make it more obvious which is the "current" score and which are "previous" scores
 - Add name of person who created score in export
 - Disallow entering a deadline before the start_date (use validates_date gem?)
 - Assign "owners" of goals (and their sub-goals) who can update progress and make changes.

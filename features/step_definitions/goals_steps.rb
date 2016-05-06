@@ -18,7 +18,7 @@ end
 When(/^I import new goals$/) do
   #Given(/^I am signed in as an administrator named "([^"]*)" with the email "([^"]*)"$/) do |name, email|
   steps %Q{
-   And I am signed in as an administrator named \"Admin Person\" with the email \"admin@domain.gov.uk\"
+   And I sign in as an administrator named \"Admin Person\" with the email \"admin@domain.gov.uk\"
   }
   attach_file("file","#{ENV['RAILS_ROOT']}/okr_sample_import.csv")
   find_button("Import").click

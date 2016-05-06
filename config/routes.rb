@@ -22,8 +22,8 @@ Rails.application.routes.draw do
 
 
   #convenience redirect
-  get '/login' => 'sessions#new', as: :login
-  get '/logout' => 'sessions#destroy', as: :logout
+  get '/signin' => 'sessions#new', as: :signin
+  get '/signout' => 'sessions#destroy', as: :signout
 
   get '/about' => 'welcome#about', as: :about
   get '/dashboard' => 'welcome#dashboard', as: :dashboard

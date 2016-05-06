@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def check_admin
     #flash['error'] = "The action you've requested requires
-    redirect_to login_path unless is_admin?
+    redirect_to signin_path unless is_admin?
   end
 
   def signed_in?

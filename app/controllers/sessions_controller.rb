@@ -47,7 +47,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session['user_email'] = "" #assigning to nil didn't work...
-    flash['notice'] = "Logged out"
+    flash['notice'] = "Successfully signed out."
     redirect_to "/"
   end
 

@@ -40,10 +40,6 @@ def click_random_link_in(selector,text)
 	all(selector,:text=>text).to_a.shuffle.first
 end
 
-def login
-  visit login_path
-end
-
 #NOTE: this is only taking the last link right now...
 #need a smart way to specify that it should randomise or select one in particular
 def handle_modal_window
@@ -148,11 +144,6 @@ end
 
 Given(/^I am on the home page$/) do
 	visit "/"
-end
-
-Given(/^I am signed in as an administrator named "([^"]*)" with the email "([^"]*)"$/) do |name, email|
-  user = User.create(:name=>name,:email=>email, :admin=>true)
-  visit login_path(email:user.email)
 end
 
 When(/^I visit "([^"]*)"$/) do |path|
