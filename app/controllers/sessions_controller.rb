@@ -8,10 +8,14 @@ class SessionsController < ApplicationController
 
       if ((Rails.env.test? || Rails.env.development?) && params['email'].present?)
         #create this user in the step definition
-        user = User.find_by_email(params['email'])
-        session['user_email'] = user.email
-        flash['notice'] = "Successfully signed in as " + user.name
+        if(user = User.find_by_email(params['email']))
+          session['user_email'] = user.email
+          flash['notice'] = "Successfully signed in as " + user.name.to_s
+        else
+          flash['error'] = "Could not find test user with email " + params['email'].to_s
+        end
         redirect_to root_path
+        return
       else
       #for some reason, I couldn't just call my check_login function...
       #if not logged in, redirect to google auth

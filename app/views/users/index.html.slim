@@ -1,0 +1,27 @@
+.column-two-thrids
+  h1 Listing users
+
+= paginate @users
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th
+          | Name
+        th
+          | Email
+        th
+          | Administrator?
+    tbody
+      - @users.each do | user |
+        tr
+          td
+            = user.name
+          td
+            = user.email
+          td
+            = form_for(user, html: { class: "form-horizontal", role: "form" }) do |f|
+              / disable if current user (e.g. don't let yourself make yourself a non-admin
+              = f.check_box :admin, class: "form-control", onclick: "submit()", disabled: current_user == user
+= paginate @users

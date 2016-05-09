@@ -124,7 +124,7 @@ When(/^I click on link "([^"]+?)" number (\d+) within "([^"]+?)"$/) do |text, nu
 end
 
 #click on button or link within a selector
-When(/^I click on "([^"]+?)" within "([^"]+?)"$/) do |link_to_click, css_selector|
+When(/^I click (?:on )?"([^"]+?)" within "([^"]+?)"$/) do |link_to_click, css_selector|
     find(css_selector).click_on(link_to_click)
 end
 

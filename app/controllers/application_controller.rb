@@ -17,13 +17,15 @@ class ApplicationController < ActionController::Base
 
   def is_admin?
     if(signed_in?)
-      (ENV['IS_SANDBOX'] ||  current_user.admin? || current_user.name.match(/mctesterton|peart|kalisperas|noelia|apostolou|eldridge|kappus|karen.+stokes|apostolou/i))
+      (ENV['IS_SANDBOX'] ||  current_user.admin? || current_user.name.match(/apostolou|kappus/i))
     end
   end
 
   def check_admin
-    #flash['error'] = "The action you've requested requires
-    redirect_to signin_path unless is_admin?
+    if !is_admin?
+      flash['error'] = "The action you've requested requires admin privileges. "
+      redirect_to root_path
+    end
   end
 
   def signed_in?
