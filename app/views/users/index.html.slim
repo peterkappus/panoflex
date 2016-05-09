@@ -24,4 +24,5 @@
             = form_for(user, html: { class: "form-horizontal", role: "form" }) do |f|
               / disable if current user (e.g. don't let yourself make yourself a non-admin
               = f.check_box :admin, class: "form-control", onclick: "submit()", disabled: current_user == user
+              = f.hidden_field :page, value: params[:page]
 = paginate @users

@@ -19,7 +19,7 @@ Scenario: Get redirected when trying to access admin only funcitonality
   Then I should see "requires admin"
 
 @new
-Scenario: Make
+Scenario: Make someone an administrator
   Given I sign in as an administrator named "Jim" with the email "jim@wherever.com"
   When I create a new non-admin user named "Dave" with the email "dave@test.com"
   And I click on "Manage users"

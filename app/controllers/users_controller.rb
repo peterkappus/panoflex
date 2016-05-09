@@ -41,16 +41,17 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    page = params['user']['page']
 
     if(current_user == @user && user_params[:admin] == "0")
       flash['error'] = "Can't make yourself a non-admin. Please get another admin to do this."
-      redirect_to users_path
+      redirect_to users_path(page: page)
       return
     end
 
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
+        format.html { redirect_to users_path(page: page), notice: "User #{@user.name} was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
