@@ -1,4 +1,8 @@
 class Goal < ActiveRecord::Base
+  validates_presence_of :name#, :start_date, :deadline
+  #validates :team, inclusion: { in: group.teams}
+  validates_with TeamGroupValidator
+
   belongs_to :team
   belongs_to :group
   #belongs_to :user #call them an "owner" not a 'user' for clarity

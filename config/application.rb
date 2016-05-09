@@ -23,6 +23,8 @@ module Pano
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
+    config.autoload_paths += %W["#{config.root}/app/validators/"]
+
     Monetize.assume_from_symbol = true
   end
 end
