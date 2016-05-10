@@ -85,12 +85,12 @@ end
 
 #click on button or link
 When(/^I click (?:on )?"([^"]+?)"$/) do |text|
-	click_on text
+	#click_on text
 	#click_on link_to_click
 	#for some reason the regular click_on didn't find AngularJS generated links.
 	#the custom "find_first_link" method works...
-	#node = find_first_link(text) || find_button(text)
-	#node.click
+	node = find_first_link(text) || find_button(text)
+	node.click
 
 end
 

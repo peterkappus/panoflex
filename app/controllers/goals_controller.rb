@@ -71,7 +71,8 @@ class GoalsController < ApplicationController
   # PATCH/PUT /goals/1
   # PATCH/PUT /goals/1.json
   def update
-    set_owner unless @goal.owner
+    #set_owner unless @goal.owner
+    #raise goal_params.to_s
     respond_to do |format|
       if @goal.update(goal_params)
         format.html { redirect_to @goal, notice: 'Goal was successfully updated.' }
@@ -136,6 +137,6 @@ class GoalsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def goal_params
-      params.require(:goal).permit(:name, :team_id, :group_id, :parent_id, :deadline, :start_date)
+      params.require(:goal).permit(:name, :team_id, :user_id, :group_id, :parent_id, :deadline, :start_date)
     end
 end

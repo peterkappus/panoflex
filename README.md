@@ -42,13 +42,13 @@ TODO: write unit tests. Meanwhile, use Cucumber to do end-to-end testing. To mak
 `$ bundle exec cucumber`
 
 Remember, you can tag tests and decide which ones to run:
-E.g. exclude tests tagged with @wip:
+E.g. exclude tests tagged with @wip (work in progress):
 
 `$ cucumber --tags ~@wip`
 
-Or only run @new tests:
+Or only run @wip tests:
 
-`$ cucumber --tags @new`
+`$ cucumber --tags @wip`
 
 
 ## The Backlog

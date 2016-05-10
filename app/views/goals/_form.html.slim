@@ -49,6 +49,12 @@ javascript:
     = f.label :group, class: "col-sm-2 control-label"
     .col-sm-10
       =collection_select :goal, :group_id, Group.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
+  .form-group
+    = f.label :Owner, class: "col-sm-2 control-label"
+    .col-sm-10
+      =collection_select :goal, :user_id, User.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
+      br
+      small The owner is responsible for making progress updates against this goal.
   //parent set in controller if ID passed in params (assuming parent is found)
   /nope. just print parent above and make parent_id a hidden var
     .form-group
