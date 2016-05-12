@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   #include Slimmer::SharedTemplates
 
   #export our helper method
-  helper_method :is_admin?, :signed_in?, :current_user
+  helper_method :is_admin?, :signed_in?, :current_user, :can_modify?
 
   #don't do this anymore, use gdsdash as a sandbox :)
   #before_filter :redirect_from_original_domain
@@ -15,9 +15,21 @@ class ApplicationController < ActionController::Base
   #not doing this anymore...
   #http_basic_authenticate_with (name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'])
 
+  def can_modify?(goal)
+    is_admin? || current_user == goal.owner
+  end
+
+  def can_create?(parent_goal)
+    if parent_goal.nil?
+      is_admin?
+    else
+       current_user == parent_goal.owner
+    end
+  end
+
   def is_admin?
     if(signed_in?)
-      (ENV['IS_SANDBOX'] ||  current_user.admin? || current_user.name.match(/apostolou|kappus/i))
+      (ENV['IS_SANDBOX'] || current_user.admin? || current_user.name.match(/apostolou|kappus/i))
     end
   end
 

@@ -24,12 +24,11 @@ javascript:
   .form-group
     = f.label :name, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.text_area :name, class: "bigtext form-control"
+      = f.text_area :name, class: "bigtext form-control", id: "goal_name"
   -if (@goal.children.count > 0)
     .form-group
-      = f.label "Dates", class: "col-sm-2 control-label"
-      .col-sm-10
-        p NOTE: Dates are determined by sub-goals
+      .col-sm-offset-2.col-sm-10
+        p NOTE: Dates, and team(s) are determined by sub-goals
   -else
     .form-group
       = f.label "Start date", class: "col-sm-2 control-label"
@@ -39,12 +38,11 @@ javascript:
       = f.label "End date (deadline)", class: "col-sm-2 control-label"
       .col-sm-10
         = f.date_select :deadline, discard_day: true
-
-  .form-group
-    = f.label :team, class: "col-sm-2 control-label"
-    .col-sm-10
-      /= select :team, :team_id, Team.all.collect {|t| [ t.name, t.id]}, {include_blank: 'None'}, {class: "selectpicker"}
-      =collection_select :goal, :team_id, Team.all, :id, :name, {prompt:true,include_blank:true}, {class: :selectpicker}
+    .form-group
+      = f.label :team, class: "col-sm-2 control-label"
+      .col-sm-10
+        /= select :team, :team_id, Team.all.collect {|t| [ t.name, t.id]}, {include_blank: 'None'}, {class: "selectpicker"}
+        =collection_select :goal, :team_id, Team.all, :id, :name, {prompt:true,include_blank:true}, {class: :selectpicker}
   .form-group
     = f.label :group, class: "col-sm-2 control-label"
     .col-sm-10

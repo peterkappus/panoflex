@@ -278,9 +278,12 @@ class Goal < ActiveRecord::Base
 
   end
 
-  #right now this imports ALL the data into our database. Group and team names, headcount, budget, etc. should all be present in this spreadsheet. It's inefficient but an easy to completely wipe and re-import the whole DB from a single Google Spreadsheet. This process may change over time...
+  #Imports OKRs, Group and team names, headcount, budget, etc.
+  #NOTE: Does NOT import scores (yet) Therefore, it should only be used when we have an empty database. Funciton returns an error if called when Goals.all.count > 0
   def self.import_okrs(file)
     require 'csv'
+
+    raise "Cannot import OKRs because it would overwrite existing goals and scores. You must manually clear the database first." if Goal.all.count > 0
 
     #in-memory has saves us having to do a sql lookup for every row
     groups = {}

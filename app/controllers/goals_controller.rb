@@ -1,7 +1,15 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
 
-  before_action :check_admin, only: [:new, :edit, :create, :update, :destroy, :import_okrs]
+  before_action only: [:import_okrs]
+
+  before_action only: [:new, :create ] do
+     can_create? Goal.find_by(id: params['parent_id'])
+  end
+
+  before_action only: [:edit, :update, :destroy] do
+     can_modify? @goal
+  end
   #around_filter :catch_not_found
 
   # GET /goals
@@ -28,6 +36,9 @@ class GoalsController < ApplicationController
   # GET /goals/new
   def new
     @goal = Goal.new
+
+    @goal.owner = current_user
+
 
     #set the parent ID for the new goal if we passed one in via the params and if it's been found
     #what's a more "railsy" way to do this?

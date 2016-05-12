@@ -7,7 +7,7 @@ When(/^I create a sub\-goal called "([^"]*)"$/) do |goal_text|
 end
 
 Given(/^I create a goal named "([^"]*)" with the owner email "([^"]*)" belonging to the group called "([^"]*)"$/) do |goal_name, email, group_name|
-  Goal.create!(name: goal_name, owner: User.find_by(email:email), group: Group.find_by(name:group_name), start_date: Date.today, deadline: Date.today+1.month)
+  Goal.create!(name: goal_name, owner: User.find_by(email:email), group: Group.find_or_create_by(name:group_name), start_date: Date.today, deadline: Date.today+1.month)
 end
 
 When(/^I create a new goal called "([^"]*)"$/) do |goal_text|
@@ -26,7 +26,7 @@ end
 When(/^I import new goals$/) do
   #Given(/^I am signed in as an admin named "([^"]*)" with the email "([^"]*)"$/) do |name, email|
   steps %Q{
-   And I sign in as an admin named \"Admin Person\" with the email \"admin@domain.gov.uk\"
+   And I sign in as an admin named \"Peter Kappus\" with the email \"admin@domain.gov.uk\"
   }
   attach_file("file","#{ENV['RAILS_ROOT']}/okr_sample_import.csv")
   find_button("Import").click

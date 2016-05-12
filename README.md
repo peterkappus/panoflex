@@ -54,6 +54,7 @@ Or only run @wip tests:
 ## The Backlog
 
 ### Do next
+- Change goal edit form to disallow assigning a time if goal has sub-goals. Explain that team assignment will be determined by sub-goal teams.
 - Assign "owners" to goals who can update progress.
 - Don't allow people to assign goals to a team and group which don't match (e.g. don't select GOV.UK and Data)
 - When viewing a goal, make it more obvious which is the "current" score and which are "previous" scores
