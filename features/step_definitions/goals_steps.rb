@@ -7,7 +7,7 @@ When(/^I create a sub\-goal called "([^"]*)"$/) do |goal_text|
 end
 
 Given(/^I create a goal named "([^"]*)" with the owner email "([^"]*)" belonging to the group called "([^"]*)"$/) do |goal_name, email, group_name|
-  Goal.create!(name: goal_name, owner: User.find_by(email:email), group: Group.find_or_create_by(name:group_name), start_date: Date.today, deadline: Date.today+1.month)
+  Goal.create!(name: goal_name, owner: User.find_by(email:email), group: Group.find_or_create_by!(name: group_name), start_date: Date.today, deadline: Date.today+1.month)
 end
 
 When(/^I create a new goal called "([^"]*)"$/) do |goal_text|
@@ -22,6 +22,10 @@ When(/^I create a group called "([^"]*)"$/) do |group_name|
   Group.create!(name: group_name)
 end
 
+When(/^I create a team called "([^"]*)" within the group called "([^"]*)"$/) do |team_name, group_name|
+  group = Group.find_or_create_by!(name: group_name)
+  Team.find_or_create_by!(name: team_name, group: group)
+end
 
 When(/^I import new goals$/) do
   #Given(/^I am signed in as an admin named "([^"]*)" with the email "([^"]*)"$/) do |name, email|

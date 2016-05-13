@@ -47,11 +47,13 @@
   .row
     .col-sm-9
       h2 Progress Updates
+
       - if can_modify? @goal
         =link_to "Report progress", new_goal_score_path(@goal), :class=>"btn-sm btn-success"
   - if(@goal.scores.empty?)
       br
-      p.lead Updates will show progress against a goal by providing a history of the scores and supporting narratives at diffrent points in time. They should be added monthly or whenever there is new delivery information to report.
+      p.lead No updates yet.
+      p Goal owners can provide updates on a goal's progress at any time by giving a score between 0 and 100% and a brief narrative to explain the current scoring.
   - else
     - @goal.scores.each do |score|
       .row

@@ -1,4 +1,4 @@
-Feature: GOV.UK Template (Header & Footer)
+Feature: Import goals, look around, see header/footer, etc.
 
 	Scenario: See the Header & Footer
 		Given I am on the home page
@@ -42,3 +42,16 @@ Feature: GOV.UK Template (Header & Footer)
 		#one more time... (is this necessary?)
 		When I create a sub-goal called "Sub goal 2"
 		Then I should see "Sub goal 2" within "ol.goals"
+
+	@javascript
+	Scenario: Don't let me assign a goal to a team & group which don't match.
+		Given I create a new non-admin named "Dave" with the email "dave@test.com"
+		And I create a goal named "Do something" with the owner email "dave@test.com" belonging to the group called "Digital"
+		And I create a team called "Team A" within the group called "Operations"
+		When I sign in using the email "dave@test.com"
+		And I click "Do something"
+		And I click "Edit"
+		Then I should see "Digital" within ".filter-option"
+		When I select "Team A" from the first dropdown
+		And I click "Update Goal"
+		Then I should see "Team does not belong to group"

@@ -22,6 +22,15 @@ When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field_name, content|
   fill_in field_name, :with=>content
 end
 
+#NOTE: this is custom to work with bootstrap-select-rails select boxes
+#This only works because the drop-down in question is the first one.
+#hence we can click "Please select" to open the dropdown.
+#TODO: make this work for multiple dropdowns
+When(/^I select "([^"]*)" from the first dropdown$/) do |option_text|
+  click_on "Please select"
+  find(:css,"div.dropdown-menu span",:text=>option_text).click
+end
+
 def get_all_link_text
 	linktxt = ""
 	page.all("a").each {|node| linktxt += node.text }

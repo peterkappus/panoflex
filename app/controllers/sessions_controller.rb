@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if(env["omniauth.auth"].info['email'].match(/cabinet-office\.gov\.uk|parliament\.uk|digital\.cabinet-office\.gov\.uk$/))
+    if(env["omniauth.auth"].info['email'].match(/cabinetoffice\.gov\.uk| cabinet-office\.gov\.uk|parliament\.uk$/))
       user = User.find_or_create_by(:email=>env["omniauth.auth"].info['email'])
       user.name = env["omniauth.auth"].info['name']
       #user.email = env["omniauth.auth"].info['email']

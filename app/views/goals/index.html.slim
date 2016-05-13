@@ -39,6 +39,7 @@
           = link_to "Download CSV", goals_path(:format=>:csv)
       .noprint.expand_collapse
         = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
+
   .row.padded-row
     .col-sm-12
       - Group.all.each do |group|
