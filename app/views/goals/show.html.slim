@@ -57,13 +57,13 @@
   - else
     - @goal.scores.each do |score|
       .row
-        .col-md-2.sub_score
+        .col-sm-2.sub_score
           h2.amount = score.display_amount
           .date =score.display_date
-        .col-md-7
+        .col-sm-7
           p.lead =score.reason
           -if score.user
             small By #{score.user.name}
             .break
-        .col-md-1
+        .col-sm-1
           =link_to :Edit, edit_score_path(score), :class=>'btn btn-sm btn-primary' if is_admin?

@@ -1,7 +1,20 @@
 class ScoresController < ApplicationController
   before_action :set_score, only: [:show, :edit, :update, :destroy]
   #before_action :set_goal, only: [:new, :create, :index, :show, :edit, :update, :destroy]
-  before_action :check_admin, only: [:new, :edit, :create, :update, :destroy]
+  #before_action :check_admin, only: [:new, :edit, :create, :update, :destroy]
+
+  before_action only: [:new] do
+    is_admin? || Goal.find(params[:goal_id]).owner == current_user
+  end
+
+  before_action only: [:create] do
+     is_admin? || Goal.find(params[:score][:goal_id]).owner == current_user
+  end
+
+  #only admins can modify updates
+  before_action only: [:edit, :update, :destroy] do
+     is_admin?
+  end
 
   # GET /scores
   # GET /scores.json

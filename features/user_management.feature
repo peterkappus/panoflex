@@ -62,3 +62,22 @@ Scenario: create a sub-goal and be the owner
   And I click "Create Goal"
   Then I should see "Dave" within ".owner"
   And I should see "A sub-goal by Dave"
+
+Scenario: Let me make updates against goals I own.
+  Given I create a new non-admin named "Sara" with the email "sara@test.com"
+  And I create a goal named "Something Sara is doing." with the owner email "sara@test.com" belonging to the group called "Digital"
+  And I sign in using the email "sara@test.com"
+  When I click on "Something Sara is doing."
+  And I click on "Report progress"
+  And I fill in "score[amount]" with "30"
+  And I fill in "score[reason]" with "This is the reason why I'm giving this a score of 30%"
+  And I click "Create Score"
+  Then I should see "successfully"
+
+Scenario: Don't let me report progress against goals I don't own.
+  Given I create a new non-admin named "Jane" with the email "jane@test.com"
+  And I create a new non-admin named "Anna" with the email "anna@test.com"
+  And I create a goal named "Something Jane is doing." with the owner email "jane@test.com" belonging to the group called "Digital"
+  And I sign in using the email "anna@test.com"
+  When I click on "Something Jane is doing."
+  Then I should NOT see "Report progress"

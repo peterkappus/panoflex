@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback' => 'sessions#create'
   get '/auth/failure' => 'sessions#handle_failure'
 
+  get '/mockup' => 'welcome#mockup'
 
   #convenience redirect
   get '/signin' => 'sessions#new', as: :signin
