@@ -1,6 +1,6 @@
 = render 'breadcrumb'
 .row.padded-row
-  .col-md-10.signage
+  .col-sm-8.signage
     h1 What will GDS do this year?
     details
       summary
@@ -8,14 +8,14 @@
       .panel.panel-border-wide These goals and milestones have been developed with the group project management offices (PMOs) using the latest business plans. Are they still right? We need your help to ensure they reflect what we're really doing (and have done). Please give feedback to your group PMO. #{link_to "Learn more.",about_path, :class=>'noprint'}
     .page-break
 .row
-  .col-md-10
+  .col-sm-8
     h2 Vision
     p.lede
       b We want to help departments work together to transform government to meet user needs.
     /Previously
     /Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
 .row.padded-row
-  .col-md-10
+  .col-sm-8
     h2 To achieve this vision we will
     ol.nice_list
       li
@@ -29,35 +29,42 @@
 
 .page-break
 
-.column-two-thrids
-  .row.padded-row
-    .col-sm-12
-      h2 Goals by Business Group
-      -if is_admin?
-        .pull-right.noprint
-          = link_to "Download CSV", goals_path(:format=>:csv)
-      .noprint.expand_collapse
-        = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
-
-  .row.padded-row
-    .col-sm-12
-      - Group.all.each do |group|
+.row.padded-row
+  .col-sm-10
+    h2 Goals by Business Group
+    .pull-right.noprint
+      = link_to goals_path(:format=>:csv) do
+        span.glyphicon.glyphicon-download> aria-hidden="true"
+        ' Download CSV
+    .nav.nav-tabs
+      li.active role="presentation"
+        a href="?view=grid" Grid view
+      li
+        a href="?view=list" List view
+.row
+  .col-sm-10
+    .noprint.expand_collapse
+      = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
+- Group.all.each do |group|
+  .row
+    .col-sm-10
+      .well.group_well
         .row
-          .well.group_well
-            .row
-              .col-sm-9
-                .print_only
-                  small =display_date(Time.now)
-                h2 =link_to group.name + " Group", group
-                .group-meta Budget: £#{group.budget_in_millions}m
-                .group-meta Headcount: #{group.headcount}
-              .col-sm-3
-                -if (is_admin?)
-                  .noprint.pull-right
-                    =link_to "New Goal",new_goal_path(group_id: group.id), {class: "button"}
-          == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
-          //== render group.top_level_goals
-        .page-break
+          .col-sm-6
+            .print_only
+              small =display_date(Time.now)
+            h2 =link_to group.name + " Group", group
+            .group-meta Budget: £#{group.budget_in_millions}m
+            .group-meta Headcount: #{group.headcount}
+          .col-sm-3.pull-right
+            -if (is_admin?)
+              .noprint
+                =link_to "New Goal",new_goal_path(group_id: group.id), {class: "button"}
+    //== render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
+  .row
+    .col-sm-8
+      == render group.top_level_goals
+  .page-break
 
   / Now that we have real data and cannot yet import scores, we need to disable goal importing unless we have zero goals.
   - if Goal.all.count == 0 && is_admin?

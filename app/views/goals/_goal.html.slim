@@ -1,5 +1,6 @@
-.col-sm-4.subgoal-box
+- cols = 2
+div class="col-sm-#{12/cols} subgoal-box"
   h3 =goal_counter+1
-  p =goal.name
--if((goal_counter+1)%3 == 0)
+  p =link_to goal.name, goal
+-if((goal_counter+1) % cols == 0)
   .row

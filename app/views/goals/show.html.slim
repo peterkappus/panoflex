@@ -16,17 +16,14 @@
 
     -if can_modify? @goal
       .row
-        .col-sm-6
-          .goal_controls
-            = link_to "Edit goal", edit_goal_path, class: "button btn-primary btn-sm"
-            | &nbsp;
-            = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "button"
-        .col-sm-6
-          .pull-right
-            - if(!@goal.children.empty?)
-              .pull-right.hint This goal cannot be deleted because it has sub-goals.
-            -else
-              = link_to 'Remove', @goal, method: :delete, data: { confirm: 'Are you sure? This will also delete any updates (scores) applied to this goal. This cannot be undone.' }, class: "button danger"
+        .col-sm-7.goal_controls
+          = link_to "Edit goal", edit_goal_path, class: "button btn-primary btn-sm"
+          | &nbsp;
+          = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "button"
+          | &nbsp;
+        .col-sm-5.goal_controls
+          - if(@goal.children.empty?)
+            = link_to 'Remove', @goal, method: :delete, data: { confirm: 'Are you sure? This will also delete any updates (scores) applied to this goal. This cannot be undone.' }, class: "button danger"
   .col-sm-3
     .big_score
       .smaller Current delivery:
