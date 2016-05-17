@@ -36,11 +36,12 @@
       = link_to goals_path(:format=>:csv) do
         span.glyphicon.glyphicon-download> aria-hidden="true"
         ' Download CSV
-    .nav.nav-tabs
-      li.active role="presentation"
-        a href="?view=grid" Grid view
-      li
-        a href="?view=list" List view
+    /
+      .nav.nav-tabs
+        li.active role="presentation"
+          a href="?view=grid" Grid view
+        li
+          a href="?view=list" List view
 .row
   .col-sm-10
     .noprint.expand_collapse
@@ -60,15 +61,15 @@
             -if (is_admin?)
               .noprint
                 =link_to "New Goal",new_goal_path(group_id: group.id), {class: "button"}
-    //== render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
   .row
-    .col-sm-8
-      == render group.top_level_goals
+    .col-sm-10
+      == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
+      /== render group.top_level_goals
   .page-break
 
-  / Now that we have real data and cannot yet import scores, we need to disable goal importing unless we have zero goals.
-  - if Goal.all.count == 0 && is_admin?
-    = form_tag import_okrs_goals_path, multipart: true, class: "form-inline noprint" do
-      .form-group
-        =file_field_tag :file, :class=>"form-control"
-      =submit_tag "Import", :class=>"btn btn-primary"
+/ Now that we have real data and cannot yet import scores, we need to disable goal importing unless we have zero goals.
+- if Goal.all.count == 0 && is_admin?
+  = form_tag import_okrs_goals_path, multipart: true, class: "form-inline noprint" do
+    .form-group
+      =file_field_tag :file, :class=>"form-control"
+    =submit_tag "Import", :class=>"btn btn-primary"
