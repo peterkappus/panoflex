@@ -21,15 +21,17 @@
       = f.text_field :amount, class: "form-control bignum", style: "display:inline"
       .bignum_suffix %
       br
-      small An integer to represent how well this goal is being met. e.g. 100 for 100% success.
+      .form-hint An integer to represent how well this goal is being met. For example, 50 if you're half-way to completion.
   .form-group
     = f.label :Narrative, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :reason, class: "form-control bigtext"
-      small A bit of narrative on why you feel the score you've given this goal is appropriate at this point in time. Did some milestone within this goal get completed? Did a major setback occur? Scores may go up or down at any time based on latest events.
+      .form-hint Why do you feel the score you've given this goal is appropriate right now?
 
       =f.hidden_field :goal_id, :value=>@score.goal.id
   .form-group
     .col-sm-offset-2.col-sm-10
-      = f.submit class: "btn btn-primary"
-      =link_to :Cancel, goal_path(@score.goal), :style=>"margin-left: 20px"
+      = f.submit class: "button"
+
+      .cancel
+        =link_to :Cancel, goal_path(@score.goal)

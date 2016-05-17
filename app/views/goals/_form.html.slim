@@ -51,8 +51,7 @@ javascript:
     = f.label :Owner, class: "col-sm-2 control-label"
     .col-sm-10
       =collection_select :goal, :user_id, User.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
-      br
-      small The owner is responsible for making progress updates against this goal.
+      .form-hint The owner is responsible for making progress updates against this goal.
   //parent set in controller if ID passed in params (assuming parent is found)
   /nope. just print parent above and make parent_id a hidden var
     .form-group
@@ -64,6 +63,4 @@ javascript:
     .col-sm-offset-2.col-sm-10
       = f.submit class: "button"
       | &nbsp;
-      br
-      br
       =link_to "Back", "javascript:history.go(-1);void(0)"

@@ -30,4 +30,6 @@ Rails.application.config.assets.precompile += %w(
         gov.uk_logotype_crown_invert.png
         gov.uk_logotype_crown_invert_trans.png
         opengraph-image.png
+        icons/icon-pointer.png
+        icon-pointer.png
       )

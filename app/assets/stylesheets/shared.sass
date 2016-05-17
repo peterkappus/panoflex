@@ -1,22 +1,42 @@
-@import "_colours"
-@import "_font_stack"
-@import "_measurements"
+// From GDS's alphagov/govuk_frontend_toolkit
+@import 'colours'
+@import 'font_stack'
+@import 'measurements'
+@import 'conditionals'
+@import 'device-pixels'
+@import 'grid_layout'
+@import 'typography'
+@import 'shims'
 
-// Mixins
-@import "_conditionals"
-@import "_device-pixels"
-@import "_grid_layout"
+@import 'design-patterns/alpha-beta'
+@import 'design-patterns/buttons'
+@import 'design-patterns/breadcrumbs'
 
-// Inline block mixin, clearfix placeholder
-@import "_shims"
+// From GDS's alphagov/govuk_elements
+@import 'elements/helpers'
+@import 'elements/reset'
 
-@import "_typography"
+// Base (unclassed HTML elements)
+// These are predefined by govuk_template
+// If you're not using govuk_template, uncomment the line below.
+// HTML elements, set by the GOV.UK template
+// @import 'elements/base'
 
-// Mixins to generate components (chunks of UI)
-@import "design-patterns/_alpha-beta"
-@import "design-patterns/_buttons"
-//@import "design-patterns/breadcrumbs"
-
+@import 'elements/layout'
+@import 'elements/elements-typography'
+@import 'elements/buttons'
+@import 'elements/icons'
+@import 'elements/lists'
+// @import 'elements/tables'
+@import 'elements/details'
+@import 'elements/panels'
+@import 'elements/forms'
+@import 'elements/forms/form-block-labels'
+@import 'elements/forms/form-date'
+@import 'elements/forms/form-validation'
+@import 'elements/breadcrumbs'
+@import 'elements/phase-banner'
+@import 'elements/components'
 
 .big_goals
   h2
@@ -35,21 +55,6 @@
   .phase-tag
     @include phase-tag
 
-.button
-  @include button
-
-.button-start
-  font-size: 24px
-  line-height: 1.25
-  font-weight: 700
-  font-family: "nta", Arial, sans-serif
-  font-weight: 700
-  text-transform: none
-  /*
-    background-image: url("/public/images/icons/icon-pointer.png")
-    background-repeat: no-repeat
-    background-position: 100% 50%
-    padding: 0.3684210526em 2.1578947368em 0.2105263158em 0.8421052632em
 
 @media print
   .noprint, .header-global
@@ -144,17 +149,15 @@ ul.biglist
 body
   padding-top: 0 !important
 
-h1, h2, h3
-  color: #000
-
 h1
-  @include bold-48
+  @extend .heading-xlarge
+
 h2
-  @include bold-36
+  @extend .heading-large
 
 /* yep, using the same style for now...*/
 h3, p.lead
-  @include core-24
+  @extend .heading-medium
 
 
 #footer
@@ -228,3 +231,33 @@ h2.score
   margin: 3rem 0 4rem 0
   .btn-sm
     margin: 0 1rem 0 0
+
+
+.form-hint
+  margin-top: 1rem
+
+.hint
+  font-size: 1.5rem
+  color: $secondary-text-colour
+
+.button.danger
+  background: $red
+
+.cancel
+  margin-top: 2rem
+
+//mockup page styles
+
+.status-box
+  margin-top: 2rem
+  padding: .5rem
+  font-size: 2rem
+  font-weight: bold
+  display: block
+  width: 100%
+  text-align: center
+  color: $white
+
+.ok
+  @extend .status-box
+  background: $green

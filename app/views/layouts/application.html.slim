@@ -58,10 +58,11 @@
         - if request.host.match(/gdsdash.heroku/) then
           .alert.alert-warning
             h2 NOTE: This site has moved to <a href="http://gdsdelivery.herokuapp.com">http://gdsdelivery.herokuapp.com</a>. Please update your bookmarks.
-        = yield
+        #content
+          = yield
         .pull-right.noprint
           - if signed_in?
-              i Signed in as #{current_user.name}
+              small Signed in as #{current_user.name}
               br
               =link_to 'Sign out', signout_path
         .clear

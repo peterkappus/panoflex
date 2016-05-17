@@ -17,9 +17,12 @@ gem 'rails_12factor', group: :production
 #gem 'dotenv-rails', :groups => [:development, :test]
 #heroku local does this for us, I think...
 
-#for template
+#for GOV.UK template
 gem 'govuk_template'
 #gem 'slimmer'
+
+#for other GOV.UK elements
+gem 'govuk_elements_rails'
 
 #for sass mixins
 gem 'govuk_frontend_toolkit'
