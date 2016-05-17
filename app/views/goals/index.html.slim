@@ -44,14 +44,17 @@
     .col-sm-12
       - Group.all.each do |group|
         .well.group_well
-          .print_only
-            small =display_date(Time.now)
-          h2 =link_to group.name + " Group", group
-          h4 Budget: £#{group.budget_in_millions}m
-          h4 Headcount: #{group.headcount}
-        -if (is_admin?)
-          .noprint
-            =link_to "New Goal",new_goal_path(group_id: group.id), {class: "btn btn-sm btn-success"}
+          .row
+            .col-sm-9
+              .print_only
+                small =display_date(Time.now)
+              h2 =link_to group.name + " Group", group
+              h4 Budget: £#{group.budget_in_millions}m
+              h4 Headcount: #{group.headcount}
+            .col-sm-3
+              -if (is_admin?)
+                .noprint.pull-right
+                  =link_to "New Goal",new_goal_path(group_id: group.id), {class: "button"}
         == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
         .page-break
 
