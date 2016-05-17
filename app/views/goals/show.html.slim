@@ -2,25 +2,31 @@
 
 .row
   .col-sm-9
-    h1 = @goal.name
-    - if (@goal.get_team)
-      .goal-meta =link_to @goal.get_team.name, @goal.get_team
-    - if (@goal.owner.present?)
-      .goal-meta.owner =@goal.owner.name
-    - if (@goal.group)
-      .goal-meta =link_to @goal.group.name + " Group", @goal.group
-    /h5 =quarter_year(@goal.earliest_start_date) + " - " + quarter_year(@goal.latest_end_date)
-    .goal-meta =@goal.display_date_range
+    .row
+      .col-sm-12
+        h1 = @goal.name
+        - if (@goal.get_team)
+          .goal-meta =link_to @goal.get_team.name, @goal.get_team
+        - if (@goal.owner.present?)
+          .goal-meta.owner =@goal.owner.name
+        - if (@goal.group)
+          .goal-meta =link_to @goal.group.name + " Group", @goal.group
+        /h5 =quarter_year(@goal.earliest_start_date) + " - " + quarter_year(@goal.latest_end_date)
+        .goal-meta =@goal.display_date_range
 
     -if can_modify? @goal
-      .goal_controls
-        = link_to "Edit goal", edit_goal_path, class: "button btn-primary btn-sm"
-        = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "button"
-        .pull-right
-          - if(!@goal.children.empty?)
-            .pull-right.hint This goal cannot be deleted because it has sub-goals.
-          -else
-            = link_to 'Remove', @goal, method: :delete, data: { confirm: 'Are you sure? This will also delete any updates (scores) applied to this goal. This cannot be undone.' }, class: "button danger"
+      .row
+        .col-sm-6
+          .goal_controls
+            = link_to "Edit goal", edit_goal_path, class: "button btn-primary btn-sm"
+            | &nbsp;
+            = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "button"
+        .col-sm-6
+          .pull-right
+            - if(!@goal.children.empty?)
+              .pull-right.hint This goal cannot be deleted because it has sub-goals.
+            -else
+              = link_to 'Remove', @goal, method: :delete, data: { confirm: 'Are you sure? This will also delete any updates (scores) applied to this goal. This cannot be undone.' }, class: "button danger"
   .col-sm-3
     .big_score
       .smaller Current delivery:

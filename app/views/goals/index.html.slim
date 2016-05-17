@@ -1,13 +1,16 @@
 = render 'breadcrumb'
 .row.padded-row
   .col-md-10.signage
-    h1.heading-xlarge What will GDS do this year?
-    p.lead These milestones have come from the latest business plans and then been iterated with the group project management offices (PMOs). Are they still right? We expect them to change during the year and need a good feedback loop to ensure they always reflect what we're doing (and have done). Please give feedback to your group PMO. #{link_to "Learn more.",about_path, :class=>'noprint'}
+    h1 What will GDS do this year?
+    details
+      summary
+        span.summary Where did these goals come from?
+      .panel.panel-border-wide These goals and milestones have been developed with the group project management offices (PMOs) using the latest business plans. Are they still right? We need your help to ensure they reflect what we're really doing (and have done). Please give feedback to your group PMO. #{link_to "Learn more.",about_path, :class=>'noprint'}
     .page-break
-.row.padded-row
+.row
   .col-md-10
     h2 Vision
-    p.lead
+    p.lede
       b We want to help departments work together to transform government to meet user needs.
     /Previously
     /Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
@@ -16,17 +19,13 @@
     h2 To achieve this vision we will
     ol.nice_list
       li
-        .col-md-11
-          h3 Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
+        .col-md-11 Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
       li
-        .col-md-11
-          h3 Create, run and continuously improve the platforms and tools that make it simple for government to build, iterate and retire services.
+        .col-md-11 Create, run and continuously improve the platforms and tools that make it simple for government to build, iterate and retire services.
       li
-        .col-md-11
-          h3 Lead the digital, data and technology function so that government has the skills and capability it needs to transform itself.
+        .col-md-11 Lead the digital, data and technology function so that government has the skills and capability it needs to transform itself.
       li
-        .col-md-11
-          h3 Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great examples within the sector.
+        .col-md-11 Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great examples within the sector.
 
 .page-break
 
@@ -43,19 +42,21 @@
   .row.padded-row
     .col-sm-12
       - Group.all.each do |group|
-        .well.group_well
-          .row
-            .col-sm-9
-              .print_only
-                small =display_date(Time.now)
-              h2 =link_to group.name + " Group", group
-              h4 Budget: £#{group.budget_in_millions}m
-              h4 Headcount: #{group.headcount}
-            .col-sm-3
-              -if (is_admin?)
-                .noprint.pull-right
-                  =link_to "New Goal",new_goal_path(group_id: group.id), {class: "button"}
-        == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
+        .row
+          .well.group_well
+            .row
+              .col-sm-9
+                .print_only
+                  small =display_date(Time.now)
+                h2 =link_to group.name + " Group", group
+                .group-meta Budget: £#{group.budget_in_millions}m
+                .group-meta Headcount: #{group.headcount}
+              .col-sm-3
+                -if (is_admin?)
+                  .noprint.pull-right
+                    =link_to "New Goal",new_goal_path(group_id: group.id), {class: "button"}
+          == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
+          //== render group.top_level_goals
         .page-break
 
   / Now that we have real data and cannot yet import scores, we need to disable goal importing unless we have zero goals.

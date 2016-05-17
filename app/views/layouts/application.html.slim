@@ -37,33 +37,34 @@
     ga('send', 'pageview');
 
 - content_for :content do
-  #wrapper.grid-row
+  #wrapper
     main#content[role="main"]
       -if (ENV['IS_SANDBOX'] || Rails.env.development?)
         .noprint style="background: #fc0; text-align: center; font-size: 3rem" This is a playground environment. Tweak with impunity.
-      .phase-banner-alpha.noprint
-        p
-          strong.phase-tag PRE-ALPHA
-          span This is a proof of concept only. Goals are in DRAFT. Your <a href="https://docs.google.com/document/d/1oR76UEjYT0DWFPk0wZVDaJxtAy5UevM2mIvoNmcZDCw/edit" target="_blank">feedback</a> will help us to improve.
-      .inner-block
-        - flash.each do |name, msg|
-          = content_tag :div, class: "alert alert-#{ name == "error" ? "danger" : "success" } alert-dismissable", role: "alert" do
-            button.close type="button" data-dismiss="alert"
-              span aria-hidden="true"
-                | &times;
-              span.sr-only
-                | Close
-            = msg
-        / Redirecting automatically from application controller so no one will ever see this...
-        - if request.host.match(/gdsdash.heroku/) then
-          .alert.alert-warning
-            h2 NOTE: This site has moved to <a href="http://gdsdelivery.herokuapp.com">http://gdsdelivery.herokuapp.com</a>. Please update your bookmarks.
-        #content
-          = yield
-        .pull-right.noprint
-          - if signed_in?
-              small Signed in as #{current_user.name}
-              br
-              =link_to 'Sign out', signout_path
-        .clear
+      .row
+        .col-sm-12
+          .phase-banner-alpha.noprint
+            p
+              strong.phase-tag PRE-ALPHA
+              span This is a proof of concept only. Goals are in DRAFT. Your <a href="https://docs.google.com/document/d/1oR76UEjYT0DWFPk0wZVDaJxtAy5UevM2mIvoNmcZDCw/edit" target="_blank">feedback</a> will help us to improve.
+          .inner-block
+            - flash.each do |name, msg|
+              = content_tag :div, class: "alert alert-#{ name == "error" ? "danger" : "success" } alert-dismissable", role: "alert" do
+                button.close type="button" data-dismiss="alert"
+                  span aria-hidden="true"
+                    | &times;
+                  span.sr-only
+                    | Close
+                = msg
+            / Redirecting automatically from application controller so no one will ever see this...
+            - if request.host.match(/gdsdash.heroku/) then
+              .alert.alert-warning
+                h2 NOTE: This site has moved to <a href="http://gdsdelivery.herokuapp.com">http://gdsdelivery.herokuapp.com</a>. Please update your bookmarks.
+      = yield
+      .pull-right.noprint
+        - if signed_in?
+            small Signed in as #{current_user.name}
+            br
+            =link_to 'Sign out', signout_path
+      .clear
 = render template: "layouts/govuk_template"
