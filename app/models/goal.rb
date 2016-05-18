@@ -54,7 +54,7 @@ class Goal < ActiveRecord::Base
       calculate_dates
     end
 
-    earliest_start_date.strftime("%d %h %Y") + " - " + latest_end_date.strftime("%d %h %Y")
+    earliest_start_date.strftime("%h %Y") + " - " + latest_end_date.strftime("%h %Y")
   end
 
   def group_name
@@ -64,7 +64,7 @@ class Goal < ActiveRecord::Base
   #depth-first recursion to find score
   #SLOOOOWWWW
   #TODO: replace with bottom up method to set all upstream scores when a goal receives a progress update (score).
-  def current_amount
+  def calculated_amount
     #use the real score if we have one, otherwise assume zero
     #could make this more sophistocated later (e.g. use #N/A)
 
@@ -77,7 +77,7 @@ class Goal < ActiveRecord::Base
       #return the score if there is one.
       score_amount = score ? score.amount : 0
     else
-      score_amount = children.map{|c| c.current_amount}.inject(:+).to_f / children.count
+      score_amount = children.map{|c| c.calculated_amount}.inject(:+).to_f / children.count
     end
     #save!
     score_amount #dumb, but I need to return this value. Not the "true" from the save above
@@ -122,6 +122,7 @@ class Goal < ActiveRecord::Base
     parent.calculate_scores unless parent.nil?
   end
 
+  #latest score
   def score
     scores.first
   end
