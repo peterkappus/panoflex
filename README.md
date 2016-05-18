@@ -62,7 +62,12 @@ Or only run @wip tests:
 ### Do next
 - Hide scores & scoring functionality (make scores optional)
 - Add ability to report progress at all levels.
-- When reporting, add requirement to select a status of "On Track" or "Needs help"
+- When reporting, add requirement to select a status:
+  - Not Started (default)
+  - On-track
+  - Off-track
+  - Significant Delay/Issue
+  - Delivered
 - Implement new "box-based" UI (see Lucy F's mockup)
 - When viewing a goal, make it more obvious which is the "current" score and which are "previous" scores
 - Add name of person who created score in export
