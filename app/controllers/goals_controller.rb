@@ -15,6 +15,8 @@ class GoalsController < ApplicationController
   # GET /goals
   # GET /goals.json
   def index
+    session['goals_view'] = params[:goals_view]
+
     @goals = Goal.all
     #Goal.gds_goals
     respond_to do |format|
@@ -27,6 +29,9 @@ class GoalsController < ApplicationController
   # GET /goals/1
   # GET /goals/1.json
   def show
+  end
+
+  def timeline
   end
 
   def show_export

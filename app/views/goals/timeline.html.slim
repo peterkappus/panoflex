@@ -1,0 +1,24 @@
+
+.row
+  .col-sm-8
+    h1 Timeline
+    p.lede How many goals are scheduled to finish in each quarter?
+
+    table
+      thead
+        tr
+          th scope="col" Group
+          th class="numeric" scope="col" Q1
+          th class="numeric" scope="col" Q2
+          th class="numeric" scope="col" Q3
+          th class="numeric" scope="col" Q4
+      tbody
+      -Group.all.each do |group|
+        tr
+          td=group.name
+          td class="numeric" =group.goals.where("deadline >= '2016-04-01' and deadline < '2016-07-01'").count
+          td class="numeric" =group.goals.where("deadline >= '2016-07-01' and deadline < '2016-10-01'").count
+          td class="numeric" =group.goals.where("deadline >= '2016-10-01' and deadline < '2017-01-01'").count
+          td class="numeric" =group.goals.where("deadline >= '2017-01-01' and deadline < '2017-04-01'").count
+    br
+    br

@@ -39,9 +39,9 @@
     /
       .nav.nav-tabs
         li.active role="presentation"
-          a href="?view=grid" Grid view
+          a href="?goals_view=grid" Grid view
         li
-          a href="?view=list" List view
+          a href="?goals_view=list" List view
 .row
   .col-sm-10
     .noprint.expand_collapse
@@ -63,9 +63,12 @@
                 =link_to "New Goal",new_goal_path(group_id: group.id), {class: "button"}
   .row
     .col-sm-10
-      == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
-      /== render group.top_level_goals
-  .page-break
+      -if session[:goals_view] == 'grid'
+        == render group.top_level_goals
+      -else
+        == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
+
+    .page-break
 
 / Now that we have real data and cannot yet import scores, we need to disable goal importing unless we have zero goals.
 - if Goal.all.count == 0 && is_admin?

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :scores
     post 'import_okrs', on: :collection
     get 'show_export', on: :collection
+    get 'timeline', on: :collection
   end
 
   resources :teams
