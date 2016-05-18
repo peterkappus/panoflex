@@ -1,72 +1,42 @@
 = render 'breadcrumb'
 
 .row
-  .col-sm-9
-    .row
-      .col-sm-12
-        h1 = @goal.name
-        - if (@goal.get_team)
-          .goal-meta =link_to @goal.get_team.name, @goal.get_team
-        - if (@goal.owner.present?)
-          .goal-meta.owner =@goal.owner.name
-        - if (@goal.group)
-          .goal-meta =link_to @goal.group.name + " Group", @goal.group
-        /h5 =quarter_year(@goal.earliest_start_date) + " - " + quarter_year(@goal.latest_end_date)
-        .goal-meta =@goal.display_date_range
-
-    -if can_modify? @goal
-      .row
-        .col-sm-7.goal_controls
-          = link_to "Edit goal", edit_goal_path, class: "button btn-primary btn-sm"
-          | &nbsp;
-          = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "button"
-          | &nbsp;
-        .col-sm-5.goal_controls
-          - if(@goal.children.empty?)
-            = link_to 'Remove', @goal, method: :delete, data: { confirm: 'Are you sure? This will also delete any updates (scores) applied to this goal. This cannot be undone.' }, class: "button danger"
-  .col-sm-3
-    .big_score
-      .smaller Current delivery:
-      .amount = @goal.display_amount
-      .date = @goal.current_display_date
-.row
   .col-sm-12
-    /h4 #{pluralize(sub_goals.count,"Child goal")}
-    - unless @goal.children.empty?
-      h2 Sub Goals
-      - if @goal.children.count > 5
-        .alert.alert-warning.alert-dismissable
-          strong> NOTE:
-          | This goal has #{@goal.children.count} sub-goals. Consolidating to five or fewer will improve focus and simplify tracking.
+    .row
+      .col-sm-9
+        h1 = @goal.name
+        - if (@goal.children.count == 0)
+          h2 Delivery Status
+          - if can_modify? @goal
+            =link_to "Report progress", new_goal_score_path(@goal), :class=>"button"
+          - if(@goal.scores.empty?)
+              br
+              p.lead No updates yet.
+              .hint Goal owners can provide updates on a goal's progress at any time by giving a score between 0 and 100% and a brief narrative to explain the current scoring.
+          - else
+            - @goal.scores.each do |score|
+              .row
+                .col-sm-3.sub_score
+                  h2.amount = score.display_amount
+                  .date =score.display_date
+                .col-sm-9
+                  p =score.reason
+                  -if score.user
+                    small By #{score.user.name}
+                    .break
+                .col-sm-1
+                  =link_to :Edit, edit_score_path(score), :class=>'btn btn-sm btn-primary' if is_admin?
+        - unless @goal.children.empty?
+          h2 Sub Goals
+          - if @goal.children.count > 5
+            .alert.alert-warning.alert-dismissable
+              strong> NOTE:
+              | This goal has #{@goal.children.count} sub-goals. Consolidating to five or fewer will improve focus and simplify tracking.
 
-      p We will accomplish the above by doing the following:
-      / Sub Goals...
-      .noprint.expand_collapse
-        = (params["expand_all"]) ? link_to("Collapse all", @goal) : link_to("Expand all", "?expand_all=1")
-      == render partial: 'shared/sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
-
-/Scores...
-- if(@goal.children.count == 0)
-  .row
-    .col-sm-9
-      h2 Progress Updates
-
-      - if can_modify? @goal
-        =link_to "Report progress", new_goal_score_path(@goal), :class=>"button"
-  - if(@goal.scores.empty?)
-      br
-      p.lead No updates yet.
-      p Goal owners can provide updates on a goal's progress at any time by giving a score between 0 and 100% and a brief narrative to explain the current scoring.
-  - else
-    - @goal.scores.each do |score|
-      .row
-        .col-sm-2.sub_score
-          h2.amount = score.display_amount
-          .date =score.display_date
-        .col-sm-7
-          p.lead =score.reason
-          -if score.user
-            small By #{score.user.name}
-            .break
-        .col-sm-1
-          =link_to :Edit, edit_score_path(score), :class=>'btn btn-sm btn-primary' if is_admin?
+          p We will accomplish the above by doing the following:
+          / Sub Goals...
+          .noprint.expand_collapse
+            = (params["expand_all"]) ? link_to("Collapse all", @goal) : link_to("Expand all", "?expand_all=1")
+          == render partial: 'shared/sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
+      .col-sm-3
+        == render 'big_goal_meta'

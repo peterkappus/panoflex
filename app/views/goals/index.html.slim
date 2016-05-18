@@ -1,4 +1,6 @@
 = render 'breadcrumb'
+- grid_view = (session[:goals_view] == 'grid')
+
 .row.padded-row
   .col-sm-8.signage
     h1 What will GDS do this year?
@@ -36,16 +38,23 @@
       = link_to goals_path(:format=>:csv) do
         span.glyphicon.glyphicon-download> aria-hidden="true"
         ' Download CSV
-    /
-      .nav.nav-tabs
-        li.active role="presentation"
-          a href="?goals_view=grid" Grid view
-        li
-          a href="?goals_view=list" List view
-.row
-  .col-sm-10
-    .noprint.expand_collapse
-      = (params["expand_all"]) ? link_to("Collapse all", goals_path) : link_to("Expand all", "?expand_all=1")
+    .nav.nav-tabs style="margin-bottom: 2rem"
+      li class="#{grid_view ? '' : 'active'}"
+        a href="?goals_view=list" List view
+      li class="#{grid_view ? 'active' : ''}" role="presentation"
+        a href="?goals_view=grid" Grid view
+    -if !grid_view
+      .noprint.pull-right
+        -if (params["expand_all"])
+          = link_to goals_path do
+            span.glyphicon.glyphicon-menu-up> aria-hidden="true"
+            ' Collapse all
+        -else
+          = link_to "?expand_all=1" do
+            span.glyphicon.glyphicon-menu-down> aria-hidden="true"
+            ' Expand all
+      .clear
+        br
 - Group.all.each do |group|
   .row
     .col-sm-10
@@ -63,7 +72,7 @@
                 =link_to "New Goal",new_goal_path(group_id: group.id), {class: "button"}
   .row
     .col-sm-10
-      -if session[:goals_view] == 'grid'
+      -if grid_view
         == render group.top_level_goals
       -else
         == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}

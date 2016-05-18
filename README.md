@@ -21,14 +21,20 @@ This project is being developed within the Delivery Operations team at GDS which
 - Content Design
 
 
-## Setup
+## Setup & Hosting
 
-This app is setup to run on Heroku. To run it locally, you *MUST* copy the `sample.env.txt` file to `.env` and customise it for environment(s).
+This app runs on Heroku. To run it locally, you *MUST* copy the `sample.env.txt` file to `.env` and customise it for your local environment. You'll need to setup your app with the (Google developer console)[https://console.developers.google.com] and add the appropriate white-listed callbacks (e.g. http://localhost:5000/auth/google_oauth2/callback)
 
 To start the server use
 `$ heroku local`
 
 It also has a `Procfile` which you probably won't need to touch.
+
+TIP: Need to backup your heroku database before deploying?
+```
+$ heroku pg:backups capture
+$ curl -o latest.dump `heroku pg:backups public-url`
+```
 
 ### Data loading
 

@@ -36,7 +36,7 @@ Scenario: Can't make updates as a non-owner non-admin
   And I create a goal named "Do something" with the owner email "dave@test.com" belonging to the group called "Digital"
   When I sign in as a non-admin named "Joe" with the email "joe@wherever.com"
   And I click "Do something"
-  Then I should see "Dave" within ".owner"
+  Then I should see "Dave" within ".big_goal_meta"
   Then I should NOT see "Report progress" within "a"
   And I should NOT see "Edit" within "a"
   And I should NOT see "Remove" within "a"
@@ -60,7 +60,7 @@ Scenario: create a sub-goal and be the owner
   Then I should see "Dave" within ".filter-option"
   When I fill in "goal[name]" with "A sub-goal by Dave"
   And I click "Create Goal"
-  Then I should see "Dave" within ".owner"
+  Then I should see "Dave" within ".big_goal_meta"
   And I should see "A sub-goal by Dave"
 
 Scenario: Let me make updates against goals I own.
