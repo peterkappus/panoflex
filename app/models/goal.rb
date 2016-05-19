@@ -7,9 +7,9 @@ class Goal < ActiveRecord::Base
   belongs_to :group
   #belongs_to :user #call them an "owner" not a 'user' for clarity
   belongs_to :owner, :class_name=>"User", :foreign_key=>"user_id"
-  belongs_to :sdp_parent, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
+  #belongs_to :sdp_parent, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :children, -> { order('earliest_start_date')}, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
-  has_many :sdp_children, -> { order('earliest_start_date')}, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
+  #has_many :sdp_children, -> { order('earliest_start_date')}, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
 
@@ -30,11 +30,6 @@ class Goal < ActiveRecord::Base
   # GDS goals must NOT belong to a group or a team
   # team goals must have a parent goal which belongs to a group
   scope :gds_goals, -> {where("parent_id is null")}
-
-  #is this goal an SDP goal?
-  def is_sdp?
-    sdp_id?
-  end
 
   #convenience wrapper for end_date
   #TODO: rename deadline to end date in schema and everywhere else.

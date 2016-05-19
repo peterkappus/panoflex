@@ -24,7 +24,7 @@ This project is being developed within the Delivery Operations team at GDS which
 ## Setup & Hosting
 
 ### Running locally
-This app runs on Heroku. To run it locally, you *MUST* copy the `sample.env.txt` file to `.env` and customise it for your local environment. You'll need to setup your app with the (Google developer console)[https://console.developers.google.com] and add the appropriate white-listed callbacks (e.g. http://localhost:5000/auth/google_oauth2/callback)
+This app runs on Heroku. To run it locally, you *MUST* copy the `sample.env.txt` file to `.env` and customise it for your local environment. You'll need to setup your app with the [Google developer console](https://console.developers.google.com) and add the appropriate white-listed callbacks (e.g. http://localhost:5000/auth/google_oauth2/callback)
 
 To start the server use
 `$ heroku local`
@@ -40,11 +40,18 @@ It also has a `Procfile` which you probably won't need to touch.
  - Set up your environment variables taken from your `.env` file.
 
  TIP: Need to backup your heroku database before deploying?
+
  ```
- $ heroku pg:backups capture
- $ curl -o latest.dump `heroku pg:backups public-url`
+ $ heroku pg:backups capture --app APPNAME
  ```
 
+ You can save it locally if you want:
+
+ ```
+ $ curl -o latest.dump `heroku pg:backups public-url --app APPNAME`
+ ```
+
+  Read more about [postgres backups](https://devcenter.heroku.com/articles/heroku-postgres-backups)  including how to restore.
 
 ## Testing
 
@@ -53,7 +60,7 @@ This app attempts to use BDD principles as much as possible. It still needs prop
 ### Running cucumber
 `$ bundle exec cucumber`
 
-Or only run @wip tests:
+Or only run @wip (work in progress) tests:
 
 `$ bundle exec cucumber:wip`
 
