@@ -23,9 +23,7 @@
                   p =score.reason
                   -if score.user
                     small By #{score.user.name}
-                    .break
-                .col-sm-1
-                  =link_to :Edit, edit_score_path(score), :class=>'btn btn-sm btn-primary' if is_admin?
+                  p =link_to :Edit, edit_score_path(score) if is_admin?
         - unless @goal.children.empty?
           h2 Sub Goals
           - if @goal.children.count > 5
