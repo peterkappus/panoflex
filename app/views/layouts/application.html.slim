@@ -62,10 +62,6 @@
               .alert.alert-warning
                 h2 NOTE: This site has moved to <a href="http://gdsdelivery.herokuapp.com">http://gdsdelivery.herokuapp.com</a>. Please update your bookmarks.
       = yield
-      .pull-right.noprint
-        - if signed_in?
-            small Signed in as #{current_user.name}
-            br
-            =link_to 'Sign out', signout_path
-      .clear
+- content_for :footer_top do
+  p Signed in as #{current_user.name} (#{link_to 'Sign out', signout_path})
 = render template: "layouts/govuk_template"

@@ -27,3 +27,5 @@
           .goal_controls
             - if(@goal.children.empty?)
               = link_to 'Remove', @goal, method: :delete, data: { confirm: 'Are you sure? This will also delete any updates (scores) applied to this goal. This cannot be undone.' }, class: "button danger"
+        br
+        .hint Edited #{@goal.updated_at.strftime("%d %h %Y at %H:%M")}

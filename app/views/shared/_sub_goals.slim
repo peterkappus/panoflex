@@ -26,7 +26,7 @@ ol.nice_list.goals
 
         .smaller
           =pluralize(sub_goal.children.count,"Subgoal") unless sub_goal.children.empty? || params["expand_all"]
-      .col-xs-1.sub_score
+      .col-sm-1.sub_score
           .noprint
             h3.amount = link_to sub_goal.display_amount, sub_goal
             .date = sub_goal.current_display_date

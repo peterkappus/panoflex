@@ -8,7 +8,7 @@
         - if (@goal.children.count == 0)
           h2 Delivery Status
           - if can_modify? @goal
-            =link_to "Report progress", new_goal_score_path(@goal), :class=>"button"
+            =link_to "Report progress", new_goal_score_path(@goal), :class=>"button", :style=>"margin-bottom: 2rem"
           - if(@goal.scores.empty?)
               br
               p.lead No updates yet.
