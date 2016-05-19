@@ -1,6 +1,6 @@
 # Panoflex
 
-This is a loosely connected set of tracking and reporting tools that facilitate running a large organisation like GDS. E.g. roles, vacancies, communities, non-people costs, teams, groups, and goals.
+### This is a goal-setting and tracking tool to show what GDS is working on and how well it's delivering.
 
 ## Status
 
@@ -8,21 +8,22 @@ The tool is currently used to show progress against linked goals and how those g
 
 Due to privacy concerns and the need to accredit the host, the financial planning and people piece has been paused.
 
-OKR data is currently held in a Google Sheet  and periodically imported. This is currently a safer/easier place to keep the data and allow GDS teams to collaborate. As this tool gets more mature, we should maintain the data only in the tool and move away from Google Sheets.
-
 ## Please get involved! :)
 
 This project is being developed within the Delivery Operations team at GDS which has no dedicated tech resource. We need help from people who understand:
-- Rails Development
+- Back-end (Rails) development
+- Front-end development
 - The GOV.UK stack & suite of libraries, tools, and best practices.
 - Web Ops
 - User Research
+- Service Design
 - Visual Design
 - Content Design
 
 
 ## Setup & Hosting
 
+### Running locally
 This app runs on Heroku. To run it locally, you *MUST* copy the `sample.env.txt` file to `.env` and customise it for your local environment. You'll need to setup your app with the (Google developer console)[https://console.developers.google.com] and add the appropriate white-listed callbacks (e.g. http://localhost:5000/auth/google_oauth2/callback)
 
 To start the server use
@@ -30,45 +31,41 @@ To start the server use
 
 It also has a `Procfile` which you probably won't need to touch.
 
-TIP: Need to backup your heroku database before deploying?
-```
-$ heroku pg:backups capture
-$ curl -o latest.dump `heroku pg:backups public-url`
-```
 
-### Data loading
+### Deploying to heroku
 
-You'll probably want to import some goals from a spreadsheet that looks like this (TODO: include link). This will create the teams and groups and some initial goals. There's currently no easy way to access the group/team creation UI.
+ - Set up a heroku account (or use an existing one)
+ - Create a new app
+ - Decide if you want to point it at your own fork of the app, a particular release, or branch, or the HEAD. For production instances, it's recommended you point it to the latest stable release.
+ - Set up your environment variables taken from your `.env` file.
+
+ TIP: Need to backup your heroku database before deploying?
+ ```
+ $ heroku pg:backups capture
+ $ curl -o latest.dump `heroku pg:backups public-url`
+ ```
+
 
 ## Testing
 
-TODO: write unit tests. Meanwhile, use Cucumber to do end-to-end testing. To make cucumber run for this app, here's what I have to do (after installing all the gems, etc).
+This app attempts to use BDD principles as much as possible. It still needs proper unit tests but in the meantime, all new functionality should be covered by integration tests. To make cucumber run for this app, here's what I have to do (after installing all the gems, etc).
 
 ### Running cucumber
 `$ bundle exec cucumber`
 
-Remember, you can tag tests and decide which ones to run:
-E.g. exclude tests tagged with @wip (work in progress):
-
-`$ cucumber --tags ~@wip`
-
 Or only run @wip tests:
 
-`$ cucumber --tags @wip`
+`$ bundle exec cucumber:wip`
 
 
 ## The Backlog
 
 ### Do next
-- Hide scores & scoring functionality (make scores optional)
 - Add ability to report progress at all levels.
-- When reporting, add requirement to select a status:
-  - Not Started (default)
-  - On-track
-  - Off-track
-  - Significant Delay/Issue
-  - Delivered
-- Implement new "box-based" UI (see Lucy F's mockup)
+- Add ability to flag a goal as belonging to the SDP
+- Ability to show only SDP goals
+- Hide scores & scoring functionality (make scores optional)
+- When reporting, add requirement to select a status:, Not Started (default), On-track, Off-track, Significant Delay/Issue, Delivered- Implement new "box-based" UI (see Lucy F's mockup)
 - When viewing a goal, make it more obvious which is the "current" score and which are "previous" scores
 - Add name of person who created score in export
 - Disallow entering a deadline before the start_date (use validates_date gem?)
