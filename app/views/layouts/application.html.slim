@@ -25,7 +25,6 @@
             li =link_to "About", about_path
             -if is_admin?
               li =link_to "Manage users", users_path
-            li =link_to 'Sign out', signout_path
 - content_for :body_end
   - if(ENV['GOOGLE_ANALYTICS_ID'].present?)
     javascript:
@@ -48,6 +47,12 @@
             p
               strong.phase-tag PRE-ALPHA
               span This is a proof of concept only. Goals are in DRAFT. Your <a href="https://docs.google.com/document/d/1oR76UEjYT0DWFPk0wZVDaJxtAy5UevM2mIvoNmcZDCw/edit" target="_blank">feedback</a> will help us to improve.
+          - if signed_in?
+            .row.account_info
+              .col-md-12
+                .pull-right
+                  span #{current_user.name}: #{link_to 'Sign out', signout_path}
+
           .inner-block
             - flash.each do |name, msg|
               = content_tag :div, class: "alert alert-#{ name == "error" ? "danger" : "success" } alert-dismissable", role: "alert" do
@@ -62,6 +67,4 @@
               .alert.alert-warning
                 h2 NOTE: This site has moved to <a href="http://gdsdelivery.herokuapp.com">http://gdsdelivery.herokuapp.com</a>. Please update your bookmarks.
       = yield
-- content_for :footer_top do
-  p Signed in as #{current_user.name} (#{link_to 'Sign out', signout_path})
 = render template: "layouts/govuk_template"

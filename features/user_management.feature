@@ -5,7 +5,7 @@ Scenario: Sign in as an admin and see "Manage Users", then sign out
   Then I should see "Successfully signed in"
   And I should see "Manage users"
 
-  When I click "Sign out" within "nav"
+  When I click "Sign out"
   Then I should see "Successfully signed out"
 
 Scenario: Sign in as a non-admin and DO NOT see "Manage Users"
