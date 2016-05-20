@@ -54,7 +54,7 @@ javascript:
       .form-hint The owner is responsible for making progress updates against this goal.
   -if is_admin?
     .form-group
-      = f.label "SDP?", class: "col-sm-2 control-label"
+      = f.label :sdp, "In the SDP?", class: "col-sm-2 control-label"
       .col-sm-10
         = f.check_box :sdp, class: "form-control"
         .form-hint Is this goal referenced in the Single Departmental Plan?

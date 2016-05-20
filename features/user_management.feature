@@ -84,4 +84,5 @@ Scenario: Don't let me report progress against goals I don't own.
 
 @wip
 Scenario: Click a user name and see goals that they own.
-  Given I create a new non-admin user named "Eloise"
+  Given "Ellie" has the email "ellie@whatever.com"
+  And "ellie@whatever.com" has 20 goals.
