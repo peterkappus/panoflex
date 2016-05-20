@@ -45,6 +45,9 @@ It also has a `Procfile` which you probably won't need to touch.
  $ heroku pg:backups capture --app APPNAME
  ```
 
+ Want daily backups?
+ ` heroku pg:backups schedule DATABASE_URL --at '02:00 Europe/London' --app APPNAME`
+ 
  You can save it locally if you want:
 
  ```
