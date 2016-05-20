@@ -39,7 +39,7 @@ a name="by_group"
       = link_to goals_path(:format=>:csv) do
         span.glyphicon.glyphicon-download> aria-hidden="true"
         ' Download CSV
-    .nav.nav-tabs style="margin-bottom: 2rem"
+    .nav.nav-tabs style="margin-bottom: 2.5rem"
       li class="#{grid_view ? '' : 'active'}"
         a href="?goals_view=list" List view
       li class="#{grid_view ? 'active' : ''}" role="presentation"
@@ -57,20 +57,18 @@ a name="by_group"
       .clear
         br
 - Group.all.each do |group|
-  .row
+  .row style="margin-bottom: 2rem"
     .col-sm-10
-      .well.group_well
-        .row
-          .col-sm-6
-            .print_only
-              small =display_date(Time.now)
-            h2 =link_to group.name + " Group", group
-            .group-meta Budget: £#{group.budget_in_millions}m
-            .group-meta Headcount: #{group.headcount}
-          .col-sm-3.pull-right
-            -if (is_admin?)
-              .noprint
-                =link_to "New Goal",new_goal_path(group_id: group.id), {class: "button"}
+      .col-xs-9
+        .print_only
+          small =display_date(Time.now)
+        h2 =link_to group.name + " Group", group
+        .group-meta Budget: £#{group.budget_in_millions}m
+        .group-meta Headcount: #{group.headcount}
+      -if (is_admin?)
+        .col-xs-3
+          .noprint.pull-right style="margin-top: 4.2rem"
+            =link_to "New Goal",new_goal_path(group_id: group.id), {class: "button"}
   .row
     .col-sm-10
       -if grid_view

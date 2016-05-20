@@ -1,13 +1,14 @@
 .row
   .col-md-12
     h3.noprint =link_to :Groups, groups_path
-    .pull-right
+    .print_only.pull-right
       small As of #{display_date(Time.now)}
     h3 2016/17 Goals
     div style="clear:both"
-    .pull-right =link_to "Edit Group", edit_group_path(@group) if is_admin?
-    h1.heading-xlarge =@group.name + " Group"
+    h1 =@group.name + " Group"
     h4 £#{@group.budget_in_millions}m - #{@group.headcount} people - #{@group.goals.count} goals
+    -if is_admin?
+      =link_to "Edit Group", edit_group_path(@group)
 
 .row
   .col-md-12

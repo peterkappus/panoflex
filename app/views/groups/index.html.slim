@@ -1,15 +1,7 @@
-.page-header
-  /
-    = link_to new_group_path, class: 'btn btn-primary' do
-      span.glyphicon.glyphicon-plus
-      |  New Group
-  h1 GDS Groups & Teams
-  /h3 =link_to Goal.count.to_s + ' Goals', goals_path
-  /
-    h3 #{Role.count} Roles
-    h3 #{Role.pluck(:title).uniq.count} Unique Job Titles
-    h3 #{Role.pluck(:staff_number).uniq.count} Unique staff numbers
-    h3 =link_to Role.vacant.count.to_s + " Vacancies", roles_path(filter_vacant: true)
+.row
+  .col-md-8
+    h1 GDS Groups & Teams
+    p.lede Below are the various business groups and teams (along with their annual budget and expected year-end headcount) who will be delivering these goals.
 .row
   - Group.all.order(:name).each do |group|
     .col-xs-6
