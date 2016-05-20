@@ -13,7 +13,7 @@
           p =link_to @goal.get_team.name, @goal.get_team
         - if (@goal.group)
           h4 Business group
-          p =link_to @goal.group.name + " Group", @goal.group
+          p =link_to @goal.group.name, @goal.group
         h4 Delivery dates
         p =@goal.display_date_range
         -if can_modify? @goal

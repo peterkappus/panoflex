@@ -1,4 +1,4 @@
-Feature: Allow and manage different types of users: admins, goal owners, and non-owners.
+Feature: Allow and manage different types of users: admins, goal owners, and non-owners. Show user info.
 
 Scenario: Sign in as an admin and see "Manage Users", then sign out
   Given I sign in as an admin named "Jim" with the email "jim@wherever.com"
@@ -81,3 +81,7 @@ Scenario: Don't let me report progress against goals I don't own.
   And I sign in using the email "anna@test.com"
   When I click on "Something Jane is doing."
   Then I should NOT see "Report progress"
+
+@wip
+Scenario: Click a user name and see goals that they own.
+  Given I create a new non-admin user named "Eloise"
