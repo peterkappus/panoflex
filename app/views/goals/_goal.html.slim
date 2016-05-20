@@ -2,5 +2,8 @@
 div class="col-sm-#{12/cols} subgoal-box"
   h3 =goal_counter+1
   p =link_to goal.name, goal
+  /.tiny_status.pull-right ON TRACK
+  -if goal.owner
+    .hint =goal.owner.name
 -if((goal_counter+1) % cols == 0)
   .row
