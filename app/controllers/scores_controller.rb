@@ -3,11 +3,16 @@ class ScoresController < ApplicationController
   #before_action :set_goal, only: [:new, :create, :index, :show, :edit, :update, :destroy]
   #before_action :check_admin, only: [:new, :edit, :create, :update, :destroy]
 
+  #TODO: Refactor and merge these together... they're so similar.
+  #can the user see the "new" action?
   before_action only: [:new] do
+    #are they the owner of the goal or an admin?
     is_admin? || Goal.find(params[:goal_id]).owner == current_user
   end
 
+  #can the user save a new score?
   before_action only: [:create] do
+    #are they they owner of the goal or an admin?
      is_admin? || Goal.find(params[:score][:goal_id]).owner == current_user
   end
 

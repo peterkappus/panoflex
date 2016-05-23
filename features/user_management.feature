@@ -69,8 +69,9 @@ Scenario: Let me make updates against goals I own.
   And I sign in using the email "sara@test.com"
   When I click on "Something Sara is doing."
   And I click on "Report progress"
-  And I fill in "score[amount]" with "30"
-  And I fill in "score[reason]" with "This is the reason why I'm giving this a score of 30%"
+  #Amounts are currently hidden
+  #And I fill in "score[amount]" with "30"
+  And I fill in "score[reason]" with "This is my reason"
   And I click "Create Score"
   Then I should see "successfully"
 
@@ -84,5 +85,5 @@ Scenario: Don't let me report progress against goals I don't own.
 
 @wip
 Scenario: Click a user name and see goals that they own.
-  Given "Ellie" has the email "ellie@whatever.com"
-  And "ellie@whatever.com" has 20 goals.
+  #Given "Ellie" has the email "ellie@whatever.com"
+  #And "ellie@whatever.com" has 20 goals.

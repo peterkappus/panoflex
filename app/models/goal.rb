@@ -75,7 +75,7 @@ class Goal < ActiveRecord::Base
       score_amount = children.map{|c| c.calculated_amount}.inject(:+).to_f / children.count
     end
     #save!
-    score_amount #dumb, but I need to return this value. Not the "true" from the save above
+    #score_amount #dumb, but I need to return this value. Not the "true" from the save above
   end
 
   def display_amount

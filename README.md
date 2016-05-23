@@ -47,7 +47,7 @@ It also has a `Procfile` which you probably won't need to touch.
 
  Want daily backups?
  ` heroku pg:backups schedule DATABASE_URL --at '02:00 Europe/London' --app APPNAME`
- 
+
  You can save it locally if you want:
 
  ```
@@ -71,8 +71,9 @@ Or only run @wip (work in progress) tests:
 ## The Backlog
 
 ### Do next
+- Capture monthly (or weekly?) local backups
 - Add ability to report progress at all levels.
-- Add ability to flag a goal as belonging to the SDP
+- Add ability to flag a goal as belonging to the SDP (+ tests)
 - Ability to show only SDP goals
 - Hide scores & scoring functionality (make scores optional)
 - When reporting, add requirement to select a status:, Not Started (default), On-track, Off-track, Significant Delay/Issue, Delivered- Implement new "box-based" UI (see Lucy F's mockup)

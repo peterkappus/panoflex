@@ -1,8 +1,9 @@
 .big_goal_meta
-        .big_score
-          .smaller Current delivery:
-          .amount = @goal.display_amount
-          .date = @goal.current_display_date
+        /
+          .big_score
+            .smaller Current delivery:
+            .amount = @goal.display_amount
+            .date = @goal.current_display_date
         h4 Owner
         - if (@goal.owner.present?)
           p =@goal.owner.name
