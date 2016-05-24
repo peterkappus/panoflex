@@ -9,12 +9,14 @@
         h3.heading-medium Latest report
         - if(@goal.scores.empty?)
           p No updates yet.
-        - else
-          / Only show the latest update
+        - else #only show current score
           .row
-            .col-sm-12
+            .col-sm-3
+              .tiny_status class="#{@latest_score.status}"
+                b = @latest_score.status.humanize.capitalize
+            .col-sm-9
               p =@latest_score.reason
-              .hint  =time_ago_in_words(@latest_score.created_at).humanize + "ago."
+              .hint  =time_ago_in_words(@latest_score.created_at).humanize
               .small =@latest_score.user.name
               - if is_admin?
                 .small
@@ -31,8 +33,10 @@
 
           p We will accomplish the above by doing the following:
           / Sub Goals...
-          .noprint.expand_collapse
+          /
+            .noprint.expand_collapse
             = (params["expand_all"]) ? link_to("Collapse all", @goal) : link_to("Expand all", "?expand_all=1")
-          == render partial: 'shared/sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
+          /== render partial: 'shared/sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
+          == render @goal.children
       .col-sm-3
         == render 'big_goal_meta'

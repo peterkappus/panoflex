@@ -2,6 +2,9 @@
 div class="col-sm-#{12/cols} subgoal-box"
   h3 =goal_counter+1
   p =link_to goal.name, goal
+  .pull-right.tiny_status
+    div class="#{goal.status}"
+      = goal.status.humanize.capitalize
   /.tiny_status.pull-right ON TRACK
   -if goal.owner
     .owner =goal.owner.name

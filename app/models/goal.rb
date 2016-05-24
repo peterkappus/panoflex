@@ -122,6 +122,10 @@ class Goal < ActiveRecord::Base
     scores.first
   end
 
+  def status
+    score.present? ? score.status : Score.new(status: :not_started).status
+  end
+
 =begin
   def owner_name
       (owner) ? owner.name : "" # + " " + owner.class.name : ""

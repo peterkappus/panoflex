@@ -1,3 +1,5 @@
+@import 'colours'
+
 .big_goal_meta
   h4
     font-weight: bold
@@ -5,7 +7,38 @@
     margin-bottom: 0.3rem
 
 .tiny_status
-  background: #090
   color: #FFF
-  padding: 3px 4px 0
+  padding: 3px 4px
   margin: 3px
+  text-align: center
+  div
+    color: #fff
+    padding: 3px 8px
+
+.big_status
+  color: #fff
+  padding: 4rem
+  h3
+    color: #fff
+    text-align: center
+    margin: 3px 0 0 0
+.not_started
+  background: $grey_1
+.on_track
+  background: $green
+.off_track
+  background: $yellow
+.significant_delay
+  background: $red
+.delivered
+  background: $light-blue
+
+label
+  .on_track
+    border-left: 2px solid $green
+  .off_track
+    border-left: 2px solid $yellow
+  .significant_delay
+    border-left: 2px solid  $red
+  .delivered
+    border-left: 2px solid $light-blue

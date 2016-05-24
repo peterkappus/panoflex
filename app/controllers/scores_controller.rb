@@ -1,7 +1,7 @@
 class ScoresController < ApplicationController
   before_action :set_score, only: [:show, :edit, :update, :destroy]
   #before_action :set_goal, only: [:new, :create, :index, :show, :edit, :update, :destroy]
-  #before_action :check_admin, only: [:new, :edit, :create, :update, :destroy]
+  before_action :check_admin, only: [:edit, :update, :destroy]
 
   #TODO: Refactor and merge these together... they're so similar.
   #can the user see the "new" action?
@@ -104,11 +104,11 @@ class ScoresController < ApplicationController
     #def set_goal
     #  @goal = Goal.find(params[:goal_id]) if params[:goal_id]
     #  || @score.goal
-      #raise "Goal not found!"
+    #  raise "Goal not found!"
     #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def score_params
-      params.require(:score).permit(:amount, :reason, :goal_id)
+      params.require(:score).permit(:amount, :status, :reason, :goal_id)
     end
 end

@@ -1,5 +1,4 @@
 = render 'breadcrumb'
-- grid_view = (session[:goals_view] == 'grid')
 
 .row.padded-row
   .col-sm-8.signage
@@ -44,11 +43,11 @@ a name="by_group"
         span.glyphicon.glyphicon-download> aria-hidden="true"
         ' Download CSV
     .nav.nav-tabs style="margin-bottom: 2.5rem"
-      li class="#{grid_view ? '' : 'active'}"
-        a href="?goals_view=list" List view
-      li class="#{grid_view ? 'active' : ''}" role="presentation"
-        a href="?goals_view=grid" Grid view
-    -if !grid_view
+      li class="#{session[:goals_view] == 'list' ? '' : 'active'}" role="presentation"
+        a href="?view=grid" Grid view
+      li class="#{session[:goals_view] == 'list' ? 'active' : ''}" role="presentation"
+        a href="?view=list" List view
+    -if session[:goals_view] == 'list'
       .noprint.pull-right
         -if (params["expand_all"])
           = link_to goals_path do
@@ -72,13 +71,13 @@ a name="by_group"
       -if (is_admin?)
         .col-xs-3
           .noprint.pull-right style="margin-top: 4.2rem"
-            =link_to "New Goal",new_goal_path(group_id: group.id), {class: "button"}
+            =link_to "Create new goal for this group",new_goal_path(group_id: group.id)
   .row
     .col-sm-10
-      -if grid_view
-        == render group.top_level_goals
-      -else
+      - if(session[:goals_view] == 'list')
         == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
+      - else
+        == render group.top_level_goals
 
     .page-break
 

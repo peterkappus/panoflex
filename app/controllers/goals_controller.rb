@@ -15,7 +15,7 @@ class GoalsController < ApplicationController
   # GET /goals
   # GET /goals.json
   def index
-    session['goals_view'] = params[:goals_view]
+    session['goals_view'] = params[:view] if params[:view].present?
 
     @goals = Goal.all
     #Goal.gds_goals

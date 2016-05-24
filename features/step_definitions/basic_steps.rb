@@ -98,14 +98,18 @@ When(/^I click (?:on )?"([^"]+?)"$/) do |text|
 	#click_on link_to_click
 	#for some reason the regular click_on didn't find AngularJS generated links.
 	#the custom "find_first_link" method works...
-	node = find_first_link(text) || find_button(text)
-  raise "Link not found" unless node.present?
+	node = find_first_link(text) || first("label",text: text) || find_button(text)
+  raise "Element not found" unless node.present?
 	node.click
 end
 
 #click a checkbox
 When(/^I tick the box "([^"]+?)"$/) do |box_id|
   check box_id
+end
+
+When(/^I choose the radio button "([^"]+?)"$/) do |button_id|
+  choose button_id
 end
 
 

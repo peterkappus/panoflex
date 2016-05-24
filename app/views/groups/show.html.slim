@@ -28,7 +28,8 @@
     -if (is_admin?)
       .noprint
         =link_to "New Goal",new_goal_path(group:@group), {class: "button"}
-    == render :partial=>"shared/sub_goals", :locals=>{sub_goals: @group.top_level_goals}
+    //== render :partial=>"shared/sub_goals", :locals=>{sub_goals: @group.top_level_goals}
+    ==render @group.top_level_goals
   /
     .col-md-6
       h2 Staff

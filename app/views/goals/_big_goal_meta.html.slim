@@ -1,33 +1,37 @@
 .big_goal_meta
-        /
-          .big_score
-            .smaller Current delivery:
-            .amount = @goal.display_amount
-            .date = @goal.current_display_date
-        h4 Owner
-        - if (@goal.owner.present?)
-          p =@goal.owner.name
-        -else
-          p style="color: #f00" This goal needs an owner. #{link_to "(Assign one now)", edit_goal_path if (can_modify? @goal)}
-        - if (@goal.get_team)
-          h4 Delivery team
-          p =link_to @goal.get_team.name, @goal.get_team
-        - if (@goal.group)
-          h4 Business group
-          p =link_to @goal.group.name, @goal.group
-        h4 Delivery dates
-        p =@goal.display_date_range
-        -if can_modify? @goal
-          h3 Actions
-          .goal_controls
-            =link_to "Update status", new_goal_score_path(@goal), :class=>"button"
-          .goal_controls
-            = link_to "Edit goal", edit_goal_path, class: "button btn-primary btn-sm"
-          .goal_controls
-            = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "button"
+  /
+    .big_score
+      .smaller Current delivery:
+      .amount = @goal.display_amount
+      .date = @goal.current_display_date
+  h4 Current Status
+  .big_status class="#{@goal.status}"
+    h3 =@goal.status.humanize.capitalize
 
-          .goal_controls
-            - if(@goal.children.empty?)
-              = link_to 'Remove', @goal, method: :delete, data: { confirm: 'Are you sure? This will also delete any updates (scores) applied to this goal. This cannot be undone.' }, class: "button danger"
-        br
-        .hint Edited #{@goal.updated_at.strftime("%d %h %Y at %H:%M")}
+  h4 Owner
+  - if (@goal.owner.present?)
+    p =@goal.owner.name
+  -else
+    p style="color: #f00" This goal needs an owner. #{link_to "(Assign one now)", edit_goal_path if (can_modify? @goal)}
+  - if (@goal.get_team)
+    h4 Delivery team
+    p =link_to @goal.get_team.name, @goal.get_team
+  - if (@goal.group)
+    h4 Business group
+    p =link_to @goal.group.name, @goal.group
+  h4 Delivery dates
+  p =@goal.display_date_range
+  -if can_modify? @goal
+    h3 Actions
+    .goal_controls
+      =link_to "Update status", new_goal_score_path(@goal), :class=>"button"
+    .goal_controls
+      = link_to "Edit goal", edit_goal_path, class: "button btn-primary btn-sm"
+    .goal_controls
+      = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "button"
+
+    .goal_controls
+      - if(@goal.children.empty?)
+        = link_to 'Remove', @goal, method: :delete, data: { confirm: 'Are you sure? This will also delete any updates (scores) applied to this goal. This cannot be undone.' }, class: "button danger"
+  br
+  .hint Edited #{@goal.updated_at.strftime("%d %h %Y at %H:%M")}

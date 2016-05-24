@@ -17,6 +17,7 @@ Feature: Import goals, look around, see header/footer, etc.
 
   Scenario: Import goals and look around
 		When I import new goals
+		And I click on "List view"
 		And I click "Expand all"
 		Then I should see "bendy straws"
     When I click "Groups and Teams"
@@ -38,10 +39,11 @@ Feature: Import goals, look around, see header/footer, etc.
 		Then I should see "Newly created test goal"
 		When I create a sub-goal called "Sub goal 1"
 		#we should've been redirected to the parent goal and see our sub-goal in the sub-goal list
-		Then I should see "Sub goal 1" within "ol.goals"
+		Then I should see "Sub goal 1"
 		#one more time... (is this necessary?)
 		When I create a sub-goal called "Sub goal 2"
-		Then I should see "Sub goal 2" within "ol.goals"
+		Then I should see "Sub goal 2"
+		And I should see "Sub goal 1"
 
 	@javascript
 	Scenario: Don't let me assign a goal to a team & group which don't match.

@@ -1,8 +1,12 @@
 class Score < ActiveRecord::Base
+  enum status: [:not_started, :on_track, :off_track, :significant_delay, :delivered ]
+
   belongs_to :goal
   belongs_to :user
   validates_presence_of :goal
   validates_presence_of :reason
+  validates_presence_of :status
+
   #validates_presence_of :amount
   #validates :amount, numericality: { only_integer: true}
   after_save -> {goal.calculate_scores}
