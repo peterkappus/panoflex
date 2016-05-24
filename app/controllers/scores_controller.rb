@@ -43,16 +43,10 @@ class ScoresController < ApplicationController
       redirect_to root_path
     end
 
-    #if this goal has children, bail out (we can only add scores to childless goals)
-    if @goal.children.count > 0
-      flash[:error] = "Direct scores can only be given to goals without children. Goal #{@goal.id} has #{@goal.children.count} children."
-      redirect_to @goal
-    else
-      #otherwise... we're good to go...
-      @score = Score.new
-      @score.goal = @goal #use the goal_id passed in...
-      #if we tried to find a goal to attach this score to but couldn't find it, bail out.
-    end
+    #otherwise... we're good to go...
+    @score = Score.new
+    @score.goal = @goal #use the goal_id passed in...
+    #if we tried to find a goal to attach this score to but couldn't find it, bail out.
   end
 
   # GET /scores/1/edit

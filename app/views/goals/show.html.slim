@@ -1,31 +1,29 @@
 = render 'breadcrumb'
-
+- @previous_scores = @goal.scores.to_a
+- @latest_score = @previous_scores.shift
 .row
   .col-sm-12
     .row
       .col-sm-9
-        h1 = @goal.name
-        - if (@goal.children.count == 0)
-          h2 Latest report
-          - if can_modify? @goal
-            =link_to "Report progress", new_goal_score_path(@goal), :class=>"button", :style=>"margin-bottom: 2rem"
-          - if(@goal.scores.empty?)
-              br
-              p.lead No updates yet.
-              .hint Goal owners can provide updates on a goal's progress at any time by giving a score between 0 and 100% and a brief narrative to explain the current scoring.
-          - else
-            - @goal.scores.each do |score|
-              .row
-                .col-sm-3.sub_score
-                  //h2.amount = score.display_amount
-                  .date =score.display_date
-                .col-sm-9
-                  p =score.reason
-                  -if score.user
-                    small By #{score.user.name}
-                  p =link_to :Edit, edit_score_path(score) if is_admin?
+        h2 = @goal.name
+        h3.heading-medium Latest report
+        - if(@goal.scores.empty?)
+          p No updates yet.
+        - else
+          / Only show the latest update
+          .row
+            .col-sm-12
+              p =@latest_score.reason
+              .hint  =time_ago_in_words(@latest_score.created_at).humanize + "ago."
+              .small =@latest_score.user.name
+              - if is_admin?
+                .small
+                  = link_to :Edit, edit_score_path(@latest_score)
+
+
+
         - unless @goal.children.empty?
-          h2 Sub-goals
+          h3 Sub-goals
           - if @goal.children.count > 5
             .alert.alert-warning.alert-dismissable
               strong> NOTE:

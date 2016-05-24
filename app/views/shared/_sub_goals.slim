@@ -11,7 +11,7 @@ ol.nice_list.goals
       .col-sm-1
         li
       div class="col-sm-#{9-depth}"
-        h4 =link_to sub_goal.name, sub_goal
+        p =link_to sub_goal.name, sub_goal
         .smaller
             -if(sub_goal.get_team)
               =link_to sub_goal.get_team.name, sub_goal.get_team

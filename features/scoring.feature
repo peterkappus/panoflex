@@ -5,15 +5,26 @@ Scenario: Make some updates, check the export contains the score(s)
   When I click "Some big goal"
   And I click on "A sub-goal of the first goal"
   And I click on "Bitty Thing A"
-  And I click on "Report progress"
+  And I click on "Update status"
   #hiding scores for now
   Then I should NOT see "Amount"
   #And I fill in "score_amount" with "22"
-  And I fill in "score_reason" with "My reason"
+  And I fill in "score_reason" with "The earliest update"
   And I click "Create Score"
   #We've now hidden completion percentages for now..
   Then I should NOT see "22%"
-  Then I should see "My reason"
+  Then I should see "The earliest update"
+  #TODO: When we allow showing previous updates. For now we only show the latest
+  #And I should NOT see "View previous updates"
+  #When I click on "Update status"
+  #And I fill in "score_reason" with "A later update"
+  #And I click "Create Score"
+  #Then I should see "A later update"
+  #And I should NOT see "My earlier update"
+  #When I click on "View previous updates"
+  #Then I should see "The earliest update"
+  #And I should see "A later update"
+
   # OBSOLETE. We're not doing score roll-up anymore, but leaving this in case we need to bring it back.
   #  When I click on "Vision"
   #  Then I should see "11%"

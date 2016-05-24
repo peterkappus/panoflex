@@ -37,7 +37,7 @@ Scenario: Can't make updates as a non-owner non-admin
   When I sign in as a non-admin named "Joe" with the email "joe@wherever.com"
   And I click "Do something"
   Then I should see "Dave" within ".big_goal_meta"
-  Then I should NOT see "Report progress" within "a"
+  Then I should NOT see "Update status" within "a"
   And I should NOT see "Edit" within "a"
   And I should NOT see "Remove" within "a"
   And I should NOT see "Create sub-goal" within "a"
@@ -45,7 +45,7 @@ Scenario: Can't make updates as a non-owner non-admin
   Given I click "Sign out"
   And I sign in as a non-admin named "Dave" with the email "dave@test.com"
   And I click "Do something"
-  Then I should see "Report progress" within "a"
+  Then I should see "Update status" within "a"
   And I should see "Edit" within "a"
   And I should see "Remove" within "a"
   And I should see "Create sub-goal" within "a"
@@ -68,14 +68,14 @@ Scenario: Let me make updates against goals I own.
   And I create a goal named "Something Sara is doing." with the owner email "sara@test.com" belonging to the group called "Digital"
   And I sign in using the email "sara@test.com"
   When I click on "Something Sara is doing."
-  And I click on "Report progress"
+  And I click on "Update status"
   #Amounts are currently hidden
   #And I fill in "score[amount]" with "30"
   And I fill in "score[reason]" with "This is my reason"
   And I click "Create Score"
   Then I should see "successfully"
 
-Scenario: Don't let me report progress against goals I don't own.
+Scenario: Don't let me update the status of goals I don't own.
   Given I create a new non-admin named "Jane" with the email "jane@test.com"
   And I create a new non-admin named "Anna" with the email "anna@test.com"
   And I create a goal named "Something Jane is doing." with the owner email "jane@test.com" belonging to the group called "Digital"
@@ -83,7 +83,6 @@ Scenario: Don't let me report progress against goals I don't own.
   When I click on "Something Jane is doing."
   Then I should NOT see "Report progress"
 
-@wip
 Scenario: Click a user name and see goals that they own.
   #Given "Ellie" has the email "ellie@whatever.com"
   #And "ellie@whatever.com" has 20 goals.

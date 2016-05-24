@@ -99,9 +99,15 @@ When(/^I click (?:on )?"([^"]+?)"$/) do |text|
 	#for some reason the regular click_on didn't find AngularJS generated links.
 	#the custom "find_first_link" method works...
 	node = find_first_link(text) || find_button(text)
+  raise "Link not found" unless node.present?
 	node.click
-
 end
+
+#click a checkbox
+When(/^I tick the box "([^"]+?)"$/) do |box_id|
+  check box_id
+end
+
 
 #click on button or link within a selector
 When(/^I click on link "([^"]+?)" number (\d+) within "([^"]+?)"$/) do |text, number, css_selector|

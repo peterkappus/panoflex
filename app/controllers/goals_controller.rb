@@ -67,6 +67,11 @@ class GoalsController < ApplicationController
   def edit
   end
 
+  # GET /goals/sdp
+  def sdp
+    @goals = Goal.where(sdp: true)
+  end
+
   # POST /goals
   # POST /goals.json
   def create

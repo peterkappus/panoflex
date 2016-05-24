@@ -20,8 +20,9 @@
         -if can_modify? @goal
           h3 Actions
           .goal_controls
+            =link_to "Update status", new_goal_score_path(@goal), :class=>"button"
+          .goal_controls
             = link_to "Edit goal", edit_goal_path, class: "button btn-primary btn-sm"
-            | &nbsp;
           .goal_controls
             = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "button"
 
