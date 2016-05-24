@@ -1,6 +1,4 @@
 = render 'breadcrumb'
-- @previous_scores = @goal.scores.to_a
-- @latest_score = @previous_scores.shift
 .row
   .col-sm-12
     .row
@@ -12,15 +10,15 @@
         - else #only show current score
           .row
             .col-sm-3
-              .tiny_status class="#{@latest_score.status}"
-                b = @latest_score.status.humanize.capitalize
+              .tiny_status class="#{@goal.score.status}"
+                b = @goal.score.status.humanize.capitalize
             .col-sm-9
-              p =@latest_score.reason
-              .hint  =time_ago_in_words(@latest_score.created_at).humanize
-              .small =@latest_score.user.name
+              p =@goal.score.reason
+              .hint  =time_ago_in_words(@goal.score.created_at).humanize
+              .small =@goal.score.user.name
               - if is_admin?
                 .small
-                  = link_to :Edit, edit_score_path(@latest_score)
+                  = link_to :Edit, edit_score_path(@goal.score)
 
 
 
