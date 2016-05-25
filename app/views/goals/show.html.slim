@@ -11,7 +11,7 @@
         /p=link_to "Add report", new_goal_score_path(@goal)
         - if(@goal.scores.empty?)
           p
-            | No updates yet.
+            | No updates yet. 
             - if(can_modify? @goal)
               =link_to "Add a report.", new_goal_score_path(@goal)
         - else #only show current score
