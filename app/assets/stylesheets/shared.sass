@@ -260,6 +260,10 @@ h2.score
     display: inline
   h3
     padding-right: 1rem
+    font-size: 3rem
+  p
+    display: block
+    margin: 15px 0 10px 0
 
 .status-box
   margin-top: 2rem
@@ -270,3 +274,20 @@ h2.score
   width: 100%
   text-align: center
   color: $white
+
+.vision
+  ol
+    counter-reset: item
+    list-style-type: none
+    display: table
+    li
+      display: inline-table
+      margin-bottom: 10px
+    li:before
+      content: counter(item) "  "
+      counter-increment: item
+      display: table-cell
+      padding-right: 1.5rem
+      text-align: right
+      font-size: 3rem
+      @extend .heading-medium

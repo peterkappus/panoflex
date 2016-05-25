@@ -1,14 +1,17 @@
 - cols = 2
 div class="col-sm-#{12/cols} subgoal-box"
-  h3 =goal_counter+1
-  p =link_to goal.name, goal
-  .pull-right.tiny_status
-    div class="#{goal.status}"
-      = goal.status.humanize.capitalize
-  /.tiny_status.pull-right ON TRACK
-  -if goal.owner
-    .owner =goal.owner.name
-  .owner Due: #{goal.latest_end_date.strftime("%h %Y")}
-  .smaller =pluralize(goal.children.count,"Subgoal") unless goal.children.empty?
+  .row
+    .col-xs-1
+      h3 =goal_counter+1
+    .col-xs-11
+      .tiny_status
+        div class="#{goal.status}"
+          = goal.status.humanize.capitalize
+      p =link_to goal.name, goal
+      -if goal.owner
+        .owner =goal.owner.name
+      .owner Due: #{goal.latest_end_date.strftime("%h %Y")}
+      .smaller =pluralize(goal.children.count,"Subgoal") unless goal.children.empty?
+    /.tiny_status.pull-right ON TRACK
 -if((goal_counter+1) % cols == 0)
   .row

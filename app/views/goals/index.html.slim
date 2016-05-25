@@ -19,24 +19,26 @@
       b We want to help departments work together to transform government to meet user needs.
     /Previously:
     /Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
-.row.padded-row
+.row.padded-row.vision
   .col-sm-8
     h2 To achieve this vision we will
-    ol.nice_list
-      li
-        .col-md-11 Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
-      li
-        .col-md-11 Create, run and continuously improve the platforms and tools that make it simple for government to build, iterate and retire services.
-      li
-        .col-md-11 Lead the digital, data and technology function so that government has the skills and capability it needs to transform itself.
-      li
-        .col-md-11 Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great examples within the sector.
+    ol.list.list-number
+      li Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
+      li Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
+      li Create, run and continuously improve the platforms and tools that make it simple for government to build, iterate and retire services.
+      li Lead the digital, data and technology function so that government has the skills and capability it needs to transform itself.
+      li Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great examples within the sector.
+
+
+
+
+
 
 .page-break
 
 a name="by_group"
 .row.padded-row
-  .col-sm-10
+  .col-sm-12
     h2 Goals by Business Group
     .pull-right.noprint
       = link_to goals_path(:format=>:csv) do
@@ -61,19 +63,19 @@ a name="by_group"
         br
 - Group.all.each do |group|
   .row style="margin-bottom: 2rem"
-    .col-sm-10
-      .col-xs-9
+    .col-sm-12
+      .col-xs-8
         .print_only
           small =display_date(Time.now)
         h2 =link_to group.name + " Group", group
         .group-meta Budget: £#{group.budget_in_millions}m
         .group-meta Headcount: #{group.headcount}
       -if (is_admin?)
-        .col-xs-3
-          .noprint.pull-right style="margin-top: 4.2rem"
+        .col-xs-4
+          .noprint.pull-right style="margin-top: 10rem"
             =link_to "Create new goal for this group",new_goal_path(group_id: group.id)
   .row
-    .col-sm-10
+    .col-sm-12
       - if(session[:goals_view] == 'list')
         == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
       - else

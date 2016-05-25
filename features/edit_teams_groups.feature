@@ -14,3 +14,12 @@ Scenario: Edit Group names
   And I fill in "group_headcount" with "99"
   And I click "Update Group"
   Then I should see "99"
+
+@wip
+Scenario: Create a new team
+  Given I sign in as an admin named "Lisa" with the email "lisa@blah.com"
+  When I click on "Groups and Teams"
+  And I click on "New team"
+  And I fill in "team[name]" with "My cool new team"
+  And I debug
+  And I click "Create Team"

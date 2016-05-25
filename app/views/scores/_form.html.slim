@@ -34,11 +34,6 @@
               input id="radio-inline-#{key}" type="radio" name="score[status]" value="#{key}" checked="checked" #{key.humanize.capitalize}
             -else
               input id="radio-inline-#{key}" type="radio" name="score[status]" value="#{key}" #{key.humanize.capitalize}
-
-
-      .form-hint The owner is responsible for making progress updates against this goal.
-      .form-hint Please indicate how this goal is progressing. If you are indicating that the goal is off-track, please ensure you provide detail in the narrative below.
-
   .form-group
     = f.label :Narrative, class: "col-sm-2 control-label"
     .col-sm-10

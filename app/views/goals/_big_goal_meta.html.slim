@@ -19,8 +19,9 @@
   - if (@goal.group)
     h4 Business group
     p =link_to @goal.group.name, @goal.group
-  h4 Delivery dates
+  h4 Date range
   p =@goal.display_date_range
+
   -if can_modify? @goal
     h3 Actions
     .goal_controls

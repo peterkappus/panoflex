@@ -3,15 +3,23 @@
   .col-sm-12
     .row
       .col-sm-9
+        - if(@goal.parent.present?)
+          small Contributes to: #{link_to "#{truncate(@goal.parent.name,length: 60)}", @goal.parent}
         h2 = @goal.name
-        h3.heading-medium Latest report
+        small Due: #{@goal.latest_end_date.strftime("%h %Y")}
+        h3 Latest update
+        /p=link_to "Add report", new_goal_score_path(@goal)
         - if(@goal.scores.empty?)
-          p No updates yet.
+          p
+            | No updates yet.
+            - if(can_modify? @goal)
+              =link_to "Add a report.", new_goal_score_path(@goal)
         - else #only show current score
           .row
             .col-sm-3
-              .tiny_status class="#{@goal.score.status}"
-                b = @goal.score.status.humanize.capitalize
+              .tiny_status
+                div class="#{@goal.score.status}"
+                  b = @goal.score.status.humanize.capitalize
             .col-sm-9
               p =@goal.score.reason
               .hint  =time_ago_in_words(@goal.score.created_at).humanize
@@ -23,18 +31,21 @@
 
 
         - unless @goal.children.empty?
-          h3 Sub-goals
-          - if @goal.children.count > 5
-            .alert.alert-warning.alert-dismissable
-              strong> NOTE:
-              | This goal has #{@goal.children.count} sub-goals. Consolidating to five or fewer will improve focus and simplify tracking.
+          .row
+            .col-sm-12
+              h3 Sub-goals
+              - if @goal.children.count > 5
+                .alert.alert-warning.alert-dismissable
+                  strong> NOTE:
+                  | This goal has #{@goal.children.count} sub-goals. Consolidating to five or fewer will improve focus and simplify tracking.
 
-          p We will accomplish the above by doing the following:
-          / Sub Goals...
-          /
-            .noprint.expand_collapse
-            = (params["expand_all"]) ? link_to("Collapse all", @goal) : link_to("Expand all", "?expand_all=1")
-          /== render partial: 'shared/sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
-          == render @goal.children
+              p We will accomplish the above by doing the following:
+          .row
+            / Sub Goals...
+            /
+              .noprint.expand_collapse
+              = (params["expand_all"]) ? link_to("Collapse all", @goal) : link_to("Expand all", "?expand_all=1")
+            /== render partial: 'shared/sub_goals', locals: {sub_goals: @goal.children, goal:@goal} unless @goal.children.empty?
+            == render @goal.children
       .col-sm-3
         == render 'big_goal_meta'
