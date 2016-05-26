@@ -72,7 +72,7 @@ Scenario: Let me make updates against goals I own.
   #Amounts are currently hidden
   #And I fill in "score[amount]" with "30"
   And I fill in "score[reason]" with "This is my reason"
-  And I click "Create Score"
+  And I click "Save"
   Then I should see "successfully"
 
 Scenario: Don't let me update the status of goals I don't own.

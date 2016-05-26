@@ -3,33 +3,46 @@
   .col-sm-12
     .row
       .col-sm-9
-        - if(@goal.parent.present?)
-          small Contributes to: #{link_to "#{truncate(@goal.parent.name,length: 60)}", @goal.parent}
-        h2 = @goal.name
-        small Due: #{@goal.latest_end_date.strftime("%h %Y")}
-        h3 Latest update
-        /p=link_to "Add report", new_goal_score_path(@goal)
-        - if(@goal.scores.empty?)
-          p
-            | No updates yet. 
-            - if(can_modify? @goal)
-              =link_to "Add a report.", new_goal_score_path(@goal)
-        - else #only show current score
-          .row
-            .col-sm-3
-              .tiny_status
-                div class="#{@goal.score.status}"
-                  b = @goal.score.status.humanize.capitalize
-            .col-sm-9
-              p =@goal.score.reason
-              .hint  =time_ago_in_words(@goal.score.created_at).humanize
-              .small =@goal.score.user.name
-              - if is_admin?
-                .small
-                  = link_to :Edit, edit_score_path(@goal.score)
-
-
-
+        .row
+          .col-sm-12
+            /- if(@goal.parent.present?)
+            /  small Contributes to: #{link_to "#{truncate(@goal.parent.name,length: 60)}", @goal.parent}
+            h2 = @goal.name
+            - if (@goal.owner.present?)
+              b =@goal.owner.name
+            -else
+              p style="color: #f00" This goal needs an owner. #{link_to "(Assign one now)", edit_goal_path if (can_modify? @goal)}
+            ul.list-inline
+              li
+                .small Due: #{@goal.latest_end_date.strftime("%h %Y")}
+              li
+                -if @goal.group.present?
+                  .small Group: #{link_to @goal.group.name, @goal.group}
+              li
+                -if @goal.get_team.present?
+                  .small Team: #{link_to @goal.get_team.name, @goal.get_team}
+        .row
+          .col-sm-12
+            h3 Latest update
+            /p=link_to "Add report", new_goal_score_path(@goal)
+            - if(@goal.scores.empty?)
+              p
+                | No updates yet. &nbsp;
+                - if(can_modify? @goal)
+                  =link_to "Update status.", new_goal_score_path(@goal)
+            - else #only show current score
+              .row
+                .col-sm-3
+                  .tiny_status
+                    div class="#{@goal.score.status}"
+                      b = @goal.score.status.humanize.capitalize
+                .col-sm-9
+                  p =@goal.score.reason
+                  .hint  =time_ago_in_words(@goal.score.created_at).humanize
+                  .small =@goal.score.user.name
+                  - if is_admin?
+                    .small
+                      = link_to :Edit, edit_score_path(@goal.score)
         - unless @goal.children.empty?
           .row
             .col-sm-12

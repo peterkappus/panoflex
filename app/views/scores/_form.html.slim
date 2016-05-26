@@ -1,3 +1,4 @@
+= render 'goals/breadcrumb'
 = form_for(@score, html: { class: "form-horizontal", role: "form" }) do |f|
   - if @score.errors.any?
     .alert.alert-danger.alert-dismissable role="alert"
@@ -12,9 +13,18 @@
           li= msg
   - if @goal
     .form-group
-      = f.label "Key Result", class: "col-sm-2 control-label"
+      = f.label "Goal", class: "col-sm-2 control-label"
       .col-sm-10
         h2 style="margin-top: 0" = @score.goal.name
+    .form-group
+      = f.label "Group", class: "col-sm-2 control-label"
+      .col-sm-10
+        p  = @score.goal.group.name
+    -if(@score.goal.team.present?)
+      .form-group
+        = f.label "Team", class: "col-sm-2 control-label"
+        .col-sm-10
+          p = @score.goal.team.name
   /.form-group
     = f.label :amount, class: "col-sm-2 control-label"
     .col-sm-10
@@ -43,6 +53,6 @@
       =f.hidden_field :goal_id, :value=>@score.goal.id
   .form-group
     .col-sm-offset-2.col-sm-10
-      = f.submit class: "button"
+      = f.submit class: "button", value: "Save"
       .cancel
         =link_to :Back, goal_path(@score.goal)

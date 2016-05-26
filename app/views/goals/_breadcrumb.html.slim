@@ -1,10 +1,11 @@
-ol.breadcrumb.noprint
-  li =link_to "Top-level GDS Objectives", goals_path
-  - if @goal
-    - g = @goal
-    - ancestors = []
-    - while(g.parent) do
-      - ancestors.unshift g.parent
-      - g = g.parent
-    - ancestors.each do |ancestor|
-      li =link_to truncate(ancestor.name, length: 50), ancestor
+.breadcrumbs
+  ol
+    li =link_to "Home", goals_path
+    - if @goal
+      - g = @goal
+      - ancestors = []
+      - while(g.parent) do
+        - ancestors.unshift g.parent
+        - g = g.parent
+      - ancestors.each do |ancestor|
+        li =link_to truncate(ancestor.name, length: 40), ancestor, {:title=>ancestor.name}
