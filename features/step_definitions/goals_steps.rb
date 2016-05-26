@@ -12,7 +12,7 @@ end
 
 When(/^I create a new goal called "([^"]*)"$/) do |goal_text|
   steps %Q{
-    And I click on "New Goal"
+    And I click on "Create a new goal"
     And I fill in "goal_name" with "#{goal_text}"
     And I click "Create Goal"
   }

@@ -1,14 +1,19 @@
 .row
-  .col-md-12
+  .col-md-6
     h3.noprint =link_to :Groups, groups_path
     .print_only.pull-right
       small As of #{display_date(Time.now)}
     h3 2016/17 Goals
     div style="clear:both"
-    h1 =@group.name + " Group"
+    h1 style="margin-bottom: 1rem" =@group.name + " Group"
     h4 £#{@group.budget_in_millions}m - #{@group.headcount} people - #{@group.goals.count} goals
     -if is_admin?
       =link_to "Edit Group", edit_group_path(@group)
+  .col-md-6
+
+
+    / uncomment when ready to show pie
+    /#chart_div
 
 .row
   .col-md-12
@@ -21,14 +26,15 @@
 
 .row
   .col-md-12
+  -if (is_admin?)
+    .noprint.pull-right
+      =link_to "Create a new goal for this group",new_goal_path(group:@group)
     h2 Goals (#{@group.top_level_goals.count})
     .noprint
-      = (params["expand_all"]) ? link_to("Collapse all", group_path(@group)) : link_to("Expand all", "?expand_all=1")
+      /= (params["expand_all"]) ? link_to("Collapse all", group_path(@group)) : link_to("Expand all", "?expand_all=1")
     /smaller #{@group.goals.count} total
-    -if (is_admin?)
-      .noprint
-        =link_to "New Goal",new_goal_path(group:@group), {class: "button"}
     //== render :partial=>"shared/sub_goals", :locals=>{sub_goals: @group.top_level_goals}
+    .clear
     ==render @group.top_level_goals
   /
     .col-md-6
