@@ -37,48 +37,48 @@
 
 a name="by_group"
 .row.padded-row
-  .col-sm-12
+  .col-sm-6
     h2 Goals by Business Group
-    .pull-right.noprint
+  .col-sm-6
+    .noprint.pull-right style="margin-top: 5rem"
       = link_to goals_path(:format=>:csv) do
         span.glyphicon.glyphicon-download> aria-hidden="true"
         ' Download CSV
-    .nav.nav-tabs.noprint style="margin-bottom: 2.5rem"
+      ' &nbsp;
+      -if (params["expand_all"])
+        = link_to goals_path do
+          span.glyphicon.glyphicon-menu-up> aria-hidden="true"
+          ' Collapse
+      -else
+        = link_to "?expand_all=1" do
+          span.glyphicon.glyphicon-menu-down> aria-hidden="true"
+          ' View all
+    /.nav.nav-tabs.noprint style="margin-bottom: 2.5rem"
       li class="#{session[:goals_view] == 'list' ? '' : 'active'}" role="presentation"
         a href="?view=grid" Grid view
       li class="#{session[:goals_view] == 'list' ? 'active' : ''}" role="presentation"
         a href="?view=list" List view
-    -if session[:goals_view] == 'list'
-      .noprint.pull-right
-        -if (params["expand_all"])
-          = link_to goals_path do
-            span.glyphicon.glyphicon-menu-up> aria-hidden="true"
-            ' Collapse all
-        -else
-          = link_to "?expand_all=1" do
-            span.glyphicon.glyphicon-menu-down> aria-hidden="true"
-            ' Expand all
-      .clear
-        br
 - Group.all.each do |group|
   .row style="margin-bottom: 2rem"
     .col-sm-12
-      .col-xs-8
-        /.print_only
-        /  small =display_date(Time.now)
-        h2 =link_to group.name + " Group", group
-        /.group-meta Budget: £#{group.budget_in_millions}m
-        /.group-meta Headcount: #{group.headcount}
-      -if (is_admin?)
-        .col-xs-4
-          .noprint.pull-right style="margin-top: 10rem"
-            =link_to "Create new goal for this group",new_goal_path(group_id: group.id)
+      .row
+        .col-xs-8
+          /.print_only
+          /  small =display_date(Time.now)
+          h2 =link_to group.name + " Group", group
+          /.group-meta Budget: £#{group.budget_in_millions}m
+          /.group-meta Headcount: #{group.headcount}
+        -if (is_admin?)
+          .col-xs-4
+            .noprint.pull-right style="margin-top: 6rem"
+              =link_to "Create new goal for this group",new_goal_path(group_id: group.id)
   .row
     .col-sm-12
-      - if(session[:goals_view] == 'list')
+      - if(params["expand_all"])
         == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
       - else
-        == render group.top_level_goals
+        .row
+          == render group.top_level_goals
     .page-break
 
 / Now that we have real data and cannot yet import scores, we need to disable goal importing unless we have zero goals.

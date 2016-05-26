@@ -18,8 +18,8 @@ Feature: Import goals, look around, see header/footer, etc.
 
   Scenario: Import goals and look around
 		When I import new goals
-		And I click on "List view"
-		And I click "Expand all"
+		#And I click on "List view"
+		And I click "View all"
 		Then I should see "bendy straws"
     When I click "Groups and Teams"
     Then I should see "Team A"
