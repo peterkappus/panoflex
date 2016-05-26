@@ -35,7 +35,8 @@
     /smaller #{@group.goals.count} total
     //== render :partial=>"shared/sub_goals", :locals=>{sub_goals: @group.top_level_goals}
     .clear
-    ==render @group.top_level_goals
+    .row
+      ==render @group.top_level_goals
   /
     .col-md-6
       h2 Staff

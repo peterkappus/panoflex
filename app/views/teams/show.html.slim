@@ -13,7 +13,8 @@
     /= (params["expand_all"]) ? link_to("Collapse all", team_path(@team)) : link_to("Expand all", "?expand_all=1")
     //== render :partial=>"shared/sub_goals", :locals=>{sub_goals: @team.goals}
     //== render :partial=>"shared/sub_goals", :locals=>{sub_goals: Goal.all.reject{|goal| goal.parent.get_team == goal.get_team}}
-    == render @team.goals
+    .row
+      == render @team.goals
 
 
 /Someday, we'll show people info
