@@ -26,15 +26,10 @@
 
 .row
   .col-md-12
-  -if (is_admin?)
-    .noprint.pull-right
-      =link_to "Create a new goal for this group",new_goal_path(group:@group)
+    -if (is_admin?)
+      .noprint.pull-right
+        =link_to "Create a new goal for this group",new_goal_path(group:@group)
     h2 Goals (#{@group.top_level_goals.count})
-    .noprint
-      /= (params["expand_all"]) ? link_to("Collapse all", group_path(@group)) : link_to("Expand all", "?expand_all=1")
-    /smaller #{@group.goals.count} total
-    //== render :partial=>"shared/sub_goals", :locals=>{sub_goals: @group.top_level_goals}
-    .clear
     .row
       ==render @group.top_level_goals
   /
