@@ -1,4 +1,5 @@
-= render 'breadcrumb'
+.noprint
+  = render 'breadcrumb'
 
 .row.padded-row
   .col-sm-8.signage
@@ -7,7 +8,6 @@
       summary
         span.summary Where did these goals come from?
       .panel.panel-border-wide These goals and milestones have been developed with the group project management offices (PMOs) using the latest business plans. Are they still right? We need your help to ensure they reflect what we're really doing (and have done). Please give feedback to your group PMO. #{link_to "Learn more.",about_path, :class=>'noprint'}
-    .page-break
   .col-sm-4.noprint
     aside.related
       h3 Single Departmental Plan
@@ -44,7 +44,7 @@ a name="by_group"
       = link_to goals_path(:format=>:csv) do
         span.glyphicon.glyphicon-download> aria-hidden="true"
         ' Download CSV
-    .nav.nav-tabs style="margin-bottom: 2.5rem"
+    .nav.nav-tabs.noprint style="margin-bottom: 2.5rem"
       li class="#{session[:goals_view] == 'list' ? '' : 'active'}" role="presentation"
         a href="?view=grid" Grid view
       li class="#{session[:goals_view] == 'list' ? 'active' : ''}" role="presentation"
@@ -65,11 +65,11 @@ a name="by_group"
   .row style="margin-bottom: 2rem"
     .col-sm-12
       .col-xs-8
-        .print_only
-          small =display_date(Time.now)
+        /.print_only
+        /  small =display_date(Time.now)
         h2 =link_to group.name + " Group", group
-        .group-meta Budget: £#{group.budget_in_millions}m
-        .group-meta Headcount: #{group.headcount}
+        /.group-meta Budget: £#{group.budget_in_millions}m
+        /.group-meta Headcount: #{group.headcount}
       -if (is_admin?)
         .col-xs-4
           .noprint.pull-right style="margin-top: 10rem"
@@ -80,7 +80,6 @@ a name="by_group"
         == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
       - else
         == render group.top_level_goals
-
     .page-break
 
 / Now that we have real data and cannot yet import scores, we need to disable goal importing unless we have zero goals.

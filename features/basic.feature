@@ -10,10 +10,11 @@ Feature: Import goals, look around, see header/footer, etc.
     Then I should see "Import successful"
     And I should see "Build a time machine"
 		And I should see "Operations"
+		#We've hidden headcount and budget since they're likely not right anymore
 		#headcount for operations
-		And I should see "83"
+		#And I should see "83"
 		#budget for Digital
-		And I should see "99.6m"
+		#And I should see "99.6m"
 
   Scenario: Import goals and look around
 		When I import new goals

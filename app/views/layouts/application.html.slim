@@ -48,7 +48,7 @@
               strong.phase-tag PRE-ALPHA
               span This is a proof of concept only. Goals are in DRAFT. Your <a href="https://docs.google.com/document/d/1oR76UEjYT0DWFPk0wZVDaJxtAy5UevM2mIvoNmcZDCw/edit" target="_blank">feedback</a> will help us to improve.
           - if signed_in?
-            .row.account_info
+            .row.account_info.noprint
               .col-md-12
                 .pull-right
                   span #{current_user.name}: #{link_to 'Sign out', signout_path}
