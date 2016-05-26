@@ -14,8 +14,6 @@ class GroupsController < ApplicationController
     @roles = @group.roles
     @roles = @roles.vacant unless(params[:filter_vacant].nil?)
     @roles = @roles.page(params[:page])
-    @status_pie = {}
-      
   end
 
   # GET /groups/new

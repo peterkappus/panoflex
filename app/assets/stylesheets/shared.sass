@@ -65,14 +65,14 @@
     text-decoration: none
   a::after
     content: none !important
-
   .page-break
     page-break-before: always
-
   ol.nice_list li::before
     text-align: left !important
     font-size: 20px !important
-
+  .subgoal-box
+    h3
+      margin-top: 11px
 
 
 @media screen
@@ -249,13 +249,11 @@ h2.score
   h3, p
     display: inline
   h3
-    padding-right: 1rem
     font-size: 3rem
-    display: block
-    margin-top: 3px
   p
     display: block
     margin: 15px 0 10px 0
+
 
 .status-box
   margin-top: 2rem
@@ -282,4 +280,5 @@ h2.score
       padding-right: 1.5rem
       text-align: right
       font-size: 3rem
+      min-width: 40px
       @extend .heading-medium

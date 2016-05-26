@@ -2,8 +2,8 @@
 div class="col-sm-#{12/cols} subgoal-box"
   .row
     .col-xs-1
-      h3 =goal_counter+1
-    .col-xs-11
+      h3  =goal_counter+1
+    .col-xs-11.goal
       .tiny_status
         div class="#{goal.status}"
           = goal.status.humanize.capitalize
