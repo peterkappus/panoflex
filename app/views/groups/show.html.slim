@@ -9,20 +9,39 @@
     h4 £#{@group.budget_in_millions}m - #{@group.headcount} people - #{@group.goals.count} goals
     -if is_admin?
       =link_to "Edit Group", edit_group_path(@group)
-  .col-md-6
-
-
-    / uncomment when ready to show pie
-    /#chart_div
-
-.row
-  .col-md-12
     h2 Teams
     ul.biglist
       - @group.teams.each do |team|
         li
           => link_to team.name, team
           small ="(" + team.goals.count.to_s + ")"
+  .col-md-6
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    javascript:
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Goal', 'Status'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
+
+        var options = {
+          title: 'Goals by status',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
+
+    / uncomment when ready to show pie
+    /#donutchart style="width: 450px; height: 400px"
 
 .row
   .col-md-12

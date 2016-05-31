@@ -21,7 +21,8 @@
     p =link_to @goal.group.name, @goal.group
   h4 Date range
   p =@goal.display_date_range
-
+  h4 Referenced in Single Departmental Plan
+  p =link_to @goal.sdp ? "Yes" : "No",sdp_goals_path
   -if can_modify? @goal
     h3 Actions
     .goal_controls

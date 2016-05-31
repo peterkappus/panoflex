@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524104829) do
+ActiveRecord::Schema.define(version: 20160527175530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 20160524104829) do
     t.integer  "team_id"
     t.integer  "group_id"
     t.integer  "parent_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.date     "deadline"
     t.date     "start_date"
     t.integer  "user_id"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20160524104829) do
     t.date     "earliest_start_date"
     t.date     "latest_end_date"
     t.boolean  "sdp"
+    t.integer  "status",              default: 0
   end
 
   add_index "goals", ["group_id"], name: "index_goals_on_group_id", using: :btree

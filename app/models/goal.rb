@@ -1,4 +1,6 @@
 class Goal < ActiveRecord::Base
+  enum status: [:not_started, :on_track, :off_track, :significant_delay, :delivered ]
+
   validates_presence_of :name#, :start_date, :deadline
   #validates :team, inclusion: { in: group.teams}
   validates_with TeamGroupValidator
@@ -89,10 +91,11 @@ class Goal < ActiveRecord::Base
   end
 
   def update_calculations
-    #console.lognote
     #update the dates of the ancestors
     calculate_dates
-    calculate_scores
+
+    #not doing this anymore...
+    #calculate_scores
   end
 
   def calculate_scores
@@ -122,9 +125,9 @@ class Goal < ActiveRecord::Base
     scores.first
   end
 
-  def status
-    score.present? ? score.status : Score.new(status: :not_started).status
-  end
+  #def status
+  #  score.present? ? score.status : Score.new(status: :not_started).status
+  #end
 
 =begin
   def owner_name
