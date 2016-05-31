@@ -23,11 +23,11 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Goal', 'Status'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
+          ["Not started",     #{@group.goals.where(status: 0).count}],
+          ["On track",     #{@group.goals.where(status: 1).count}],
+          ['Off track',     #{@group.goals.where(status: 2).count}],
+          ['Major Delay',     #{@group.goals.where(status: 3).count}],
+          ['Delivered',     #{@group.goals.where(status: 4).count}]
         ]);
 
         var options = {
@@ -41,7 +41,7 @@
     </script>
 
     / uncomment when ready to show pie
-    /#donutchart style="width: 450px; height: 400px"
+    #donutchart style="width: 450px; height: 400px"
 
 .row
   .col-md-12

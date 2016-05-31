@@ -1,7 +1,7 @@
 .row
   .col-md-8
     h1 GDS Groups & Teams
-    p.lede Below are the various business groups and teams (along with their annual budget and expected year-end headcount) who will be delivering these goals.
+    p.lede Below are the various business groups and teams who will be delivering these goals. Groups are ordered by descending budget size.
 .row
   - counter = 0
   - Group.all.order(:name).each do |group|

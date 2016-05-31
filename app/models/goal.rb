@@ -163,8 +163,11 @@ class Goal < ActiveRecord::Base
   end
 
   def find_earliest_start_date
-    #TODO: add a column to cache this in the model
     if(children.empty?)
+      if(start_date.nil?)
+        #if we have no children, copy the earliest_start_date to our start date
+        update_column(:start_date, earliest_start_date)
+      end
       start_date
     else
       children.map{|c| c.find_earliest_start_date}.min
@@ -173,6 +176,10 @@ class Goal < ActiveRecord::Base
 
   def find_latest_end_date
     if(children.empty?)
+      if(start_date.nil?)
+        #if we have no children, copy from latest_end_date
+        update_column(:deadline, latest_end_date)
+      end
       deadline
     else
       children.map{|c| c.find_latest_end_date}.max
