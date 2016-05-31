@@ -3,23 +3,27 @@
     h1 GDS Groups & Teams
     p.lede Below are the various business groups and teams (along with their annual budget and expected year-end headcount) who will be delivering these goals.
 .row
+  - counter = 0
   - Group.all.order(:name).each do |group|
+    - counter += 1
     .col-xs-6
-        h2.heading-large =link_to group.name, group
-        p £#{group.budget_in_millions}m - #{group.headcount} people - #{group.goals.count} goals
-        /p #{pluralize group.goals.count, "Goal"} - #{group.goals_without_a_team.count} without a team
-        -if group.teams.count > 0
-          ul.biglist
-            - group.teams.each do |team|
-              li =link_to "#{team.name} (#{team.goals.count})", team
-            /li &nbsp;
-              li = pluralize group.roles.count, "Roles"
-              li #{group.unique_numbers.count} Unique People
-              li #{group.vacancies.count} vacant roles
-              - (group.vacancies.count/10).times do
-                .glyphicon.glyphicon-user
-              -if group.roles.count > 0
-                li #{group.vacancies.count*100/group.roles.count}% of roles vacant
+      h2.heading-large =link_to group.name, group
+      p £#{group.budget_in_millions}m - #{group.headcount} people - #{group.goals.count} goals
+      /p #{pluralize group.goals.count, "Goal"} - #{group.goals_without_a_team.count} without a team
+      -if group.teams.count > 0
+        ul.biglist
+          - group.teams.each do |team|
+            li =link_to "#{team.name} (#{team.goals.count})", team
+          /li &nbsp;
+            li = pluralize group.roles.count, "Roles"
+            li #{group.unique_numbers.count} Unique People
+            li #{group.vacancies.count} vacant roles
+            - (group.vacancies.count/10).times do
+              .glyphicon.glyphicon-user
+            -if group.roles.count > 0
+              li #{group.vacancies.count*100/group.roles.count}% of roles vacant
+    - if counter % 2 == 0
+      .row
 
 /
   .row
