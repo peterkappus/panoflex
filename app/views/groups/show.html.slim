@@ -3,7 +3,6 @@
     h3.noprint =link_to :Groups, groups_path
     .print_only.pull-right
       small As of #{display_date(Time.now)}
-    h3 2016/17 Goals
     div style="clear:both"
     h1 style="margin-bottom: 1rem" =@group.name + " Group"
     h4 £#{@group.budget_in_millions}m - #{@group.headcount} people - #{@group.goals.count} goals
@@ -16,32 +15,7 @@
           => link_to team.name, team
           small ="(" + team.goals.count.to_s + ")"
   .col-md-6
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    javascript:
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Goal', 'Status'],
-          ["Not started",     #{@group.goals.where(status: 0).count}],
-          ["On track",     #{@group.goals.where(status: 1).count}],
-          ['Off track',     #{@group.goals.where(status: 2).count}],
-          ['Major Delay',     #{@group.goals.where(status: 3).count}],
-          ['Delivered',     #{@group.goals.where(status: 4).count}]
-        ]);
-
-        var options = {
-          title: 'Goals by status',
-          pieHole: 0.4, colors: ['#6F777B','#006435','#FFBF47','#B10E1E','#005EA5']
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-        chart.draw(data, options);
-      }
-    </script>
-
-    / uncomment when ready to show pie
-    #donutchart style="width: 450px; height: 400px"
+    ==render partial: 'goals/pie_chart', locals: {goals: @group.goals}
 
 .row
   .col-md-12

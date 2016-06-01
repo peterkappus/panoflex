@@ -1,12 +1,17 @@
-h1 Single Departmental Plan
-p.lede These goals have been selected for reporting in the Single Departmental Plan
-
-- if(@goals.empty?)
-  .notice
-    i.icon.icon-important
-      .visuallyhidden Warning
-    strong.bold-small>
-      | No goals have been designated as belonging to the SDP.
-      =link_to "View all goals", goals_path
--else
-  == render @goals
+.row
+  .col-sm-6
+    h1 Single Departmental Plan
+    p.lede These goals have been selected for reporting in the Single Departmental Plan.
+  .col-sm-6
+    ==render partial: 'goals/pie_chart', locals: {goals: @goals}
+.row
+  .col-sm-12
+    - if(@goals.empty?)
+      .notice
+        i.icon.icon-important
+          .visuallyhidden Warning
+        strong.bold-small>
+          | No goals have been designated as belonging to the SDP.
+          =link_to "View all goals", goals_path
+    -else
+      == render @goals
