@@ -9,7 +9,7 @@
             /  small Contributes to: #{link_to "#{truncate(@goal.parent.name,length: 60)}", @goal.parent}
             h2 = @goal.name
             - if (@goal.owner.present?)
-              b =@goal.owner.name
+              b =link_to @goal.owner.name, @goal.owner
             -else
               p style="color: #f00" This goal needs an owner. #{link_to "(Assign one now)", edit_goal_path if (can_modify? @goal)}
             ul.list-inline
@@ -39,7 +39,7 @@
                 .col-sm-9
                   p =@goal.score.reason
                   .hint  =time_ago_in_words(@goal.score.created_at).humanize
-                  .small =@goal.score.user.name
+                  .small =link_to @goal.score.user.name, @goal.score.user
                   - if is_admin?
                     .small
                       = link_to :Edit, edit_score_path(@goal.score)
