@@ -1,22 +1,16 @@
-.page-header
-  = link_to users_path, class: 'btn btn-default' do 
-    span.glyphicon.glyphicon-list-alt
-    |  Back 
-  = link_to edit_user_path(@user), class: 'btn btn-primary' do 
-    span.glyphicon.glyphicon-pencil
-    |  Edit 
-  h1
-    | Show user
-dl.dl-horizontal
-  dt
-    | Name:
-  dd
-    = @user.name
-  dt
-    | Email:
-  dd
-    = @user.email
-  dt
-    | Admin:
-  dd
-    = @user.admin
+
+.row
+  .col-sm-6
+    h1 =@user.name
+    p.lede #{@user.name} is the designated owner of the goals below.
+  .col-sm-6
+    == render partial: 'goals/pie_chart', locals: {goals: @user.goals}
+.row
+  .col-sm-12
+    -if(@user.goals.empty?)
+      .notice
+        i.icon.icon-important
+          .visuallyhidden Warning
+        strong.bold-small>
+          | This person does not own any goals in this system.
+    ==render @user.goals

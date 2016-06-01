@@ -18,6 +18,6 @@ When(/^I create a new non\-admin named "([^"]*)" with the email "([^"]*)"$/) do 
   user = User.create!(:name=>name,:email=>email, :admin=>false)
 end
 
-When(/^I sign in using the email "([^"]*)"$/) do |email|
+When(/^I sign in (?:with|using)(?: the email) "([^"]*)"$/) do |email|
   visit signin_path(email: email)
 end

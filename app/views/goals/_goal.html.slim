@@ -9,7 +9,7 @@ div class="col-sm-#{12/cols} subgoal-box"
           = goal.status.humanize.capitalize
       p =link_to goal.name, goal
       -if goal.owner
-        .owner =goal.owner.name
+        .owner =link_to goal.owner.name, goal.owner
       .owner #{goal.score.nil? ? "<span style='color:#900'>Never updated</span>".html_safe : "Updated " + time_ago_in_words(goal.score.created_at).humanize + " ago"}
       .owner Due: #{goal.latest_end_date.strftime("%h %Y")}
       .smaller =pluralize(goal.children.count,"Subgoal") unless goal.children.empty?

@@ -2,6 +2,13 @@
   .col-md-8
     h1 GDS Groups & Teams
     p.lede Below are the various business groups and teams who will be delivering these goals. Groups are ordered by descending budget size.
+  -if is_admin?
+    .col-md-4
+      .pull-right
+        br
+        br
+        br
+        =link_to "Create a new group", new_group_path
 .row
   - counter = 0
   - Group.all.order(:name).each do |group|

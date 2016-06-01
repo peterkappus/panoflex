@@ -15,11 +15,14 @@ Scenario: Edit Group names
   And I click "Update Group"
   Then I should see "99"
 
-@wip
-Scenario: Create a new team
+Scenario: Create a new group
   Given I sign in as an admin named "Lisa" with the email "lisa@blah.com"
   When I click on "Groups and Teams"
-  And I click on "New team"
-  And I fill in "team[name]" with "My cool new team"
-  And I debug
-  And I click "Create Team"
+  And I click on "Create a new group"
+  And I fill in "group[name]" with "My cool new group"
+  And I click "Create Group"
+
+Scenario: Don't see "new group" link as a non-admin
+  Given I sign in as a non-admin named "Lisa" with the email "lisa@blah.com"
+  When I click on "Groups and Teams"
+  Then I should NOT see "Create a new group"

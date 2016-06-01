@@ -10,7 +10,7 @@
 
   h4 Owner
   - if (@goal.owner.present?)
-    p =@goal.owner.name
+    p =link_to @goal.owner.name, @goal.owner
   -else
     p style="color: #f00" This goal needs an owner. #{link_to "(Assign one now)", edit_goal_path if (can_modify? @goal)}
   - if (@goal.get_team)

@@ -57,7 +57,7 @@
             .row.account_info.noprint
               .col-md-12
                 .pull-right
-                  span #{current_user.name}: #{link_to 'Sign out', signout_path}
+                  span #{link_to current_user.name, current_user}: #{link_to 'Sign out', signout_path}
 
           .inner-block
             - flash.each do |name, msg|
