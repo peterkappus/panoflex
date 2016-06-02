@@ -56,6 +56,9 @@ class TeamsController < ApplicationController
   # DELETE /teams/1
   # DELETE /teams/1.json
   def destroy
+    if(!@team.goals.empty?)
+      redirect_to @team, flash: {:error=> "Cannot delete a team that has goals. Please re-assign the goals first."}
+    end
     @team.destroy
     respond_to do |format|
       format.html { redirect_to teams_url, notice: 'Team was successfully destroyed.' }

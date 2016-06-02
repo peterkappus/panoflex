@@ -1,6 +1,14 @@
-.page-header
-  h4 Editing Group
-  h1 = @group.name
-  small =link_to "Back to groups", groups_path
-
-= render 'form'
+.row
+  .col-sm-12
+    h4 Editing Group
+    h1 = @group.name
+    small =link_to "Back to group", @group
+.row
+  = render 'form'
+.row
+  .col-sm-offset-2.col-sm-10
+    - if(@group.goals.empty?)
+      = link_to 'Delete this group', @group, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class: "danger"
+      .hint Note: this group can be safely deleted because it has no goals.
+    -else
+      .hint Note: this team cannot be deleted right now because it has #{@group.goals.count} goals.

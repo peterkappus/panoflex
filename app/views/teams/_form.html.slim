@@ -1,23 +1,26 @@
-= form_for(@team, html: { class: "form-horizontal", role: "form" }) do |f|
-  - if @team.errors.any?
-    .alert.alert-danger.alert-dismissable role="alert"
-      button.close type="button" data-dismiss="alert"
-        span aria-hidden="true"
-          | &times;
-        span.sr-only
-          | Close
-      h4= "#{pluralize(@team.errors.count,"error")} prohibited this team from being saved:"
-      ul
-        - @team.errors.full_messages.each do |msg|
-          li= msg
-  .form-group
-    = f.label :name, class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.text_field :name, class: "form-control"
-  .form-group
-    = f.label :group, class: "col-sm-2 control-label"
-    .col-sm-10
-      =collection_select :team, :group_id, Group.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
-  .form-group
-    .col-sm-offset-2.col-sm-10
-      = f.submit class: "btn btn-primary"
+.col-sm-12
+  = form_for(@team, html: { class: "form-horizontal", role: "form" }) do |f|
+    - if @team.errors.any?
+      .alert.alert-danger.alert-dismissable role="alert"
+        button.close type="button" data-dismiss="alert"
+          span aria-hidden="true"
+            | &times;
+          span.sr-only
+            | Close
+        h4= "#{pluralize(@team.errors.count,"error")} prohibited this team from being saved:"
+        ul
+          - @team.errors.full_messages.each do |msg|
+            li= msg
+    .form-group
+      = f.label :name, class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :name, class: "form-control"
+    .form-group
+      = f.label :group, class: "col-sm-2 control-label"
+      .col-sm-10
+        =collection_select :team, :group_id, Group.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        = f.submit class: "button"
+        .cancel
+          =link_to :Back, @team

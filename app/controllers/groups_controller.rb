@@ -58,6 +58,9 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
+    if(!@group.goals.empty?)
+      redirect_to @group, flash: {:error=> "Cannot delete a group that has goals. Please re-assign the goals first."}
+    end
     @group.destroy
     respond_to do |format|
       format.html { redirect_to groups_url, notice: 'Group was successfully destroyed.' }

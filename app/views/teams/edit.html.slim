@@ -1,12 +1,15 @@
-.page-header
-  = link_to teams_path, class: 'btn btn-default' do
-    span.glyphicon.glyphicon-list-alt
-    |  Back
-  = link_to @team, class: 'btn btn-primary' do
-    span.glyphicon.glyphicon-info-sign
-    |  Show
-  h1 Editing team: #{@team.name}
-  .break
-    small =link_to "Back to teams", teams_path
+.row
+  .col-sm-12
+    h4 Editing Team
+    h1 = @team.name
+    small =link_to "Back to team", @team
 
-= render 'form'
+.row
+  = render 'form'
+.row
+  .col-sm-offset-2.col-sm-10
+    - if(@team.goals.empty?)
+      = link_to 'Delete this team', @team, method: :delete, data: { confirm: 'Are you sure? This cannot be undone.' }, class: "danger"
+      .hint Note: this team can be safely deleted because it has no goals.
+    -else
+      .hint Note: this team cannot be deleted right now because it has #{@team.goals.count} goals.

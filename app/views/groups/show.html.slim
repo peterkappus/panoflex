@@ -7,7 +7,7 @@
     h1 style="margin-bottom: 1rem" =@group.name + " Group"
     h4 £#{@group.budget_in_millions}m - #{@group.headcount} people - #{@group.goals.count} goals
     -if is_admin?
-      =link_to "Edit Group", edit_group_path(@group)
+      =link_to "Edit this group", edit_group_path(@group)
   .col-md-6
     ==render partial: 'goals/pie_chart', locals: {goals: @group.goals}
 
