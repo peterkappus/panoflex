@@ -31,6 +31,10 @@ class GoalsController < ApplicationController
   def show
   end
 
+  def search
+    @goals = Goal.search(params[:q])
+  end
+
   def timeline
   end
 

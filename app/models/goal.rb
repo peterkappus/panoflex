@@ -45,6 +45,14 @@ class Goal < ActiveRecord::Base
   #  end
   #end
 
+  def self.search(words)
+    if(words)
+      where('lower(name) LIKE ?',"%#{words.downcase}%")
+    else
+      all
+    end
+  end
+
   def display_date_range
     #ensure we have dates
     if(earliest_start_date.nil? || latest_end_date.nil?)

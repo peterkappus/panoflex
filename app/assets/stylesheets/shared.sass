@@ -283,23 +283,29 @@ h2.score
       min-width: 40px
       @extend .heading-medium
 
-form#search input.submit
-  position: absolute
-  z-index: 4
-  right: 0
-  top: 0
-  width: 35px
-  height: 35px
-  border: 1px solid #df3034
-  border-width: 0 0 0 1px
-  border-left-color: #222
-  -webkit-border-radius: 0
-  -moz-border-radius: 0
-  border-radius: 0
-  overflow: hidden
-  text-indent: -5000px
-  color: #fff
-  background-color: #df3034
-  background-image: url(https://assets.digital.cabinet-office.gov.uk/static/search-button.png)
-  background-repeat: no-repeat
-  background-position: 0 50%
+
+form#search
+  input.js-search-focus
+    margin-top: 5px
+    width: 200px
+    padding-left: 1px
+    border: 2px solid #333
+    @media (max-width: 400px)
+      width: 180px
+
+  input.submit
+    width: 24px
+    height: 24px
+    border: 1px solid #df3034
+    border-left-color: #222
+    -webkit-border-radius: 0
+    -moz-border-radius: 0
+    border-radius: 0
+    overflow: hidden
+    text-indent: -5000px
+    color: #fff
+    background-color: #df3034
+    background-image: url(https://assets.digital.cabinet-office.gov.uk/static/search-button.png)
+    background-repeat: no-repeat
+    background-position: 6.5% 49%
+    margin-left: 5px

@@ -10,11 +10,12 @@
 - content_for :page_title do
   | GDS Goals
 - content_for :inside_header do
-  /form#search.site-search method="get"
-    .content
-      label for="site-search-text" Search the service manual
-      input#site-search-text.js-search-focus type="search" name="q" title="Search" role="search"
-      input.submit type="submit" value="Search"
+  - if signed_in?
+    form#search.site-search method="get" action="#{search_goals_path}"
+      .content
+        /label for="site-search-text" Search the service manual
+        input#site-search-text.js-search-focus type="search" name="q" title="Search" role="search" placeholder="Search"
+        input.submit type="submit" value="Search"
 - content_for :header_class do
   | with-proposition
 - content_for :proposition_header do

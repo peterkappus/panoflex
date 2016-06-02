@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     post 'import_okrs', on: :collection
     get 'show_export', on: :collection
     get 'timeline', on: :collection
+    get 'search', on: :collection, as: :search
     #TODO route for sdp goals
     #get 'single-departmental-plan', on: :collection, as: :sdp
     get 'sdp', on: :collection, as: :sdp
