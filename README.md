@@ -71,9 +71,12 @@ Or only run @wip (work in progress) tests:
 ## The Backlog
 
 ### Do next
-- Search for goals using free text
-- Ability to create teams & groups
-- Ability to delete teams & groups (only when no goals are assigned)
+- Tree view
+- Ability to add comments to a goal
+- Email alerts when people down-stream add updates
+- "Nudge" a goal
+- "Like" an update
+- Include updates at all levels in export
 - Add name of person who created score in export
 - Disallow entering a deadline before the start_date (use validates_date gem?)
 - Allow an arbitrary number of levels for export
@@ -81,13 +84,16 @@ Or only run @wip (work in progress) tests:
 - Ability to view old versions of goals
 - Add a RAG status based on % complete vs time remaining
 - Rename "deadline" to "end_date" everywhere
-- Ability to add comments to a goal
 - Browse goals by due-date quarter (how will this affect scoring?)
 - Add unit tests using [Factory Girl & Rspec](https://semaphoreci.com/community/tutorials/setting-up-the-bdd-stack-on-a-new-rails-4-application)
 - Start using the GOV.UK components instead of reinventing the wheel
 - Ween ourselves off of bootstrap and just use the standard GOV.UK CSS.
 
 ### DONE (AKA "What's new?")
+- Search for goals using free text
+- Search based on person name
+- Ability to create teams & groups
+- Ability to delete teams & groups (only when no goals are assigned)
 - Pretty doughnut graphs (via Google charts) showing distribution of delivery status within a group/team/person/SDP/etc
 - Click a name and see all goals owned by that person
 - Capture monthly (or weekly?) local backups
