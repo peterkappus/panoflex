@@ -13,8 +13,7 @@ javascript:
     ]);
 
     var options = {
-      title: 'Goals by status',
-      pieHole: 0.4, colors: ['#6F777B','#006435','#FFBF47','#B10E1E','#005EA5']
+      pieHole: 0.4, chartArea: {left:10,top:10,width:'90%',height:'90%'},legend: {position: 'right'}, colors: ['#6F777B','#006435','#FFBF47','#B10E1E','#005EA5']
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
@@ -23,4 +22,5 @@ javascript:
 </script>
 
 / uncomment when ready to show pie
-#donutchart style="width: 450px; height: 250px"
+h3 Goals by status
+#donutchart style="width: 100%;"

@@ -1,8 +1,16 @@
 = render 'breadcrumb'
 .row
-  .col-sm-12
+  .col-sm-12.big_goal_block
     .row
       .col-sm-9
+        .row.next_prev_nav
+          .col-xs-6
+            -if (@goal.previous_goal.present?)
+              =link_to "&laquo; Previous".html_safe, @goal.previous_goal
+          .col-xs-6
+            .pull-right
+              -if (@goal.next_goal.present?)
+                =link_to "Next &raquo;".html_safe, @goal.next_goal
         .row
           .col-sm-12
             /- if(@goal.parent.present?)

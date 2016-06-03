@@ -8,21 +8,20 @@
     h4 £#{@group.budget_in_millions}m - #{@group.headcount} people - #{@group.goals.count} goals
     -if is_admin?
       =link_to "Edit this group", edit_group_path(@group)
-  .col-md-6
-    ==render partial: 'goals/pie_chart', locals: {goals: @group.goals}
-
-.row
-  .col-sm-6
     h2 Teams
     ul.biglist
       - @group.teams.each do |team|
         li
           => link_to team.name, team
           small ="(" + team.goals.count.to_s + ")"
-  -if is_admin?
-    .col-sm-6.noprint.
+    -if is_admin?
       .pull-right
         =link_to "New team", new_team_path
+  .col-md-6
+    ==render partial: 'goals/pie_chart', locals: {goals: @group.goals}
+.row
+  .col-sm-6
+
 .row
   .col-sm-6
     h2 Goals (#{@group.top_level_goals.count})

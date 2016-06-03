@@ -46,6 +46,21 @@ Feature: Import goals, look around, see header/footer, etc.
 		Then I should see "Sub goal 2"
 		And I should see "Sub goal 1"
 
+	Scenario: use previous/next links to see different goals.
+		Given I import new goals
+		And I sign in as a non-admin named "Peter" with the email "peter@wherever.com"
+		And I click on "big goal"
+		And I click on "sub-goal"
+		Then I should see "Thing A"
+		And I should see "Thing B"
+		When I click on "Thing A"
+		Then I should see "Next"
+		And I should NOT see "Previous"
+		When I click on "Next"
+		Then I should see "Previous"
+		And I should NOT see "Next"
+
+
 	@javascript
 	Scenario: Don't let me assign a goal to a team & group which don't match.
 		Given I create a new non-admin named "Dave" with the email "dave@test.com"

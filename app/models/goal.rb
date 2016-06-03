@@ -10,7 +10,7 @@ class Goal < ActiveRecord::Base
   #belongs_to :user #call them an "owner" not a 'user' for clarity
   belongs_to :owner, :class_name=>"User", :foreign_key=>"user_id"
   #belongs_to :sdp_parent, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
-  has_many :children, -> { order('earliest_start_date')}, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
+  has_many :children, -> { order('deadline')}, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
   #has_many :sdp_children, -> { order('earliest_start_date')}, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
@@ -37,6 +37,29 @@ class Goal < ActiveRecord::Base
   #TODO: rename deadline to end date in schema and everywhere else.
   def end_date
     deadline
+  end
+
+  def previous_goal
+      if(parent.present?)
+        current_index = parent.children.to_a.index(self)
+        if(current_index > 0)
+          parent.children.to_a[current_index-1]
+        end
+      else
+        current_index = group.top_level_goals.to_a.index(self)
+        if(current_index > 0)
+          group.top_level_goals.to_a[current_index-1]
+        end
+      end
+  end
+
+  def next_goal
+      if(parent.present?)
+        current_index = parent.children.to_a.index(self)
+        parent.children.to_a[current_index+1]
+      else
+        group.top_level_goals.to_a[group.top_level_goals.to_a.index(self)+1]
+      end
   end
 
   #def display_deadline

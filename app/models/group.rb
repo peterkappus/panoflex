@@ -4,7 +4,7 @@ class Group < ActiveRecord::Base
   validates :name, uniqueness: true, presence: true
   has_many :roles, dependent: :destroy
   has_many :teams, -> {order 'name'}, dependent: :destroy
-  has_many :goals, -> {order 'start_date'}, dependent: :destroy
+  has_many :goals, -> {order 'deadline'}, dependent: :destroy
 
   monetize :budget_pennies, :as=>:budget
 
@@ -30,7 +30,7 @@ class Group < ActiveRecord::Base
   end
 
   def top_level_goals
-    goals.where("parent_id is null").order("start_date")
+    goals.where("parent_id is null").order("deadline")
   end
 
 
