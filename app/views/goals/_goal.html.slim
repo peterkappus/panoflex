@@ -10,7 +10,12 @@ div class="col-sm-#{12/cols} subgoal-box"
       p =link_to goal.name, goal
       -if goal.owner
         .owner =link_to goal.owner.name, goal.owner
-      .owner #{goal.score.nil? ? "<span style='color:#900'>Never updated</span>".html_safe : "Updated " + time_ago_in_words(goal.score.created_at).humanize + " ago"}
+        -if goal.score.nil?
+          .owner.danger Never updated
+        - else
+         .owner
+           =link_to "Updated" + time_ago_in_words(goal.score.created_at).humanize + " ago", "javascript:$('#update#{goal_counter+1}').toggle()"
+         div id="update#{goal_counter+1}" style="display: none" =goal.score.reason
       .owner Due: #{goal.latest_end_date.strftime("%h %Y")}
       .smaller =pluralize(goal.children.count,"Subgoal") unless goal.children.empty?
     /.tiny_status.pull-right ON TRACK

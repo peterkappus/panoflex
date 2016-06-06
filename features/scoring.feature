@@ -5,7 +5,7 @@ Scenario: Make some updates, check the export contains the score(s)
   When I click "Some big goal"
   And I click on "A sub-goal of the first goal"
   And I click on "Bitty Thing A"
-  And I click on "Update status"
+  And I click on "Make new update"
   #hiding scores for now
   Then I should NOT see "Amount"
   #And I fill in "score_amount" with "22"
@@ -16,7 +16,7 @@ Scenario: Make some updates, check the export contains the score(s)
   Then I should see "The earliest update"
   #TODO: When we allow showing previous updates. For now we only show the latest
   #And I should NOT see "View previous updates"
-  #When I click on "Update status"
+  #When I click on "Make new update"
   #And I fill in "score_reason" with "A later update"
   #And I click "Save"
   #Then I should see "A later update"

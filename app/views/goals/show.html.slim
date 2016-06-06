@@ -31,13 +31,17 @@
                   .small Team: #{link_to @goal.get_team.name, @goal.get_team}
         .row
           .col-sm-12
-            h3 Latest update
-            /p=link_to "Add report", new_goal_score_path(@goal)
+            h3
+              ' Latest update
+              - if can_modify? @goal
+                span.smaller
+                  ' &nbsp;
+                  =link_to "Make new update", new_goal_score_path(@goal)
             - if(@goal.scores.empty?)
               p
                 | No updates yet. &nbsp;
                 - if(can_modify? @goal)
-                  =link_to "Update status.", new_goal_score_path(@goal)
+                  =link_to "Make new update.", new_goal_score_path(@goal)
             - else #only show current score
               .row
                 .col-sm-3

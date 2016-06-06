@@ -20,6 +20,11 @@
       = f.label "Group", class: "col-sm-2 control-label"
       .col-sm-10
         p  = @score.goal.group.name
+  - if @goal.score
+    .form-group
+      = f.label "Previous narrative", class: "col-sm-2 control-label"
+      .col-sm-10
+        p = @goal.score.reason
     -if(@score.goal.team.present?)
       .form-group
         = f.label "Team", class: "col-sm-2 control-label"
