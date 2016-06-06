@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+#Group_id lookup only works if you run after running groups.yml
+
 one:
   name: GaaP
+  slug: gaap
   group_id: 1
 
 two:
   name: Digital Engagement and Design
+  slug: digital-engagement
   group_id: 1

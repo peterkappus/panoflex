@@ -1,7 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+Digital:
+  id: 1
   name: Digital
+  slug: digital
 
-two:
+Technology:
+  id: 2
   name: Technology
+  slug: technology
+  #Need to re-save all to re-generate friendly slug
+  <%#Group.find_each(&:save!)%>

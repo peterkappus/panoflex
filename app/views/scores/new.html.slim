@@ -1,6 +1,27 @@
-
 .row
-  .col-md-9
+  .col-md-8
     =link_to "&laquo; Back".html_safe, @goal
     h1 Report progress
+.row
+  .col-md-8
     = render 'form'
+  -if(@goal.sub_goals.present?)
+    .col-md-4
+      aside.related
+        .row
+          .col-xs-12
+            h3 Latest sub-goal updates:
+        - @goal.sub_goals.each do |sub_goal|
+          .row
+            .col-xs-12
+              b =link_to sub_goal.name, sub_goal
+          .row
+            .col-xs-4
+              .tiny_status
+                div class="#{sub_goal.status}" style="height:100%"
+                  = sub_goal.status.humanize.capitalize
+            .col-xs-8
+              .owner style="margin-top: 10px" =sub_goal.score.reason if sub_goal.score
+          .row
+            .col-xs-12
+              hr

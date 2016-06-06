@@ -39,6 +39,11 @@ class Goal < ActiveRecord::Base
     deadline
   end
 
+  #convenience alias for "children"
+  def sub_goals
+    children
+  end
+
   def previous_goal
       if(parent.present?)
         current_index = parent.children.to_a.index(self)
@@ -142,7 +147,7 @@ class Goal < ActiveRecord::Base
       end
     end
 
-    logger.info "hello"
+    #logger.info "hello"
     #update columns without triggering callbacks. CAREFUL!
     update_column(:score_amount, score_amount)
     update_column(:scored_at, scored_at)

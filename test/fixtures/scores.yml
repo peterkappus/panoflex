@@ -1,11 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  amount: 9.99
-  reason: MyText
-  goal_id:
-
-two:
-  amount: 9.99
-  reason: MyText
-  goal_id: 
