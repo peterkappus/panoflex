@@ -1,13 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-<%
-
-require 'Date'
-
-50.times do
-  verb = %w/build grow save develop write engage test release find/.sample
-  noun = %w/users departments platforms tools savings/.sample
-  month = %w/January March April July September December/.sample
-  year = %w/2016 2017 2018/.sample
-  Goal.create(name: "#{verb} #{[*(1..500)].sample} #{noun} by #{month} #{year}".humanize, start_date: Date.today, deadline: Date.parse("#{month} #{year}"), user_id: [*(1..50)].sample, group_id: 1, parent_id: [*(1..20)].sample)
-end%>
