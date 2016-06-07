@@ -14,7 +14,8 @@ class SessionsController < ApplicationController
         else
           flash['error'] = "Could not find test user with email " + params['email'].to_s
         end
-        redirect_to root_path
+        #redirect to "/" unless we have a previous url
+        redirect_to_previous_url
         return
       else
       #for some reason, I couldn't just call my check_login function...
@@ -25,7 +26,7 @@ class SessionsController < ApplicationController
     else
       #otherwise, redirect home and say already logged in
       flash['notice'] = "Already logged in as " + current_user.name
-      redirect_to root_path
+      redirect_to_previous_url
     end
   end
 
@@ -40,19 +41,26 @@ class SessionsController < ApplicationController
     else
       flash['error'] = "Sorry, you must have a GDS or Cabinet Office email address to login."
     end
-    redirect_to root_path
+    #byebug
+    redirect_to_previous_url
   end
 
   def handle_failure
     flash['error'] = "Sorry, the authentication service returned the following error: " + params['message']
     session['user_email'] = nil
-    redirect_to root_path
+    redirect_to_previous_url
   end
 
   def destroy
     session['user_email'] = "" #assigning to nil didn't work...
     flash['notice'] = "Successfully signed out."
     redirect_to "/"
+  end
+
+  private
+
+  def redirect_to_previous_url
+    redirect_to session[:previous_url].nil? ? "/" : session[:previous_url]
   end
 
 end

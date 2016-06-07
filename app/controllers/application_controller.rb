@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
 
   #can't reach host: http://static.dev.gov.uk/templates/core_layout.html.erb
   #don't know how to get to dev.gov.uk....
@@ -46,6 +47,7 @@ class ApplicationController < ActionController::Base
 
   def check_login
     if !signed_in?
+      session[:previous_url] = request.path
       render "welcome/index"
       #redirect_to '/auth/google_oauth2'
       return
@@ -56,11 +58,17 @@ class ApplicationController < ActionController::Base
     User.find_by(:email=>session['user_email'])
   end
 
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
   private
+
+  def record_not_found
+    flash[:error] = "Sorry, could not find that team/group/person/etc. Please check the URL and try again."
+    redirect_to "/"
+  end
   #redirect from the old heroku URL to the new one
   def redirect_from_original_domain
     if request.host.match(/gdsdash.herokuapp.com/)

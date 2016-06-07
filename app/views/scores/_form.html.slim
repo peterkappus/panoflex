@@ -1,4 +1,3 @@
-= render 'goals/breadcrumb'
 = form_for(@score, html: { class: "form-horizontal", role: "form" }) do |f|
   - if @score.errors.any?
     .alert.alert-danger.alert-dismissable role="alert"
@@ -11,25 +10,18 @@
       ul
         - @score.errors.full_messages.each do |msg|
           li= msg
-  - if @goal
-    .form-group
-      = f.label "Goal", class: "col-sm-2 control-label"
-      .col-sm-10
-        h2 style="margin-top: 0" = @score.goal.name
-    .form-group
-      = f.label "Group", class: "col-sm-2 control-label"
-      .col-sm-10
-        p  = @score.goal.group.name
-  - if @goal.score
-    .form-group
-      = f.label "Previous narrative", class: "col-sm-2 control-label"
-      .col-sm-10
-        p = @goal.score.reason
-    -if(@score.goal.team.present?)
-      .form-group
-        = f.label "Team", class: "col-sm-2 control-label"
-        .col-sm-10
-          p = @score.goal.team.name
+  .form-group
+    = f.label "Goal", class: "col-sm-2 control-label"
+    .col-sm-10
+      h2 style="margin-top: 0" = @score.goal.name
+  .form-group
+    = f.label "Group", class: "col-sm-2 control-label"
+    .col-sm-10 style="margin-top: 7px"
+      = @score.goal.group.present? ? @score.goal.group.name : "Not assigned to a group"
+  .form-group  style="margin-top: 7px"
+    = f.label "Team", class: "col-sm-2 control-label"
+    .col-sm-10
+      p = @score.goal.team.present? ? @score.goal.team.name : "Not assigned to a team"
   /.form-group
     = f.label :amount, class: "col-sm-2 control-label"
     .col-sm-10
@@ -53,7 +45,7 @@
     = f.label :Narrative, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :reason, class: "form-control bigtext"
-      .form-hint Please highlight any major achievements, setbacks, risks, or issues.
+      .form-hint Please highlight any major achievements, setbacks, risks, or issues. The latest narrative has been copied here for your conveience.
 
       =f.hidden_field :goal_id, :value=>@score.goal.id
   .form-group

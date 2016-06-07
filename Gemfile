@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+#use dotenv to load environment file
+#this way you can use "rails s" instaed of "heroku local" and get all your .env vars and still use the debugger, etc.
+gem 'dotenv-rails', :groups => [:development, :test]
+
+
 #NOTE! You'll need to comment this out when you deploy to Heroku... Leave it in when setting up a new app. WHY???? I couldn't install a Heroku-supported ruby version locally :(
 #ruby '2.1.1'
 

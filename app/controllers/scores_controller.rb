@@ -44,9 +44,18 @@ class ScoresController < ApplicationController
     end
 
     #otherwise... we're good to go...
-    @score = Score.new
-    @score.goal = @goal #use the goal_id passed in...
-    #if we tried to find a goal to attach this score to but couldn't find it, bail out.
+
+    #do we have a previous score to use as a template?
+    if @goal.score
+      #copy it
+      @score = @goal.score
+    else
+      #make a blank one
+      @score = Score.new
+      #assign it to this goal
+      @score.goal = @goal
+    end
+
   end
 
   # GET /scores/1/edit
