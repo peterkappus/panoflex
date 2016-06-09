@@ -7,43 +7,38 @@ class Goal < ActiveRecord::Base
 
   belongs_to :team
   belongs_to :group
-  #belongs_to :user #call them an "owner" not a 'user' for clarity
   belongs_to :owner, :class_name=>"User", :foreign_key=>"user_id"
-  #belongs_to :sdp_parent, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :children, -> { order('deadline')}, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
-  #has_many :sdp_children, -> { order('earliest_start_date')}, :class_name=>'Goal', :foreign_key=>'sdp_parent_id'
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
 
   #default end dates to the end of the month and start dates to the beginning fo the month
   before_save {|record| record.deadline = record.deadline.end_of_month if(record.deadline)}
   before_save {|record| record.start_date = record.start_date.beginning_of_month if(record.start_date)}
-
   after_save{|goal| goal.update_calculations}
 
   # don't use, dependent: :destroy ... better to orphan goals when the parent is deleted so that they can be re-assigned at some point and we don't lose history. TODO: create a way to archive goals instead of destroying them if thye're no longer "active". Ditto for scores...
 
   MAX_LEVELS = 5
-  CSV_HEADERS = %w(group group_budget group_headcount team level_1 level_2 level_3 level_4 level_5 start_date deadline score_datetime score_amount score_reason)
+  #SIMPLE_CSV_HEADERS = %w(id parent_id name owner_name owner_email status narrative updated_at status_updated_by_name status_updated_by_email)
 
-  # TODO: validation...
-  # group goals must have a parent GDS goal
-  # GDS goals must NOT have any parent goals
-  # GDS goals must NOT belong to a group or a team
-  # team goals must have a parent goal which belongs to a group
+  CSV_HEADERS = %w(group group_budget group_headcount team level_1 level_1_status level_1_narrative level_1_updated_by level_1_updated_at level_2 level_2_status level_2_narrative level_2_updated_by level_2_updated_at level_3 level_3_status level_3_narrative level_3_updated_by level_3_updated_at level_4 level_4_status level_4_narrative level_4_updated_by level_4_updated_at level_5 level_3_status level_3_narrative level_3_updated_by level_3_updated_at start_date deadline score_datetime score_amount score_reason)
+
   scope :gds_goals, -> {where("parent_id is null")}
 
-  #convenience wrapper for end_date
+  #convenience wrappers
   #TODO: rename deadline to end date in schema and everywhere else.
   def end_date
     deadline
   end
 
-  #convenience alias for "children"
+  #alias
   def sub_goals
     children
   end
 
+
+  #next and previous goals
   def previous_goal
       if(parent.present?)
         current_index = parent.children.to_a.index(self)
@@ -67,12 +62,6 @@ class Goal < ActiveRecord::Base
       end
   end
 
-  #def display_deadline
-  #  if(deadline)
-  #    deadline.strftime("%d %h %Y")
-  #  end
-  #end
-
   def self.search(words)
     if(words)
       where('lower(name) LIKE ?',"%#{words.downcase}%") +       User.where("lower(name) LIKE ? ","%#{words.downcase}%").collect{|u| u.goals}.flatten
@@ -88,10 +77,6 @@ class Goal < ActiveRecord::Base
     end
 
     earliest_start_date.strftime("%h %Y") + " - " + latest_end_date.strftime("%h %Y")
-  end
-
-  def group_name
-    group.nil? ? "" : group.name
   end
 
   #depth-first recursion to find score
@@ -116,15 +101,6 @@ class Goal < ActiveRecord::Base
     #score_amount #dumb, but I need to return this value. Not the "true" from the save above
   end
 
-  def display_amount
-    #TODO: use pre-calculated "score_amount"...don't do it in realtime"
-    (score_amount.to_f.round || 0).to_s + "%"
-  end
-
-  def current_display_date
-    #TODO make this smarter, needs to take the most recent score date from the children in a similar way to how we get the current amount above..
-    score ? score.display_date : ""
-  end
 
   def update_calculations
     #update the dates of the ancestors
@@ -156,25 +132,55 @@ class Goal < ActiveRecord::Base
     parent.calculate_scores unless parent.nil?
   end
 
+  #SIMPLE_CSV_HEADERS = %w(id parent_id group_name team_name name owner_name owner_email status narrative updated_at status_updated_by_name status_updated_by_email)
+
+  def group_name
+    group.nil? ? nil : group.name
+  end
+
+  def display_amount
+    #TODO: use pre-calculated "score_amount"...don't do it in realtime"
+    (score_amount.to_f.round || 0).to_s + "%"
+  end
+
+  def current_display_date
+    #TODO make this smarter, needs to take the most recent score date from the children in a similar way to how we get the current amount above..
+    score ? score.display_date : ""
+  end
+
   #latest score
   def score
     scores.first
   end
 
-  #def status
-  #  score.present? ? score.status : Score.new(status: :not_started).status
-  #end
+  #narrative from the latest status update
+  def narrative
+    score.nil? ? nil : score.reason
+  end
 
-=begin
+  #narrative from the latest status update
+  def status_updated_at
+    score.nil? ? nil : score.updated_at
+  end
+
+  def status_updated_by_name
+    score.nil? ? nil : score.user.name
+  end
+
+  def status_updated_by_email
+    score.nil? ? nil : score.user.email
+  end
+
+  def status
+    score.nil? ? Score.new(status: :not_started).status : score.status
+  end
+
   def owner_name
-      (owner) ? owner.name : "" # + " " + owner.class.name : ""
-      #owner.name
+      owner.nil? ? nil : owner.name
   end
-
-  def owner
-    team || get_team || group
+  def owner_email
+      owner.nil? ? nil : owner.email
   end
-=end
 
   def team_name
     team.nil? ? "" : team.name
@@ -183,6 +189,8 @@ class Goal < ActiveRecord::Base
   def parent_goal_name
     parent_goal.nil? ? "" : parent_goal.name
   end
+
+
 
   #determine if all the sub-goals belong to the same team...
   def get_team
@@ -290,14 +298,22 @@ class Goal < ActiveRecord::Base
     rows
   end
 
-  def self.get_csv_rows
-    rows = []
-    row_data = {}
-    gds_goals[3].get_level(rows,row_data,1)
+  def self.to_csv
+    require 'csv'
+    CSV.generate() do |csv|
+
+      simple_csv_headers = %w(id parent_id name owner_name owner_email status narrative updated_at status_updated_by_name status_updated_by_email)
+      csv << simple_csv_headers
+
+      all.each do |g|
+        #csv << g.attributes.values_at(*simple_csv_headers)
+        csv << simple_csv_headers.map{|h| g.send(h.to_sym)}
+      end
+    end
   end
 
-  #export to CSVreload
-  def self.to_csv
+  #export tree to CSVreload
+  def self.tree_export
     require 'csv'
 
     CSV.generate() do |csv|
@@ -311,10 +327,6 @@ class Goal < ActiveRecord::Base
       gds_goals.each do |top_level_goal|
         top_level_goal.get_level(rows,row_data,1)
       end
-
-      #gds_goals[3].get_level(rows,row_data,1)
-
-      #binding.pry
 
       rows.each do |row|
         csv<<row

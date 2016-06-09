@@ -18,6 +18,10 @@ When(/^I create a new goal called "([^"]*)"$/) do |goal_text|
   }
 end
 
+When(/^I should see today's date in the format YYYY-MM-DD$/) do
+  step "I should see \"#{Time.now.strftime("%Y-%m-%d")}\""
+end
+
 When(/^I create a group called "([^"]*)"$/) do |group_name|
   Group.create!(name: group_name)
 end
