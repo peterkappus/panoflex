@@ -76,7 +76,7 @@
       = yield
 
 - content_for :footer_top do
-  - if (Rails.env.development? && User.all.count > 0)
+  - if (Rails.env.development? && User.where(admin: true).count > 0)
     /=link_to "HELLOO", User.first
     =link_to "Sign in as admin (Development only)", signin_path(email: User.where(admin: true).first.email)
 

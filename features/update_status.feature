@@ -1,6 +1,5 @@
 Feature: Update the status of a goal
 
-@wip
 Scenario: Create a new goal, see its status, update the status and see it.
   Given I create a goal named "My fresh new goal" with the owner email "serena@test.com" belonging to the group called "Digital"
   When I sign in as an admin named "Serena" with the email "serena@test.com"
