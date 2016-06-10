@@ -8,7 +8,7 @@ The tool is currently used to show progress against linked goals and how those g
 
 Due to privacy concerns and the need to accredit the host, the financial planning and people piece has been paused.
 
-## Please get involved! :)
+## Get involved! :)
 
 This project is being developed within the Delivery Operations team at GDS which has no dedicated tech resource. We need help from people who understand:
 - Back-end (Rails) development
@@ -21,17 +21,23 @@ This project is being developed within the Delivery Operations team at GDS which
 - Content Design
 
 
-## Setup & Hosting
+## Installing for develompent
 
-### Running locally
+### Mac OSX Setup
 
 ```
+git clone http://github.com/peterkappus/panoflex.git
+cd panoflex
 cp sample.env.txt .env
 bundle
 bundle exec rake db:setup
 
 ```
-#### Setting up the Google Auth credentials
+#### Authentication
+This app uses Google Auth to authenticate users and create new accounts. Each time a user logs in his or her name and email address are used to create a new account in the system.
+
+**NOTE:** The first user to log into the system will automatically be made into an admin. It is impossible to make yourself into a non-admin.
+
 - Visit the [Google developer console](https://console.developers.google.com)
 - Create a new project (Name it whatever you like)
 - Click "Credentials" (on the left-hand nav)
@@ -60,6 +66,7 @@ It also has a `Procfile` which you probably won't need to touch.
  - Create new keys for GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, and any other config params set in your `.env` file
 
 
+## Data backups
  TIP: Need to backup your heroku database before deploying?
 
  ```

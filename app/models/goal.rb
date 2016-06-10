@@ -11,7 +11,7 @@ class Goal < ActiveRecord::Base
   has_many :children, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
-  default_scope { order('created_at') } 
+  default_scope { order('created_at') }
 
   #default end dates to the end of the month and start dates to the beginning fo the month
   before_save {|record| record.deadline = record.deadline.end_of_month if(record.deadline)}
@@ -396,7 +396,7 @@ class Goal < ActiveRecord::Base
 
         #work backwords up the chain...
         #need to make this smarter so it doesn't rely on column heading names
-        (1..MAX_LEVELS).to_a.reverse.each do |level_number|
+        (1..MAX_LEVELS).to_a.reverse_each do |level_number|
           goal_name = row["level_" + level_number.to_s]
           next if goal_name.to_s.empty?
 
