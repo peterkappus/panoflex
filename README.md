@@ -25,7 +25,9 @@ This project is being developed within the Delivery Operations team at GDS which
 
 ### Mac OSX Setup
 
+Install [homebrew](http://brew.sh) if not on your machine.
 ```
+brew install postgres
 git clone http://github.com/peterkappus/panoflex.git
 cd panoflex
 cp sample.env.txt .env

@@ -12,8 +12,8 @@
       .notice
         i.icon.icon-important
           .visuallyhidden Warning
-        strong.bold-small>
-          | No goals have been designated as belonging to the SDP.
+        strong.bold-small
+          ' No goals have been designated as belonging to the SDP.
           =link_to "View all goals", goals_path
     -else
       == render @goals

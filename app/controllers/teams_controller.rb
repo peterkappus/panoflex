@@ -17,6 +17,7 @@ class TeamsController < ApplicationController
   # GET /teams/new
   def new
     @team = Team.new
+    @team.group = Group.find(params[:group]) if params[:group].present?
   end
 
   # GET /teams/1/edit

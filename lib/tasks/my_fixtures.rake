@@ -2,7 +2,7 @@ namespace :db do
   desc "Load my custom fixtures to popluate the database. Not quite Factory Girl..."
   namespace :my_fixtures do
 
-    task groups_and_teams: [:environment] do
+    task groups_and_teams: [:environment, :warn] do
       #have to delete goals before deleting teams...
       Goal.destroy_all
 
@@ -44,23 +44,23 @@ namespace :db do
     end
 
     task warn: [:environment] do
-      puts "WARNING: This will erase all existing data. Press enter to continue."
-      STDIN.gets
+      #puts "WARNING: This may erase/overwrite existing data. Press enter to continue."
+      #STDIN.gets
     end
 
-    task people: [:environment] do
-      User.destroy_all
+    task users: [:environment, :warn] do
+      User.where("email like ?","%test.com%").destroy_all
 
       #admin user
       User.create!(name: 'Suzy Admin', admin: true, email: "email0@test.com")
 
       #some other users
       [*(1..10)].each do |i|
-        User.create!(name: %w{Peter Paul George Ringo John}.sample + " " + %w{Smith Jones Taylor Brown Williams Wilson Johnson Davies Robinson Wright Thompson Evans Walker White Roberts Green Hall Wood Jackson Clarke}.sample + i.to_s, email: "email#{i}@test.com")
+        User.create!(name: %w{Cindy Ada Jane Barbara Ann Benjamin Walter Alexis Simone Marina Oscar Julia Mark Lazlo Ray Lucretia Tom Peter Sarah Ringo John}.sample + " " + %w{Smith Jones Taylor Gibran Peterson Williams Mott Eames Johnson Davies Robinson Wright Knight Thompson Evans Walker White Roberts Green Hall Wood Jackson Clarke}.sample + " " + i.to_s, email: "email#{i}@test.com")
       end
     end
 
-    task :all => [:warn, :people, :groups_and_teams, :goals]
+    task :all => [:warn, :users, :groups_and_teams, :goals]
 
   end
 end

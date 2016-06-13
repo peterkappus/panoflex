@@ -4,8 +4,7 @@ class SessionsController < ApplicationController
 
   def new
     if !signed_in?
-      #if we're in the test environment and attempt to login using oAuth, just create a new session. Make this smarter when you actually want to test different kinds of users and when users actually exist in the database.
-      #binding.pry
+      #Allow us to login to the test & dev environments simply by passing an email.
       if ((Rails.env.test? || Rails.env.development?) && params['email'].present?)
         #create this user in the step definition
         if(user = User.find_by_email(params['email']))
