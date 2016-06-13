@@ -33,8 +33,11 @@ class SessionsController < ApplicationController
     if(env["omniauth.auth"].info['email'].match(/cabinetoffice\.gov\.uk|cabinet-office\.gov\.uk|parliament\.uk$/))
       user = User.find_or_create_by(:email=>env["omniauth.auth"].info['email'])
       user.name = env["omniauth.auth"].info['name']
-      #!!!Make the very first user into an admin
-      user.admin = true if User.all.empty?
+      #!!!Make the very first user into an admin AND EVERY user in the sandbox environment
+      #if this is the first user, or we're in a sandbox environment.
+      if User.all.empty? || env["IS_SANDBOX"]
+        user.admin = true
+      end
       #user.email = env["omniauth.auth"].info['email']
       user.save!
       session['user_email'] = user.email

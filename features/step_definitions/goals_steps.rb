@@ -7,7 +7,7 @@ When(/^I create a sub\-goal called "([^"]*)"$/) do |goal_text|
 end
 
 Given(/^I create a goal named "([^"]*)" with the owner email "([^"]*)" belonging to the group called "([^"]*)"$/) do |goal_name, email, group_name|
-  Goal.create!(name: goal_name, owner: User.find_by(email:email), group: Group.find_or_create_by!(name: group_name), start_date: Date.today, deadline: Date.today+1.month)
+  Goal.create!(name: goal_name, owner: User.find_by(email:email), group: Group.find_or_create_by!(name: group_name), start_date: Date.today, deadline: Date.today+3.month)
 end
 
 When(/^I create a new goal called "([^"]*)"$/) do |goal_text|

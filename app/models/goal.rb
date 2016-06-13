@@ -443,14 +443,14 @@ class Goal < ActiveRecord::Base
       errors.add(:start_date, "cannot be earlier than the latest sub-goal deadline: #{latest_child_deadline}")
     end
 
-    #make sure start_date is before any child deadlines
+    #make sure start_date is before any child start dates
     if children.count > 0 && start_date > earliest_child_start_date
-      errors.add(:start_date, "cannot be before the earliest sub-goal start date: #{earliest_child_start_date}")
+      errors.add(:start_date, "cannot be after the earliest sub-goal start date: #{earliest_child_start_date}")
     end
 
     #make sure deadline is not after parent deadline
     if parent.present? && deadline > parent.deadline
-      errors.add(:due_date, "cannot be after the parent goal end date which is #{parent.deadline}")
+      errors.add(:due_date, "cannot be after the parent goal due date which is #{parent.deadline}")
     end
 
     #make sure start_date is not before parent start_date
@@ -460,7 +460,7 @@ class Goal < ActiveRecord::Base
 
     #make sure deadline is not after parent deadline
     if parent.present? && deadline > parent.deadline
-      errors.add(:due_date, "cannot be after the parent goal end date which is #{parent.deadline}")
+      errors.add(:due_date, "cannot be after the parent goal due date which is #{parent.deadline}")
     end
 
     if deadline < start_date
