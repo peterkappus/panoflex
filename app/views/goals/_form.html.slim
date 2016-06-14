@@ -20,6 +20,10 @@ javascript:
       .col-sm-10
         p = @goal.parent.name
     =f.hidden_field :parent_id, :value=> @goal.parent.id
+    .form-group
+      = f.label "Parent dates", class: "col-sm-2 control-label"
+      .col-sm-10
+        p = @goal.parent.display_date_range 
 
   .form-group
     = f.label :name, class: "col-sm-2 control-label"

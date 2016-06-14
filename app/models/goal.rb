@@ -4,7 +4,7 @@ class Goal < ActiveRecord::Base
   validates_presence_of :name, :start_date, :deadline
   #validates :team, inclusion: { in: group.teams}
   validates_with TeamGroupValidator
-  validate :end_date_is_after_start_date
+  #validate :end_date_is_after_start_date
 
   belongs_to :team
   belongs_to :group
@@ -17,7 +17,7 @@ class Goal < ActiveRecord::Base
   #default end dates to the end of the month and start dates to the beginning fo the month
   before_save {|record| record.deadline = record.deadline.end_of_month if(record.deadline)}
   before_save {|record| record.start_date = record.start_date.beginning_of_month if(record.start_date)}
-  after_save{|goal| goal.update_calculations}
+  #after_save{|goal| goal.update_calculations}
 
   # don't use, dependent: :destroy ... better to orphan goals when the parent is deleted so that they can be re-assigned at some point and we don't lose history. TODO: create a way to archive goals instead of destroying them if thye're no longer "active". Ditto for scores...
 
@@ -438,31 +438,36 @@ class Goal < ActiveRecord::Base
     earliest_child_start_date = children.map{|c| c.deadline}.min if children.count > 0
     latest_child_deadline = children.map{|c| c.deadline}.max if children.count > 0
 
-    #make sure deadline is after any child deadlines
+    #ensure deadline is after latest child deadline
     if children.count > 0 && deadline < latest_child_deadline
-      errors.add(:start_date, "cannot be earlier than the latest sub-goal deadline: #{latest_child_deadline}")
+      errors.add(:deadline, "must be after (or equal to) the latest sub-goal deadline: #{latest_child_deadline}")
     end
 
-    #make sure start_date is before any child start dates
+    #ensure start_date is before earliest child start date
     if children.count > 0 && start_date > earliest_child_start_date
-      errors.add(:start_date, "cannot be after the earliest sub-goal start date: #{earliest_child_start_date}")
+      errors.add(:start_date, "must be earlier (or equal to) the earliest sub-goal start date: #{earliest_child_start_date}")
     end
 
-    #make sure deadline is not after parent deadline
+    #now do the inverse...
+
+    #ensure deadline is <= parent deadline
     if parent.present? && deadline > parent.deadline
-      errors.add(:due_date, "cannot be after the parent goal due date which is #{parent.deadline}")
+      errors.add(:due_date, "must be earlier (or equal to) parent deadline: #{parent.deadline}")
     end
 
-    #make sure start_date is not before parent start_date
+    #ensure start_date is >= parent start_date
+    if parent.present? && start_date < parent.start_date
+      errors.add(:start_date, "must be after (or equal to) parent start date: #{parent.start_date}")
+    end
+
+    #finally...
+
+    #make sure start_date is after parent start-date
     if parent.present? && deadline < parent.start_date
-      errors.add(:start_date, "cannot be before the parent goal start date which is #{parent.start_date}")
+      errors.add(:start_date, "must be after (or equal to) parent start date: #{parent.start_date}")
     end
 
-    #make sure deadline is not after parent deadline
-    if parent.present? && deadline > parent.deadline
-      errors.add(:due_date, "cannot be after the parent goal due date which is #{parent.deadline}")
-    end
-
+    #deadline after start date
     if deadline < start_date
       errors.add(:due_date, "cannot be before the start date.")
     end

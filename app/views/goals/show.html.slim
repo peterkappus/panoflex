@@ -32,16 +32,16 @@
         .row
           .col-sm-12
             h3
-              ' Latest update
+              ' Latest progress
               - if can_modify? @goal
                 span.smaller
                   ' &nbsp;
-                  =link_to "Make new update", new_goal_score_path(@goal)
+                  =link_to "Make new progress update", new_goal_score_path(@goal)
             - if(@goal.scores.empty?)
               p
                 | No updates yet. &nbsp;
               -if can_modify? @goal
-                =link_to "Make first update", new_goal_score_path(@goal), :class=>"button"
+                =link_to "Make first progress update", new_goal_score_path(@goal), :class=>"button"
             - else #only show current score
               .row
                 .col-sm-3

@@ -1,8 +1,8 @@
 .row
   .col-md-8
     =link_to "&laquo; Back".html_safe, @goal
-    h1 Make a new update
-    p Use this form to record a new update against this goal.
+    h1 Report progress on this goal
+    p Use this form to record the current status and report progress towards reaching this goal. Progress reports (updates) are cumulative and immutable.
 
 .row
   .col-md-8
@@ -12,7 +12,7 @@
       aside.related
         .row
           .col-xs-12
-            h3 Latest sub-goal updates:
+            h3 Latest sub-goal progress:
         - @goal.sub_goals.each do |sub_goal|
           .row
             .col-xs-12

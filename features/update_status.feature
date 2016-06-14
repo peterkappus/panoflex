@@ -5,7 +5,7 @@ Scenario: Create a new goal, see its status, update the status and see it.
   When I sign in as an admin named "Serena" with the email "serena@test.com"
   Then I should see "Not started"
   When I click on "My fresh new goal"
-  And I click on "Make new update"
+  And I click on "Make new progress update"
   #brittle but required for webrat radio selecting (clicking the label doesn't work)
   And I choose the radio button "radio-inline-on_track"
   And I fill in "score[reason]" with "Everything is going swimmingly."
