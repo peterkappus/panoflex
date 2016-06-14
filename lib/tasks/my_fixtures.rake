@@ -5,7 +5,6 @@ namespace :db do
     task groups_and_teams: [:environment, :warn] do
       #have to delete goals before deleting teams...
       Goal.destroy_all
-
       Group.destroy_all
       Team.destroy_all
 
@@ -37,7 +36,7 @@ namespace :db do
 
         #max depth...
         if(depth < 2)
-          #puts " #{depth} id: #{g.id} name: #{g.name} parent: #{parent.name if parent.present?}"
+          puts " #{depth} id: #{g.id} name: #{g.name} parent: #{parent.name if parent.present?}"
           make_sub_goals(g,depth+1)
         end
       end
@@ -49,6 +48,8 @@ namespace :db do
     end
 
     task users: [:environment, :warn] do
+      #remove only the test accounts we've created.
+      #this leaves any accounts we've created by logging in manually
       User.where("email like ?","%test.com%").destroy_all
 
       #admin user
