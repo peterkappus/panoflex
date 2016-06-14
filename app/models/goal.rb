@@ -1,21 +1,23 @@
 class Goal < ActiveRecord::Base
   enum status: [:not_started, :on_track, :off_track, :significant_delay, :delivered ]
 
-  validates_presence_of :name#, :start_date, :deadline
+  validates_presence_of :name, :start_date, :deadline
   #validates :team, inclusion: { in: group.teams}
   validates_with TeamGroupValidator
+  #validate :end_date_is_after_start_date
 
   belongs_to :team
   belongs_to :group
   belongs_to :owner, :class_name=>"User", :foreign_key=>"user_id"
-  has_many :children, -> { order('deadline')}, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
+  has_many :children, :class_name=>'Goal', :foreign_key=>'parent_id', dependent: :nullify
   has_many :scores, -> { order('created_at DESC') },  dependent: :destroy
   belongs_to :parent, :class_name=>'Goal', :foreign_key=>'parent_id'
+  default_scope { order('created_at') }
 
   #default end dates to the end of the month and start dates to the beginning fo the month
   before_save {|record| record.deadline = record.deadline.end_of_month if(record.deadline)}
   before_save {|record| record.start_date = record.start_date.beginning_of_month if(record.start_date)}
-  after_save{|goal| goal.update_calculations}
+  #after_save{|goal| goal.update_calculations}
 
   # don't use, dependent: :destroy ... better to orphan goals when the parent is deleted so that they can be re-assigned at some point and we don't lose history. TODO: create a way to archive goals instead of destroying them if thye're no longer "active". Ditto for scores...
 
@@ -71,12 +73,7 @@ class Goal < ActiveRecord::Base
   end
 
   def display_date_range
-    #ensure we have dates
-    if(earliest_start_date.nil? || latest_end_date.nil?)
-      calculate_dates
-    end
-
-    earliest_start_date.strftime("%h %Y") + " - " + latest_end_date.strftime("%h %Y")
+    start_date.strftime("%h %Y") + " - " + deadline.strftime("%h %Y")
   end
 
   #depth-first recursion to find score
@@ -302,7 +299,7 @@ class Goal < ActiveRecord::Base
     require 'csv'
     CSV.generate() do |csv|
 
-      simple_csv_headers = %w(id parent_id name owner_name owner_email status narrative updated_at status_updated_by_name status_updated_by_email)
+      simple_csv_headers = %w(id parent_id name start_date deadline owner_name owner_email status narrative updated_at status_updated_by_name status_updated_by_email)
       csv << simple_csv_headers
 
       all.each do |g|
@@ -395,35 +392,31 @@ class Goal < ActiveRecord::Base
 
         #work backwords up the chain...
         #need to make this smarter so it doesn't rely on column heading names
-        (1..MAX_LEVELS).to_a.reverse.each do |level_number|
+        (1..MAX_LEVELS).to_a.reverse_each do |level_number|
           goal_name = row["level_" + level_number.to_s]
           next if goal_name.to_s.empty?
 
-          goal = goals[goal_name] || Goal.find_or_create_by(:name=>goal_name)
-          goal.group = group
-
-          #only apply a team and a deadline if we're a "leaf" (e.g. no child goal)
-          if(row["level_" + (level_number+1).to_s].to_s.empty?)
-            goal.team = team
-
-            begin
-              goal.deadline = Date.parse(row['deadline'])
-            rescue
-              return "Import Failed! Invalid end date for goal: #{goal_name}"
-            end
-
-            begin
-              goal.start_date = Date.parse(row['start_date'])
-            rescue
-              return "Import Failed! Invalid Start Date for goal: #{goal_name}"
-            end
-
+          begin
+            deadline = Date.parse(row['deadline'])
+          rescue
+            return "Import Failed! Invalid end date for goal: #{goal_name}"
           end
+
+          begin
+            start_date = Date.parse(row['start_date'])
+          rescue
+            return "Import Failed! Invalid Start Date for goal: #{goal_name}"
+          end
+
+          goal = goals[goal_name] || Goal.find_or_create_by!(:name=>goal_name, start_date: start_date, deadline: deadline)
+
+          goal.group = group
+          goal.team = team
 
           #lookup the parent
           if(level_number > 1)
             parent_goal_name = row["level_" + (level_number-1).to_s]
-            parent = goals[parent_goal_name] || Goal.find_or_create_by(:name=>parent_goal_name)
+            parent = goals[parent_goal_name] || Goal.find_or_create_by(:name=>parent_goal_name, start_date: start_date, deadline: deadline)
             goal.parent = parent
             goals[parent.name] = parent
           end
@@ -435,5 +428,48 @@ class Goal < ActiveRecord::Base
         end #column loops
       end #end rows
     end #end cols not missing not blank
+  end
+
+  private
+
+  def end_date_is_after_start_date
+    return if deadline.blank? || start_date.blank?
+
+    earliest_child_start_date = children.map{|c| c.deadline}.min if children.count > 0
+    latest_child_deadline = children.map{|c| c.deadline}.max if children.count > 0
+
+    #ensure deadline is after latest child deadline
+    if children.count > 0 && deadline < latest_child_deadline
+      errors.add(:deadline, "must be after (or equal to) the latest sub-goal deadline: #{latest_child_deadline}")
+    end
+
+    #ensure start_date is before earliest child start date
+    if children.count > 0 && start_date > earliest_child_start_date
+      errors.add(:start_date, "must be earlier (or equal to) the earliest sub-goal start date: #{earliest_child_start_date}")
+    end
+
+    #now do the inverse...
+
+    #ensure deadline is <= parent deadline
+    if parent.present? && deadline > parent.deadline
+      errors.add(:due_date, "must be earlier (or equal to) parent deadline: #{parent.deadline}")
+    end
+
+    #ensure start_date is >= parent start_date
+    if parent.present? && start_date < parent.start_date
+      errors.add(:start_date, "must be after (or equal to) parent start date: #{parent.start_date}")
+    end
+
+    #finally...
+
+    #make sure start_date is after parent start-date
+    if parent.present? && deadline < parent.start_date
+      errors.add(:start_date, "must be after (or equal to) parent start date: #{parent.start_date}")
+    end
+
+    #deadline after start date
+    if deadline < start_date
+      errors.add(:due_date, "cannot be before the start date.")
+    end
   end
 end

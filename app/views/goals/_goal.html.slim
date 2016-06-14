@@ -1,9 +1,9 @@
 - cols = 2
-div class="col-sm-#{12/cols} subgoal-box"
+div class="col-sm-#{12/cols} subgoal-box" id="goal_#{goal_counter+1}"
   .row
     .col-xs-1
-      h3  =goal_counter+1
-    .col-xs-11.goal
+      h3.number  =goal_counter+1
+    span.col-xs-11.goal
       .tiny_status
         div class="#{goal.status}"
           = goal.status.humanize.capitalize
@@ -11,12 +11,12 @@ div class="col-sm-#{12/cols} subgoal-box"
       -if goal.owner
         .owner =link_to goal.owner.name, goal.owner
         -if goal.score.nil?
-          .owner.danger Never updated
+          .owner.danger No progress reported
         - else
          .owner
            =link_to "Updated" + time_ago_in_words(goal.score.created_at).humanize + " ago", "javascript:$('#update#{goal_counter+1}').toggle()"
          div id="update#{goal_counter+1}" style="display: none" =goal.score.reason
-      .owner Due: #{goal.latest_end_date.strftime("%h %Y")}
+      .owner Due: #{goal.deadline.strftime("%h %Y")}
       .smaller =pluralize(goal.children.count,"Subgoal") unless goal.children.empty?
     /.tiny_status.pull-right ON TRACK
 -if((goal_counter+1) % cols == 0)

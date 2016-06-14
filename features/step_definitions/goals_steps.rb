@@ -7,7 +7,7 @@ When(/^I create a sub\-goal called "([^"]*)"$/) do |goal_text|
 end
 
 Given(/^I create a goal named "([^"]*)" with the owner email "([^"]*)" belonging to the group called "([^"]*)"$/) do |goal_name, email, group_name|
-  Goal.create!(name: goal_name, owner: User.find_by(email:email), group: Group.find_or_create_by!(name: group_name), start_date: Date.today, deadline: Date.today+1.month)
+  Goal.create!(name: goal_name, owner: User.find_by(email:email), group: Group.find_or_create_by!(name: group_name), start_date: Date.today, deadline: Date.today+3.month)
 end
 
 When(/^I create a new goal called "([^"]*)"$/) do |goal_text|
@@ -16,6 +16,21 @@ When(/^I create a new goal called "([^"]*)"$/) do |goal_text|
     And I fill in "goal_name" with "#{goal_text}"
     And I click "Create Goal"
   }
+end
+
+Given(/^I create a goal named "([^"]*)" with the owner email "([^"]*)" belonging to the group called "([^"]*)" with a deadline of "([^"]*)"$/) do |goal_name, email, group_name, deadline|
+  Goal.create!(name: goal_name, owner: User.find_by(email:email), group: Group.find_or_create_by!(name: group_name), start_date: Date.today, deadline: Date.parse(deadline))
+end
+
+#NOTE: finds the first goal with the matching name.
+Given(/^I create a sub\-goal of "([^"]*)" called "([^"]*)" with a deadline of "([^"]*)"$/) do |parent_name, goal_name, deadline|
+  parent = Goal.find_by(name: parent_name)
+  Goal.create!(parent: parent, name: goal_name, owner: parent.owner, group: parent.group, start_date: parent.start_date, deadline: Date.parse(deadline))
+end
+
+#NOTE! Assumes names are unique.... be careful. :)
+When(/^I change the deadline of the first goal called "([^"]*)" to be "([^"]*)"$/) do |name, deadline|
+  Goal.find_by(name: name).update!(deadline: Date.parse(deadline))
 end
 
 When(/^I should see today's date in the format YYYY-MM-DD$/) do

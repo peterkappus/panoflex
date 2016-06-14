@@ -4,8 +4,7 @@ class SessionsController < ApplicationController
 
   def new
     if !signed_in?
-      #if we're in the test environment and attempt to login using oAuth, just create a new session. Make this smarter when you actually want to test different kinds of users and when users actually exist in the database.
-      #binding.pry
+      #Allow us to login to the test & dev environments simply by passing an email.
       if ((Rails.env.test? || Rails.env.development?) && params['email'].present?)
         #create this user in the step definition
         if(user = User.find_by_email(params['email']))
@@ -34,6 +33,11 @@ class SessionsController < ApplicationController
     if(env["omniauth.auth"].info['email'].match(/cabinetoffice\.gov\.uk|cabinet-office\.gov\.uk|parliament\.uk$/))
       user = User.find_or_create_by(:email=>env["omniauth.auth"].info['email'])
       user.name = env["omniauth.auth"].info['name']
+      #!!!Make the very first user into an admin AND EVERY user in the sandbox environment
+      #if this is the first user, or we're in a sandbox environment.
+      if User.all.empty? || env["IS_SANDBOX"]
+        user.admin = true
+      end
       #user.email = env["omniauth.auth"].info['email']
       user.save!
       session['user_email'] = user.email

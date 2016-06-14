@@ -161,7 +161,7 @@ Then(/^I click on random "(.*?)" link$/) do |selector|
 	all(selector).to_a.reject{|node| node.text.empty?}.shuffle.first.click
 end
 
-Given(/^I am on the home page$/) do
+Given(/^I (?:visit|am on) the home page$/) do
 	visit "/"
 end
 

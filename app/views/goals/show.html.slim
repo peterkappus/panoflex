@@ -22,7 +22,7 @@
               p style="color: #f00" This goal needs an owner. #{link_to "(Assign one now)", edit_goal_path if (can_modify? @goal)}
             ul.list-inline
               li
-                .small Due: #{@goal.latest_end_date.strftime("%h %Y")}
+                .small Due: #{@goal.deadline.strftime("%h %Y")}
               li
                 -if @goal.group.present?
                   .small Group: #{link_to @goal.group.name, @goal.group}
@@ -32,14 +32,16 @@
         .row
           .col-sm-12
             h3
-              ' Latest update
+              ' Latest progress
               - if can_modify? @goal
                 span.smaller
                   ' &nbsp;
-                  =link_to "Make new update", new_goal_score_path(@goal)
+                  =link_to "Make new progress update", new_goal_score_path(@goal)
             - if(@goal.scores.empty?)
               p
-                | No updates yet. &nbsp;                
+                | No updates yet. &nbsp;
+              -if can_modify? @goal
+                =link_to "Make first progress update", new_goal_score_path(@goal), :class=>"button"
             - else #only show current score
               .row
                 .col-sm-3
@@ -53,6 +55,9 @@
                   - if is_admin?
                     .small
                       = link_to :Edit, edit_score_path(@goal.score)
+              /.row
+                .col-sm-12
+                  .small =link_to "show all updates", goal_path(@goal,updates: :all)
         - unless @goal.children.empty?
           .row
             .col-sm-12

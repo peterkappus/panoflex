@@ -16,7 +16,7 @@
           small ="(" + team.goals.count.to_s + ")"
     -if is_admin?
       .pull-right
-        =link_to "New team", new_team_path
+        =link_to "New team", new_team_path(group: @group)
   .col-md-6
     ==render partial: 'goals/pie_chart', locals: {goals: @group.goals}
 .row

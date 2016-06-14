@@ -8,7 +8,7 @@ The tool is currently used to show progress against linked goals and how those g
 
 Due to privacy concerns and the need to accredit the host, the financial planning and people piece has been paused.
 
-## Please get involved! :)
+## Get involved! :)
 
 This project is being developed within the Delivery Operations team at GDS which has no dedicated tech resource. We need help from people who understand:
 - Back-end (Rails) development
@@ -21,10 +21,36 @@ This project is being developed within the Delivery Operations team at GDS which
 - Content Design
 
 
-## Setup & Hosting
+## Installing for develompent
 
-### Running locally
-This app runs on Heroku. To run it locally, you *MUST* copy the `sample.env.txt` file to `.env` and customise it for your local environment. You'll need to setup your app with the [Google developer console](https://console.developers.google.com) and add the appropriate white-listed callbacks (e.g. http://localhost:5000/auth/google_oauth2/callback)
+### Mac OSX Setup
+
+Install [homebrew](http://brew.sh) if not on your machine.
+```
+brew install postgres
+git clone http://github.com/peterkappus/panoflex.git
+cd panoflex
+cp sample.env.txt .env
+bundle
+bundle exec rake db:setup
+
+```
+#### Authentication
+This app uses Google Auth to authenticate users and create new accounts. Each time a user logs in his or her name and email address are used to create a new account in the system.
+
+**NOTE:** The first user to log into the system will automatically be made into an admin. It is impossible to make yourself into a non-admin.
+
+- Visit the [Google developer console](https://console.developers.google.com)
+- Create a new project (Name it whatever you like)
+- Click "Credentials" (on the left-hand nav)
+- Click on "OAuth consent screen"
+- Create & save a new product
+- Click "Create Credentials"
+- Select "Web application"
+- Provide a name (whatever you like)
+- Add your local callback URI (e.g. http://localhost:5000/auth/google_oauth2/callback) to the Authorised Redirect URIs section
+- Click Save (TWICE)
+- Copy our Client ID and Secret to your `.env` file
 
 To start the server use
 `$ heroku local`
@@ -37,8 +63,12 @@ It also has a `Procfile` which you probably won't need to touch.
  - Set up a heroku account (or use an existing one)
  - Create a new app
  - Decide if you want to point it at your own fork of the app, a particular release, or branch, or the HEAD. For production instances, it's recommended you point it to the latest stable release.
- - Set up your environment variables taken from your `.env` file.
+ - Go to the "Settings" tab
+ - click "reveal config vars"
+ - Create new keys for GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, and any other config params set in your `.env` file
 
+
+## Data backups
  TIP: Need to backup your heroku database before deploying?
 
  ```

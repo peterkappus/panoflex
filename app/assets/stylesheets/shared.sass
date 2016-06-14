@@ -78,10 +78,6 @@
   ol.nice_list li::before
     text-align: left !important
     font-size: 20px !important
-  .subgoal-box
-    h3
-      margin-top: 11px
-
 
 @media screen
   .print_only
@@ -243,7 +239,7 @@ h2.score
 .button.danger
   background: $red
 
-div.danger, span.danger
+div.danger, span.danger, a.danger
   color: $red
 
 .cancel
@@ -256,10 +252,11 @@ div.danger, span.danger
 
 .subgoal-box
   margin-bottom: 3rem
-  h3, p
-    display: inline
-  h3
-    font-size: 3rem
+  h3.number
+    font-size: 2rem
+    margin-top: 0.8rem
+    display: block
+
   p
     display: block
     margin: 15px 0 10px 0

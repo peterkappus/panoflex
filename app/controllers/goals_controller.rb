@@ -48,6 +48,9 @@ class GoalsController < ApplicationController
 
     @goal.owner = current_user
 
+    @goal.start_date = Date.today()
+    @goal.deadline = Date.today()+3.months
+
 
     #set the parent ID for the new goal if we passed one in via the params and if it's been found
     #what's a more "railsy" way to do this?

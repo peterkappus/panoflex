@@ -29,9 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_admin?
-    if(signed_in?)
-      (ENV['IS_SANDBOX'] || current_user.admin? || current_user.name.match(/apostolou|kappus/i))
-    end
+    signed_in? && current_user.admin?
   end
 
   def check_admin

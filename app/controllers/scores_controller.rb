@@ -5,15 +5,10 @@ class ScoresController < ApplicationController
 
   #TODO: Refactor and merge these together... they're so similar.
   #can the user see the "new" action?
-  before_action only: [:new] do
+  before_action only: [:new, :create] do
     #are they the owner of the goal or an admin?
-    is_admin? || Goal.find(params[:goal_id]).owner == current_user
-  end
-
-  #can the user save a new score?
-  before_action only: [:create] do
-    #are they they owner of the goal or an admin?
-     is_admin? || Goal.find(params[:score][:goal_id]).owner == current_user
+    id = (params[:score].present? ? params[:score][:goal_id] : params[:goal_id])
+    (Goal.find(id).owner == current_user) || is_admin?
   end
 
   #only admins can modify updates
@@ -48,7 +43,7 @@ class ScoresController < ApplicationController
     #do we have a previous score to use as a template?
     if @goal.score
       #copy it
-      @score = @goal.score
+      @score = @goal.score.dup
     else
       #make a blank one
       @score = Score.new
@@ -70,7 +65,7 @@ class ScoresController < ApplicationController
 
     respond_to do |format|
       if @score.save
-        format.html { redirect_to @score.goal, notice: 'Score was successfully created.' }
+        format.html { redirect_to @score.goal, notice: 'Update was successfully created. Thanks for posting. You\'re awesome!' }
         format.json { render :show, status: :created, location: @score.goal }
       else
         format.html { render :new }
