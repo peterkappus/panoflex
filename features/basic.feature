@@ -94,3 +94,8 @@ Feature: Import goals, look around, see header/footer, etc.
 		When I select "Team A" from the first dropdown
 		And I click "Update Goal"
 		Then I should see "Team does not belong to group"
+
+	Scenario: Add new goal from Team page.
+		Given I sign in as an admin named "Daz" with the email "daz@daz.com"
+		And I visit a team page "GO TEAM!"
+		Then I click on "Create new team goal"

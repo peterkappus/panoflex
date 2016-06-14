@@ -8,6 +8,7 @@
         'Part of the
         =link_to @team.group.name + " Group", @team.group
     .pull-right =link_to "Edit Team", edit_team_path(@team) if is_admin?
+    .pull-right =link_to "Create new team goal", new_goal_path(team: @team) if is_admin?
   .col-sm-6
     ==render partial: 'goals/pie_chart', locals: {goals: @team.goals}
 .row
