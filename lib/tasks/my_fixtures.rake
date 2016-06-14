@@ -31,7 +31,7 @@ namespace :db do
     #recursive function to make 5 child goals at each level
     def make_sub_goals (parent, depth)
       #make up to 4 sub goals
-      [*(2..30)].sample.times do
+      [*(2..10)].sample.times do
         g = new_goal(parent)
 
         #max depth...

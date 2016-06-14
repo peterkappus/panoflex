@@ -76,8 +76,11 @@
       = yield
 
 - content_for :footer_top do
-  - if (Rails.env.development? && User.where(admin: true).count > 0)
+  - if (Rails.env.development? && User.where(admin: true).count > 0 && User.where(admin: nil).count > 0)
     /=link_to "HELLOO", User.first
-    =link_to "Sign in as admin (Development only)", signin_path(email: User.where(admin: true).first.email)
+    h4 Dev tools
+    ul
+      li =link_to "Sign in as admin", signin_path(email: User.where(admin: true).first.email)
+      li =link_to "Sign in as non-admin", signin_path(email: User.where(admin: nil).first.email)
 
 = render template: "layouts/govuk_template"

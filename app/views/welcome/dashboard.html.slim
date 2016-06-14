@@ -1,6 +1,6 @@
 h1 Dashboard
 
-h2 =pluralize(Score.count, "updates")
+h2 =pluralize(Score.count, "progress updates")
 h2 = pluralize(Goal.where("start_date < ? and status =  0", Date.today()).count, "goal") + " unstarted goals which should be started by now"
 h2 =pluralize(User.count, "user")
 h2 =pluralize(Goal.count, "goal")

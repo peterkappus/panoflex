@@ -7,37 +7,31 @@
     h1 style="margin-bottom: 1rem" =@group.name + " Group"
     h4 £#{@group.budget_in_millions}m - #{@group.headcount} people - #{@group.goals.count} goals
     -if is_admin?
-      =link_to "Edit this group", edit_group_path(@group)
+      .panel.admin
+        ul
+          li =link_to "Edit this group", edit_group_path(@group)
+          li =link_to "Create a new team", new_team_path(group: @group)
+          li =link_to "Create a new goal",new_goal_path(group:@group)
     h2 Teams
-    ul.biglist
+    ul
       - @group.teams.each do |team|
         li
           => link_to team.name, team
           small ="(" + team.goals.count.to_s + ")"
-    -if is_admin?
-      .pull-right
-        =link_to "New team", new_team_path(group: @group)
   .col-md-6
     ==render partial: 'goals/pie_chart', locals: {goals: @group.goals}
 .row
   .col-sm-6
-
-.row
-  .col-sm-6
     h2 Goals (#{@group.top_level_goals.count})
-  -if (is_admin?)
-    .col-sm-6.noprint
-      .pull-right
-        =link_to "Create a new goal for this group",new_goal_path(group:@group)
 .row
   ==render @group.top_level_goals
   /
-    .col-md-6
+    .col-sm-6
       h2 Staff
       h3 #{@group.roles.count} Roles
       h3 #{@group.roles.collect{|r| r.staff_number}.uniq.count} uniquely identified people
       h3 =link_to "#{@group.vacancies.count} vacancies", group_path(filter_vacant: true)
 /
   .row
-    .col-md-12
+    .col-sm-12
       = render partial: "roles/list", locals: {roles: @roles}

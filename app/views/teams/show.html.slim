@@ -1,30 +1,23 @@
 .row
-  .col-md-6
-    /h3 =link_to :Teams, teams_path
-    h3 =link_to "Groups and Teams", groups_path
-    h1 style="margin-bottom: 1rem" = @team.name
-    -if @team.group
-      smaller
-        'Part of the
-        =link_to @team.group.name + " Group", @team.group
-    .pull-right =link_to "Edit Team", edit_team_path(@team) if is_admin?
-    .pull-right =link_to "Create new team goal", new_goal_path(team: @team) if is_admin?
-  .col-sm-6
-    ==render partial: 'goals/pie_chart', locals: {goals: @team.goals}
-.row
-  .col-sm-12
-    h2 Goals (#{@team.goals.count})
-    /= (params["expand_all"]) ? link_to("Collapse all", team_path(@team)) : link_to("Expand all", "?expand_all=1")
-    //== render :partial=>"shared/sub_goals", :locals=>{sub_goals: @team.goals}
-    //== render :partial=>"shared/sub_goals", :locals=>{sub_goals: Goal.all.reject{|goal| goal.parent.get_team == goal.get_team}}
     .row
-      == render @team.goals
+      .col-sm-6
+        /h3 =link_to :Teams, teams_path
+        h3 =link_to "Groups and Teams", groups_path
+        h1 style="margin-bottom: 1rem" = @team.name
+        -if @team.group
+          smaller
+            'Part of the
+            =link_to @team.group.name + " Group", @team.group
+        - if is_admin?
+          .panel.admin
+            ul
+              li =link_to "Edit Team", edit_team_path(@team)
+              li =link_to "Create new team goal", new_goal_path(team: @team)
 
-
-/Someday, we'll show people info
-  h2 #{@team.roles.count} Roles
-  h2 #{@team.roles.collect{|r| r.staff_number}.uniq.count} uniquely identified people
-  h2 =link_to "#{@team.roles.vacant.count} vacancies", roles_path(team: @team, filter_vacant: true)
-  h3 Part of #{link_to @team.group.name, @team.group}
-
-  = render partial: "roles/list", locals: {roles: @team.roles.page(params[:page])}
+      .col-sm-6
+        ==render partial: 'goals/pie_chart', locals: {goals: @team.goals}
+    .row
+      .col-sm-12
+        h2 Goals (#{@team.goals.count})
+        .row
+          == render @team.goals

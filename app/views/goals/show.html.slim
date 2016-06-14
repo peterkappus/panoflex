@@ -27,8 +27,8 @@
                 -if @goal.group.present?
                   .small Group: #{link_to @goal.group.name, @goal.group}
               li
-                -if @goal.get_team.present?
-                  .small Team: #{link_to @goal.get_team.name, @goal.get_team}
+                -if @goal.team.present?
+                  .small Team: #{link_to @goal.team.name, @goal.team}
         .row
           .col-sm-12
             h3
