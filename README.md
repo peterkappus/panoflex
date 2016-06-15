@@ -107,9 +107,7 @@ Or only run @wip (work in progress) tests:
 - "Nudge" a goal
 - "Like" an update
 - Include updates at all levels in export
-- Add name of person who created score in export
 - Disallow entering a deadline before the start_date (use validates_date gem?)
-- Allow an arbitrary number of levels for export
 - Version control to see when/why/how/and by whom a goal change was made.
 - Ability to view old versions of goals
 - Add a RAG status based on % complete vs time remaining
@@ -120,6 +118,9 @@ Or only run @wip (work in progress) tests:
 - Ween ourselves off of bootstrap and just use the standard GOV.UK CSS.
 
 ### DONE (AKA "What's new?")
+- View all progress updates for a goal
+- Add name of person who created score in export (and email)
+- Allow an arbitrary number of levels for export (export contains all goals)
 - Search for goals using free text
 - Search based on person name
 - Ability to create teams & groups
@@ -160,8 +161,7 @@ Or only run @wip (work in progress) tests:
 - Associate roles to functions (initially by function_name) w/ error reporting
 
 ### Someday/Maybe
-- Search for role by name
-- Searchable hashtags in goal text?
+- Clickable hashtags in goal text?
 - Make names click-able to search for all roles using that person
 - Search for role by type
 - Add non-people costs (EPIC)
