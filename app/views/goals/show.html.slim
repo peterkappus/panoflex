@@ -49,7 +49,7 @@
                     div class="#{@goal.score.status}"
                       b = @goal.score.status.humanize.capitalize
                 .col-sm-9
-                  p =@goal.score.reason
+                  p =@goal.score.reason.gsub("\n","<br>").html_safe
                   .hint  =time_ago_in_words(@goal.score.created_at).humanize
                   .small =link_to @goal.score.user.name, @goal.score.user
                   - if is_admin?
