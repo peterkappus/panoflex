@@ -43,21 +43,18 @@
               -if can_modify? @goal
                 =link_to "Make first progress update", new_goal_score_path(@goal), :class=>"button"
             - else #only show current score
+              == render @goal.score
               .row
-                .col-sm-3
-                  .tiny_status
-                    div class="#{@goal.score.status}"
-                      b = @goal.score.status.humanize.capitalize
-                .col-sm-9
-                  p =@goal.score.reason.gsub("\n","<br>").html_safe
-                  .hint  =time_ago_in_words(@goal.score.created_at).humanize
-                  .small =link_to @goal.score.user.name, @goal.score.user
-                  - if is_admin?
-                    .small
-                      = link_to :Edit, edit_score_path(@goal.score)
-              /.row
-                .col-sm-12
-                  .small =link_to "show all updates", goal_path(@goal,updates: :all)
+                - if(params[:updates] != "all")
+                  .col-sm-12
+                    .small =link_to "View all updates", goal_path(@goal,updates: :all)
+                - else
+                  .col-sm-12
+                    / grab second to N updates
+                    - @goal.scores[1,@goal.scores.length].each do |score|
+                      == render score
+
+
         - unless @goal.children.empty?
           .row
             .col-sm-12

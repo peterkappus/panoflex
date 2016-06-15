@@ -45,7 +45,7 @@
     = f.label :Narrative, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :reason, class: "form-control bigtext"
-      .form-hint Please highlight any major achievements, setbacks, risks, or issues. The latest narrative has been copied here for your conveience.
+      .form-hint Please highlight any major achievements, setbacks, risks, or issues. The latest narrative has been copied here for your conveience. Line breaks will be preserved.
 
       =f.hidden_field :goal_id, :value=>@score.goal.id
   .form-group

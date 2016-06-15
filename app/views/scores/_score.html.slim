@@ -1,0 +1,12 @@
+.row.score
+  .col-sm-3
+    .tiny_status
+      div class="#{score.status}"
+        b = score.status.humanize.capitalize
+  .col-sm-9
+    p =score.reason.gsub("\n","<br>").html_safe
+    .hint  =time_ago_in_words(score.created_at).humanize
+    .small =link_to score.user.name, @goal.score.user
+    - if is_admin?
+      .small
+        = link_to :Edit, edit_score_path(score)
