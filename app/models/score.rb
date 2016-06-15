@@ -3,9 +3,7 @@ class Score < ActiveRecord::Base
 
   belongs_to :goal
   belongs_to :user
-  validates_presence_of :goal
-  validates_presence_of :reason
-  validates_presence_of :status
+  validates_presence_of :goal, :reason, :status, :user
 
   #validates_presence_of :amount
   #validates :amount, numericality: { only_integer: true}

@@ -18,6 +18,11 @@ When(/^I create a new goal called "([^"]*)"$/) do |goal_text|
   }
 end
 
+When(/^I visit the goal called "([^"]*)"$/) do |name|
+  g = Goal.find_by(name: name)
+  visit goal_path(g)
+end
+
 Given(/^I create a goal named "([^"]*)" with the owner email "([^"]*)" belonging to the group called "([^"]*)" with a deadline of "([^"]*)"$/) do |goal_name, email, group_name, deadline|
   Goal.create!(name: goal_name, owner: User.find_by(email:email), group: Group.find_or_create_by!(name: group_name), start_date: Date.today, deadline: Date.parse(deadline))
 end
@@ -53,4 +58,11 @@ When(/^I import new goals$/) do
   }
   attach_file("file","#{ENV['RAILS_ROOT']}/okr_sample_import.csv")
   find_button("Import").click
+end
+
+
+When(/^I add a status of "([^"]*)" and a narrative of "([^"]*)" to the goal called "([^"]*)"$/) do |status_sym, narrative, goal_name|
+  g = Goal.find_by(name: goal_name)
+  g.scores << Score.new(status: status_sym.to_sym, reason: narrative, user: g.owner)
+  #g.save!
 end

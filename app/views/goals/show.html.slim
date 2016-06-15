@@ -47,7 +47,7 @@
               .row
                 - if(params[:updates] != "all")
                   .col-sm-12
-                    .small =link_to "View all updates", goal_path(@goal,updates: :all)
+                    .small =link_to "View all progress updates", goal_path(@goal,updates: :all)
                 - else
                   .col-sm-12
                     / grab second to N updates
