@@ -37,3 +37,9 @@ Scenario: View all progress updates
   #now see both...
   Then I should see "initial progress report"
   And I should see "second progress report"
+  And I should see "Download status updates"
+  And I should see "Download goals"
+  When I visit "/scores/show_export"
+  Then I should see "initial progress"
+  And I should see "second progress"
+  And I should see "My first goal"

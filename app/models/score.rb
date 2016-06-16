@@ -20,12 +20,41 @@ class Score < ActiveRecord::Base
     updated_at
   end
 
+  def user_name
+    user.name
+  end
+
+  def goal_name
+    goal.name
+  end
+
+  def email
+    user.email
+  end
+
   def display_amount
     amount.to_i.to_s + "%"
   end
 
   def display_date
     date.strftime("%d %h %Y")
+  end
+
+  def self.to_csv
+    require 'csv'
+    CSV.generate() do |csv|
+
+      simple_csv_headers = %w(id goal_id goal_name status reason updated_at user_name email)
+
+      #add headers
+      csv << simple_csv_headers
+
+      #loop through all scores
+      all.each do |score|
+        #add a row for each, converting each header to a symbol and calling that method on the score
+        csv << simple_csv_headers.map{|h| score.send(h.to_sym)}
+      end
+    end
   end
 
 end

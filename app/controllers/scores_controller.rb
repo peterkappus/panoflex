@@ -20,6 +20,16 @@ class ScoresController < ApplicationController
   # GET /scores.json
   def index
     @scores = Score.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data Score.to_csv}
+    end
+
+  end
+
+  def show_export
+    render :text=>"<pre>" + Score.to_csv.to_s
   end
 
   # GET /scores/1

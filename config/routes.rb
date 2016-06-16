@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :scores
+  resources :scores do
+    get 'show_export', on: :collection
+  end
 
   #goals have scores...
   resources :goals do
