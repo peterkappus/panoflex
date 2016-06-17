@@ -23,7 +23,7 @@ javascript:
     .form-group
       = f.label "Parent dates", class: "col-sm-2 control-label"
       .col-sm-10
-        p = @goal.parent.display_date_range 
+        p = @goal.parent.display_date_range
 
   .form-group
     = f.label :name, class: "col-sm-2 control-label"
@@ -52,7 +52,7 @@ javascript:
       =collection_select :goal, :user_id, User.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
       ' &nbsp;
       =link_to "Assign to me", "javascript: $('#goal_user_id').selectpicker('val', '#{current_user.id}');void(0);"
-      .form-hint The owner is responsible for making progress updates against this goal.
+      .form-hint The owner is responsible for making progress updates against this goal. Please note: people must sign in before they appear in this list.
   -if is_admin?
     .form-group
       = f.label :sdp, "In the SDP?", class: "col-sm-2 control-label"
