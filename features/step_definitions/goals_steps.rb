@@ -10,9 +10,10 @@ Given(/^I create a goal named "([^"]*)" with the owner email "([^"]*)" belonging
   Goal.create!(name: goal_name, owner: User.find_by(email:email), group: Group.find_or_create_by!(name: group_name), start_date: Date.today, deadline: Date.today+3.month)
 end
 
-When(/^I create a new goal called "([^"]*)"$/) do |goal_text|
+#click a "create a new goal" link within an ID
+When(/^I create a new goal called "([^"]*)" within "([^"]*)"$/) do |goal_text, div_id|
   steps %Q{
-    And I click on "Create a new goal"
+    And I click on "Create a new goal" within "#{div_id}"
     And I fill in "goal_name" with "#{goal_text}"
     And I click "Create Goal"
   }

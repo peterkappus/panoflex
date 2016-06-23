@@ -1,7 +1,7 @@
 .noprint
   = render 'breadcrumb'
 
-.row.padded-row
+.row
   .col-sm-8
     h1 What will GDS do this year?
     details.noprint
@@ -36,9 +36,13 @@
 .page-break
 
 a name="by_group"
-.row.padded-row
+.row
   .col-sm-6
     h2 Goals by Business Group
+    -if is_admin?
+      .panel.admin
+        ul
+          li =link_to "Create a new group", new_group_path
   .col-sm-6
     .noprint.pull-right style="margin-top: 5rem"
       = link_to goals_path(:format=>:csv) do
@@ -58,28 +62,10 @@ a name="by_group"
         a href="?view=grid" Grid view
       li class="#{session[:goals_view] == 'list' ? 'active' : ''}" role="presentation"
         a href="?view=list" List view
+
 - Group.all.each do |group|
-  .row style="margin-bottom: 2rem"
-    .col-sm-12
-      .row
-        .col-xs-8
-          /.print_only
-          /  small =display_date(Time.now)
-          h2 =link_to group.name + " Group", group
-          /.group-meta Budget: £#{group.budget_in_millions}m
-          /.group-meta Headcount: #{group.headcount}
-        -if (is_admin?)
-          .col-xs-4
-            .noprint.pull-right style="margin-top: 6rem"
-              =link_to "Create new goal for this group",new_goal_path(group_id: group.id)
-  .row
-    .col-sm-12
-      - if(params["expand_all"])
-        == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
-      - else
-        .row
-          == render group.top_level_goals
-    .page-break
+  .padded-row
+  ==render group
 
 / Now that we have real data and cannot yet import scores, we need to disable goal importing unless we have zero goals.
 - if Goal.all.count == 0 && is_admin?

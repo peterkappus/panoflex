@@ -3,29 +3,25 @@ class SessionsController < ApplicationController
   skip_before_action :check_login
 
   def new
-    if !signed_in?
-      #Allow us to login to the test & dev environments simply by passing an email.
-      if ((Rails.env.test? || Rails.env.development?) && params['email'].present?)
-        #create this user in the step definition
-        if(user = User.find_by_email(params['email']))
-          session['user_email'] = user.email
-          flash['notice'] = "Successfully signed in as " + user.name.to_s
-        else
-          flash['error'] = "Could not find test user with email " + params['email'].to_s
-        end
-        #redirect to "/" unless we have a previous url
-        redirect_to_previous_url
-        return
+    #first sign out....
+    session['user_email'] = "" #assigning to nil didn't work...
+    #Allow us to login to the test & dev environments simply by passing an email.
+    if ((Rails.env.test? || Rails.env.development?) && params['email'].present?)
+      #create this user in the step definition
+      if(user = User.find_by_email(params['email']))
+        session['user_email'] = user.email
+        flash['notice'] = "Successfully signed in as " + user.name.to_s
       else
-      #for some reason, I couldn't just call my check_login function...
-      #if not logged in, redirect to google auth
-        redirect_to '/auth/google_oauth2'
-        return
+        flash['error'] = "Could not find test user with email " + params['email'].to_s
       end
-    else
-      #otherwise, redirect home and say already logged in
-      flash['notice'] = "Already logged in as " + current_user.name
+      #redirect to "/" unless we have a previous url
       redirect_to_previous_url
+      return
+    else
+    #for some reason, I couldn't just call my check_login function...
+    #if not logged in, redirect to google auth
+      redirect_to '/auth/google_oauth2'
+      return
     end
   end
 

@@ -49,15 +49,14 @@ Feature: Import goals, look around, see header/footer, etc.
     Then I should see "2"
     And I should see "Smallish connected thing"
 		When I click "Vision"
-		And I click "Operations"
-		Then I should see "Team D"
+		#And I click "Operations"
+		And I should see "Team D"
 		And I should see "3"
 		And I should see "Build a time machine"
 
 	Scenario: Import goals and create new ones
 		When I import new goals
-		And I click on "Operations Group"
-		And I create a new goal called "Newly created test goal"
+		And I create a new goal called "Newly created test goal" within "#operations"
 		Then I should see "Newly created test goal"
 		When I create a sub-goal called "Sub goal 1"
 		#we should've been redirected to the parent goal and see our sub-goal in the sub-goal list

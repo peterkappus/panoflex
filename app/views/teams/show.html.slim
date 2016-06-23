@@ -1,25 +1,24 @@
 .row
-    .row
-      .col-sm-6
-        /h3 =link_to :Teams, teams_path
-        h3 =link_to "Groups and Teams", groups_path
-    .row
-      .col-sm-6
-        h1 style="margin-bottom: 1rem" = @team.name
-        -if @team.group
-          smaller
-            'Part of the
-            =link_to @team.group.name + " Group", @team.group
-        - if is_admin?
-          .panel.admin
-            ul
-              li =link_to "Edit Team", edit_team_path(@team)
-              li =link_to "Create new team goal", new_goal_path(team: @team)
+  .col-sm-6
+    /h3 =link_to :Teams, teams_path
+    h3 =link_to "Groups and Teams", groups_path
+.row
+  .col-sm-6
+    h1 style="margin-bottom: 1rem" = @team.name
+    -if @team.group
+      smaller
+        'Part of the
+        =link_to @team.group.name + " Group", @team.group
+    - if is_admin?
+      .panel.admin
+        ul
+          li =link_to "Edit Team", edit_team_path(@team)
+          li =link_to "Create new team goal", new_goal_path(team: @team)
 
-      .col-sm-6
-        ==render partial: 'goals/pie_chart', locals: {goals: @team.goals}
+  .col-sm-6
+    ==render partial: 'goals/pie_chart', locals: {goals: @team.goals}
+.row
+  .col-sm-12
+    h2 Goals (#{@team.goals.count})
     .row
-      .col-sm-12
-        h2 Goals (#{@team.goals.count})
-        .row
-          == render @team.goals
+      == render @team.goals
