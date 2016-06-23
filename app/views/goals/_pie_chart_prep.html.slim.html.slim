@@ -1,0 +1,17 @@
+=javascript_include_tag "https://www.gstatic.com/charts/loader.js"
+
+//include the google charts JS and setup an array of callbacks... then call them.
+
+javascript:
+  google.charts.load("current", {packages:["corechart"]});
+
+  google.charts.setOnLoadCallback(drawCharts);
+
+  //an array of callbacks to render all the charts on this page
+  var chartDrawingCallbacks = [];
+
+  function drawCharts(){
+    //loop through our callback array and call each function
+    for(var index in chartDrawingCallbacks)
+     chartDrawingCallbacks[index]();
+  }

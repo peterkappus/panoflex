@@ -1,8 +1,11 @@
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+//before you call this, make sure you include the setup partial like so
+/ == render 'pie_chart_prep.html.slim'
+
+/need to make sure every pie chart has a unique ID (when there are multiple ones on a page)
+- @time_for_id = ((Time.now.to_f - Time.now.to_i)*1000).to_i
 javascript:
-  google.charts.load("current", {packages:["corechart"]});
-  google.charts.setOnLoadCallback(drawChart);
-  function drawChart() {
+  chartDrawingCallbacks.push (function() {
+    //alert('calling! #{@time_for_id}');
     var data = google.visualization.arrayToDataTable([
       ['Goal', 'Status'],
       ["Not started",     #{goals.where(status: 0).count}],
@@ -16,11 +19,11 @@ javascript:
       pieHole: 0.4, chartArea: {left:10,top:10,width:'90%',height:'90%'},legend: {position: 'right'}, colors: ['#6F777B','#006435','#FFBF47','#B10E1E','#005EA5']
     };
 
-    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+    var chart = new google.visualization.PieChart(document.getElementById('chart#{@time_for_id}'));
     chart.draw(data, options);
-  }
-</script>
+
+  });
 
 / uncomment when ready to show pie
 h3.topaligned Goals by status
-#donutchart style="width: 100%;"
+div id="chart#{@time_for_id}" style="width: 100%;"

@@ -25,7 +25,15 @@ namespace :db do
       noun = %w/users departments platforms tools savings/.sample
       month = %w/January March April July September December/.sample
       year = %w/2016 2017 2018/.sample
-      Goal.create!(name: "#{verb.humanize} #{[*(1..500)].sample} #{noun} by #{month.humanize} #{year}.", start_date: Date.today, deadline: Date.parse("#{month} #{year}"), owner: User.all.sample, group: Group.first, team: Group.first.teams.sample, parent: parent, sdp: rand > 0.9 ? true : false)
+      group = Group.all.sample
+      team = group.teams.sample
+      goal = Goal.create!(name: "#{verb.humanize} #{[*(1..500)].sample} #{noun} by #{month.humanize} #{year}.", start_date: Date.today, deadline: Date.parse("#{month} #{year}"), owner: User.all.sample, group: group, team: team, parent: parent, sdp: rand > 0.9 ? true : false)
+
+      #add some "scores"
+      goal.scores << Score.create!(user: User.all.sample, goal: goal, reason: "This is a fake status update.", status: [:not_started, :on_track, :off_track, :significant_delay, :delivered ].sample)
+
+      #return our goal
+      goal
     end
 
     #recursive function to make 5 child goals at each level

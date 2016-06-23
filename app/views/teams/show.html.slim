@@ -16,6 +16,7 @@
           li =link_to "Create new team goal", new_goal_path(team: @team)
 
   .col-sm-6
+    == render 'goals/pie_chart_prep.html.slim'
     ==render partial: 'goals/pie_chart', locals: {goals: @team.goals}
 .row
   .col-sm-12

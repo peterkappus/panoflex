@@ -30,9 +30,6 @@
 
 
 
-
-
-
 .page-break
 
 a name="by_group"
@@ -62,6 +59,10 @@ a name="by_group"
         a href="?view=grid" Grid view
       li class="#{session[:goals_view] == 'list' ? 'active' : ''}" role="presentation"
         a href="?view=list" List view
+
+
+//pie chart setup
+== render 'pie_chart_prep.html.slim'
 
 - Group.all.each do |group|
   .padded-row

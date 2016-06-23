@@ -3,4 +3,6 @@
     h3.noprint =link_to :Groups, groups_path
     .print_only.pull-right
       small As of #{display_date(Time.now)}
+//pie chart setup
+== render 'goals/pie_chart_prep.html.slim'
 == render @group
