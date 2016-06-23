@@ -9,9 +9,13 @@ namespace :db do
       Team.destroy_all
 
       digital = Group.create!(name: "Digital")
-      Group.create!(name: "Technology")
       digital.teams << Team.create!(name: "GaaP")
       digital.teams << Team.create!(name: "GOV.UK")
+
+      tech = Group.create!(name: "Technology")
+      tech.teams << Team.create!(name: "CTS")
+      tech.teams << Team.create!(name: "Digital Marketplace")
+
     end
 
     task goals: [:environment, :groups_and_teams] do
@@ -25,7 +29,7 @@ namespace :db do
       noun = %w/users departments platforms tools savings/.sample
       month = %w/January March April July September December/.sample
       year = %w/2016 2017 2018/.sample
-      group = Group.all.sample
+      group = parent.nil? ? Group.all.sample : parent.group
       team = group.teams.sample
       goal = Goal.create!(name: "#{verb.humanize} #{[*(1..500)].sample} #{noun} by #{month.humanize} #{year}.", start_date: Date.today, deadline: Date.parse("#{month} #{year}"), owner: User.all.sample, group: group, team: team, parent: parent, sdp: rand > 0.9 ? true : false)
 
@@ -39,7 +43,7 @@ namespace :db do
     #recursive function to make 5 child goals at each level
     def make_sub_goals (parent, depth)
       #make up to 4 sub goals
-      [*(2..10)].sample.times do
+      [*(2..6)].sample.times do
         g = new_goal(parent)
 
         #max depth...

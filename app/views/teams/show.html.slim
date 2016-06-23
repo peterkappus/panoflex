@@ -17,7 +17,7 @@
 
   .col-sm-6
     == render 'goals/pie_chart_prep.html.slim'
-    ==render partial: 'goals/pie_chart', locals: {goals: @team.goals}
+    ==render partial: 'goals/pie_chart', locals: {goals: @team.goals, goal_scope: {team: @team.to_param}}
 .row
   .col-sm-12
     h2 Goals (#{@team.goals.count})

@@ -5,7 +5,8 @@
   .col-sm-6
     p.lede These goals have been selected for reporting in the Single Departmental Plan.
   .col-sm-6
-    ==render partial: 'goals/pie_chart', locals: {goals: @goals}
+    == render 'goals/pie_chart_prep.html.slim'
+    ==render partial: 'goals/pie_chart', locals: {goals: @goals, goal_scope: {sdp: true}}
 .row
   .col-sm-12
     - if(@goals.empty?)

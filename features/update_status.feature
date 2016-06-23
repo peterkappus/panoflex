@@ -43,3 +43,23 @@ Scenario: View all progress updates
   Then I should see "initial progress"
   And I should see "second progress"
   And I should see "My first goal"
+
+Scenario: See goals in various states and click to view them.
+  Given I create a new non-admin named "Serena" with the email "serena@test.com"
+  Given I create a goal named "My fresh new goal" with the owner email "serena@test.com" belonging to the group called "Digital"
+  And I add a status of "on_track" and a narrative of "This goal is on track." to the goal called "My fresh new goal"
+  Given I create a goal named "My off track goal" with the owner email "serena@test.com" belonging to the group called "Digital"
+  And I add a status of "off_track" and a narrative of "This goal is OFF track." to the goal called "My off track goal"
+  Given I create a goal named "My off track tech goal" with the owner email "serena@test.com" belonging to the group called "Technology"
+  And I add a status of "off_track" and a narrative of "This goal is OFF track." to the goal called "My off track tech goal"
+  And I sign in as a non-admin named "Gina" with the email "gina@test.com"
+  When I visit the home page
+  Then I should see "On track: 1" within "#digital"
+  And I should see "Off track: 1" within "#digital"
+  When I click on "On track: 1" within "#digital"
+  Then I should see "My fresh new goal"
+  And I should NOT see "My off track goal"
+  When I visit the home page
+  And I click on "Off track: 1"
+  Then I should see "My off track goal"
+  And I should NOT see "My fresh new goal"

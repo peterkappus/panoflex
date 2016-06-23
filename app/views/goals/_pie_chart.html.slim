@@ -1,6 +1,13 @@
 //before you call this, make sure you include the setup partial like so
 / == render 'pie_chart_prep.html.slim'
 
+- statuses = [:not_started, :on_track, :off_track, :significant_delay, :delivered ]
+- js_data = ""
+- i = 0
+- statuses.each do |the_status|
+  - js_data = js_data + "[\"#{the_status.to_s.humanize}\",     #{goals.where(status: i).count}],"
+  - i = i + 1
+
 /need to make sure every pie chart has a unique ID (when there are multiple ones on a page)
 - @time_for_id = ((Time.now.to_f - Time.now.to_i)*1000).to_i
 javascript:
@@ -8,11 +15,8 @@ javascript:
     //alert('calling! #{@time_for_id}');
     var data = google.visualization.arrayToDataTable([
       ['Goal', 'Status'],
-      ["Not started",     #{goals.where(status: 0).count}],
-      ["On track",     #{goals.where(status: 1).count}],
-      ['Off track',     #{goals.where(status: 2).count}],
-      ['Major Delay',     #{goals.where(status: 3).count}],
-      ['Delivered',     #{goals.where(status: 4).count}]
+      #{js_data.html_safe}
+
     ]);
 
     var options = {
@@ -27,3 +31,9 @@ javascript:
 / uncomment when ready to show pie
 h3.topaligned Goals by status
 div id="chart#{@time_for_id}" style="width: 100%;"
+
+ul.padded-row.pie_links.list-inline
+  - i = 0
+  - statuses.each do |status|
+    li =link_to "#{status.to_s.humanize}: #{goals.where(status: i).count}", search_goals_path({status: i}.merge(goal_scope))
+    - i = i + 1

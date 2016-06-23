@@ -32,7 +32,15 @@ class GoalsController < ApplicationController
   end
 
   def search
-    @goals = Goal.search(params[:q])
+    @goals = Goal.all
+    @goals = Group.find(params[:group]).goals if params[:group].present?
+    @goals = Team.find(params[:team]).goals if params[:team].present?
+    @goals = @goals.where(status: params[:status]) if params[:status].present?
+    @goals = @goals.where(owner: params[:user]) if params[:user].present?
+    @goals = @goals.where(sdp: params[:sdp]) if params[:sdp].present?
+
+    #binding.pry
+    @goals = @goals.search(params[:q]) if params[:q].present?
   end
 
   def timeline

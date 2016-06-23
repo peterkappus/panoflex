@@ -66,7 +66,7 @@ class Goal < ActiveRecord::Base
 
   def self.search(words)
     if(words)
-      where('lower(name) LIKE ?',"%#{words.downcase}%") +       User.where("lower(name) LIKE ? ","%#{words.downcase}%").collect{|u| u.goals}.flatten
+      where('lower(name) LIKE ?',"%#{words.downcase}%") + User.where("lower(name) LIKE ? ","%#{words.downcase}%").collect{|u| u.goals}.flatten
     else
       all
     end

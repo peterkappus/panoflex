@@ -4,7 +4,8 @@
     h1 =@user.name
     p.lede #{@user.name} is the designated owner of the goals below.
   .col-sm-6
-    == render partial: 'goals/pie_chart', locals: {goals: @user.goals}
+    == render 'goals/pie_chart_prep.html.slim'
+    == render partial: 'goals/pie_chart', locals: {goals: @user.goals, goal_scope: {user: @user}}
 .row
   .col-sm-12
     h2 Goals (#{@user.goals.count})

@@ -19,7 +19,7 @@ div id="#{group.to_param}"
             => link_to team.name, team
             small ="(" + team.goals.count.to_s + ")"
     .col-md-6
-      ==render partial: 'goals/pie_chart', locals: {goals: group.goals}
+      ==render partial: 'goals/pie_chart', locals: {goals: group.goals, goal_scope: {group: group.to_param}}
   .row
     .col-sm-6
       h2 Goals (#{group.top_level_goals.count})

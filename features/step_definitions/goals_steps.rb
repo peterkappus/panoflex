@@ -64,6 +64,5 @@ end
 
 When(/^I add a status of "([^"]*)" and a narrative of "([^"]*)" to the goal called "([^"]*)"$/) do |status_sym, narrative, goal_name|
   g = Goal.find_by(name: goal_name)
-  g.scores << Score.new(status: status_sym.to_sym, reason: narrative, user: g.owner)
-  #g.save!
+  g.scores << Score.create!(status: status_sym.to_sym, reason: narrative, user: User.all.sample, goal: g)
 end
