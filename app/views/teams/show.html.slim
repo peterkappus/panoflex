@@ -3,6 +3,8 @@
       .col-sm-6
         /h3 =link_to :Teams, teams_path
         h3 =link_to "Groups and Teams", groups_path
+    .row
+      .col-sm-6
         h1 style="margin-bottom: 1rem" = @team.name
         -if @team.group
           smaller

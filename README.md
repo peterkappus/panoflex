@@ -101,12 +101,14 @@ Or only run @wip (work in progress) tests:
 ## The Backlog
 
 ### Do next
+- Cascading assignment (a check box? or easy way to assign all sub-goals to the same owner/team/group as the parent goal when editing)
+- Email notifications: notify a goal owner when a sub-goal gets updated
+- Comment on a goal (& email the owner)
+- Comment on a progress update (& email the update maker)
+- Comment on a comment and update all the previous commenters and the owner
 - Tree view
-- Ability to add comments to a goal
-- Email alerts when people down-stream add updates
-- "Nudge" a goal
-- "Like" an update
-- Include updates at all levels in export
+- "Nudge" a goal (emails the owner)
+- "Like" an update (emails the owner)
 - Disallow entering a deadline before the start_date (use validates_date gem?)
 - Version control to see when/why/how/and by whom a goal change was made.
 - Ability to view old versions of goals
@@ -118,6 +120,7 @@ Or only run @wip (work in progress) tests:
 - Ween ourselves off of bootstrap and just use the standard GOV.UK CSS.
 
 ### DONE (AKA "What's new?")
+- Ability to download all status updates
 - View all progress updates for a goal
 - Add name of person who created score in export (and email)
 - Allow an arbitrary number of levels for export (export contains all goals)

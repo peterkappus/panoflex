@@ -25,7 +25,7 @@ namespace :db do
       noun = %w/users departments platforms tools savings/.sample
       month = %w/January March April July September December/.sample
       year = %w/2016 2017 2018/.sample
-      Goal.create!(name: "#{verb.humanize} #{[*(1..500)].sample} #{noun} by #{month.humanize} #{year}.", start_date: Date.today, deadline: Date.parse("#{month} #{year}"), owner: User.all.sample, group: Group.first, team: Group.first.teams.sample, parent: parent)
+      Goal.create!(name: "#{verb.humanize} #{[*(1..500)].sample} #{noun} by #{month.humanize} #{year}.", start_date: Date.today, deadline: Date.parse("#{month} #{year}"), owner: User.all.sample, group: Group.first, team: Group.first.teams.sample, parent: parent, sdp: rand > 0.9 ? true : false)
     end
 
     #recursive function to make 5 child goals at each level

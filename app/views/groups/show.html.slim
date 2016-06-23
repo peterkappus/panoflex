@@ -3,6 +3,8 @@
     h3.noprint =link_to :Groups, groups_path
     .print_only.pull-right
       small As of #{display_date(Time.now)}
+.row
+  .col-md-6
     div style="clear:both"
     h1 style="margin-bottom: 1rem" =@group.name + " Group"
     h4 £#{@group.budget_in_millions}m - #{@group.headcount} people - #{@group.goals.count} goals
