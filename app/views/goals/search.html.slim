@@ -1,4 +1,18 @@
 .row
+  .col-sm-6
+    h1 Search results
+    .panel style="margin-bottom: 1.5rem"
+      ul.list-inline
+        -if (params[:q].present?)
+          li Keywords: #{params[:q]}
+        -if (params[:sdp].to_s == true.to_s)
+          li SDP goals
+        -if (params[:team].present?)
+          li Team: #{params[:team]}
+        -if (params[:group].present?)
+          li Group: #{params[:group]}
+        -if (params[:status].present?)
+          li Status: #{Goal.statuses.key(params[:status].to_i).humanize}
+.row
   .col-sm-12
-    h1 Search results: #{params[:q]}
     ==render @goals
