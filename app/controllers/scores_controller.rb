@@ -40,7 +40,6 @@ class ScoresController < ApplicationController
   # GET /scores/new
   def new
 
-    #TODO:  Redirect home
     @goal = Goal.find(params[:goal_id])
 
     if(@goal.nil?)
@@ -78,6 +77,8 @@ class ScoresController < ApplicationController
         format.html { redirect_to @score.goal, notice: 'Update was successfully created. Thanks for posting. You\'re awesome!' }
         format.json { render :show, status: :created, location: @score.goal }
       else
+        #The "new" template references @goal and gets rendered when validation fails so we must set @goal.
+        @goal = @score.goal
         format.html { render :new }
         format.json { render json: @score.errors, status: :unprocessable_entity }
       end

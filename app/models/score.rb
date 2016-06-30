@@ -5,7 +5,6 @@ class Score < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :goal, :reason, :status, :user
 
-  #validates_presence_of :amount
   #validates :amount, numericality: { only_integer: true}
   #after_save -> {goal.calculate_scores}
   after_save -> {goal.status = status; goal.save!}

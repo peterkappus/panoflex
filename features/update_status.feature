@@ -8,6 +8,10 @@ Scenario: Create a new goal, see its status, update the status and see it.
   And I click on "Make new progress update"
   #brittle but required for webrat radio selecting (clicking the label doesn't work)
   And I choose the radio button "radio-inline-on_track"
+  #Leave reason blank and check that validation is working
+  And I click "Save"
+  Then I should see "can't be blank"
+  #now fill it in...
   And I fill in "score[reason]" with "Everything is going swimmingly."
   And I click "Save"
   Then I should see "On track"
@@ -16,6 +20,8 @@ Scenario: Create a new goal, see its status, update the status and see it.
   Then I should see "swimmingly"
   And I should see "Serena"
   And I should see today's date in the format YYYY-MM-DD
+
+
 
 Scenario: View all progress updates
   Given I create a new non-admin named "Serena" with the email "serena@test.com"
