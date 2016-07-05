@@ -14,7 +14,7 @@ div class="col-sm-#{12/cols} subgoal-box" id="goal_#{goal_counter+1}"
           .owner.danger No progress reported
         - else
          .owner
-           =link_to "Updated" + time_ago_in_words(goal.score.created_at).humanize + " ago", "javascript:$('#update#{goal_counter+1}').toggle()"
+           =link_to "Latest progress: " + time_ago_in_words(goal.score.created_at) + " ago", "javascript:$('#update#{goal_counter+1}').toggle()"
          div id="update#{goal_counter+1}" style="display: none" =goal.score.reason
       .owner Due: #{goal.deadline.strftime("%h %Y")}
       .smaller =pluralize(goal.children.count,"Subgoal") unless goal.children.empty?
