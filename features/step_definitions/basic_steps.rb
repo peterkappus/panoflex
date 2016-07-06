@@ -18,6 +18,11 @@ After do |scenario|
 	# pry.binding
 end
 
+Then(/^I should see "([^"]*)" before "([^"]*)"$/) do |first_thing, second_thing|
+  #make sure we see the first thing before the second thing...
+  body.index(first_thing).should be < body.index(second_thing)
+end
+
 When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |field_name, content|
   fill_in field_name, :with=>content
 end

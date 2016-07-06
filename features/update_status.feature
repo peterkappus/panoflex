@@ -16,6 +16,8 @@ Scenario: Create a new goal, see its status, update the status and see it.
   And I click "Save"
   Then I should see "On track"
   And I should see "swimmingly"
+  When I visit "/"
+  Then I should see "less than a minute ago"
   When I visit "/goals/show_export"
   Then I should see "swimmingly"
   And I should see "Serena"

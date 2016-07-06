@@ -11,20 +11,17 @@ Feature: Import goals, look around, see header/footer, etc.
 		And I create a goal named "The second goal" with the owner email "dave@test.com" belonging to the group called "Digital" with a deadline of "September 2016"
 		When I sign in using the email "dave@test.com"
 		And I visit the home page
-		Then I should see "first goal" within "#goal_1"
-		And I should see "second goal" within "#goal_2"
+		Then I should see "first goal" before "second goal"
 		#now check sub-goals
 		Given I create a sub-goal of "The first goal" called "subgoal 1" with a deadline of "December 2016"
 		And I create a sub-goal of "The first goal" called "subgoal 2" with a deadline of "September 2016"
 		#click into the goal from the homepage to see the sub-goals
 		And I click on "first goal"
-		Then I should see "subgoal 1" within "#goal_1"
-		And I should see "subgoal 2" within "#goal_2"
+		Then I should see "subgoal 1" before "subgoal 2"
 		#now change the dates and see that the one created first (now with the later date) still shows up first.
 		When I change the deadline of the first goal called "subgoal 1" to be "January 2017"
 		#still in the same order after changing dates
-		Then I should see "subgoal 1" within "#goal_1"
-		And I should see "subgoal 2" within "#goal_2"
+		Then I should see "subgoal 1" before "subgoal 2"
 
   Scenario: Upload Goals
     When I import new goals
