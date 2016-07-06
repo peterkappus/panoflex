@@ -52,7 +52,7 @@ javascript:
       =collection_select :goal, :user_id, User.all, :id, :name, {prompt:true, include_blank:true}, {class: :selectpicker}
       ' &nbsp;
       =link_to "Assign to me", "javascript: $('#goal_user_id').selectpicker('val', '#{current_user.id}');void(0);"
-      .form-hint The owner is responsible for making progress updates against this goal. Please note: people must sign in before they appear in this list.
+      .form-hint The owner is responsible for making progress updates against this goal. NOTE: If you don't see the person you want to assign as the owner, please make sure they have signed in to this tool.
   -if is_admin?
     .form-group
       = f.label :sdp, "In the SDP?", class: "col-sm-2 control-label"
