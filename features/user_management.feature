@@ -31,16 +31,20 @@ Scenario: Make someone an admin
   And I sign in using the email "dave@test.com"
   Then I should see "Manage users"
 
+@wip
 Scenario: Can't make updates as a non-owner non-admin
   Given I create a new non-admin named "Dave" with the email "dave@test.com"
   And I create a goal named "Do something" with the owner email "dave@test.com" belonging to the group called "Digital"
   When I sign in as a non-admin named "Joe" with the email "joe@wherever.com"
   And I click "Do something"
   Then I should see "Dave" within ".big_goal_meta"
-  Then I should NOT see "Make new progress update" within "a"
-  And I should NOT see "Edit" within "a"
+  Then I should see "Make new progress update" within "a"
+  #NEW: Anyone can edit a goal
+  And I should see "Edit" within "a"
+  #but only the owner can remove it...
   And I should NOT see "Remove" within "a"
-  And I should NOT see "Create sub-goal" within "a"
+  #TODO: make it so you CAN create a sub-goal of a goal you don't own.
+  And I should see "Create sub-goal" within "a"
 
   Given I click "Sign out"
   And I sign in as a non-admin named "Dave" with the email "dave@test.com"
@@ -63,7 +67,7 @@ Scenario: create a sub-goal and be the owner
   Then I should see "Dave" within ".big_goal_meta"
   And I should see "A sub-goal by Dave"
 
-Scenario: Let me make updates against goals I own.
+Scenario: Let me make updates against any goal
   Given I create a new non-admin named "Sara" with the email "sara@test.com"
   And I create a goal named "Something Sara is doing." with the owner email "sara@test.com" belonging to the group called "Digital"
   And I sign in using the email "sara@test.com"

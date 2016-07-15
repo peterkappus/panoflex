@@ -7,9 +7,10 @@ class GoalsController < ApplicationController
      can_create? Goal.find_by(id: params['parent_id'])
   end
 
-  before_action only: [:edit, :update, :destroy] do
-     can_modify? @goal
+  before_action only: [:destroy] do
+     can_destroy? @goal
   end
+
   #around_filter :catch_not_found
 
   # GET /goals

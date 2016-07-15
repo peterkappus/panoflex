@@ -23,17 +23,16 @@
   p =@goal.display_date_range
   h4 Referenced in Single Departmental Plan
   p =link_to @goal.sdp ? "Yes" : "No",sdp_goals_path
-  -if can_modify? @goal
-    h3 Actions
-    .goal_controls
-      =link_to "Report progress", new_goal_score_path(@goal), :class=>"button"
-    .goal_controls
-      = link_to "Edit goal", edit_goal_path, class: "button btn-primary btn-sm"
-    .goal_controls
-      = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "button"
+  h3 Actions
+  .goal_controls
+    =link_to "Report progress", new_goal_score_path(@goal), :class=>"button"
+  .goal_controls
+    = link_to "Edit goal", edit_goal_path, class: "button btn-primary btn-sm"
+  .goal_controls
+    = link_to "Create sub-goal",new_goal_path(parent_id:@goal), class: "button"
 
     .goal_controls
-      - if(@goal.children.empty?)
+      - if (@goal.children.empty? && can_destroy?(@goal))
         = link_to 'Remove', @goal, method: :delete, data: { confirm: 'Are you sure? This will also delete any updates (scores) applied to this goal. This cannot be undone.' }, class: "button danger"
   br
   .hint Edited #{@goal.updated_at.strftime("%d %h %Y at %H:%M")}

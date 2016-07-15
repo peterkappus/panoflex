@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   #include Slimmer::SharedTemplates
 
   #export our helper method
-  helper_method :is_admin?, :signed_in?, :current_user, :can_modify?
+  helper_method :is_admin?, :signed_in?, :current_user, :can_modify?, :can_destroy?
 
   #don't do this anymore, use gdsdash as a sandbox :)
   #before_filter :redirect_from_original_domain
@@ -16,7 +16,14 @@ class ApplicationController < ActionController::Base
   #not doing this anymore...
   #http_basic_authenticate_with (name: ENV['BASIC_AUTH_USERNAME'], password: ENV['BASIC_AUTH_PASSWORD'])
 
+  #NOTE: this is being relaxed so that anyone can modify a goal... but only the owner can destroy it.
   def can_modify?(goal)
+    is_admin? || current_user == goal.owner
+  end
+
+
+  # To be more specific
+  def can_destroy?(goal)
     is_admin? || current_user == goal.owner
   end
 

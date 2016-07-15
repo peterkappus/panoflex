@@ -3,13 +3,14 @@ class ScoresController < ApplicationController
   #before_action :set_goal, only: [:new, :create, :index, :show, :edit, :update, :destroy]
   before_action :check_admin, only: [:edit, :update, :destroy]
 
+  #NOTE: changed to allow anyone to report progress on a goal. Not just the owner.
   #TODO: Refactor and merge these together... they're so similar.
   #can the user see the "new" action?
-  before_action only: [:new, :create] do
+  #before_action only: [:new, :create] do
     #are they the owner of the goal or an admin?
-    id = (params[:score].present? ? params[:score][:goal_id] : params[:goal_id])
-    (Goal.find(id).owner == current_user) || is_admin?
-  end
+  #  id = (params[:score].present? ? params[:score][:goal_id] : params[:goal_id])
+  #  (Goal.find(id).owner == current_user) || is_admin?
+  #end
 
   #only admins can modify updates
   before_action only: [:edit, :update, :destroy] do
