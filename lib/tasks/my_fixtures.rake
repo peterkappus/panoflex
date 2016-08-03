@@ -27,11 +27,11 @@ namespace :db do
     def new_goal(parent)
       verb = %w/build grow save develop write engage test release find/.sample
       noun = %w/users departments platforms tools savings/.sample
-      month = %w/January March April July September December/.sample
-      year = %w/2016 2017 2018/.sample
       group = parent.nil? ? Group.all.sample : parent.group
       team = group.teams.sample
-      goal = Goal.create!(name: "#{verb.humanize} #{[*(1..500)].sample} #{noun} by #{month.humanize} #{year}.", start_date: Date.today, deadline: Date.parse("#{month} #{year}"), owner: User.all.sample, group: group, team: team, parent: parent, sdp: rand > 0.9 ? true : false)
+      start_date = Date.today + [*(0..11)].sample.to_i.months
+      end_date = start_date + [0,1,3,3,3,4,5,5,6,6,7,8,9,10,11].sample.to_i.months  #could produce dates WAAAY into the future...
+      goal = Goal.create!(name: "#{verb.humanize} #{[*(1..500)].sample} #{noun} by #{end_date.strftime("%h %Y")}", start_date: start_date , deadline: end_date, owner: User.all.sample, group: group, team: team, parent: parent, sdp: rand > 0.9 ? true : false)
 
       #add some "scores"
       goal.scores << Score.create!(user: User.all.sample, goal: goal, reason: "This is a fake status update.", status: [:not_started, :on_track, :off_track, :significant_delay, :delivered ].sample)

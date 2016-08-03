@@ -31,7 +31,6 @@ Scenario: Make someone an admin
   And I sign in using the email "dave@test.com"
   Then I should see "Manage users"
 
-@wip
 Scenario: Can't make updates as a non-owner non-admin
   Given I create a new non-admin named "Dave" with the email "dave@test.com"
   And I create a goal named "Do something" with the owner email "dave@test.com" belonging to the group called "Digital"
@@ -79,13 +78,14 @@ Scenario: Let me make updates against any goal
   And I click "Save"
   Then I should see "successfully"
 
-Scenario: Don't let me update the status of goals I don't own.
+Scenario: DO let me update the status of goals I don't own.
   Given I create a new non-admin named "Jane" with the email "jane@test.com"
   And I create a new non-admin named "Anna" with the email "anna@test.com"
   And I create a goal named "Something Jane is doing." with the owner email "jane@test.com" belonging to the group called "Digital"
   And I sign in using the email "anna@test.com"
   When I click on "Something Jane is doing."
-  Then I should NOT see "Report progress"
+  #Now you CAN report progress
+  Then I should see "Report progress"
 
 Scenario: Click a user name and see goals that they own.
   #Given "Ellie" has the email "ellie@whatever.com"
