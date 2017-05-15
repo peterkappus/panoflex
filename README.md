@@ -1,25 +1,10 @@
 # Panoflex
 
-### This is a goal-setting and tracking tool to show what GDS is working on and how well it's delivering.
+### This is a goal-setting and tracking tool to show what an organisation is working on and how well it's delivering.
 
 ## Status
 
 The tool is currently used to show progress against linked goals and how those goals are represented within teams, and groups.
-
-Due to privacy concerns and the need to accredit the host, the financial planning and people piece has been paused.
-
-## Get involved! :)
-
-This project is being developed within the Delivery Operations team at GDS which has no dedicated tech resource. We need help from people who understand:
-- Back-end (Rails) development
-- Front-end development
-- The GOV.UK stack & suite of libraries, tools, and best practices.
-- Web Ops
-- User Research
-- Service Design
-- Visual Design
-- Content Design
-
 
 ## Installing for develompent
 
