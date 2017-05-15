@@ -1,43 +1,41 @@
 .noprint
   = render 'breadcrumb'
-
 .row
   .col-sm-8
-    h1 What will GDS do this year?
-    details.noprint
-      summary
-        span.summary Where did these goals come from?
-      .panel.panel-border-wide These goals and milestones have been developed with the group project management offices (PMOs) using the latest business plans. Are they still right? We need your help to ensure they reflect what we're really doing (and have done). Please give feedback to your group PMO. #{link_to "Learn more.",about_path, :class=>'noprint'}
+    h1 GDS Goals Q3 2016
+    /h2.subheading October - December
+/
   .col-sm-4.noprint
     aside.related
       h3 Single Departmental Plan
       = link_to "View SDP goals", sdp_goals_path
-.row
-  .col-sm-8
-    h2 Vision
-    p.lede
-      b We want to help departments work together to transform government to meet user needs.
-    /Previously:
-    /Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
-.row.vision
-  .col-sm-8
-    h2 To achieve this vision we will
-    ol.list.list-number
-      li Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
-      li Create, run and continuously improve the platforms and tools that make it simple for government to build, iterate and retire services.
-      li Lead the digital, data and technology function so that government has the skills and capability it needs to transform itself.
-      li Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great examples within the sector.
+/
+  .row
+    .col-sm-8
+      h2 Vision
+      p.lede
+        b We want to help departments work together to transform government to meet user needs.
+      /Previously:
+      /Government is transformed by GDS supporting departments to deliver end to end services that are designed and built around user needs.
+  .row.vision
+    .col-sm-8
+      h2 To achieve this vision we will
+      ol.list.list-number
+        li Provide standards, policy, support, and guidance so that services and technology work effectively and consistently for the public and government.
+        li Create, run and continuously improve the platforms and tools that make it simple for government to build, iterate and retire services.
+        li Lead the digital, data and technology function so that government has the skills and capability it needs to transform itself.
+        li Build and leverage a diverse and inclusive workforce and workplace in GDS, and across the function, so that GDS and the technology function are seen as great examples within the sector.
 
 
 
-.page-break
+  .page-break
 
 a name="by_group"
 .row
   .col-sm-6
     h2 Goals by Business Group
     -if is_admin?
-      .panel.admin
+      .admin
         ul
           li =link_to "Create a new group", new_group_path
   .col-sm-6
@@ -62,7 +60,7 @@ a name="by_group"
 
 
 //pie chart setup
-== render 'pie_chart_prep.html.slim'
+/== render 'pie_chart_prep.html.slim'
 
 - Group.all.each do |group|
   .padded-row

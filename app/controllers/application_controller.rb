@@ -53,7 +53,9 @@ class ApplicationController < ActionController::Base
   def check_login
     if !signed_in?
       session[:previous_url] = request.path
-      render "welcome/index"
+      #render "welcome/index"
+      redirect_to "http://www.gov.uk"
+
       #redirect_to '/auth/google_oauth2'
       return
     end

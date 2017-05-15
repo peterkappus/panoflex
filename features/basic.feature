@@ -5,28 +5,10 @@ Feature: Import goals, look around, see header/footer, etc.
 		Then I should see "Crown copyright"
     And I should see "GDS Goals"
 
-	Scenario: Number sub-goals based on creation date (not deadline)
-		Given I create a new non-admin named "Dave" with the email "dave@test.com"
-		And I create a goal named "The first goal" with the owner email "dave@test.com" belonging to the group called "Digital" with a deadline of "March 2017"
-		And I create a goal named "The second goal" with the owner email "dave@test.com" belonging to the group called "Digital" with a deadline of "September 2016"
-		When I sign in using the email "dave@test.com"
-		And I visit the home page
-		Then I should see "first goal" before "second goal"
-		#now check sub-goals
-		Given I create a sub-goal of "The first goal" called "subgoal 1" with a deadline of "December 2016"
-		And I create a sub-goal of "The first goal" called "subgoal 2" with a deadline of "September 2016"
-		#click into the goal from the homepage to see the sub-goals
-		And I click on "first goal"
-		Then I should see "subgoal 1" before "subgoal 2"
-		#now change the dates and see that the one created first (now with the later date) still shows up first.
-		When I change the deadline of the first goal called "subgoal 1" to be "January 2017"
-		#still in the same order after changing dates
-		Then I should see "subgoal 1" before "subgoal 2"
-
   Scenario: Upload Goals
     When I import new goals
     Then I should see "Import successful"
-    And I should see "Build a time machine"
+    #And I should see "Build a time machine"
 		And I should see "Operations"
 		#We've hidden headcount and budget since they're likely not right anymore
 		#headcount for operations

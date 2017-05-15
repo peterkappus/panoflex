@@ -32,6 +32,9 @@ git clone http://github.com/peterkappus/panoflex.git
 cd panoflex
 cp sample.env.txt .env
 bundle
+#issues compiling SSL support for puma? Try this:
+gem install puma -v '2.12.1' -- --with-opt-include=/usr/local/opt/openssl/include
+#Make sure Postgres is running now... (see below)
 bundle exec rake db:setup
 
 ```
@@ -49,13 +52,22 @@ This app uses Google Auth to authenticate users and create new accounts. Each ti
 - Select "Web application"
 - Provide a name (whatever you like)
 - Add your local callback URI (e.g. http://localhost:5000/auth/google_oauth2/callback) to the Authorised Redirect URIs section
+- Add the callback URL for production (e.g. http://app.herokuapp.com/auth/callback)
 - Click Save (TWICE)
 - Copy our Client ID and Secret to your `.env` file
+
+It also has a `Procfile` which you probably won't need to touch.
+
+### Local development
+Start postgres. If you used Brew, you can run `brew install postgres` to get info on how to manually start it. Usually it looks something like this:
+`pg_ctl -D /usr/local/var/postgres start`
+
+Or, to have it run constantly in the background,
+`brew services start postgresql`
 
 To start the server use
 `$ heroku local`
 
-It also has a `Procfile` which you probably won't need to touch.
 
 
 ### Deploying to heroku

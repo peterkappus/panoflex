@@ -1,7 +1,7 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
 
-  before_action only: [:import_okrs]
+  #before_action only: [:import_okrs]
 
   before_action only: [:new, :create ] do
      can_create? Goal.find_by(id: params['parent_id'])

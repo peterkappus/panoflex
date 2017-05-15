@@ -8,21 +8,23 @@
   .big_status class="#{@goal.status}"
     h3 =@goal.status.humanize.capitalize
 
-  h4 Owner
-  - if (@goal.owner.present?)
-    p =link_to @goal.owner.name, @goal.owner
-  -else
-    p style="color: #f00" This goal needs an owner. #{link_to "(Assign one now)", edit_goal_path if (can_modify? @goal)}
-  - if (@goal.get_team)
-    h4 Delivery team
-    p =link_to @goal.get_team.name, @goal.get_team
-  - if (@goal.group)
-    h4 Business group
-    p =link_to @goal.group.name, @goal.group
-  h4 Date range
-  p =@goal.display_date_range
-  h4 Referenced in Single Departmental Plan
-  p =link_to @goal.sdp ? "Yes" : "No",sdp_goals_path
+  /
+    h4 Owner
+    - if (@goal.owner.present?)
+      p =link_to @goal.owner.name, @goal.owner
+    -else
+      p style="color: #f00" This goal needs an owner. #{link_to "(Assign one now)", edit_goal_path if (can_modify? @goal)}
+    - if (@goal.get_team)
+      h4 Delivery team
+      p =link_to @goal.get_team.name, @goal.get_team
+    - if (@goal.group)
+      h4 Group
+      p =link_to @goal.group.name, @goal.group
+    /
+      h4 Date range
+      p =@goal.display_date_range
+      h4 Referenced in Single Departmental Plan
+      p =link_to @goal.sdp ? "Yes" : "No",sdp_goals_path
   h3 Actions
   .goal_controls
     =link_to "Report progress", new_goal_score_path(@goal), :class=>"button"

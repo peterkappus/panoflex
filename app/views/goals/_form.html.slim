@@ -18,25 +18,30 @@ javascript:
     .form-group
       = f.label :Parent, class: "col-sm-2 control-label"
       .col-sm-10
-        p = @goal.parent.name
+        p = link_to @goal.parent.name,@goal.parent
     =f.hidden_field :parent_id, :value=> @goal.parent.id
     .form-group
-      = f.label "Parent dates", class: "col-sm-2 control-label"
+      = f.label "Time Period", class: "col-sm-2 control-label"
       .col-sm-10
-        p = @goal.parent.display_date_range
-
+        /p = @goal.parent.display_date_range
+        p = @goal.parent.period
   .form-group
     = f.label :name, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_area :name, class: "bigtext form-control", id: "goal_name"
   .form-group
-    = f.label "Start date", class: "col-sm-2 control-label"
+    = f.label :Period, class: "col-sm-2 control-label"
     .col-sm-10
-      = f.date_select :start_date, discard_day: true
-  .form-group
-    = f.label "Due date", class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.date_select :deadline, discard_day: true
+      p Q3 2016/17
+  /
+    .form-group
+      = f.label "Start date", class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.date_select :start_date, discard_day: true
+    .form-group
+      = f.label "Due date", class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.date_select :deadline, discard_day: true
   .form-group
     = f.label :team, class: "col-sm-2 control-label"
     .col-sm-10

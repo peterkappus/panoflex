@@ -61,13 +61,14 @@ Scenario: See goals in various states and click to view them.
   Given I create a goal named "My off track tech goal" with the owner email "serena@test.com" belonging to the group called "Technology"
   And I add a status of "off_track" and a narrative of "This goal is OFF track." to the goal called "My off track tech goal"
   And I sign in as a non-admin named "Gina" with the email "gina@test.com"
-  When I visit the home page
-  Then I should see "On track: 1" within "#digital"
-  And I should see "Off track: 1" within "#digital"
-  When I click on "On track: 1" within "#digital"
-  Then I should see "My fresh new goal"
-  And I should NOT see "My off track goal"
-  When I visit the home page
-  And I click on "Off track: 1"
-  Then I should see "My off track goal"
-  And I should NOT see "My fresh new goal"
+  #No longer showing the pie chart (for now)
+  #When I visit the home page
+  #Then I should see "On track: 1" within "#digital"
+  #And I should see "Off track: 1" within "#digital"
+  #When I click on "On track: 1" within "#digital"
+  #Then I should see "My fresh new goal"
+  #And I should NOT see "My off track goal"
+  #When I visit the home page
+  #And I click on "Off track: 1"
+  #Then I should see "My off track goal"
+  #And I should NOT see "My fresh new goal"

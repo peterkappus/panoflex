@@ -45,7 +45,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   #root 'welcome#index'
-  root 'goals#index'
+  root 'groups#index'
   #root 'roles#import'
 
   # Example of regular route:

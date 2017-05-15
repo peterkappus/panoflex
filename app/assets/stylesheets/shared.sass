@@ -154,12 +154,18 @@ h1
   margin-bottom: 1rem
 
 h2
-  @extend .heading-large
-  margin-top: 1rem
+  @extend .heading-medium
+  margin-top: 1.5rem
 
 /* yep, using the same style for now...*/
 h3, p.lead
-  @extend .heading-medium
+  @extend .heading-small
+
+h2.subheading
+  font-size: 1.8rem
+  color: $grey-1
+
+
 
 
 #footer
@@ -270,15 +276,15 @@ div.danger, span.danger, a.danger
 .padded-row
   margin-top: 2.5em
 
-
   p
     display: block
     margin: 15px 0 10px 0
 
-.panel.admin
-  margin-top: 2rem
-  border: 0
-  background: $panel-colour
+.admin
+  /*margin-top: 1rem*/
+  border-left: 5px solid $light-blue
+  ul
+    padding-left: .5rem
 
 .status-box
   margin-top: 2rem

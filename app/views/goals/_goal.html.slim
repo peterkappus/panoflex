@@ -16,7 +16,7 @@ div class="col-sm-#{12/cols} subgoal-box" id="goal_#{goal.id}"
         .owner
           =link_to "Latest progress: " + time_ago_in_words(goal.score.created_at) + " ago", "javascript:$('#update#{goal.id}').toggle()", {:title=>"See latest progress."}
         div id="update#{goal.id}" style="display: none" =goal.score.reason
-      .owner Due: #{goal.deadline.strftime("%h %Y")}
+      /.owner Due: #{goal.deadline.strftime("%h %Y")}
       .smaller =pluralize(goal.children.count,"Subgoal") unless goal.children.empty?
     /.tiny_status.pull-right ON TRACK
 -if((goal_counter+1) % cols == 0)

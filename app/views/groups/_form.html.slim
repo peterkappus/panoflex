@@ -14,14 +14,17 @@
     = f.label :name, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_field :name, class: "form-control"
-  .form-group
-    = f.label "Budget (in millions)", class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.text_field :budget_in_millions, class: "form-control"
-  .form-group
-    = f.label "Headcount", class: "col-sm-2 control-label"
-    .col-sm-10
-      = f.text_field :headcount, class: "form-control"
+  /
+    .form-group
+      = f.label "Budget (in millions)", class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :budget_in_millions, class: "form-control"
+    .form-group
+      = f.label "Headcount", class: "col-sm-2 control-label"
+      .col-sm-10
+        = f.text_field :headcount, class: "form-control"
   .form-group
     .col-sm-offset-2.col-sm-10
-      = f.submit class: "btn btn-primary"
+      = f.submit class: "button"
+      .cancel
+        =link_to :Back, "javascript: history.go(-1)"

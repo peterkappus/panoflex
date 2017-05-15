@@ -1,30 +1,31 @@
 div id="#{group.to_param}"
   .row
-    .col-md-6
+    .col-sm-8
       div style="clear:both"
       h1 style="margin-bottom: 1rem" =group.name + " Group"
-      h4 £#{group.budget_in_millions}m - #{group.headcount} people - #{group.goals.count} goals
-  .row
-    .col-md-6
-      -if is_admin?
-        .panel.admin
-          ul
-            li =link_to "Edit this group", edit_group_path(group)
-            li =link_to "Create a new team", new_team_path(group: group)
-            li =link_to "Create a new goal",new_goal_path(group:group)
+      /h4 £#{group.budget_in_millions}m - #{group.headcount} people - #{group.goals.count} goals
       h2 Teams
       ul
         - group.teams.each do |team|
           li
             => link_to team.name, team
-            small ="(" + team.goals.count.to_s + ")"
-    .col-md-6
-      ==render partial: 'goals/pie_chart', locals: {goals: group.goals, goal_scope: {group: group.to_param}}
-  .row
-    .col-sm-6
-      h2 Goals (#{group.top_level_goals.count})
-  .row
-    - if(params["expand_all"])
-      == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
-    - else
-      == render group.top_level_goals
+            /small ="(" + team.goals.count.to_s + ")"
+      /
+        .col-md-6
+          ==render partial: 'goals/pie_chart', locals: {goals: group.goals, goal_scope: {group: group.to_param}}
+      .row
+        .col-sm-6
+          h2 Goals <!--(#{group.top_level_goals.count})-->
+      .row
+        - if(params["expand_all"])
+          == render partial: 'shared/sub_goals', locals: {sub_goals: group.top_level_goals}
+        - else
+          == render group.top_level_goals
+          
+    .col-sm-4.noprint
+      aside.related
+        h3 Actions
+        ul
+          li =link_to "Edit this group", edit_group_path(group)
+          li =link_to "Create a new team", new_team_path(group: group)
+          li =link_to "Create a new goal",new_goal_path(group:group)

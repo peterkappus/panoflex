@@ -47,10 +47,12 @@ class Goal < ActiveRecord::Base
         if(current_index > 0)
           parent.children.to_a[current_index-1]
         end
-      else
-        current_index = group.top_level_goals.to_a.index(self)
-        if(current_index > 0)
-          group.top_level_goals.to_a[current_index-1]
+      else #if no parent, use group goals
+        if(group.present?)
+          current_index = group.top_level_goals.to_a.index(self)
+          if(current_index > 0)
+            group.top_level_goals.to_a[current_index-1]
+          end
         end
       end
   end
@@ -70,6 +72,11 @@ class Goal < ActiveRecord::Base
     else
       all
     end
+  end
+
+  #year & quarter
+  def period
+    quarter.to_s + "  " + quarter.to_s
   end
 
   def display_date_range
@@ -97,7 +104,6 @@ class Goal < ActiveRecord::Base
     #save!
     #score_amount #dumb, but I need to return this value. Not the "true" from the save above
   end
-
 
   def update_calculations
     #update the dates of the ancestors

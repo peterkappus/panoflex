@@ -22,14 +22,14 @@
     = f.label "Team", class: "col-sm-2 control-label"
     .col-sm-10
       p = @score.goal.team.present? ? @score.goal.team.name : "Not assigned to a team"
-  /.form-group
+  .form-group
     = f.label :amount, class: "col-sm-2 control-label"
     .col-sm-10
       = f.text_field :amount, class: "form-control bignum", style: "display:inline"
       .bignum_suffix %
       br
       .form-hint An integer to represent how well this goal is being met. For example, 50 if you're half-way to completion.
-  .form-group
+  /.form-group
     = f.label :status, class: "col-sm-2 control-label"
     .col-sm-10
       fieldset.inline

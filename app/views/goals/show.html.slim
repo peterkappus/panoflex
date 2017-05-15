@@ -3,32 +3,42 @@
   .col-sm-12.big_goal_block
     .row
       .col-sm-9
-        .row.next_prev_nav
-          .col-xs-6
-            -if (@goal.previous_goal.present?)
-              =link_to "&laquo; Previous".html_safe, @goal.previous_goal
-          .col-xs-6
-            .pull-right
-              -if (@goal.next_goal.present?)
-                =link_to "Next &raquo;".html_safe, @goal.next_goal
+        /
+          .row.next_prev_nav
+            .col-xs-6
+              -if (@goal.previous_goal.present?)
+                =link_to "&laquo; Previous".html_safe, @goal.previous_goal
+            .col-xs-6
+              .pull-right
+                -if (@goal.next_goal.present?)
+                  =link_to "Next &raquo;".html_safe, @goal.next_goal
         .row
           .col-sm-12
             /- if(@goal.parent.present?)
             /  small Contributes to: #{link_to "#{truncate(@goal.parent.name,length: 60)}", @goal.parent}
+            h4
+              -if(@goal.group.present?) 
+                =link_to @goal.group.name, @goal.group
+              -if(@goal.team.present? && @goal.group.present?) 
+                '&nbsp;:&nbsp;
+              -if(@goal.team.present?) 
+                =link_to @goal.team.name, @goal.team
+            
             h2 = @goal.name
             - if (@goal.owner.present?)
               b =link_to @goal.owner.name, @goal.owner
             -else
               p style="color: #f00" This goal needs an owner. #{link_to "(Assign one now)", edit_goal_path if (can_modify? @goal)}
-            ul.list-inline
-              li
-                .small Due: #{@goal.deadline.strftime("%h %Y")}
-              li
-                -if @goal.group.present?
-                  .small Group: #{link_to @goal.group.name, @goal.group}
-              li
-                -if @goal.team.present?
-                  .small Team: #{link_to @goal.team.name, @goal.team}
+            /
+              ul.list-inline
+                li
+                  .small Due: #{@goal.deadline.strftime("%h %Y")}
+                li
+                  -if @goal.group.present?
+                    .small Group: #{link_to @goal.group.name, @goal.group}
+                li
+                  -if @goal.team.present?
+                    .small Team: #{link_to @goal.team.name, @goal.team}
         .row
           .col-sm-12
             h3
@@ -38,8 +48,7 @@
                 ' &nbsp;
                 =link_to "Make new progress update", new_goal_score_path(@goal)
             - if(@goal.scores.empty?)
-              p
-                | No updates yet. &nbsp;
+              p No updates yet. &nbsp;
               /-if can_modify? @goal
               =link_to "Make first progress update", new_goal_score_path(@goal), :class=>"button"
             - else #only show current score

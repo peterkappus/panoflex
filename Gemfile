@@ -94,7 +94,7 @@ group :development, :test do
   gem 'byebug'
 
   #cucumber stuff
-  gem 'cucumber' #our testing framework
+  #gem 'cucumber' #our testing framework
   gem 'capybara' #nice DSL for talking to the browser in code.
   gem 'selenium-webdriver' #usual, firefox driver
   gem 'phantomjs'

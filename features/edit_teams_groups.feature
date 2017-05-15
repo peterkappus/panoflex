@@ -1,16 +1,18 @@
 Feature: Edit information about teams and groups
 
+#not doing this anymore...
+@removed
 Scenario: Edit group names
-  Given I import new goals
-  And I click on "Edit this group" within "#digital"
-  Then I should see "Editing Group"
-  When I fill in "group_budget_in_millions" with "3.14"
-  And I click "Update Group"
-  Then I should see "3.1m"
-  When I click on "Edit this group"
-  And I fill in "group_headcount" with "99"
-  And I click "Update Group"
-  Then I should see "99"
+  #Given I import new goals
+  #And I click on "Edit this group" within "#digital"
+  #Then I should see "Editing Group"
+  #When I fill in "group_budget_in_millions" with "3.14"
+  #And I click "Update Group"
+  #Then I should see "3.1m"
+  #When I click on "Edit this group"
+  #And I fill in "group_headcount" with "99"
+  #And I click "Update Group"
+  #Then I should see "99"
 
 Scenario: Create a new group, then delete it
   Given I sign in as an admin named "Lisa" with the email "lisa@blah.com"

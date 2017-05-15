@@ -300,7 +300,6 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   coffee-rails (~> 4.1.0)
-  cucumber
   cucumber-rails
   database_cleaner
   dotenv-rails
@@ -333,4 +332,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.10.5
+   1.13.6
